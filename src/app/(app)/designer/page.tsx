@@ -1,59 +1,11 @@
 
 "use client";
 
-import CategoryAccordion from "@/components/design/CategoryAccordion";
-import type { Category } from "@/types";
-import { useDesignProgress, type DesignStageKey, type SelectedDataItem } from "@/contexts/DesignProgressContext";
+import type { DesignStageKey, SelectedDataItem } from "@/contexts/DesignProgressContext";
+import { useDesignProgress } from "@/contexts/DesignProgressContext";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
-// Icon components are now handled within CategoryAccordion or a similar client component
-
-// Sample Data - In a real app, this would come from an API or state management
-const sampleCategories: Category[] = [
-  {
-    id: "furniture",
-    name: "Furniture Selection",
-    icon: "Sofa", 
-    description: "Choose the main furniture pieces for your room.",
-    options: [
-      { id: "sofa-1", name: "Modern Velvet Sofa", description: "A plush velvet sofa with clean lines.", imageUrl: "https://picsum.photos/seed/sofa1/400/300", tags: ["sofa", "modern", "living room"], price: 899.99, dataAiHint: "modern velvet sofa" },
-      { id: "armchair-1", name: "Leather Wingback Chair", description: "Classic leather armchair for a cozy corner.", imageUrl: "https://picsum.photos/seed/armchair1/400/300", tags: ["armchair", "classic", "leather"], price: 450.00, dataAiHint: "leather wingback chair" },
-      { id: "bed-1", name: "King Size Platform Bed", description: "Minimalist platform bed with wooden frame.", imageUrl: "https://picsum.photos/seed/bed1/400/300", tags: ["bed", "bedroom", "minimalist"], price: 600.00, dataAiHint: "king platform bed" },
-      { id: "table-1", name: "Round Dining Table", description: "Seats 4, perfect for small spaces.", imageUrl: "https://picsum.photos/seed/table1/400/300", tags: ["table", "dining", "round"], price: 320.00, dataAiHint: "round dining table" },
-    ],
-  },
-  {
-    id: "lighting",
-    name: "Lighting Fixtures",
-    icon: "Lamp", 
-    description: "Illuminate your space with stylish lighting options.",
-    options: [
-      { id: "lamp-1", name: "Industrial Floor Lamp", description: "Adjustable floor lamp with a metal shade.", imageUrl: "https://picsum.photos/seed/lamp1/400/300", tags: ["lamp", "industrial", "floor lamp"], price: 120.50, dataAiHint: "industrial floor lamp" },
-      { id: "pendant-1", name: "Geometric Pendant Light", description: "Modern pendant light for over a dining table.", imageUrl: "https://picsum.photos/seed/pendant1/400/300", tags: ["pendant", "modern", "dining light"], price: 85.00, dataAiHint: "geometric pendant light" },
-    ],
-  },
-  {
-    id: "colors",
-    name: "Wall Colors & Accents",
-    icon: "Palette", 
-    description: "Select paint colors and accent wall treatments.",
-    options: [
-      { id: "paint-1", name: "Soothing Sage Green", description: "A calming green for main walls.", imageUrl: "https://picsum.photos/seed/paint1/400/300?color=sage", tags: ["paint", "green", "wall color"], price: 45.00, dataAiHint: "sage green paint" },
-      { id: "wallpaper-1", name: "Botanical Print Wallpaper", description: "Elegant wallpaper for an accent wall.", imageUrl: "https://picsum.photos/seed/wallpaper1/400/300?pattern=botanical", tags: ["wallpaper", "botanical", "accent wall"], price: 70.00, dataAiHint: "botanical wallpaper" },
-    ],
-  },
-  {
-    id: "decor",
-    name: "Decorative Items",
-    icon: "PaintRoller", 
-    description: "Add personality with rugs, curtains, and art.",
-    options: [
-      { id: "rug-1", name: "Abstract Area Rug", description: "Colorful rug to tie the room together.", imageUrl: "https://picsum.photos/seed/rug1/400/300", tags: ["rug", "abstract", "colorful"], price: 250.00, dataAiHint: "abstract area rug" },
-      { id: "curtains-1", name: "Linen Curtains", description: "Light and airy linen curtains.", imageUrl: "https://picsum.photos/seed/curtains1/400/300", tags: ["curtains", "linen", "window"], price: 90.00, dataAiHint: "linen curtains" },
-    ],
-  },
-];
 
 const stageDisplayNames: Record<DesignStageKey, string> = {
   "overall-budget": "Overall Budget",
@@ -65,8 +17,8 @@ const stageDisplayNames: Record<DesignStageKey, string> = {
   "bathroom": "Bathroom(s)",
   "home-office": "Home Office",
   "hallways": "Hallway(s)",
-  "decor": "Decor & Lighting",
-  "finishes": "Colors & Finishes",
+  "decor": "Decor & Lighting", // Kept for completeness, though may not be actively used
+  "finishes": "Colors & Finishes", // Kept for completeness
   "summary": "Summary", 
 };
 
@@ -139,38 +91,50 @@ export default function DesignerPage() {
       className="relative min-h-full p-4 md:p-8 bg-background text-foreground"
     >
       <div className="relative z-[1] isolate">
-        <header className="mb-8 text-center">
+        <header className="mb-12 text-center">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Interactive Room Designer
+            Design Dashboard
           </h1>
-          <p className="mt-4 max-w-2xl mx-auto text-lg opacity-80 sm:text-xl">
-            Welcome! Start by selecting options from the categories below to visualize your perfect room.
-            Use the sidebar to navigate through different stages of your design.
+          <p className="mt-4 max-w-3xl mx-auto text-lg opacity-80 sm:text-xl">
+            Welcome to your design overview. Here you can see all the choices you've made across different stages of your project.
+            Use the sidebar to navigate to specific categories and continue customizing your space.
           </p>
         </header>
 
-        <section className="max-w-5xl mx-auto">
-          <CategoryAccordion categories={sampleCategories} />
-        </section>
-
-        <section className="mt-16 max-w-7xl mx-auto space-y-12">
+        <section className="max-w-7xl mx-auto space-y-12">
           {activeStages.length > 0 ? (
             <>
               <h2 className="text-3xl font-semibold mb-8 text-center text-foreground">
                 Your Design Selections Overview
               </h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
                 {activeStages.map(([stageKey, items]) => (
                   <StageSelectionsCard key={stageKey} stageKey={stageKey as DesignStageKey} items={items} />
                 ))}
               </div>
             </>
           ) : (
-            <div className="mt-12 p-8 bg-card/60 backdrop-blur-lg border border-card-foreground/10 rounded-lg shadow-lg text-center">
-              <h2 className="text-2xl font-semibold mb-4 text-card-foreground">No Selections Yet</h2>
-              <p className="text-muted-foreground">
-                Your chosen design elements will appear here as you make selections in each category. 
-                Navigate through the sidebar to customize different aspects of your space.
+            <div className="mt-12 p-10 bg-card/60 backdrop-blur-lg border border-card-foreground/10 rounded-lg shadow-lg text-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="mx-auto h-16 w-16 text-muted-foreground opacity-50 mb-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.037-.502.068-.75.098m.75-.098a2.25 2.25 0 00-2.25 2.25c0 1.13.812 2.066 1.903 2.195M16.5 3.104V5.75M16.5 3.104c-.251.037-.502.068-.75.098m.75-.098a2.25 2.25 0 012.25 2.25c0 1.13-.812 2.066-1.903 2.195m0-2.195C14.812 5.134 12.75 4.5 12 4.5c-2.186 0-4.25.63-6.097.934M15 14.5h-3V10.75M15 14.5A2.25 2.25 0 0112.75 12H12m3 2.5A2.25 2.25 0 0012.75 12H12m0 0A2.25 2.25 0 009.75 14.5M9.75 14.5h-3V10.75"
+                />
+                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 21.75l3.75-1.563M12 21.75l-3.75-1.563M12 21.75V19.5M9 19.5V10.5M15 19.5V10.5M3 10.5c0 .995.182 1.94.514 2.826M21 10.5c0 .995-.182 1.94-.514 2.826" />
+              </svg>
+              <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Start Designing Your Space!</h2>
+              <p className="text-muted-foreground max-w-lg mx-auto">
+                It looks like you haven't made any selections yet. 
+                Navigate through the sidebar to customize different aspects of your project, 
+                and your choices will appear here.
               </p>
             </div>
           )}
@@ -179,3 +143,4 @@ export default function DesignerPage() {
     </div>
   );
 }
+
