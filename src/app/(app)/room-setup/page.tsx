@@ -4,14 +4,14 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { overallStyleOptions, keyElementOptions } from "@/types";
+import { overallStyleOptions, keyElementOptions, type BaseSelectionItem } from "@/types";
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
-import { useDesignProgress } from "@/contexts/DesignProgressContext";
+import { useDesignProgress, type SelectedDataItem } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
 
 export default function OverallStylePage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
-  const { updateProgress } = useDesignProgress();
+  const { updateStageSelections } = useDesignProgress(); // Changed
   const { toast } = useToast();
 
   const handleOptionChange = (optionId: string) => {
@@ -26,15 +26,36 @@ export default function OverallStylePage() {
     });
   };
 
-  const handleSaveChanges = () => {
-    const newProgress = selectedOptions.size > 0 ? 25 : 0; 
-    updateProgress("overall-style", newProgress);
-    
-    console.log("Selected overall styles and key elements:", Array.from(selectedOptions));
+  const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
+    { title: "Select Design Styles", description: "Choose one or more design styles that best represent your vision.", options: overallStyleOptions, cols: 5 },
+    { title: "Select Key Elements", description: "Choose guiding principles for your design.", options: keyElementOptions, cols: 4 },
+  ];
 
+
+  const handleSaveChanges = () => {
+    const totalOptionsOnPage = sections.reduce((sum, section) => sum + section.options.length, 0);
+    const newProgress = selectedOptions.size > 0 ? Math.min(100, Math.round((selectedOptions.size / totalOptionsOnPage) * 100)) : 0;
+    
+    const allSelectedItems: SelectedDataItem[] = [];
+    sections.forEach(section => {
+      section.options.forEach(option => {
+        if (selectedOptions.has(option.id)) {
+          allSelectedItems.push({
+            id: option.id,
+            name: option.name,
+            imageUrl: option.imageUrl,
+            description: option.description,
+            dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
+          });
+        }
+      });
+    });
+
+    updateStageSelections("overall-style", newProgress, allSelectedItems);
+    
     toast({
       title: "Overall Style Choices Saved",
-      description: `You've selected ${selectedOptions.size} item(s). Progress updated.`,
+      description: `You've selected ${allSelectedItems.length} item(s). Progress updated to ${newProgress}%.`,
     });
   };
 
@@ -50,43 +71,26 @@ export default function OverallStylePage() {
       </header>
 
       <section className="max-w-6xl mx-auto space-y-12">
-        <Card className="bg-card/60 backdrop-blur-lg border border-card-foreground/10 shadow-lg">
-          <CardHeader>
-            <CardTitle>Select Design Styles</CardTitle>
-            <CardDescription>Choose one or more design styles that best represent your vision.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-              {overallStyleOptions.map((style) => (
-                <ItemSelectionCard
-                  key={style.id}
-                  item={style}
-                  isSelected={selectedOptions.has(style.id)}
-                  onSelect={handleOptionChange}
-                />
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-card/60 backdrop-blur-lg border border-card-foreground/10 shadow-lg">
-          <CardHeader>
-            <CardTitle>Select Key Elements</CardTitle>
-            <CardDescription>Choose guiding principles for your design.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {keyElementOptions.map((element) => (
-                <ItemSelectionCard
-                  key={element.id}
-                  item={element}
-                  isSelected={selectedOptions.has(element.id)}
-                  onSelect={handleOptionChange}
-                />
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        {sections.map(section => (
+          <Card key={section.title} className="bg-card/60 backdrop-blur-lg border border-card-foreground/10 shadow-lg">
+            <CardHeader>
+              <CardTitle>{section.title}</CardTitle>
+              {section.description && <CardDescription>{section.description}</CardDescription>}
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-${section.cols || 4} gap-6`}>
+                {section.options.map((style) => (
+                  <ItemSelectionCard
+                    key={style.id}
+                    item={style}
+                    isSelected={selectedOptions.has(style.id)}
+                    onSelect={handleOptionChange}
+                  />
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        ))}
         
         <div className="pt-4 flex justify-end">
           <Button className="w-full md:w-auto" onClick={handleSaveChanges}>
@@ -97,5 +101,3 @@ export default function OverallStylePage() {
     </div>
   );
 }
-
-    

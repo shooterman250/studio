@@ -9,20 +9,20 @@ import {
     bathroomMasterBathTubOptions,
     bathroomMasterShowerOptions,
     bathroomMasterSinkOptions,
-    bathroomToiletOptions, // General toilet options
-    bathroomHardwareFinishOptions, // General hardware
-    bathroomStorageOptions, // General storage
-    generalLightingOptions as bathroomLightingOptions, // General lighting
-    bathroomHalfSinkOptions, // Specific for half-bath
-    // Jack & Jill option could be a toggle or a separate set of options if needed
+    bathroomToiletOptions, 
+    bathroomHardwareFinishOptions, 
+    bathroomStorageOptions, 
+    generalLightingOptions as bathroomLightingOptions, 
+    bathroomHalfSinkOptions, 
+    type BaseSelectionItem
 } from "@/types";
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
-import { useDesignProgress } from "@/contexts/DesignProgressContext";
+import { useDesignProgress, type SelectedDataItem } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
 
 export default function BathroomPage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
-  const { updateProgress } = useDesignProgress();
+  const { updateStageSelections } = useDesignProgress(); // Changed
   const { toast } = useToast();
 
   const handleOptionChange = (optionId: string) => {
@@ -36,21 +36,8 @@ export default function BathroomPage() {
       return newSelected;
     });
   };
-
-  const handleSaveChanges = () => {
-    const newProgress = selectedOptions.size > 0 ? 25 : 0; 
-    updateProgress("bathroom", newProgress);
-    
-    console.log("Selected bathroom options:", Array.from(selectedOptions));
-
-    toast({
-      title: "Bathroom Choices Saved",
-      description: `You've selected ${selectedOptions.size} item(s) for the bathroom(s). Progress updated.`,
-    });
-  };
-
-  // Define sections for Master Bath and Half Bath
-  const masterBathSections = [
+  
+  const masterBathSections: Array<{ title: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Master Bath: Style", options: bathroomStyleOptions, cols: 3 },
     { title: "Master Bath: Bath Tub", options: bathroomMasterBathTubOptions, cols: 3 },
     { title: "Master Bath: Shower", options: bathroomMasterShowerOptions, cols: 3 },
@@ -61,14 +48,43 @@ export default function BathroomPage() {
     { title: "Master Bath: Lighting", options: bathroomLightingOptions, cols: 3 },
   ];
 
-  const halfBathSections = [
+  const halfBathSections: Array<{ title: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Half-Bath: Sink", options: bathroomHalfSinkOptions, cols: 3 },
-    { title: "Half-Bath: Toilet", options: bathroomToiletOptions, cols: 3 }, // Using general toilet options
-    { title: "Half-Bath: Hardware Finish", options: bathroomHardwareFinishOptions, cols: 3 }, // Using general hardware
-    { title: "Half-Bath: Storage", options: bathroomStorageOptions.slice(0,3), cols: 3 }, // Example: subset of storage
-    { title: "Half-Bath: Lighting", options: bathroomLightingOptions.slice(0,3), cols: 3 }, // Example: subset of lighting
+    { title: "Half-Bath: Toilet", options: bathroomToiletOptions, cols: 3 }, 
+    { title: "Half-Bath: Hardware Finish", options: bathroomHardwareFinishOptions, cols: 3 }, 
+    { title: "Half-Bath: Storage", options: bathroomStorageOptions.slice(0,3), cols: 3 }, 
+    { title: "Half-Bath: Lighting", options: bathroomLightingOptions.slice(0,3), cols: 3 }, 
   ];
-  // TODO: Add Jack & Jill option if specified as a separate section or toggle
+
+  const allPageSections = [...masterBathSections, ...halfBathSections];
+
+  const handleSaveChanges = () => {
+    const totalOptionsOnPage = allPageSections.reduce((sum, section) => sum + section.options.length, 0);
+    const newProgress = selectedOptions.size > 0 ? Math.min(100, Math.round((selectedOptions.size / totalOptionsOnPage) * 100)) : 0;
+    
+    const allSelectedItems: SelectedDataItem[] = [];
+    allPageSections.forEach(section => {
+      section.options.forEach(option => {
+        if (selectedOptions.has(option.id)) {
+          allSelectedItems.push({
+            id: option.id,
+            name: option.name,
+            imageUrl: option.imageUrl,
+            description: option.description,
+            dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
+          });
+        }
+      });
+    });
+    
+    updateStageSelections("bathroom", newProgress, allSelectedItems);
+    
+    toast({
+      title: "Bathroom Choices Saved",
+      description: `You've selected ${allSelectedItems.length} item(s) for the bathroom(s). Progress updated to ${newProgress}%.`,
+    });
+  };
+
 
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
@@ -141,5 +157,3 @@ export default function BathroomPage() {
     </div>
   );
 }
-
-    

@@ -6,17 +6,18 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { 
     generalWallFinishOptions as hallwayWallFinishOptions,
-    generalFlooringOptions as hallwayFlooringOptions, // Note: Cement is listed, ensure it's in generalFlooringOptions
+    generalFlooringOptions as hallwayFlooringOptions, 
     generalLightingOptions as hallwayLightingOptions,
-    hallwayStorageOptions
+    hallwayStorageOptions,
+    type BaseSelectionItem
 } from "@/types";
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
-import { useDesignProgress } from "@/contexts/DesignProgressContext";
+import { useDesignProgress, type SelectedDataItem } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
 
 export default function HallwaysPage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
-  const { updateProgress } = useDesignProgress();
+  const { updateStageSelections } = useDesignProgress(); // Changed
   const { toast } = useToast();
 
   const handleOptionChange = (optionId: string) => {
@@ -30,29 +31,43 @@ export default function HallwaysPage() {
       return newSelected;
     });
   };
-
-  const handleSaveChanges = () => {
-    const newProgress = selectedOptions.size > 0 ? 25 : 0; 
-    updateProgress("hallways", newProgress);
-    
-    console.log("Selected hallway options:", Array.from(selectedOptions));
-
-    toast({
-      title: "Hallway Choices Saved",
-      description: `You've selected ${selectedOptions.size} item(s). Progress updated.`,
-    });
-  };
   
-  // Filter out carpet for hallways flooring if needed, or ensure generalFlooringOptions is appropriate
   const hallwaySpecificFlooringOptions = hallwayFlooringOptions.filter(opt => opt.id !== 'floor-carpet');
 
-
-  const sections = [
+  const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Wall Finish", description: "Choose finishes for your hallway walls.", options: hallwayWallFinishOptions, cols: 3 },
     { title: "Flooring", description: "Select durable and stylish flooring.", options: hallwaySpecificFlooringOptions, cols: 3 },
     { title: "Lighting", description: "Illuminate your hallways effectively.", options: hallwayLightingOptions, cols: 3 },
     { title: "Storage", description: "Consider storage solutions for hallways.", options: hallwayStorageOptions, cols: 3 },
   ];
+
+  const handleSaveChanges = () => {
+    const totalOptionsOnPage = sections.reduce((sum, section) => sum + section.options.length, 0);
+    const newProgress = selectedOptions.size > 0 ? Math.min(100, Math.round((selectedOptions.size / totalOptionsOnPage) * 100)) : 0;
+    
+    const allSelectedItems: SelectedDataItem[] = [];
+    sections.forEach(section => {
+      section.options.forEach(option => {
+        if (selectedOptions.has(option.id)) {
+          allSelectedItems.push({
+            id: option.id,
+            name: option.name,
+            imageUrl: option.imageUrl,
+            description: option.description,
+            dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
+          });
+        }
+      });
+    });
+    
+    updateStageSelections("hallways", newProgress, allSelectedItems);
+    
+    toast({
+      title: "Hallway Choices Saved",
+      description: `You've selected ${allSelectedItems.length} item(s). Progress updated to ${newProgress}%.`,
+    });
+  };
+
 
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
@@ -96,5 +111,3 @@ export default function HallwaysPage() {
     </div>
   );
 }
-
-    

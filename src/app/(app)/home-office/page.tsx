@@ -8,15 +8,16 @@ import {
     generalWallFinishOptions as homeOfficeWallFinishOptions,
     generalFlooringOptions as homeOfficeFlooringOptions,
     generalLightingOptions as homeOfficeLightingOptions,
-    homeOfficeStorageOptions
+    homeOfficeStorageOptions,
+    type BaseSelectionItem
 } from "@/types";
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
-import { useDesignProgress } from "@/contexts/DesignProgressContext";
+import { useDesignProgress, type SelectedDataItem } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
 
 export default function HomeOfficePage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
-  const { updateProgress } = useDesignProgress();
+  const { updateStageSelections } = useDesignProgress(); // Changed
   const { toast } = useToast();
 
   const handleOptionChange = (optionId: string) => {
@@ -31,24 +32,40 @@ export default function HomeOfficePage() {
     });
   };
 
-  const handleSaveChanges = () => {
-    const newProgress = selectedOptions.size > 0 ? 25 : 0; 
-    updateProgress("home-office", newProgress);
-    
-    console.log("Selected home office options:", Array.from(selectedOptions));
-
-    toast({
-      title: "Home Office Choices Saved",
-      description: `You've selected ${selectedOptions.size} item(s). Progress updated.`,
-    });
-  };
-
-  const sections = [
+  const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Wall Finish", description: "Choose finishes for your home office walls.", options: homeOfficeWallFinishOptions, cols: 3 },
     { title: "Flooring", description: "Select flooring for your workspace.", options: homeOfficeFlooringOptions, cols: 3 },
     { title: "Lighting", description: "Select lighting to enhance productivity.", options: homeOfficeLightingOptions, cols: 3 },
     { title: "Storage", description: "Choose storage solutions for organization.", options: homeOfficeStorageOptions, cols: 3 },
   ];
+
+  const handleSaveChanges = () => {
+    const totalOptionsOnPage = sections.reduce((sum, section) => sum + section.options.length, 0);
+    const newProgress = selectedOptions.size > 0 ? Math.min(100, Math.round((selectedOptions.size / totalOptionsOnPage) * 100)) : 0;
+    
+    const allSelectedItems: SelectedDataItem[] = [];
+    sections.forEach(section => {
+      section.options.forEach(option => {
+        if (selectedOptions.has(option.id)) {
+          allSelectedItems.push({
+            id: option.id,
+            name: option.name,
+            imageUrl: option.imageUrl,
+            description: option.description,
+            dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
+          });
+        }
+      });
+    });
+    
+    updateStageSelections("home-office", newProgress, allSelectedItems);
+    
+    toast({
+      title: "Home Office Choices Saved",
+      description: `You've selected ${allSelectedItems.length} item(s). Progress updated to ${newProgress}%.`,
+    });
+  };
+
 
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
@@ -92,5 +109,3 @@ export default function HomeOfficePage() {
     </div>
   );
 }
-
-    

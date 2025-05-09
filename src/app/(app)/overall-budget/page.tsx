@@ -1,39 +1,44 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
-import { useDesignProgress } from "@/contexts/DesignProgressContext";
+import { useDesignProgress, type SelectedDataItem } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
 
 export default function OverallBudgetPage() {
-  const [budget, setBudget] = useState<number[]>([50000]); // Default budget, e.g., 50,000
-  const { updateProgress, getStageProgress } = useDesignProgress();
+  const [budget, setBudget] = useState<number[]>([50000]); 
+  const { updateStageSelections, getStageSelections } = useDesignProgress(); // Changed
   const { toast } = useToast();
 
-  // Initialize budget from context if already set
-  useState(() => {
-    const currentProgress = getStageProgress("overall-budget");
-    // This is a placeholder for how budget might be stored/retrieved if not just progress.
-    // For now, progress itself isn't the budget value, so we just set a default.
-    // If budget value was stored in context, you'd retrieve it here.
-  });
+  useEffect(() => {
+    const existingSelections = getStageSelections("overall-budget");
+    if (existingSelections.length > 0 && typeof existingSelections[0].value === 'number') {
+      setBudget([existingSelections[0].value]);
+    }
+  }, [getStageSelections]);
 
   const handleBudgetChange = (value: number[]) => {
     setBudget(value);
   };
 
   const handleSaveChanges = () => {
-    // For simplicity, setting progress to 25% if a budget is actively set (even if it's the default)
-    // In a real scenario, you might have different logic for "completion" of this step.
-    const newProgress = budget[0] > 0 ? 25 : 0; 
-    updateProgress("overall-budget", newProgress);
+    const newProgress = budget[0] > 1000 ? 100 : 0; // Mark as 100% complete if budget is set above minimum
     
-    console.log("Selected overall budget:", budget[0]);
+    const budgetItem: SelectedDataItem = {
+      id: 'overall-budget-value', // Unique ID for this specific selection type
+      name: 'Estimated Budget',
+      value: budget[0],
+      description: `Total estimated budget for the project.`,
+      imageUrl: 'https://picsum.photos/seed/budgetmoney/100/100', // Generic placeholder
+      dataAiHint: 'budget money' 
+    };
 
+    updateStageSelections("overall-budget", newProgress, [budgetItem]);
+    
     toast({
       title: "Overall Budget Saved",
       description: `Your estimated budget is $${budget[0].toLocaleString()}. Progress updated.`,
@@ -67,7 +72,7 @@ export default function OverallBudgetPage() {
                 min={1000}
                 max={500000}
                 step={1000}
-                defaultValue={budget}
+                value={budget} // Changed from defaultValue to value for controlled component
                 onValueChange={handleBudgetChange}
                 className="w-full"
               />
@@ -88,5 +93,3 @@ export default function OverallBudgetPage() {
     </div>
   );
 }
-
-    

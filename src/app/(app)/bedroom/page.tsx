@@ -8,15 +8,16 @@ import {
     generalWallFinishOptions as bedroomWallFinishOptions,
     generalFlooringOptions as bedroomFlooringOptions,
     generalLightingOptions as bedroomLightingOptions,
-    bedroomWardrobeOptions 
+    bedroomWardrobeOptions,
+    type BaseSelectionItem 
 } from "@/types";
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
-import { useDesignProgress } from "@/contexts/DesignProgressContext";
+import { useDesignProgress, type SelectedDataItem } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
 
 export default function BedroomPage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
-  const { updateProgress } = useDesignProgress();
+  const { updateStageSelections } = useDesignProgress(); // Changed
   const { toast } = useToast();
 
   const handleOptionChange = (optionId: string) => {
@@ -30,25 +31,41 @@ export default function BedroomPage() {
       return newSelected;
     });
   };
-
-  const handleSaveChanges = () => {
-    const newProgress = selectedOptions.size > 0 ? 25 : 0; 
-    updateProgress("bedroom", newProgress); // "bedroom" is the DesignStageKey
-    
-    console.log("Selected bedroom options:", Array.from(selectedOptions));
-
-    toast({
-      title: "Bedroom Choices Saved",
-      description: `You've selected ${selectedOptions.size} item(s) for the bedroom(s). Progress updated.`,
-    });
-  };
-
-  const sections = [
+  
+  const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Wall Finish", description: "Choose finishes for your bedroom walls.", options: bedroomWallFinishOptions, cols: 3 },
     { title: "Flooring", description: "Select flooring for the bedroom.", options: bedroomFlooringOptions, cols: 3 },
     { title: "Lighting", description: "Select lighting fixtures.", options: bedroomLightingOptions, cols: 3 },
-    { title: "Wardrobe/Closet", description: "Select your preferred wardrobe or closet type(s).", options: bedroomWardrobeOptions, cols: 2 }, // Adjusted cols for 4 items
+    { title: "Wardrobe/Closet", description: "Select your preferred wardrobe or closet type(s).", options: bedroomWardrobeOptions, cols: 2 },
   ];
+
+  const handleSaveChanges = () => {
+    const totalOptionsOnPage = sections.reduce((sum, section) => sum + section.options.length, 0);
+    const newProgress = selectedOptions.size > 0 ? Math.min(100, Math.round((selectedOptions.size / totalOptionsOnPage) * 100)) : 0;
+    
+    const allSelectedItems: SelectedDataItem[] = [];
+    sections.forEach(section => {
+      section.options.forEach(option => {
+        if (selectedOptions.has(option.id)) {
+          allSelectedItems.push({
+            id: option.id,
+            name: option.name,
+            imageUrl: option.imageUrl,
+            description: option.description,
+            dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
+          });
+        }
+      });
+    });
+
+    updateStageSelections("bedroom", newProgress, allSelectedItems); 
+    
+    toast({
+      title: "Bedroom Choices Saved",
+      description: `You've selected ${allSelectedItems.length} item(s) for the bedroom(s). Progress updated to ${newProgress}%.`,
+    });
+  };
+
 
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
@@ -92,5 +109,3 @@ export default function BedroomPage() {
     </div>
   );
 }
-
-    

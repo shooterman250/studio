@@ -5,23 +5,24 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
-    overallStyleOptions as kitchenStyleOptions, // Reusing overall styles for kitchen style
+    overallStyleOptions as kitchenStyleOptions, 
     kitchenCabinetOptions,
     kitchenWorktopOptions,
     kitchenApplianceOptions,
     kitchenHardwareFinishOptions,
     kitchenSinkTypeOptions,
     kitchenBacksplashOptions,
-    generalFlooringOptions as kitchenFlooringOptions, // Using general flooring for kitchen
-    generalLightingOptions as kitchenLightingOptions // Using general lighting for kitchen
+    generalFlooringOptions as kitchenFlooringOptions, 
+    generalLightingOptions as kitchenLightingOptions,
+    type BaseSelectionItem
 } from "@/types";
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
-import { useDesignProgress } from "@/contexts/DesignProgressContext";
+import { useDesignProgress, type SelectedDataItem } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
 
 export default function KitchenPage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
-  const { updateProgress } = useDesignProgress();
+  const { updateStageSelections } = useDesignProgress(); // Changed from updateProgress
   const { toast } = useToast();
 
   const handleOptionChange = (optionId: string) => {
@@ -35,20 +36,8 @@ export default function KitchenPage() {
       return newSelected;
     });
   };
-
-  const handleSaveChanges = () => {
-    const newProgress = selectedOptions.size > 0 ? 25 : 0; // Simplified progress
-    updateProgress("kitchen", newProgress);
-    
-    console.log("Selected kitchen options:", Array.from(selectedOptions));
-
-    toast({
-      title: "Kitchen Choices Saved",
-      description: `You've selected ${selectedOptions.size} item(s) for the kitchen. Progress updated.`,
-    });
-  };
-
-  const sections = [
+  
+  const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Kitchen Style", description: "Select the overall style for your kitchen.", options: kitchenStyleOptions, cols: 3 },
     { title: "Cabinets", description: "Choose your preferred cabinet style.", options: kitchenCabinetOptions, cols: 3 },
     { title: "Worktop/Countertop", description: "Select materials for your countertops.", options: kitchenWorktopOptions, cols: 3 },
@@ -59,6 +48,33 @@ export default function KitchenPage() {
     { title: "Flooring", description: "Choose flooring for the kitchen.", options: kitchenFlooringOptions, cols: 3 },
     { title: "Lighting", description: "Select lighting fixtures.", options: kitchenLightingOptions, cols: 3 },
   ];
+
+  const handleSaveChanges = () => {
+    const newProgress = selectedOptions.size > 0 ? Math.min(100, Math.round((selectedOptions.size / sections.reduce((acc, s) => acc + s.options.length, 0)) * 100)) : 0; 
+    
+    const allSelectedItems: SelectedDataItem[] = [];
+    sections.forEach(section => {
+      section.options.forEach(option => {
+        if (selectedOptions.has(option.id)) {
+          allSelectedItems.push({
+            id: option.id,
+            name: option.name,
+            imageUrl: option.imageUrl,
+            description: option.description,
+            dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
+          });
+        }
+      });
+    });
+
+    updateStageSelections("kitchen", newProgress, allSelectedItems);
+    
+    toast({
+      title: "Kitchen Choices Saved",
+      description: `You've selected ${allSelectedItems.length} item(s) for the kitchen. Progress updated to ${newProgress}%.`,
+    });
+  };
+
 
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
@@ -102,5 +118,3 @@ export default function KitchenPage() {
     </div>
   );
 }
-
-    
