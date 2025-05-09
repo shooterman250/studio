@@ -14,12 +14,13 @@ export default function LandingPage() {
         <p className="text-lg opacity-80 sm:text-xl">
           Unleash your creativity and design the room of your dreams with our interactive tools.
         </p>
-        <Link href="/designer" passHref>
-          <Button size="lg" className="text-lg px-10 py-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <Button asChild size="lg" className="text-lg px-10 py-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <Link href="/designer">
             Start Designing
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </div>
     </div>
   );
 }
+
