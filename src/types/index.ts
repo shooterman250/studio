@@ -28,13 +28,16 @@ export const roomTypes = [
   { id: 'bathroom', name: 'Bathroom' },
 ];
 
-// Sample data for styles
+// Updated sample data for design styles
 export const designStyles = [
+  { id: 'biophilic', name: 'Biophilic' },
+  { id: 'bohemian', name: 'Bohemian' },
+  { id: 'coastal', name: 'Coastal' },
+  { id: 'contemporary', name: 'Contemporary' },
+  { id: 'country-farmhouse', name: 'Country / Farmhouse' },
+  { id: 'industrial', name: 'Industrial' },
+  { id: 'japandi', name: 'Japandi' },
+  { id: 'mid-century-modern', name: 'Mid-Century Modern' },
   { id: 'modern', name: 'Modern' },
   { id: 'traditional', name: 'Traditional' },
-  { id: 'scandinavian', name: 'Scandinavian' },
-  { id: 'bohemian', name: 'Bohemian' },
-  { id: 'industrial', name: 'Industrial' },
-  { id: 'farmhouse', name: 'Farmhouse' },
 ];
-
