@@ -8,11 +8,16 @@ import { overallStyleOptions, keyElementOptions, type BaseSelectionItem } from "
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
 import { useDesignProgress, type SelectedDataItem } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
+import { useRouter, usePathname } from "next/navigation";
+import { baseNavItemsConfig } from "@/config/navigation";
+import { ArrowRight } from "lucide-react";
 
 export default function OverallStylePage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const { updateStageSelections } = useDesignProgress();
   const { toast } = useToast();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const handleOptionChange = (optionId: string) => {
     setSelectedOptions(prev => {
@@ -54,7 +59,8 @@ export default function OverallStylePage() {
     if (hasSelectedOverallStyle && hasSelectedKeyElement) {
       newProgress = 100;
     } else {
-      newProgress = selectedOptions.size > 0 ? Math.min(100, Math.round((selectedOptions.size / totalOptionsOnPage) * 100)) : 0;
+      newProgress = selectedOptions.size > 0 ? Math.min(50, Math.round((selectedOptions.size / totalOptionsOnPage) * 100)) : 0; // Cap at 50 if not all subsections touched
+      if (hasSelectedOverallStyle || hasSelectedKeyElement) newProgress = Math.max(newProgress, 50); // if at least one section has selection, ensure 50%
     }
     
     const allSelectedItems: SelectedDataItem[] = [];
@@ -79,6 +85,10 @@ export default function OverallStylePage() {
       description: `You've selected ${allSelectedItems.length} item(s). Progress updated to ${newProgress}%.`,
     });
   };
+
+  const designStagesNavConfig = baseNavItemsConfig.filter(item => item.id !== 'dashboard' && item.id !== 'settings');
+  const currentIndex = designStagesNavConfig.findIndex(item => item.href === pathname);
+  const nextStage = currentIndex !== -1 && currentIndex < designStagesNavConfig.length - 1 ? designStagesNavConfig[currentIndex + 1] : null;
 
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
@@ -113,13 +123,22 @@ export default function OverallStylePage() {
           </Card>
         ))}
         
-        <div className="pt-4 flex justify-end">
-          <Button className="w-full md:w-auto" onClick={handleSaveChanges}>
+        <div className="pt-4 flex flex-col sm:flex-row justify-end gap-2">
+          <Button className="w-full sm:w-auto" onClick={handleSaveChanges}>
             Save Overall Style Choices ({selectedOptions.size})
           </Button>
+           {nextStage && (
+            <Button
+              onClick={() => router.push(nextStage.href)}
+              variant="outline"
+              className="w-full sm:w-auto"
+            >
+              Next Section ({nextStage.label})
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          )}
         </div>
       </section>
     </div>
   );
 }
-

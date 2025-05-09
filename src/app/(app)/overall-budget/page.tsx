@@ -8,11 +8,16 @@ import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { useDesignProgress, type SelectedDataItem } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
+import { useRouter, usePathname } from "next/navigation";
+import { baseNavItemsConfig } from "@/config/navigation";
+import { ArrowRight } from "lucide-react";
 
 export default function OverallBudgetPage() {
   const [budget, setBudget] = useState<number[]>([50000]); 
-  const { updateStageSelections, getStageSelections } = useDesignProgress(); // Changed
+  const { updateStageSelections, getStageSelections } = useDesignProgress();
   const { toast } = useToast();
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const existingSelections = getStageSelections("overall-budget");
@@ -26,14 +31,14 @@ export default function OverallBudgetPage() {
   };
 
   const handleSaveChanges = () => {
-    const newProgress = budget[0] > 1000 ? 100 : 0; // Mark as 100% complete if budget is set above minimum
+    const newProgress = budget[0] > 1000 ? 100 : 0; 
     
     const budgetItem: SelectedDataItem = {
-      id: 'overall-budget-value', // Unique ID for this specific selection type
+      id: 'overall-budget-value', 
       name: 'Estimated Budget',
       value: budget[0],
       description: `Total estimated budget for the project.`,
-      imageUrl: 'https://picsum.photos/seed/budgetmoney/100/100', // Generic placeholder
+      imageUrl: 'https://picsum.photos/seed/budgetmoney/100/100', 
       dataAiHint: 'budget money' 
     };
 
@@ -44,6 +49,10 @@ export default function OverallBudgetPage() {
       description: `Your estimated budget is $${budget[0].toLocaleString()}. Progress updated.`,
     });
   };
+
+  const designStagesNavConfig = baseNavItemsConfig.filter(item => item.id !== 'dashboard' && item.id !== 'settings');
+  const currentIndex = designStagesNavConfig.findIndex(item => item.href === pathname);
+  const nextStage = currentIndex !== -1 && currentIndex < designStagesNavConfig.length - 1 ? designStagesNavConfig[currentIndex + 1] : null;
 
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
@@ -72,7 +81,7 @@ export default function OverallBudgetPage() {
                 min={1000}
                 max={500000}
                 step={1000}
-                value={budget} // Changed from defaultValue to value for controlled component
+                value={budget} 
                 onValueChange={handleBudgetChange}
                 className="w-full"
               />
@@ -82,10 +91,20 @@ export default function OverallBudgetPage() {
               </div>
             </div>
             
-            <div className="pt-4 flex justify-end">
-              <Button className="w-full md:w-auto" onClick={handleSaveChanges}>
+            <div className="pt-4 flex flex-col sm:flex-row justify-end gap-2">
+              <Button className="w-full sm:w-auto" onClick={handleSaveChanges}>
                 Save Budget
               </Button>
+              {nextStage && (
+                <Button
+                  onClick={() => router.push(nextStage.href)}
+                  variant="outline"
+                  className="w-full sm:w-auto"
+                >
+                  Next Section ({nextStage.label})
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              )}
             </div>
           </CardContent>
         </Card>

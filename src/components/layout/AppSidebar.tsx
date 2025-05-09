@@ -11,70 +11,65 @@ import {
   SidebarMenuItem, 
   SidebarMenuButton,
   SidebarMenuBadge,
-  SidebarSeparator,
+  // SidebarSeparator, // Not used currently
 } from "@/components/ui/sidebar";
 import ButterflyLogo from "@/components/common/Logo";
 import { 
   Home, 
-  Palette, 
-  Lamp, 
-  Star, 
-  Sparkles, 
-  Settings,
   LayoutGrid,
-  CheckCircle,
   Bed, 
   Armchair, 
   ChefHat,  
   Bath,     
-  Layers,   
-  PaintRoller,
-  DollarSign, // For Overall Budget
-  WashingMachine, // For Utility/Laundry Room
-  Briefcase, // For Home Office
-  Waypoints, // For Hallways
+  DollarSign, 
+  WashingMachine, 
+  Briefcase, 
+  Waypoints, 
+  Settings,
   type LucideIcon 
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useDesignProgress, type DesignStageKey } from "@/contexts/DesignProgressContext";
+import { baseNavItemsConfig, footerNavItemsConfig, type BaseNavItemConfig } from "@/config/navigation";
 
-interface NavItemConfig {
-  href: string;
-  label: string;
-  icon: LucideIcon;
-  id: DesignStageKey | 'dashboard'; 
-}
-
-// Updated configuration for navigation items
-const navItemsConfig: NavItemConfig[] = [
-  { href: "/designer", label: "Dashboard", icon: Home, id: "dashboard" },
-  { href: "/overall-budget", label: "Overall Budget", icon: DollarSign, id: "overall-budget"},
-  { href: "/overall-style", label: "Overall Style", icon: LayoutGrid, id: "overall-style" }, 
-  { href: "/kitchen", label: "Kitchen", icon: ChefHat, id: "kitchen" },
-  { href: "/utility-laundry-room", label: "Utility/Laundry", icon: WashingMachine, id: "utility-laundry-room"},
-  { href: "/living-room", label: "Living Room", icon: Armchair, id: "living-room" },
-  { href: "/bedroom", label: "Bedroom(s)", icon: Bed, id: "bedroom" }, 
-  { href: "/bathroom", label: "Bathroom(s)", icon: Bath, id: "bathroom" },
-  { href: "/home-office", label: "Home Office", icon: Briefcase, id: "home-office"},
-  { href: "/hallways", label: "Hallway(s)", icon: Waypoints, id: "hallways"},
-];
+// Icon map to resolve string names to actual Lucide components
+const iconMap: Record<string, LucideIcon> = {
+  Home,
+  DollarSign,
+  LayoutGrid,
+  ChefHat,
+  WashingMachine,
+  Armchair,
+  Bed,
+  Bath,
+  Briefcase,
+  Waypoints,
+  Settings,
+};
 
 const AppSidebar = () => {
   const pathname = usePathname();
   const { getStageProgress } = useDesignProgress();
 
-  const navItems = navItemsConfig.map(configItem => {
-    let progress = 0;
-    if (configItem.id !== 'dashboard') {
-      progress = getStageProgress(configItem.id as DesignStageKey);
-    }
-    return {
-      ...configItem,
-      progress: progress,
-    };
-  });
+  const mapConfigToNavItems = (config: BaseNavItemConfig[]) => {
+    return config.map(configItem => {
+      const IconComponent = iconMap[configItem.iconName] || Waypoints; // Fallback icon
+      let progress = 0;
+      if (configItem.id !== 'dashboard' && configItem.id !== 'settings') {
+        progress = getStageProgress(configItem.id as DesignStageKey);
+      }
+      return {
+        ...configItem,
+        icon: IconComponent, // Actual icon component
+        progress: progress,
+      };
+    });
+  };
+
+  const navItems = mapConfigToNavItems(baseNavItemsConfig);
+  const footerItems = mapConfigToNavItems(footerNavItemsConfig);
 
   return (
     <Sidebar collapsible="icon" side="left" className="border-r">
@@ -98,14 +93,14 @@ const AppSidebar = () => {
                 >
                   <item.icon className="h-5 w-5" />
                   <span className="group-data-[collapsible=icon]:hidden">{item.label}</span>
-                  {item.progress > 0 && item.id !== 'dashboard' && ( 
+                  {item.progress > 0 && item.id !== 'dashboard' && item.id !== 'settings' && ( 
                     <SidebarMenuBadge className="group-data-[collapsible=icon]:hidden">
                       {item.progress}%
                     </SidebarMenuBadge>
                   )}
                 </SidebarMenuButton>
               </Link>
-               {item.progress > 0 && item.id !== 'dashboard' && ( 
+               {item.progress > 0 && item.id !== 'dashboard' && item.id !== 'settings' && ( 
                 <Progress 
                   value={item.progress} 
                   className="mt-1 h-1 w-[calc(100%-1rem)] mx-auto group-data-[collapsible=icon]:hidden" 
@@ -119,12 +114,20 @@ const AppSidebar = () => {
       </SidebarContent>
       <SidebarFooter className="p-4 mt-auto">
         <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton tooltip="Settings">
-              <Settings className="h-5 w-5" />
-              <span className="group-data-[collapsible=icon]:hidden">Settings</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          {footerItems.map((item) => (
+             <SidebarMenuItem key={item.label}>
+              <Link href={item.href} legacyBehavior passHref>
+                <SidebarMenuButton 
+                  className={cn(pathname === item.href && "bg-sidebar-accent text-sidebar-accent-foreground")}
+                  isActive={pathname === item.href}
+                  tooltip={item.label}
+                >
+                  <item.icon className="h-5 w-5" />
+                  <span className="group-data-[collapsible=icon]:hidden">{item.label}</span>
+                </SidebarMenuButton>
+              </Link>
+            </SidebarMenuItem>
+          ))}
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
@@ -132,5 +135,3 @@ const AppSidebar = () => {
 };
 
 export default AppSidebar;
-
-    
