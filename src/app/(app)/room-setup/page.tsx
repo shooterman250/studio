@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -5,9 +6,14 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { designStyles } from "@/types";
 import StyleSelectionCard from "@/components/design/StyleSelectionCard";
+import { useDesignProgress } from "@/contexts/DesignProgressContext";
+import { useToast } from "@/hooks/use-toast";
+
 
 export default function OverallStylePage() {
   const [selectedStyles, setSelectedStyles] = useState<Set<string>>(new Set());
+  const { updateProgress } = useDesignProgress();
+  const { toast } = useToast();
 
   const handleStyleChange = (styleId: string) => {
     setSelectedStyles(prev => {
@@ -22,9 +28,17 @@ export default function OverallStylePage() {
   };
 
   const handleSaveChanges = () => {
-    // Placeholder for save logic
+    // Update progress in context
+    const newProgress = selectedStyles.size > 0 ? 25 : 0;
+    updateProgress("room-setup", newProgress);
+    
     console.log("Selected styles:", Array.from(selectedStyles));
     // Here you would typically send this data to a backend or update a global state
+
+    toast({
+      title: "Styles Saved",
+      description: `You've selected ${selectedStyles.size} style(s). Progress updated.`,
+    });
   };
 
   return (
