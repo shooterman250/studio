@@ -20,11 +20,7 @@ export default function BedroomPage() {
       if (newSelected.has(optionId)) {
         newSelected.delete(optionId);
       } else {
-        // For wardrobe, typically only one selection makes sense.
-        // If multiple selections were allowed, this would be: newSelected.add(optionId);
-        // For single selection behavior:
-        newSelected.clear(); 
-        newSelected.add(optionId);
+        newSelected.add(optionId); // Allow multiple selections
       }
       return newSelected;
     });
@@ -53,15 +49,15 @@ export default function BedroomPage() {
           Bedroom Setup
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg opacity-80 sm:text-xl">
-          Select your preferred wardrobe or closet type for the bedroom.
+          Select your preferred wardrobe or closet type(s) for the bedroom.
         </p>
       </header>
 
       <section className="max-w-4xl mx-auto space-y-8">
         <Card className="bg-card/60 backdrop-blur-lg border border-card-foreground/10 shadow-lg">
           <CardHeader>
-            <CardTitle>Choose Wardrobe/Closet Type</CardTitle>
-            <CardDescription>Select the option that best fits your needs and space. You can typically select one.</CardDescription>
+            <CardTitle>Choose Wardrobe/Closet Type(s)</CardTitle>
+            <CardDescription>Select the option(s) that best fit your needs and space. You can select multiple.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6"> {/* Adjusted grid to lg:grid-cols-2 for 4 items */}
@@ -77,7 +73,7 @@ export default function BedroomPage() {
             
             <div className="pt-4 flex justify-end">
               <Button className="w-full md:w-auto" onClick={handleSaveChanges} disabled={selectedOptions.size === 0}>
-                Save Wardrobe Choice ({selectedOptions.size})
+                Save Wardrobe Choice(s) ({selectedOptions.size})
               </Button>
             </div>
           </CardContent>
