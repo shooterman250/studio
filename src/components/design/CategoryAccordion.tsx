@@ -50,7 +50,7 @@ const CategoryAccordion = ({ categories }: CategoryAccordionProps) => {
   }
 
   return (
-    <Accordion type="multiple" className="w-full space-y-4" defaultValue={categories.map(c => c.id).slice(0,1)}>
+    <Accordion type="multiple" className="w-full space-y-4" defaultValue={[]}>
       {categories.map((category) => {
         const IconComponent = category.icon ? iconMap[category.icon] || iconMap.Package : iconMap.Package; // Fallback to a default icon
         return (
