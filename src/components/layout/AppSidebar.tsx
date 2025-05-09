@@ -59,7 +59,6 @@ const navItemsConfig: NavItemConfig[] = [
   { href: "/bathroom", label: "Bathroom(s)", icon: Bath, id: "bathroom" },
   { href: "/home-office", label: "Home Office", icon: Briefcase, id: "home-office"},
   { href: "/hallways", label: "Hallway(s)", icon: Waypoints, id: "hallways"},
-  // { href: "/summary", label: "Summary & Export", icon: CheckCircle, id: "summary" }, // Removed
 ];
 
 const AppSidebar = () => {
@@ -83,7 +82,7 @@ const AppSidebar = () => {
         <div className="flex items-center gap-2">
           <ButterflyLogo width={32} height={32} />
           <h1 className="text-xl font-semibold text-sidebar-foreground group-data-[collapsible=icon]:hidden">
-            RoomDesigner
+            Interactive Designs
           </h1>
         </div>
       </SidebarHeader>
@@ -117,25 +116,6 @@ const AppSidebar = () => {
           ))}
         </SidebarMenu>
         
-        {/* Removed Favorites and Mood Boards section */}
-        {/* 
-        <SidebarSeparator className="my-4" />
-        <SidebarMenu>
-            <SidebarMenuItem>
-                <SidebarMenuButton tooltip="Favorites">
-                    <Star className="h-5 w-5" />
-                    <span className="group-data-[collapsible=icon]:hidden">Favorites</span>
-                </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-                <SidebarMenuButton tooltip="Mood Boards">
-                    <Sparkles className="h-5 w-5" />
-                    <span className="group-data-[collapsible=icon]:hidden">Mood Boards</span>
-                </SidebarMenuButton>
-            </SidebarMenuItem>
-        </SidebarMenu> 
-        */}
-
       </SidebarContent>
       <SidebarFooter className="p-4 mt-auto">
         <SidebarMenu>
