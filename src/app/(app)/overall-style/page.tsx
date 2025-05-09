@@ -11,7 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 
 export default function OverallStylePage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
-  const { updateStageSelections } = useDesignProgress(); // Changed
+  const { updateStageSelections } = useDesignProgress();
   const { toast } = useToast();
 
   const handleOptionChange = (optionId: string) => {
