@@ -4,40 +4,37 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { designStyles } from "@/types";
-import ItemSelectionCard from "@/components/design/ItemSelectionCard"; // Updated import
+import { overallStyleOptions, keyElementOptions } from "@/types";
+import ItemSelectionCard from "@/components/design/ItemSelectionCard";
 import { useDesignProgress } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
 
-
 export default function OverallStylePage() {
-  const [selectedStyles, setSelectedStyles] = useState<Set<string>>(new Set());
+  const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const { updateProgress } = useDesignProgress();
   const { toast } = useToast();
 
-  const handleStyleChange = (styleId: string) => {
-    setSelectedStyles(prev => {
+  const handleOptionChange = (optionId: string) => {
+    setSelectedOptions(prev => {
       const newSelected = new Set(prev);
-      if (newSelected.has(styleId)) {
-        newSelected.delete(styleId);
+      if (newSelected.has(optionId)) {
+        newSelected.delete(optionId);
       } else {
-        newSelected.add(styleId);
+        newSelected.add(optionId);
       }
       return newSelected;
     });
   };
 
   const handleSaveChanges = () => {
-    // Update progress in context
-    const newProgress = selectedStyles.size > 0 ? 25 : 0; // Example progress logic
-    updateProgress("room-setup", newProgress);
+    const newProgress = selectedOptions.size > 0 ? 25 : 0; 
+    updateProgress("overall-style", newProgress);
     
-    console.log("Selected styles:", Array.from(selectedStyles));
-    // Here you would typically send this data to a backend or update a global state
+    console.log("Selected overall styles and key elements:", Array.from(selectedOptions));
 
     toast({
-      title: "Styles Saved",
-      description: `You've selected ${selectedStyles.size} style(s). Progress updated.`,
+      title: "Overall Style Choices Saved",
+      description: `You've selected ${selectedOptions.size} item(s). Progress updated.`,
     });
   };
 
@@ -45,39 +42,60 @@ export default function OverallStylePage() {
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
       <header className="mb-8 text-center">
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-          Overall Style
+          Overall Style & Key Elements
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg opacity-80 sm:text-xl">
-          Choose one or more design styles that best represent your vision for the room.
+          Define the main aesthetic and core principles for your design.
         </p>
       </header>
 
-      <section className="max-w-4xl mx-auto space-y-8">
+      <section className="max-w-6xl mx-auto space-y-12">
         <Card className="bg-card/60 backdrop-blur-lg border border-card-foreground/10 shadow-lg">
           <CardHeader>
-            <CardTitle>Select Your Design Styles</CardTitle>
-            <CardDescription>You can pick multiple styles that appeal to you.</CardDescription>
+            <CardTitle>Select Design Styles</CardTitle>
+            <CardDescription>Choose one or more design styles that best represent your vision.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {designStyles.map((style) => (
-                <ItemSelectionCard // Updated component name
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+              {overallStyleOptions.map((style) => (
+                <ItemSelectionCard
                   key={style.id}
-                  item={style} // Updated prop name
-                  isSelected={selectedStyles.has(style.id)}
-                  onSelect={handleStyleChange}
+                  item={style}
+                  isSelected={selectedOptions.has(style.id)}
+                  onSelect={handleOptionChange}
                 />
               ))}
             </div>
-            
-            <div className="pt-4 flex justify-end">
-              <Button className="w-full md:w-auto" onClick={handleSaveChanges}>
-                Save Styles ({selectedStyles.size})
-              </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-card/60 backdrop-blur-lg border border-card-foreground/10 shadow-lg">
+          <CardHeader>
+            <CardTitle>Select Key Elements</CardTitle>
+            <CardDescription>Choose guiding principles for your design.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {keyElementOptions.map((element) => (
+                <ItemSelectionCard
+                  key={element.id}
+                  item={element}
+                  isSelected={selectedOptions.has(element.id)}
+                  onSelect={handleOptionChange}
+                />
+              ))}
             </div>
           </CardContent>
         </Card>
+        
+        <div className="pt-4 flex justify-end">
+          <Button className="w-full md:w-auto" onClick={handleSaveChanges}>
+            Save Overall Style Choices ({selectedOptions.size})
+          </Button>
+        </div>
       </section>
     </div>
   );
 }
+
+    

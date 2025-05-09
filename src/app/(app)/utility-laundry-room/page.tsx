@@ -5,16 +5,16 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
-    generalWallFinishOptions as bedroomWallFinishOptions,
-    generalFlooringOptions as bedroomFlooringOptions,
-    generalLightingOptions as bedroomLightingOptions,
-    bedroomWardrobeOptions 
+    generalWallFinishOptions as utilityWallFinishOptions,
+    generalFlooringOptions as utilityFlooringOptions,
+    utilityWasherDryerLayoutOptions,
+    utilityStorageOptions
 } from "@/types";
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
 import { useDesignProgress } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
 
-export default function BedroomPage() {
+export default function UtilityLaundryRoomPage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const { updateProgress } = useDesignProgress();
   const { toast } = useToast();
@@ -33,31 +33,31 @@ export default function BedroomPage() {
 
   const handleSaveChanges = () => {
     const newProgress = selectedOptions.size > 0 ? 25 : 0; 
-    updateProgress("bedroom", newProgress); // "bedroom" is the DesignStageKey
+    updateProgress("utility-laundry-room", newProgress);
     
-    console.log("Selected bedroom options:", Array.from(selectedOptions));
+    console.log("Selected utility/laundry room options:", Array.from(selectedOptions));
 
     toast({
-      title: "Bedroom Choices Saved",
-      description: `You've selected ${selectedOptions.size} item(s) for the bedroom(s). Progress updated.`,
+      title: "Utility/Laundry Room Choices Saved",
+      description: `You've selected ${selectedOptions.size} item(s). Progress updated.`,
     });
   };
 
   const sections = [
-    { title: "Wall Finish", description: "Choose finishes for your bedroom walls.", options: bedroomWallFinishOptions, cols: 3 },
-    { title: "Flooring", description: "Select flooring for the bedroom.", options: bedroomFlooringOptions, cols: 3 },
-    { title: "Lighting", description: "Select lighting fixtures.", options: bedroomLightingOptions, cols: 3 },
-    { title: "Wardrobe/Closet", description: "Select your preferred wardrobe or closet type(s).", options: bedroomWardrobeOptions, cols: 2 }, // Adjusted cols for 4 items
+    { title: "Wall Finish", description: "Choose finishes for the utility/laundry room walls.", options: utilityWallFinishOptions, cols: 3 },
+    { title: "Flooring", description: "Select flooring for this practical space.", options: utilityFlooringOptions, cols: 3 },
+    { title: "Washer/Dryer Layout", description: "Choose the layout for your laundry appliances.", options: utilityWasherDryerLayoutOptions, cols: 3 },
+    { title: "Storage", description: "Select storage solutions for organization.", options: utilityStorageOptions, cols: 3 },
   ];
 
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
       <header className="mb-8 text-center">
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-          Bedroom(s) Customization
+          Utility/Laundry Room Setup
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg opacity-80 sm:text-xl">
-          Tailor your personal sanctuary by selecting options for each category.
+          Customize your utility and laundry space for functionality and style.
         </p>
       </header>
 
@@ -85,7 +85,7 @@ export default function BedroomPage() {
             
         <div className="pt-4 flex justify-end">
           <Button className="w-full md:w-auto" onClick={handleSaveChanges}>
-            Save Bedroom Choices ({selectedOptions.size})
+            Save Utility/Laundry Choices ({selectedOptions.size})
           </Button>
         </div>
       </section>

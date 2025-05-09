@@ -12,13 +12,11 @@ import {
   SidebarMenuButton,
   SidebarMenuBadge,
   SidebarSeparator,
-  // SidebarTrigger // Not used here, but available from sidebar component
 } from "@/components/ui/sidebar";
 import ButterflyLogo from "@/components/common/Logo";
 import { 
   Home, 
   Palette, 
-  Sofa, 
   Lamp, 
   Star, 
   Sparkles, 
@@ -26,11 +24,15 @@ import {
   LayoutGrid,
   CheckCircle,
   Bed, 
-  Armchair, // Added for Living Room
-  ChefHat,  // Added for Kitchen
-  Bath,     // Added for Bathroom
-  Layers,   // Added for Flooring
-  PaintRoller, // Added for Wall Finish
+  Armchair, 
+  ChefHat,  
+  Bath,     
+  Layers,   
+  PaintRoller,
+  DollarSign, // For Overall Budget
+  WashingMachine, // For Utility/Laundry Room
+  Briefcase, // For Home Office
+  Waypoints, // For Hallways
   type LucideIcon 
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
@@ -45,18 +47,20 @@ interface NavItemConfig {
   id: DesignStageKey | 'dashboard'; 
 }
 
-// Base configuration for navigation items
+// Updated configuration for navigation items
 const navItemsConfig: NavItemConfig[] = [
   { href: "/designer", label: "Dashboard", icon: Home, id: "dashboard" },
-  { href: "/room-setup", label: "Overall Style", icon: LayoutGrid, id: "room-setup" },
-  { href: "/bedroom", label: "Bedroom", icon: Bed, id: "furniture" },
-  { href: "/living-room", label: "Living Room", icon: Armchair, id: "living-room" },
+  { href: "/overall-budget", label: "Overall Budget", icon: DollarSign, id: "overall-budget"},
+  { href: "/overall-style", label: "Overall Style", icon: LayoutGrid, id: "overall-style" }, // Renamed from room-setup
   { href: "/kitchen", label: "Kitchen", icon: ChefHat, id: "kitchen" },
-  { href: "/bathroom", label: "Bathroom", icon: Bath, id: "bathroom" },
-  { href: "/flooring", label: "Flooring", icon: Layers, id: "flooring" },
-  { href: "/wall-finish", label: "Wall Finish", icon: PaintRoller, id: "wall-finish" },
-  { href: "/decor", label: "Decor & Lighting", icon: Lamp, id: "decor" },
-  { href: "/finishes", label: "Colors & Finishes", icon: Palette, id: "finishes" }, // This might be for general color palettes
+  { href: "/utility-laundry-room", label: "Utility/Laundry", icon: WashingMachine, id: "utility-laundry-room"},
+  { href: "/living-room", label: "Living Room", icon: Armchair, id: "living-room" },
+  { href: "/bedroom", label: "Bedroom(s)", icon: Bed, id: "bedroom" }, // Renamed from furniture
+  { href: "/bathroom", label: "Bathroom(s)", icon: Bath, id: "bathroom" },
+  { href: "/home-office", label: "Home Office", icon: Briefcase, id: "home-office"},
+  { href: "/hallways", label: "Hallway(s)", icon: Waypoints, id: "hallways"},
+  // { href: "/decor", label: "Decor & Lighting", icon: Lamp, id: "decor" }, // Consider if these are now part of room-specific sections
+  // { href: "/finishes", label: "Colors & Finishes", icon: Palette, id: "finishes" }, // Consider if these are now part of room-specific sections
   { href: "/summary", label: "Summary & Export", icon: CheckCircle, id: "summary" },
 ];
 
@@ -148,3 +152,5 @@ const AppSidebar = () => {
 };
 
 export default AppSidebar;
+
+    
