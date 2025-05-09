@@ -11,6 +11,7 @@ import {
   SidebarMenuItem, 
   SidebarMenuButton,
   SidebarMenuBadge,
+  useSidebar, // Import useSidebar hook
   // SidebarSeparator, // Not used currently
 } from "@/components/ui/sidebar";
 import ButterflyLogo from "@/components/common/Logo";
@@ -52,6 +53,13 @@ const iconMap: Record<string, LucideIcon> = {
 const AppSidebar = () => {
   const pathname = usePathname();
   const { getStageProgress } = useDesignProgress();
+  const { isMobile, setOpenMobile } = useSidebar(); // Get isMobile and setOpenMobile from useSidebar
+
+  const handleMenuItemClick = () => {
+    if (isMobile) {
+      setOpenMobile(false);
+    }
+  };
 
   const mapConfigToNavItems = (config: BaseNavItemConfig[]) => {
     return config.map(configItem => {
@@ -90,6 +98,7 @@ const AppSidebar = () => {
                   className={cn(pathname === item.href && "bg-sidebar-accent text-sidebar-accent-foreground")}
                   isActive={pathname === item.href}
                   tooltip={item.label}
+                  onClick={handleMenuItemClick} // Add onClick handler
                 >
                   <item.icon className="h-5 w-5" />
                   <span className="group-data-[collapsible=icon]:hidden">{item.label}</span>
@@ -121,6 +130,7 @@ const AppSidebar = () => {
                   className={cn(pathname === item.href && "bg-sidebar-accent text-sidebar-accent-foreground")}
                   isActive={pathname === item.href}
                   tooltip={item.label}
+                  onClick={handleMenuItemClick} // Add onClick handler
                 >
                   <item.icon className="h-5 w-5" />
                   <span className="group-data-[collapsible=icon]:hidden">{item.label}</span>
