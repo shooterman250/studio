@@ -9,10 +9,8 @@ interface ButterflyLogoProps {
 }
 
 const ButterflyLogo = ({ className, width, height }: ButterflyLogoProps) => {
-  // The user should replace this src with the path to their uploaded PNG,
-  // e.g., '/images/butterfly-logo.png' if placed in 'public/images/'.
-  // Using picsum.photos as a placeholder.
-  const imageSrc = `https://picsum.photos/seed/butterflylogo/${width}/${height}`;
+  // The user should place their 'butterfly-logo.png' in the 'public/images/' directory.
+  const imageSrc = '/images/butterfly-logo.png'; 
 
   return (
     <div 
@@ -27,7 +25,7 @@ const ButterflyLogo = ({ className, width, height }: ButterflyLogoProps) => {
         width={width}
         height={height}
         className="object-contain" // Ensures the image fits well within the bounds maintaining aspect ratio
-        data-ai-hint="butterfly illustration"
+        data-ai-hint="butterfly leopard" // Updated hint based on image
         priority // Prioritize loading for logos often in LCP
       />
     </div>
