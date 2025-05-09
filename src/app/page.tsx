@@ -52,23 +52,21 @@ const sampleCategories: Category[] = [
 export default function HomePage() {
   return (
     <div 
-      className="relative min-h-full p-4 md:p-8 bg-background text-foreground"
-      // The leopard print overlay aesthetic - applied as a very subtle repeating pattern
-      // This could be an SVG pattern for better performance and scalability
+      className="relative min-h-full p-4 md:p-8 bg-background text-black" // Changed text-foreground to text-black
       style={{
-        backgroundImage: "url('https://picsum.photos/seed/leopardsubtle/50/50?grayscale&blur=2&random=1')", // Placeholder for subtle pattern
+        backgroundImage: "url('https://picsum.photos/seed/leopardsubtle/50/50?grayscale&blur=2&random=1')", 
         backgroundRepeat: 'repeat',
-        backgroundBlendMode: 'overlay', // Blends with background
-        backgroundColor: 'hsl(38, 33%, 93%)', // Updated to match new global background for consistency
+        backgroundBlendMode: 'overlay', 
+        backgroundColor: 'hsl(38, 33%, 93%)', // Specific background color #F4EDE8
       }}
       data-ai-hint="leopard subtle pattern"
     >
       <div className="relative z-[1] isolate"> {/* Ensure content is above the pattern and backdrop-filter works */}
         <header className="mb-8 text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
             Interactive Room Designer
           </h1>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-foreground/80 sm:text-xl">
+          <p className="mt-4 max-w-2xl mx-auto text-lg opacity-80 sm:text-xl"> {/* Using opacity for subdued text */}
             Welcome! Start by selecting options from the categories below to visualize your perfect room.
             Use the sidebar to navigate through different stages of your design.
           </p>
@@ -81,11 +79,11 @@ export default function HomePage() {
         {/* Placeholder for comparison view and summary */}
         <section className="mt-12 max-w-5xl mx-auto space-y-8">
             <div className="p-6 bg-card/60 backdrop-blur-lg border border-card-foreground/10 rounded-lg shadow-lg">
-                <h2 className="text-2xl font-semibold mb-4">Comparison View (Coming Soon)</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Comparison View (Coming Soon)</h2>
                 <p className="text-muted-foreground">Compare your favorite options side-by-side to make the best choice.</p>
             </div>
             <div className="p-6 bg-card/60 backdrop-blur-lg border border-card-foreground/10 rounded-lg shadow-lg">
-                <h2 className="text-2xl font-semibold mb-4">Design Summary & Export (Coming Soon)</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Design Summary & Export (Coming Soon)</h2>
                 <p className="text-muted-foreground">Review your complete design and export it as a PDF.</p>
             </div>
         </section>
