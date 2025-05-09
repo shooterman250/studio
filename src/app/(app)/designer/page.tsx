@@ -53,7 +53,7 @@ const sampleCategories: Category[] = [
 export default function DesignerPage() {
   return (
     <div 
-      className="relative min-h-full p-4 md:p-8 bg-background text-black"
+      className="relative min-h-full p-4 md:p-8 bg-background text-foreground"
       // The style for background-color is implicitly handled by 'bg-background' which uses CSS var --background.
       // --background is set to hsl(38, 33%, 93%) which is #F4EDE8.
       // The background-image was removed in a previous step to make it a solid color.
@@ -88,3 +88,4 @@ export default function DesignerPage() {
     </div>
   );
 }
+

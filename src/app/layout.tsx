@@ -43,7 +43,7 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark" // Set dark theme by default as per common professional designs
+          defaultTheme="light" // Changed from "dark" to "light"
           enableSystem
           disableTransitionOnChange
         >
@@ -55,3 +55,4 @@ export default function RootLayout({
     </html>
   );
 }
+
