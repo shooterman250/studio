@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -31,7 +32,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { href: "/", label: "Dashboard", icon: Home, progress: 0 },
+  { href: "/designer", label: "Dashboard", icon: Home, progress: 0 }, // Updated href
   { href: "/room-setup", label: "Room Setup", icon: LayoutGrid, progress: 25 },
   { href: "/furniture", label: "Furniture", icon: Sofa, progress: 50 },
   { href: "/decor", label: "Decor & Lighting", icon: Lamp, progress: 75 },

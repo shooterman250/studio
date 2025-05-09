@@ -1,11 +1,12 @@
+
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google'; // Using Inter as a fallback, Geist is defined below
+// import { Inter } from 'next/font/google'; // Using Inter as a fallback, Geist is defined below
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from "@/components/ui/toaster";
-import { SidebarProvider } from '@/components/ui/sidebar';
-import AppSidebar from '@/components/layout/AppSidebar';
-import AppHeader from '@/components/layout/AppHeader';
+// import { SidebarProvider } from '@/components/ui/sidebar';
+// import AppSidebar from '@/components/layout/AppSidebar';
+// import AppHeader from '@/components/layout/AppHeader';
 import { ThemeProvider } from '@/components/theme-provider'; // Assuming ThemeProvider for dark mode toggle
 
 // Using Geist from the original scaffold
@@ -46,17 +47,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SidebarProvider defaultOpen={true}>
-            <div className="flex min-h-screen w-full">
-              <AppSidebar />
-              <div className="flex flex-1 flex-col">
-                <AppHeader />
-                <main className="flex-1 overflow-y-auto">
-                  {children}
-                </main>
-              </div>
-            </div>
-          </SidebarProvider>
+          {/* SidebarProvider, AppSidebar, and AppHeader are moved to (app)/layout.tsx */}
+          {children}
           <Toaster />
         </ThemeProvider>
       </body>
