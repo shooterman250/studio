@@ -6,6 +6,9 @@ import { useDesignProgress } from "@/contexts/DesignProgressContext";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
+import { FileDown } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const stageDisplayNames: Record<DesignStageKey, string> = {
   "overall-budget": "Overall Budget",
@@ -17,8 +20,8 @@ const stageDisplayNames: Record<DesignStageKey, string> = {
   "bathroom": "Bathroom(s)",
   "home-office": "Home Office",
   "hallways": "Hallway(s)",
-  "decor": "Decor & Lighting", // Kept for completeness, though may not be actively used
-  "finishes": "Colors & Finishes", // Kept for completeness
+  "decor": "Decor & Lighting", 
+  "finishes": "Colors & Finishes", 
   "summary": "Summary", 
 };
 
@@ -59,7 +62,7 @@ const StageSelectionsCard = ({ stageKey, items }: { stageKey: DesignStageKey; it
       </CardHeader>
       <CardContent className="p-0">
         {items.length > 3 ? (
-           <ScrollArea className="h-[210px]"> {/* Adjusted height for ~3 items visible + scroll */}
+           <ScrollArea className="h-[210px]"> 
             <div className="divide-y divide-border/30">
               {items.map((item) => (
                 <SelectedItemDisplay key={item.id || item.name} item={item} />
@@ -81,10 +84,20 @@ const StageSelectionsCard = ({ stageKey, items }: { stageKey: DesignStageKey; it
 
 export default function DesignerPage() {
   const { getAllSelections } = useDesignProgress();
+  const { toast } = useToast();
   const allSelections = getAllSelections();
 
   const activeStages = Object.entries(allSelections)
     .filter(([stageKey, items]) => stageKey !== "summary" && items.length > 0);
+
+  const handleExportPdf = () => {
+    // Placeholder for PDF export functionality
+    toast({
+      title: "Export to PDF",
+      description: "PDF export functionality is not yet implemented.",
+    });
+    console.log("Exporting selections to PDF:", allSelections);
+  };
     
   return (
     <div 
@@ -92,9 +105,15 @@ export default function DesignerPage() {
     >
       <div className="relative z-[1] isolate">
         <header className="mb-12 text-center">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Design Dashboard
-          </h1>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-4">
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+              Design Dashboard
+            </h1>
+            <Button onClick={handleExportPdf} className="sm:ml-auto">
+              <FileDown className="mr-2 h-4 w-4" />
+              Export to PDF
+            </Button>
+          </div>
           <p className="mt-4 max-w-3xl mx-auto text-lg opacity-80 sm:text-xl">
             Welcome to your design overview. Here you can see all the choices you've made across different stages of your project.
             Use the sidebar to navigate to specific categories and continue customizing your space.
