@@ -59,7 +59,7 @@ export default function HomePage() {
         backgroundImage: "url('https://picsum.photos/seed/leopardsubtle/50/50?grayscale&blur=2&random=1')", // Placeholder for subtle pattern
         backgroundRepeat: 'repeat',
         backgroundBlendMode: 'overlay', // Blends with background
-        backgroundColor: 'hsl(0, 0%, 92%)', // Changed to a light neutral gray for better contrast
+        backgroundColor: 'hsl(38, 33%, 93%)', // Updated to match new global background for consistency
       }}
       data-ai-hint="leopard subtle pattern"
     >
