@@ -105,19 +105,19 @@ export default function DesignerPage() {
     >
       <div className="relative z-[1] isolate">
         <header className="mb-12 text-center">
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-4">
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              Design Dashboard
-            </h1>
-            <Button onClick={handleExportPdf} className="sm:ml-auto">
-              <FileDown className="mr-2 h-4 w-4" />
-              Export to PDF
-            </Button>
-          </div>
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+            Design Dashboard
+          </h1>
           <p className="mt-4 max-w-3xl mx-auto text-lg opacity-80 sm:text-xl">
             Welcome to your design overview. Here you can see all the choices you've made across different stages of your project.
             Use the sidebar to navigate to specific categories and continue customizing your space.
           </p>
+          <div className="mt-6 flex justify-center">
+            <Button onClick={handleExportPdf}>
+              <FileDown className="mr-2 h-4 w-4" />
+              Export to PDF
+            </Button>
+          </div>
         </header>
 
         <section className="max-w-7xl mx-auto space-y-12">
