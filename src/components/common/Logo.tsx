@@ -12,39 +12,38 @@ interface ButterflyLogoProps {
 }
 
 const ButterflyLogo = ({ className, width, height }: ButterflyLogoProps) => {
-  // The image should be placed in `public/Images/butterfly_logo.png`
-  // and will be accessed via `/Images/butterfly_logo.png`.
-  const imagePath = '/Images/butterfly_logo.png'; 
+  // The image should be placed in `public/Images/MAIN LOGO.png`
+  // and will be accessed via `/Images/MAIN LOGO.png`. 
   const [imageError, setImageError] = useState(false);
-
+  const imagePath = '/Images/MAIN LOGO.png'; // New logo path
   return (
     <div
       className={cn('relative', className)}
       style={{ width: `${width}px`, height: `${height}px` }}
       role="img"
-      aria-label="Butterfly Logo"
+      aria-label="Company Logo" // Changed from Butterfly Logo to Company Logo
     >
       {!imageError ? (
         <Image
           src={imagePath} // Use the direct path to the local image
-          alt="Butterfly Logo"
+          alt="Company Logo" // Changed from Butterfly Logo
           width={width}
           height={height}
           className="object-contain"
-          data-ai-hint="butterfly logo" // Updated hint for a generic butterfly logo
+          data-ai-hint="main logo" // Updated hint for the main logo
           priority // Keep priority as logos are often LCP
           onError={() => {
             console.error(
-              `Failed to load logo from: public${imagePath}. Please ensure the image exists at this location.`
+              `Failed to load logo from: ${imagePath}. Please ensure the image exists at this location.`
             );
             setImageError(true);
           }}
         />
       ) : (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-destructive text-destructive-foreground p-1 text-xs text-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-destructive text-destructive-foreground p-1 text-xs text-center"> 
           <p>Logo Display Error</p>
-          <p>Expected: public{imagePath}</p>
-          <p className="mt-1 text-xxs">Please ensure 'public{imagePath}' exists.</p>
+          <p>Expected: public/Images/MAIN LOGO.png</p>
+          <p className="mt-1 text-xxs">Please ensure 'public/Images/MAIN LOGO.png' exists.</p>
         </div>
       )}
     </div>
@@ -52,3 +51,4 @@ const ButterflyLogo = ({ className, width, height }: ButterflyLogoProps) => {
 };
 
 export default ButterflyLogo;
+
