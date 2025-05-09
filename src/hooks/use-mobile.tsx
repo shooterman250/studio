@@ -10,10 +10,12 @@ export function useIsMobile() {
     const onChange = () => {
       setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
     }
+    // Check on mount (callback is not called until a change occurs)
+    onChange(); 
     mql.addEventListener("change", onChange)
-    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+    
     return () => mql.removeEventListener("change", onChange)
   }, [])
 
-  return !!isMobile
+  return isMobile // Changed from !!isMobile to isMobile
 }
