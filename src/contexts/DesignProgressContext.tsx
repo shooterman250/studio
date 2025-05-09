@@ -5,7 +5,17 @@ import type { ReactNode } from 'react';
 import { createContext, useContext, useState, useCallback }  from 'react';
 
 // Defines the keys for each design stage that can have progress tracked.
-export type DesignStageKey = "room-setup" | "furniture" | "decor" | "finishes" | "summary";
+export type DesignStageKey = 
+  "room-setup" | 
+  "furniture" | 
+  "decor" | 
+  "finishes" | 
+  "summary" |
+  "living-room" |
+  "kitchen" |
+  "bathroom" |
+  "flooring" |
+  "wall-finish";
 
 interface DesignProgressState {
   progress: Record<DesignStageKey, number>;
@@ -18,9 +28,14 @@ const DesignProgressContext = createContext<DesignProgressState | undefined>(und
 // Initial progress values for all design stages.
 const initialProgress: Record<DesignStageKey, number> = {
   "room-setup": 0,
-  "furniture": 0, // Default progress for furniture, can be updated later
+  "furniture": 0, // Default progress for bedroom furniture
+  "living-room": 0,
+  "kitchen": 0,
+  "bathroom": 0,
+  "flooring": 0,
+  "wall-finish": 0,
   "decor": 0,     // Default progress for decor & lighting
-  "finishes": 0,  // Default progress for colors & finishes
+  "finishes": 0,  // Default progress for general colors & finishes (e.g. palette)
   "summary": 0,   // Default progress for summary
 };
 

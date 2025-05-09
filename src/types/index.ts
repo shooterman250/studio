@@ -148,3 +148,211 @@ export const bedroomOptionsList: BedroomOption[] = [
     dataAiHint: "walk-in closet"
   },
 ];
+
+
+export interface LivingRoomOption extends BaseSelectionItem {}
+
+export const livingRoomOptionsList: LivingRoomOption[] = [
+  {
+    id: "lr-sectional-sofa",
+    name: "Sectional Sofa",
+    imageUrl: "https://picsum.photos/seed/sectional/400/300",
+    description: "Large, multi-piece sofa ideal for spacious living rooms.",
+    dataAiHint: "sectional sofa"
+  },
+  {
+    id: "lr-loveseat",
+    name: "Loveseat",
+    imageUrl: "https://picsum.photos/seed/loveseat/400/300",
+    description: "A cozy two-seater sofa, perfect for smaller spaces.",
+    dataAiHint: "loveseat sofa"
+  },
+  {
+    id: "lr-coffee-table",
+    name: "Coffee Table",
+    imageUrl: "https://picsum.photos/seed/coffeetable/400/300",
+    description: "Central table for drinks, books, and decor.",
+    dataAiHint: "living coffee table"
+  },
+  {
+    id: "lr-tv-unit",
+    name: "TV & Media Unit",
+    imageUrl: "https://picsum.photos/seed/tvunit/400/300",
+    description: "Stylish storage and display for your entertainment system.",
+    dataAiHint: "media unit console"
+  },
+  {
+    id: "lr-accent-chair",
+    name: "Accent Chair",
+    imageUrl: "https://picsum.photos/seed/accentchairlr/400/300",
+    description: "A statement chair to add personality and extra seating.",
+    dataAiHint: "accent chair living"
+  },
+];
+
+export interface KitchenOption extends BaseSelectionItem {}
+
+export const kitchenOptionsList: KitchenOption[] = [
+  {
+    id: "k-shaker-cabinets",
+    name: "Shaker Cabinets",
+    imageUrl: "https://picsum.photos/seed/shakercabinets/400/300",
+    description: "Classic and versatile cabinet style with a simple, clean look.",
+    dataAiHint: "shaker kitchen cabinets"
+  },
+  {
+    id: "k-flat-panel-cabinets",
+    name: "Flat-Panel Cabinets",
+    imageUrl: "https://picsum.photos/seed/flatpanelcabinets/400/300",
+    description: "Modern, minimalist cabinets with smooth, unadorned surfaces.",
+    dataAiHint: "modern kitchen cabinets"
+  },
+  {
+    id: "k-quartz-countertops",
+    name: "Quartz Countertops",
+    imageUrl: "https://picsum.photos/seed/quartzcounter/400/300",
+    description: "Durable, low-maintenance engineered stone countertops.",
+    dataAiHint: "quartz kitchen countertops"
+  },
+  {
+    id: "k-granite-countertops",
+    name: "Granite Countertops",
+    imageUrl: "https://picsum.photos/seed/granitecounter/400/300",
+    description: "Natural stone countertops known for their unique patterns.",
+    dataAiHint: "granite kitchen countertops"
+  },
+  {
+    id: "k-subway-tile-backsplash",
+    name: "Subway Tile Backsplash",
+    imageUrl: "https://picsum.photos/seed/subwaytile/400/300",
+    description: "Timeless rectangular tiles for a clean and classic backsplash.",
+    dataAiHint: "subway tile backsplash"
+  },
+  {
+    id: "k-kitchen-island",
+    name: "Kitchen Island",
+    imageUrl: "https://picsum.photos/seed/kitchenisland/400/300",
+    description: "A central workspace, storage, and potential seating area.",
+    dataAiHint: "kitchen island design"
+  },
+];
+
+export interface BathroomOption extends BaseSelectionItem {}
+
+export const bathroomOptionsList: BathroomOption[] = [
+  {
+    id: "b-single-vanity",
+    name: "Single Vanity",
+    imageUrl: "https://picsum.photos/seed/singlevanity/400/300",
+    description: "A compact vanity with one sink, suitable for smaller bathrooms.",
+    dataAiHint: "single bathroom vanity"
+  },
+  {
+    id: "b-double-vanity",
+    name: "Double Vanity",
+    imageUrl: "https://picsum.photos/seed/doublevanity/400/300",
+    description: "A larger vanity with two sinks, ideal for shared bathrooms.",
+    dataAiHint: "double bathroom vanity"
+  },
+  {
+    id: "b-walk-in-shower",
+    name: "Walk-in Shower",
+    imageUrl: "https://picsum.photos/seed/walkinshower/400/300",
+    description: "A spacious, doorless shower area, often with glass panels.",
+    dataAiHint: "walkin shower design"
+  },
+  {
+    id: "b-freestanding-tub",
+    name: "Freestanding Tub",
+    imageUrl: "https://picsum.photos/seed/freestandingtub/400/300",
+    description: "A standalone bathtub that acts as a luxurious focal point.",
+    dataAiHint: "freestanding bathtub"
+  },
+  {
+    id: "b-porcelain-tiles",
+    name: "Porcelain Tiles",
+    imageUrl: "https://picsum.photos/seed/porcelaintiles/400/300",
+    description: "Durable and water-resistant tiles for floors and walls.",
+    dataAiHint: "porcelain bathroom tiles"
+  },
+];
+
+export interface FlooringOption extends BaseSelectionItem {}
+
+export const flooringOptionsList: FlooringOption[] = [
+  {
+    id: "f-hardwood",
+    name: "Hardwood Flooring",
+    imageUrl: "https://picsum.photos/seed/hardwoodfloor/400/300",
+    description: "Classic and durable wood flooring available in various species.",
+    dataAiHint: "hardwood room floor"
+  },
+  {
+    id: "f-laminate",
+    name: "Laminate Flooring",
+    imageUrl: "https://picsum.photos/seed/laminatefloor/400/300",
+    description: "Cost-effective and mimics wood, stone, or tile.",
+    dataAiHint: "laminate room floor"
+  },
+  {
+    id: "f-vinyl-plank",
+    name: "Luxury Vinyl Plank (LVP)",
+    imageUrl: "https://picsum.photos/seed/vinylplank/400/300",
+    description: "Waterproof and durable, often resembling wood or stone.",
+    dataAiHint: "vinyl plank floor"
+  },
+  {
+    id: "f-ceramic-tile",
+    name: "Ceramic/Porcelain Tile",
+    imageUrl: "https://picsum.photos/seed/tilefloor/400/300",
+    description: "Durable and water-resistant, ideal for kitchens and bathrooms.",
+    dataAiHint: "ceramic tile floor"
+  },
+  {
+    id: "f-carpet",
+    name: "Carpet",
+    imageUrl: "https://picsum.photos/seed/carpetfloor/400/300",
+    description: "Soft and warm underfoot, available in many styles and colors.",
+    dataAiHint: "room carpet texture"
+  },
+];
+
+export interface WallFinishOption extends BaseSelectionItem {}
+
+export const wallFinishOptionsList: WallFinishOption[] = [
+  {
+    id: "wf-neutral-paint",
+    name: "Neutral Paint Colors",
+    imageUrl: "https://picsum.photos/seed/neutralpaint/400/300",
+    description: "Versatile shades like beige, gray, or white for a calm backdrop.",
+    dataAiHint: "neutral wall paint"
+  },
+  {
+    id: "wf-bold-paint",
+    name: "Bold Accent Paint",
+    imageUrl: "https://picsum.photos/seed/boldpaint/400/300",
+    description: "Vibrant colors to create a focal point or add personality.",
+    dataAiHint: "bold accent wall"
+  },
+  {
+    id: "wf-wallpaper-accent",
+    name: "Accent Wallpaper",
+    imageUrl: "https://picsum.photos/seed/accentwallpaper/400/300",
+    description: "Patterned or textured wallpaper for one or more accent walls.",
+    dataAiHint: "designer accent wallpaper"
+  },
+  {
+    id: "wf-wood-paneling",
+    name: "Wood Paneling / Shiplap",
+    imageUrl: "https://picsum.photos/seed/woodpaneling/400/300",
+    description: "Adds texture and warmth with wooden planks or panels.",
+    dataAiHint: "wood paneling wall"
+  },
+  {
+    id: "wf-exposed-brick",
+    name: "Exposed Brick / Stone Veneer",
+    imageUrl: "https://picsum.photos/seed/exposedbrick/400/300",
+    description: "Creates an industrial or rustic look with brick or stone.",
+    dataAiHint: "exposed brick wall"
+  },
+];
