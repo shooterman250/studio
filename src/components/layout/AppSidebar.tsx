@@ -47,7 +47,7 @@ const AppSidebar = () => {
     <Sidebar collapsible="icon" side="left" className="border-r">
       <SidebarHeader className="p-4">
         <div className="flex items-center gap-2">
-          <ButterflyLogo className="h-8 w-8" />
+          <ButterflyLogo width={32} height={32} />
           <h1 className="text-xl font-semibold text-sidebar-foreground group-data-[collapsible=icon]:hidden">
             RoomDesigner
           </h1>
