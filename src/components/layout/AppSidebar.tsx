@@ -26,6 +26,7 @@ import {
   Settings,
   LayoutGrid,
   CheckCircle,
+  Bed, // Added Bed icon as an option
   type LucideIcon // Import LucideIcon type
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
@@ -44,7 +45,7 @@ interface NavItemConfig {
 const navItemsConfig: NavItemConfig[] = [
   { href: "/designer", label: "Dashboard", icon: Home, id: "dashboard" },
   { href: "/room-setup", label: "Overall Style", icon: LayoutGrid, id: "room-setup" },
-  { href: "/furniture", label: "Furniture", icon: Sofa, id: "furniture" },
+  { href: "/bedroom", label: "Bedroom", icon: Bed, id: "furniture" }, // Changed label, href, and icon
   { href: "/decor", label: "Decor & Lighting", icon: Lamp, id: "decor" },
   { href: "/finishes", label: "Colors & Finishes", icon: Palette, id: "finishes" },
   { href: "/summary", label: "Summary & Export", icon: CheckCircle, id: "summary" },

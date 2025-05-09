@@ -28,12 +28,16 @@ export const roomTypes = [
   { id: 'bathroom', name: 'Bathroom' },
 ];
 
-export interface DesignStyle {
+export interface BaseSelectionItem {
   id: string;
   name: string;
   imageUrl: string;
   description?: string;
   dataAiHint?: string;
+}
+
+export interface DesignStyle extends BaseSelectionItem {
+  // DesignStyle specific properties can go here if any
 }
 
 // Updated sample data for design styles
@@ -107,5 +111,40 @@ export const designStyles: DesignStyle[] = [
     imageUrl: 'https://picsum.photos/seed/traditional/400/300', 
     description: 'Classic and timeless, featuring ornate details, rich colors, and symmetrical arrangements.',
     dataAiHint: 'traditional room'
+  },
+];
+
+export interface BedroomOption extends BaseSelectionItem {
+  // BedroomOption specific properties can go here if any
+}
+
+export const bedroomOptionsList: BedroomOption[] = [
+  {
+    id: "wardrobe-bifold",
+    name: "Wardrobe/Closet: Bifold Doors",
+    imageUrl: "https://picsum.photos/seed/bifoldcloset/400/300",
+    description: "Space-saving bifold doors for your wardrobe or closet.",
+    dataAiHint: "bifold closet"
+  },
+  {
+    id: "wardrobe-custom",
+    name: "Wardrobe/Closet: Custom/Built-In",
+    imageUrl: "https://picsum.photos/seed/customcloset/400/300",
+    description: "A tailor-made wardrobe or closet integrated into your room.",
+    dataAiHint: "built-in wardrobe"
+  },
+  {
+    id: "wardrobe-standard",
+    name: "Wardrobe/Closet: One/Two Standard Doors",
+    imageUrl: "https://picsum.photos/seed/standardcloset/400/300",
+    description: "Classic wardrobe with one or two standard hinged doors.",
+    dataAiHint: "standard wardrobe"
+  },
+  {
+    id: "wardrobe-walkin",
+    name: "Wardrobe/Closet: Walk-In",
+    imageUrl: "https://picsum.photos/seed/walkincloset/400/300",
+    description: "A spacious walk-in closet for ample storage.",
+    dataAiHint: "walk-in closet"
   },
 ];

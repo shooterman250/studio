@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { designStyles } from "@/types";
-import StyleSelectionCard from "@/components/design/StyleSelectionCard";
+import ItemSelectionCard from "@/components/design/ItemSelectionCard"; // Updated import
 import { useDesignProgress } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
 
@@ -29,7 +29,7 @@ export default function OverallStylePage() {
 
   const handleSaveChanges = () => {
     // Update progress in context
-    const newProgress = selectedStyles.size > 0 ? 25 : 0;
+    const newProgress = selectedStyles.size > 0 ? 25 : 0; // Example progress logic
     updateProgress("room-setup", newProgress);
     
     console.log("Selected styles:", Array.from(selectedStyles));
@@ -61,9 +61,9 @@ export default function OverallStylePage() {
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {designStyles.map((style) => (
-                <StyleSelectionCard
+                <ItemSelectionCard // Updated component name
                   key={style.id}
-                  styleItem={style}
+                  item={style} // Updated prop name
                   isSelected={selectedStyles.has(style.id)}
                   onSelect={handleStyleChange}
                 />
