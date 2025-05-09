@@ -51,17 +51,15 @@ interface NavItemConfig {
 const navItemsConfig: NavItemConfig[] = [
   { href: "/designer", label: "Dashboard", icon: Home, id: "dashboard" },
   { href: "/overall-budget", label: "Overall Budget", icon: DollarSign, id: "overall-budget"},
-  { href: "/overall-style", label: "Overall Style", icon: LayoutGrid, id: "overall-style" }, // Renamed from room-setup
+  { href: "/overall-style", label: "Overall Style", icon: LayoutGrid, id: "overall-style" }, 
   { href: "/kitchen", label: "Kitchen", icon: ChefHat, id: "kitchen" },
   { href: "/utility-laundry-room", label: "Utility/Laundry", icon: WashingMachine, id: "utility-laundry-room"},
   { href: "/living-room", label: "Living Room", icon: Armchair, id: "living-room" },
-  { href: "/bedroom", label: "Bedroom(s)", icon: Bed, id: "bedroom" }, // Renamed from furniture
+  { href: "/bedroom", label: "Bedroom(s)", icon: Bed, id: "bedroom" }, 
   { href: "/bathroom", label: "Bathroom(s)", icon: Bath, id: "bathroom" },
   { href: "/home-office", label: "Home Office", icon: Briefcase, id: "home-office"},
   { href: "/hallways", label: "Hallway(s)", icon: Waypoints, id: "hallways"},
-  // { href: "/decor", label: "Decor & Lighting", icon: Lamp, id: "decor" }, // Consider if these are now part of room-specific sections
-  // { href: "/finishes", label: "Colors & Finishes", icon: Palette, id: "finishes" }, // Consider if these are now part of room-specific sections
-  { href: "/summary", label: "Summary & Export", icon: CheckCircle, id: "summary" },
+  // { href: "/summary", label: "Summary & Export", icon: CheckCircle, id: "summary" }, // Removed
 ];
 
 const AppSidebar = () => {
@@ -119,8 +117,9 @@ const AppSidebar = () => {
           ))}
         </SidebarMenu>
         
+        {/* Removed Favorites and Mood Boards section */}
+        {/* 
         <SidebarSeparator className="my-4" />
-
         <SidebarMenu>
             <SidebarMenuItem>
                 <SidebarMenuButton tooltip="Favorites">
@@ -134,7 +133,8 @@ const AppSidebar = () => {
                     <span className="group-data-[collapsible=icon]:hidden">Mood Boards</span>
                 </SidebarMenuButton>
             </SidebarMenuItem>
-        </SidebarMenu>
+        </SidebarMenu> 
+        */}
 
       </SidebarContent>
       <SidebarFooter className="p-4 mt-auto">
