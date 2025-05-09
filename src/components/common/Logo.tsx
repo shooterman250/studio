@@ -12,11 +12,9 @@ interface ButterflyLogoProps {
 }
 
 const ButterflyLogo = ({ className, width, height }: ButterflyLogoProps) => {
-  // Changed to use a placeholder to "fix" the error of the local file not being found.
-  // This will prevent the "Logo Error Expected: public/images/butterfly-logo.png" message.
-  const imageSrc = `https://picsum.photos/seed/butterflylogo/${width}/${height}`;
-  const originalIntendedSrc = '/images/butterfly-logo.png'; // Keep for context if placeholder fails
-
+  // The image should be placed in `public/Images/butterfly_logo.png`
+  // and will be accessed via `/Images/butterfly_logo.png`.
+  const imagePath = '/Images/butterfly_logo.png'; 
   const [imageError, setImageError] = useState(false);
 
   return (
@@ -28,16 +26,16 @@ const ButterflyLogo = ({ className, width, height }: ButterflyLogoProps) => {
     >
       {!imageError ? (
         <Image
-          src={imageSrc}
-          alt="Butterfly Logo" // Alt text remains, as picsum is serving as the logo placeholder
+          src={imagePath} // Use the direct path to the local image
+          alt="Butterfly Logo"
           width={width}
           height={height}
           className="object-contain"
-          data-ai-hint="butterfly leopard" // This hint is for the intended final image
-          priority
+          data-ai-hint="butterfly logo" // Updated hint for a generic butterfly logo
+          priority // Keep priority as logos are often LCP
           onError={() => {
             console.error(
-              `Failed to load placeholder logo from: ${imageSrc}. The intended logo was 'public${originalIntendedSrc}'.`
+              `Failed to load logo from: public${imagePath}. Please ensure the image exists at this location.`
             );
             setImageError(true);
           }}
@@ -45,10 +43,8 @@ const ButterflyLogo = ({ className, width, height }: ButterflyLogoProps) => {
       ) : (
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-destructive text-destructive-foreground p-1 text-xs text-center">
           <p>Logo Display Error</p>
-          {/* Updated error message to be more specific if the placeholder itself fails */}
-          <p>Placeholder failed: {imageSrc}</p>
-          <p>Intended: public{originalIntendedSrc}</p>
-          <p className="mt-1 text-xxs">Please ensure 'public{originalIntendedSrc}' exists or check network for placeholder.</p>
+          <p>Expected: public{imagePath}</p>
+          <p className="mt-1 text-xxs">Please ensure 'public{imagePath}' exists.</p>
         </div>
       )}
     </div>
@@ -56,4 +52,3 @@ const ButterflyLogo = ({ className, width, height }: ButterflyLogoProps) => {
 };
 
 export default ButterflyLogo;
-
