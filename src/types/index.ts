@@ -14,7 +14,7 @@ export interface Category {
   id: string;
   name: string;
   description?: string;
-  icon?: LucideIcon;
+  icon?: string; // Changed from LucideIcon to string
   options: DesignOption[];
 }
 
@@ -37,3 +37,4 @@ export const designStyles = [
   { id: 'industrial', name: 'Industrial' },
   { id: 'farmhouse', name: 'Farmhouse' },
 ];
+

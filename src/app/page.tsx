@@ -1,13 +1,13 @@
 import CategoryAccordion from "@/components/design/CategoryAccordion";
 import type { Category } from "@/types";
-import { Sofa, Lamp, Palette, Ruler, Armchair, Bed, PaintRoller } from "lucide-react"; // Example icons
+// Icon components are now handled within CategoryAccordion or a similar client component
 
 // Sample Data - In a real app, this would come from an API or state management
 const sampleCategories: Category[] = [
   {
     id: "furniture",
     name: "Furniture Selection",
-    icon: Sofa,
+    icon: "Sofa", // Changed from Sofa component to string "Sofa"
     description: "Choose the main furniture pieces for your room.",
     options: [
       { id: "sofa-1", name: "Modern Velvet Sofa", description: "A plush velvet sofa with clean lines.", imageUrl: "https://picsum.photos/seed/sofa1/400/300", tags: ["sofa", "modern", "living room"], price: 899.99 },
@@ -19,7 +19,7 @@ const sampleCategories: Category[] = [
   {
     id: "lighting",
     name: "Lighting Fixtures",
-    icon: Lamp,
+    icon: "Lamp", // Changed from Lamp component to string "Lamp"
     description: "Illuminate your space with stylish lighting options.",
     options: [
       { id: "lamp-1", name: "Industrial Floor Lamp", description: "Adjustable floor lamp with a metal shade.", imageUrl: "https://picsum.photos/seed/lamp1/400/300", tags: ["lamp", "industrial", "floor lamp"], price: 120.50 },
@@ -29,7 +29,7 @@ const sampleCategories: Category[] = [
   {
     id: "colors",
     name: "Wall Colors & Accents",
-    icon: Palette,
+    icon: "Palette", // Changed from Palette component to string "Palette"
     description: "Select paint colors and accent wall treatments.",
     options: [
       { id: "paint-1", name: "Soothing Sage Green", description: "A calming green for main walls.", imageUrl: "https://picsum.photos/seed/paint1/400/300?color=sage", tags: ["paint", "green", "wall color"], price: 45.00 },
@@ -39,7 +39,7 @@ const sampleCategories: Category[] = [
   {
     id: "decor",
     name: "Decorative Items",
-    icon: PaintRoller, // Using PaintRoller as a generic decor icon
+    icon: "PaintRoller", // Changed from PaintRoller component to string "PaintRoller"
     description: "Add personality with rugs, curtains, and art.",
     options: [
       { id: "rug-1", name: "Abstract Area Rug", description: "Colorful rug to tie the room together.", imageUrl: "https://picsum.photos/seed/rug1/400/300", tags: ["rug", "abstract", "colorful"], price: 250.00 },
@@ -61,6 +61,7 @@ export default function HomePage() {
         backgroundBlendMode: 'overlay', // Blends with background
         backgroundColor: 'hsla(var(--background), 0.5)', // Make sure background color is semi-transparent if blend mode is overlay
       }}
+      data-ai-hint="leopard subtle pattern"
     >
       <div className="relative z-[1] isolate"> {/* Ensure content is above the pattern and backdrop-filter works */}
         <header className="mb-8 text-center">
