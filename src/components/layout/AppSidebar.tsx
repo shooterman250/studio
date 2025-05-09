@@ -32,8 +32,8 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { href: "/designer", label: "Dashboard", icon: Home, progress: 0 }, // Updated href
-  { href: "/room-setup", label: "Room Setup", icon: LayoutGrid, progress: 25 },
+  { href: "/designer", label: "Dashboard", icon: Home, progress: 0 },
+  { href: "/room-setup", label: "Overall Style", icon: LayoutGrid, progress: 25 }, // Changed label here
   { href: "/furniture", label: "Furniture", icon: Sofa, progress: 50 },
   { href: "/decor", label: "Decor & Lighting", icon: Lamp, progress: 75 },
   { href: "/finishes", label: "Colors & Finishes", icon: Palette, progress: 10 },
