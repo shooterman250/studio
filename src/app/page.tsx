@@ -1,7 +1,9 @@
 
 import Link from 'next/link';
 import ButterflyLogo from '@/components/common/Logo';
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button'; // Button component no longer needed directly here for this link
+import { buttonVariants } from '@/components/ui/button'; // Import buttonVariants
+import { cn } from '@/lib/utils'; // Import cn
 
 export default function LandingPage() {
   return (
@@ -14,12 +16,17 @@ export default function LandingPage() {
         <p className="text-md opacity-80 sm:text-lg">
           Unleash your creativity and design the room of your dreams with our interactive tools.
         </p>
-        <Button asChild size="lg" className="text-lg px-10 py-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-          <Link href="/designer">
-            Start Designing
-          </Link>
-        </Button>
+        <Link
+          href="/designer"
+          className={cn(
+            buttonVariants({ variant: 'default', size: 'lg' }),
+            'text-lg px-10 py-6 shadow-lg hover:shadow-xl transition-shadow duration-300'
+          )}
+        >
+          Start Designing
+        </Link>
       </div>
     </div>
   );
 }
+
