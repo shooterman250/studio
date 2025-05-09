@@ -26,15 +26,36 @@ export default function OverallStylePage() {
     });
   };
 
-  const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
-    { title: "Select Design Styles", description: "Choose one or more design styles that best represent your vision.", options: overallStyleOptions, cols: 5 },
-    { title: "Select Key Elements", description: "Choose guiding principles for your design.", options: keyElementOptions, cols: 4 },
+  const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number; id: 'design-styles' | 'key-elements' }> = [
+    { id: 'design-styles', title: "Select Design Styles", description: "Choose one or more design styles that best represent your vision.", options: overallStyleOptions, cols: 5 },
+    { id: 'key-elements', title: "Select Key Elements", description: "Choose guiding principles for your design.", options: keyElementOptions, cols: 4 },
   ];
 
 
   const handleSaveChanges = () => {
     const totalOptionsOnPage = sections.reduce((sum, section) => sum + section.options.length, 0);
-    const newProgress = selectedOptions.size > 0 ? Math.min(100, Math.round((selectedOptions.size / totalOptionsOnPage) * 100)) : 0;
+    let newProgress = 0;
+
+    const overallStyleOptionIds = new Set(overallStyleOptions.map(opt => opt.id));
+    const keyElementOptionIds = new Set(keyElementOptions.map(opt => opt.id));
+
+    let hasSelectedOverallStyle = false;
+    let hasSelectedKeyElement = false;
+
+    selectedOptions.forEach(selectedId => {
+      if (overallStyleOptionIds.has(selectedId)) {
+        hasSelectedOverallStyle = true;
+      }
+      if (keyElementOptionIds.has(selectedId)) {
+        hasSelectedKeyElement = true;
+      }
+    });
+
+    if (hasSelectedOverallStyle && hasSelectedKeyElement) {
+      newProgress = 100;
+    } else {
+      newProgress = selectedOptions.size > 0 ? Math.min(100, Math.round((selectedOptions.size / totalOptionsOnPage) * 100)) : 0;
+    }
     
     const allSelectedItems: SelectedDataItem[] = [];
     sections.forEach(section => {
@@ -101,3 +122,4 @@ export default function OverallStylePage() {
     </div>
   );
 }
+
