@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
@@ -11,19 +12,29 @@ import {
     type BaseSelectionItem
 } from "@/types";
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
-import { useDesignProgress, type SelectedDataItem } from "@/contexts/DesignProgressContext";
+import { useDesignProgress, type SelectedDataItem, DesignStageKey } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter, usePathname } from "next/navigation";
 import { baseNavItemsConfig } from "@/config/navigation";
 import { ArrowRight } from "lucide-react";
 
+const PAGE_STAGE_KEY: DesignStageKey = "utility-laundry-room";
+
 export default function UtilityLaundryRoomPage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [hasSavedSinceLastChange, setHasSavedSinceLastChange] = useState(false);
-  const { updateStageSelections } = useDesignProgress();
+  const { updateStageSelections, getStageSelections } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter();
   const pathname = usePathname();
+
+  useEffect(() => {
+    const existingSelections = getStageSelections(PAGE_STAGE_KEY);
+    if (existingSelections.length > 0) {
+      setSelectedOptions(new Set(existingSelections.map(item => item.id)));
+      // setHasSavedSinceLastChange(true); 
+    }
+  }, [getStageSelections]);
 
   const handleOptionChange = (optionId: string) => {
     setSelectedOptions(prev => {
@@ -47,21 +58,27 @@ export default function UtilityLaundryRoomPage() {
 
   const handleSaveChanges = () => {
     const totalOptionsOnPage = sections.reduce((sum, section) => sum + section.options.length, 0);
-    let newProgress = 0;
+    const totalSubsections = sections.length;
+    let subsectionsWithSelections = 0;
 
-    if (selectedOptions.size > 0) {
-        const subsectionsWithSelections = sections.filter(section =>
-            section.options.some(option => selectedOptions.has(option.id))
-        ).length;
-
-        if (subsectionsWithSelections === sections.length) {
-            newProgress = 100;
-        } else {
-            newProgress = totalOptionsOnPage > 0 ? Math.round((selectedOptions.size / totalOptionsOnPage) * 100) : 0;
+    sections.forEach(section => {
+        if (section.options.some(option => selectedOptions.has(option.id))) {
+            subsectionsWithSelections++;
         }
+    });
+
+    let newProgress = 0;
+    if (selectedOptions.size === 0) {
+        newProgress = 0;
+    } else if (totalSubsections > 0 && subsectionsWithSelections === totalSubsections) {
+        newProgress = 100;
+    } else if (totalSubsections > 0) {
+         newProgress = totalOptionsOnPage > 0 ? Math.round((selectedOptions.size / totalOptionsOnPage) * 50) + Math.round((subsectionsWithSelections / totalSubsections) * 50) : 0;
+         newProgress = Math.min(newProgress, 99); 
     } else {
         newProgress = 0;
     }
+    
     newProgress = Math.max(0, Math.min(100, newProgress));
     
     const allSelectedItems: SelectedDataItem[] = [];
@@ -79,7 +96,7 @@ export default function UtilityLaundryRoomPage() {
       });
     });
     
-    updateStageSelections("utility-laundry-room", newProgress, allSelectedItems);
+    updateStageSelections(PAGE_STAGE_KEY, newProgress, allSelectedItems);
     setHasSavedSinceLastChange(true);
     
     toast({
@@ -111,7 +128,7 @@ export default function UtilityLaundryRoomPage() {
               {section.description && <CardDescription>{section.description}</CardDescription>}
             </CardHeader>
             <CardContent>
-              <div className={`grid grid-cols-2 lg:grid-cols-${section.cols || 3} gap-6`}>
+              <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${section.cols || 3} gap-6`}>
                 {section.options.map((option) => (
                   <ItemSelectionCard
                     key={option.id}

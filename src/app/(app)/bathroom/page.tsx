@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
@@ -16,19 +17,29 @@ import {
     type BaseSelectionItem
 } from "@/types";
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
-import { useDesignProgress, type SelectedDataItem } from "@/contexts/DesignProgressContext";
+import { useDesignProgress, type SelectedDataItem, DesignStageKey } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter, usePathname } from "next/navigation";
 import { baseNavItemsConfig } from "@/config/navigation";
 import { ArrowRight } from "lucide-react";
 
+const PAGE_STAGE_KEY: DesignStageKey = "bathroom";
+
 export default function BathroomPage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [hasSavedSinceLastChange, setHasSavedSinceLastChange] = useState(false);
-  const { updateStageSelections } = useDesignProgress();
+  const { updateStageSelections, getStageSelections } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter();
   const pathname = usePathname();
+
+ useEffect(() => {
+    const existingSelections = getStageSelections(PAGE_STAGE_KEY);
+    if (existingSelections.length > 0) {
+      setSelectedOptions(new Set(existingSelections.map(item => item.id)));
+      // setHasSavedSinceLastChange(true); 
+    }
+  }, [getStageSelections]);
 
   const handleOptionChange = (optionId: string) => {
     setSelectedOptions(prev => {
@@ -43,62 +54,68 @@ export default function BathroomPage() {
     setHasSavedSinceLastChange(false);
   };
   
-  const masterBathSections: Array<{ title: string; options: BaseSelectionItem[]; cols?: number }> = [
-    { title: "Master Bath: Style", options: bathroomStyleOptions, cols: 3 },
-    { title: "Master Bath: Bath Tub", options: bathroomMasterBathTubOptions, cols: 3 },
-    { title: "Master Bath: Shower", options: bathroomMasterShowerOptions, cols: 3 },
-    { title: "Master Bath: Sink (Single/Double)", options: bathroomMasterSinkOptions, cols: 3 },
-    { title: "Master Bath: Toilet", options: bathroomToiletOptions, cols: 3 },
-    { title: "Master Bath: Hardware Finish", options: bathroomHardwareFinishOptions, cols: 3 },
-    { title: "Master Bath: Storage", options: bathroomStorageOptions, cols: 3 },
-    { title: "Master Bath: Lighting", options: bathroomLightingOptions, cols: 3 },
+  const masterBathSubSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
+    { title: "Master Bath: Style", options: bathroomStyleOptions, cols: 3, description: "Define the overall style for your master bathroom." },
+    { title: "Master Bath: Bath Tub", options: bathroomMasterBathTubOptions, cols: 3, description: "Choose a bathtub type." },
+    { title: "Master Bath: Shower", options: bathroomMasterShowerOptions, cols: 3, description: "Select your preferred shower setup." },
+    { title: "Master Bath: Sink (Single/Double)", options: bathroomMasterSinkOptions, cols: 3, description: "Choose sink style and count." },
+    { title: "Master Bath: Toilet", options: bathroomToiletOptions, cols: 3, description: "Select a toilet type." },
+    { title: "Master Bath: Hardware Finish", options: bathroomHardwareFinishOptions, cols: 3, description: "Pick finishes for faucets, handles, etc." },
+    { title: "Master Bath: Storage", options: bathroomStorageOptions, cols: 3, description: "Select storage solutions." },
+    { title: "Master Bath: Lighting", options: bathroomLightingOptions, cols: 3, description: "Choose lighting fixtures." },
   ];
 
-  const halfBathSections: Array<{ title: string; options: BaseSelectionItem[]; cols?: number }> = [
-    { title: "Half-Bath: Sink", options: bathroomHalfSinkOptions, cols: 3 },
-    { title: "Half-Bath: Toilet", options: bathroomToiletOptions, cols: 3 }, 
-    { title: "Half-Bath: Hardware Finish", options: bathroomHardwareFinishOptions, cols: 3 }, 
-    { title: "Half-Bath: Storage", options: bathroomStorageOptions.slice(0,3), cols: 3 }, 
-    { title: "Half-Bath: Lighting", options: bathroomLightingOptions.slice(0,3), cols: 3 }, 
+  const halfBathSubSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
+    { title: "Half-Bath: Sink", options: bathroomHalfSinkOptions, cols: 3, description: "Select a sink for the powder room." },
+    { title: "Half-Bath: Toilet", options: bathroomToiletOptions, cols: 3, description: "Choose a toilet." }, 
+    { title: "Half-Bath: Hardware Finish", options: bathroomHardwareFinishOptions, cols: 3, description: "Select hardware finishes." }, 
+    { title: "Half-Bath: Storage", options: bathroomStorageOptions.slice(0,3), cols: 3, description: "Consider storage options." }, 
+    { title: "Half-Bath: Lighting", options: bathroomLightingOptions.slice(0,3), cols: 3, description: "Choose lighting." }, 
   ];
 
-  const allPageSections = [...masterBathSections, ...halfBathSections];
+  const sections = [...masterBathSubSections, ...halfBathSubSections];
+
 
   const handleSaveChanges = () => {
-    const totalOptionsOnPage = allPageSections.reduce((sum, section) => sum + section.options.length, 0);
-    let newProgress = 0;
-    
-    if (selectedOptions.size > 0) {
-        const allSubsectionsSatisfied = allPageSections.every(section =>
-            section.options.some(option => selectedOptions.has(option.id))
-        );
+    const totalOptionsOnPage = sections.reduce((sum, section) => sum + section.options.length, 0);
+    const totalSubsections = sections.length;
+    let subsectionsWithSelections = 0;
 
-        if (allSubsectionsSatisfied) {
-            newProgress = 100;
-        } else {
-            newProgress = totalOptionsOnPage > 0 ? Math.round((selectedOptions.size / totalOptionsOnPage) * 100) : 0;
+    sections.forEach(section => {
+        if (section.options.some(option => selectedOptions.has(option.id))) {
+            subsectionsWithSelections++;
         }
+    });
+    
+    let newProgress = 0;
+    if (selectedOptions.size === 0) {
+        newProgress = 0;
+    } else if (totalSubsections > 0 && subsectionsWithSelections === totalSubsections) {
+        newProgress = 100;
+    } else if (totalSubsections > 0) {
+        newProgress = totalOptionsOnPage > 0 ? Math.round((selectedOptions.size / totalOptionsOnPage) * 50) + Math.round((subsectionsWithSelections / totalSubsections) * 50) : 0;
+        newProgress = Math.min(newProgress, 99); // Cap at 99 if not all subsections covered
     } else {
         newProgress = 0;
     }
     newProgress = Math.max(0, Math.min(100, newProgress));
     
     const allSelectedItems: SelectedDataItem[] = [];
-    allPageSections.forEach(section => {
+    sections.forEach(section => {
       section.options.forEach(option => {
         if (selectedOptions.has(option.id)) {
           allSelectedItems.push({
             id: option.id,
             name: option.name,
             imageUrl: option.imageUrl,
-            description: option.description,
+            description: option.description, // This is the subsection's description, not item's.
             dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
           });
         }
       });
     });
     
-    updateStageSelections("bathroom", newProgress, allSelectedItems);
+    updateStageSelections(PAGE_STAGE_KEY, newProgress, allSelectedItems);
     setHasSavedSinceLastChange(true);
     
     toast({
@@ -118,60 +135,31 @@ export default function BathroomPage() {
           Bathroom(s) Customization
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg opacity-80 sm:text-xl">
-          Design your master and half bathrooms by selecting your preferences.
+          Design your master and half bathrooms by selecting your preferences for each category.
         </p>
       </header>
 
       <section className="max-w-7xl mx-auto space-y-12">
-        {/* Master Bath Sections */}
-        <Card className="bg-card/60 backdrop-blur-lg border border-card-foreground/10 shadow-lg">
-          <CardHeader>
-            <CardTitle className="text-2xl">Master Bathroom</CardTitle>
-            <CardDescription>Configure your main bathroom space.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-8">
-            {masterBathSections.map(section => (
-              <div key={section.title}>
-                <h3 className="text-xl font-semibold mb-2 text-card-foreground">{section.title}</h3>
-                <div className={`grid grid-cols-2 lg:grid-cols-${section.cols || 3} gap-6`}>
-                  {section.options.map((option) => (
-                    <ItemSelectionCard
-                      key={option.id}
-                      item={option}
-                      isSelected={selectedOptions.has(option.id)}
-                      onSelect={handleOptionChange}
-                    />
-                  ))}
-                </div>
+        {sections.map(section => (
+          <Card key={section.title} className="bg-card/60 backdrop-blur-lg border border-card-foreground/10 shadow-lg">
+            <CardHeader>
+              <CardTitle>{section.title}</CardTitle>
+              {section.description && <CardDescription>{section.description}</CardDescription>}
+            </CardHeader>
+            <CardContent>
+              <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${section.cols || 3} gap-6`}>
+                {section.options.map((option) => (
+                  <ItemSelectionCard
+                    key={option.id}
+                    item={option}
+                    isSelected={selectedOptions.has(option.id)}
+                    onSelect={handleOptionChange}
+                  />
+                ))}
               </div>
-            ))}
-          </CardContent>
-        </Card>
-
-        {/* Half Bath Sections */}
-        <Card className="bg-card/60 backdrop-blur-lg border border-card-foreground/10 shadow-lg">
-          <CardHeader>
-            <CardTitle className="text-2xl">Half-Bath (Powder Room)</CardTitle>
-            <CardDescription>Configure your guest bathroom or powder room.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-8">
-            {halfBathSections.map(section => (
-              <div key={section.title}>
-                <h3 className="text-xl font-semibold mb-2 text-card-foreground">{section.title}</h3>
-                <div className={`grid grid-cols-2 lg:grid-cols-${section.cols || 3} gap-6`}>
-                  {section.options.map((option) => (
-                    <ItemSelectionCard
-                      key={option.id}
-                      item={option}
-                      isSelected={selectedOptions.has(option.id)}
-                      onSelect={handleOptionChange}
-                    />
-                  ))}
-                </div>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        ))}
         
         <div className="pt-4 flex flex-col sm:flex-row justify-end gap-2">
           <Button className="w-full sm:w-auto" onClick={handleSaveChanges}>
