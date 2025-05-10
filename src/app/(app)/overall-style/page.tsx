@@ -1,23 +1,33 @@
+
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { overallStyleOptions, keyElementOptions, type BaseSelectionItem } from "@/types";
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
-import { useDesignProgress, type SelectedDataItem } from "@/contexts/DesignProgressContext";
+import { useDesignProgress, type SelectedDataItem, DesignStageKey } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter, usePathname } from "next/navigation";
 import { baseNavItemsConfig } from "@/config/navigation";
 import { ArrowRight } from "lucide-react";
 
+const PAGE_STAGE_KEY: DesignStageKey = "overall-style";
+
 export default function OverallStylePage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [hasSavedSinceLastChange, setHasSavedSinceLastChange] = useState(false);
-  const { updateStageSelections } = useDesignProgress();
+  const { updateStageSelections, getStageSelections } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter();
   const pathname = usePathname();
+
+   useEffect(() => {
+    const existingSelections = getStageSelections(PAGE_STAGE_KEY);
+    if (existingSelections.length > 0) {
+      setSelectedOptions(new Set(existingSelections.map(item => item.id)));
+    }
+  }, [getStageSelections]);
 
   const handleOptionChange = (optionId: string) => {
     setSelectedOptions(prev => {
@@ -61,7 +71,22 @@ export default function OverallStylePage() {
       if (hasSelectedOverallStyle && hasSelectedKeyElement) {
         newProgress = 100;
       } else {
-        newProgress = totalOptionsOnPage > 0 ? Math.round((selectedOptions.size / totalOptionsOnPage) * 100) : 0;
+        // Calculate progress based on subsections covered or item count for partial completion
+        const subsectionsCovered = (hasSelectedOverallStyle ? 1 : 0) + (hasSelectedKeyElement ? 1 : 0);
+        if (sections.length > 0) {
+            newProgress = Math.round((subsectionsCovered / sections.length) * 100);
+             // If only one subsection is covered but items are selected, give some partial credit based on item count too.
+            if (subsectionsCovered === 1 && selectedOptions.size > 0 && totalOptionsOnPage > 0) {
+                 const itemProgress = Math.round((selectedOptions.size / totalOptionsOnPage) * 50); // 50% weight for items
+                 const sectionProgress = 50; // 50% for one section covered
+                 newProgress = Math.min(itemProgress + sectionProgress, 99); // Cap at 99
+            } else {
+                 newProgress = Math.round((subsectionsCovered / sections.length) * 100);
+            }
+            if (subsectionsCovered < sections.length && newProgress === 100) newProgress = 99; // Cap at 99 if not all sections covered
+        } else {
+            newProgress = totalOptionsOnPage > 0 ? Math.round((selectedOptions.size / totalOptionsOnPage) * 100) : 0;
+        }
       }
     } else {
       newProgress = 0;
@@ -83,7 +108,7 @@ export default function OverallStylePage() {
       });
     });
 
-    updateStageSelections("overall-style", newProgress, allSelectedItems);
+    updateStageSelections(PAGE_STAGE_KEY, newProgress, allSelectedItems);
     setHasSavedSinceLastChange(true);
     
     toast({
@@ -115,7 +140,7 @@ export default function OverallStylePage() {
               {section.description && <CardDescription>{section.description}</CardDescription>}
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-${section.cols || 4} gap-6`}>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
                 {section.options.map((style) => (
                   <ItemSelectionCard
                     key={style.id}
