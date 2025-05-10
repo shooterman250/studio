@@ -2,6 +2,7 @@
 "use client";
 
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 interface ButterflyLogoProps {
   className?: string;
@@ -12,16 +13,21 @@ interface ButterflyLogoProps {
 const ButterflyLogo = ({ className, width, height }: ButterflyLogoProps) => {
   return (
     <div
-      className={cn('rounded-full', className)}
+      className={cn('relative', className)}
       style={{
         width: `${width}px`,
         height: `${height}px`,
-        backgroundColor: '#99847A', // Apply the specified color
       }}
-      role="img" // Keep role for now, can be adjusted if it's purely decorative
-      aria-label="Company Logo" // Adjust label if it's no longer a "butterfly"
+      role="img"
+      aria-label="Company Logo"
     >
-      {/* Content of the circle, can be empty or have initials/icon later */}
+      <Image
+        src="https://media.discordapp.net/attachments/1370568040256901200/1370582735122468954/butterfly_logo.png?ex=68200624&is=681eb4a4&hm=857aa242c852f51e2691ade9087a798c239d804caf79d4e04b0e1903c57337e9&=&format=webp&quality=lossless&width=1502&height=1502"
+        alt="Interactive Designs Logo"
+        layout="fill"
+        objectFit="contain"
+        priority // Add priority for LCP elements like logos on landing pages
+      />
     </div>
   );
 };
