@@ -31,16 +31,16 @@ export interface BaseSelectionItem {
 // Overall Style
 export interface OverallStyleOption extends BaseSelectionItem {}
 export const overallStyleOptions: OverallStyleOption[] = [
-  { id: 'modern', name: 'Modern', imageUrl: 'https://picsum.photos/seed/modernstyle/400/300', description: 'Sleek, clean lines, and simplicity.', dataAiHint: 'modern interior' },
-  { id: 'contemporary', name: 'Contemporary', imageUrl: 'https://picsum.photos/seed/contemporarystyle/400/300', description: 'Current, fluid, and ever-evolving.', dataAiHint: 'contemporary interior' },
-  { id: 'traditional', name: 'Traditional', imageUrl: 'https://picsum.photos/seed/traditionalstyle/400/300', description: 'Classic, timeless, and ornate.', dataAiHint: 'traditional interior' },
-  { id: 'industrial', name: 'Industrial', imageUrl: 'https://picsum.photos/seed/industrialstyle/400/300', description: 'Raw, edgy, with exposed elements.', dataAiHint: 'industrial interior' },
-  { id: 'country-farmhouse', name: 'Country/Farmhouse', imageUrl: 'https://picsum.photos/seed/farmhousestyle/400/300', description: 'Warm, rustic, and inviting.', dataAiHint: 'farmhouse interior' },
-  { id: 'coastal', name: 'Coastal', imageUrl: 'https://picsum.photos/seed/coastalstyle/400/300', description: 'Light, airy, and beach-inspired.', dataAiHint: 'coastal interior' },
-  { id: 'mid-century', name: 'Mid-Century Modern', imageUrl: 'https://picsum.photos/seed/midcenturystyle/400/300', description: 'Retro, organic shapes, and functionality.', dataAiHint: 'midcentury modern interior' },
-  { id: 'japandi', name: 'Japandi', imageUrl: 'https://picsum.photos/seed/japandistyle/400/300', description: 'Japanese minimalism meets Scandinavian function.', dataAiHint: 'japandi interior' },
-  { id: 'bohemian', name: 'Bohemian', imageUrl: 'https://picsum.photos/seed/bohemianstyle/400/300', description: 'Eclectic, colorful, and free-spirited.', dataAiHint: 'bohemian interior' },
-  { id: 'biophilic', name: 'Biophilic', imageUrl: 'https://picsum.photos/seed/biophilicstyle/400/300', description: 'Nature-inspired, with natural elements.', dataAiHint: 'biophilic design interior' },
+  { id: 'modern', name: 'Modern', imageUrl: `https://media.discordapp.net/attachments/1370568040256901200/1370571094762721280/Overall_Style__Modern.png?ex=681ffb4c&is=681ea9cc&hm=d81265ac83733784dd6d0fbf8136f1d512c4222cdbe20de4167c4b9a09eb6312&=&format=webp&quality=lossless&width=1502&height=1502`, description: 'Sleek, clean lines, and simplicity.', dataAiHint: 'modern interior' },
+  { id: 'contemporary', name: 'Contemporary', imageUrl: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/Images/Overall_Style_Contemporary.png`, description: 'Current, fluid, and ever-evolving.', dataAiHint: 'contemporary interior' },
+  { id: 'traditional', name: 'Traditional', imageUrl: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/Images/Overall_Style_Traditional.png`, description: 'Classic, timeless, and ornate.', dataAiHint: 'traditional interior' },
+  { id: 'industrial', name: 'Industrial', imageUrl: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/Images/Overall_Style_Industrial.png`, description: 'Raw, edgy, with exposed elements.', dataAiHint: 'industrial interior' },
+  { id: 'country-farmhouse', name: 'Country/Farmhouse', imageUrl: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/Images/Overall_Style_Country_Farmhouse.png`, description: 'Warm, rustic, and inviting.', dataAiHint: 'farmhouse interior' },
+  { id: 'coastal', name: 'Coastal', imageUrl: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/Images/Overall_Style_Coastal.png`, description: 'Light, airy, and beach-inspired.', dataAiHint: 'coastal interior' },
+  { id: 'mid-century', name: 'Mid-Century Modern', imageUrl: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/Images/Overall_Style_Mid_Century.png`, description: 'Retro, organic shapes, and functionality.', dataAiHint: 'midcentury modern interior' },
+  { id: 'japandi', name: 'Japandi', imageUrl: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/Images/Overall_Style_Japandi.png`, description: 'Japanese minimalism meets Scandinavian function.', dataAiHint: 'japandi interior' },
+  { id: 'bohemian', name: 'Bohemian', imageUrl: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/Images/Overall_Style_Bohemian.png`, description: 'Eclectic, colorful, and free-spirited.', dataAiHint: 'bohemian interior' },
+  { id: 'biophilic', name: 'Biophilic', imageUrl: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/Images/Overall_Style_Biophilic.png`, description: 'Nature-inspired, with natural elements.', dataAiHint: 'biophilic design interior' },
 ];
 
 export interface KeyElementOption extends BaseSelectionItem {}

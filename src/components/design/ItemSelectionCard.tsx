@@ -31,8 +31,8 @@ const ItemSelectionCard = ({ item, isSelected, onSelect }: ItemSelectionCardProp
           src={item.imageUrl}
           alt={item.name}
           width={400}
-          height={300}
-          className="aspect-[4/3] w-full object-cover"
+          height={200}
+          className="aspect-[4/3] w-full object-cover" // Ensured object-cover class is present
           data-ai-hint={item.dataAiHint || item.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')}
         />
         {isSelected && (
