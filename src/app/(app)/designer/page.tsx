@@ -7,10 +7,12 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { FileDown, PencilLine } from "lucide-react";
+import { FileDown, PencilLine, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation"; // Import useRouter
+import { useRouter } from "next/navigation"; 
 import Link from "next/link";
+import { useState } from "react";
+import jsPDF from 'jspdf';
 
 const stageDisplayNames: Record<DesignStageKey, string> = {
   "overall-budget": "Overall Budget",
@@ -87,19 +89,180 @@ const StageSelectionsCard = ({ stageKey, items }: { stageKey: DesignStageKey; it
 export default function DesignerPage() {
   const { getAllSelections } = useDesignProgress();
   const { toast } = useToast();
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter(); 
   const allSelections = getAllSelections();
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
 
   const activeStages = Object.entries(allSelections)
     .filter(([stageKey, items]) => stageKey !== "summary" && items.length > 0);
 
-  const handleExportPdf = () => {
-    // Placeholder for PDF export functionality
-    toast({
-      title: "Export to PDF",
-      description: "PDF export functionality is not yet implemented.",
-    });
-    console.log("Exporting selections to PDF:", allSelections);
+  const handleExportPdf = async () => {
+    if (activeStages.length === 0) {
+      toast({
+        title: "No Selections to Export",
+        description: "Please make some design choices before exporting.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsGeneratingPdf(true);
+    toast({ title: "Generating PDF...", description: "Please wait, this may take a moment." });
+
+    const doc = new jsPDF();
+    let yPos = 15; 
+    const pageHeight = doc.internal.pageSize.height;
+    const pageWidth = doc.internal.pageSize.width;
+    const margin = 15;
+    const contentWidth = pageWidth - margin * 2;
+    const lineHeight = 7;
+    const sectionSpacing = 12;
+    const itemSpacing = 6;
+    const imageWidth = 50; 
+    const imageHeight = (imageWidth * 3) / 4; 
+
+    const checkPageBreak = (neededHeight: number): boolean => {
+      if (yPos + neededHeight > pageHeight - margin) {
+        doc.addPage();
+        yPos = margin;
+        return true; 
+      }
+      return false; 
+    };
+
+    doc.setFontSize(10);
+    doc.setTextColor(100); 
+    doc.text("Interactive Designs", pageWidth / 2, margin, { align: 'center' });
+    yPos += lineHeight;
+    doc.setTextColor(0); 
+
+
+    checkPageBreak(lineHeight + sectionSpacing);
+    doc.setFontSize(18);
+    doc.text("Design Summary", pageWidth / 2, yPos, { align: 'center' });
+    yPos += sectionSpacing;
+
+    for (const [stageKey, items] of activeStages) {
+      if (items.length === 0) continue;
+
+      checkPageBreak(lineHeight + sectionSpacing / 2);
+      doc.setFontSize(14);
+      doc.setFont(undefined, 'bold');
+      const stageName = stageDisplayNames[stageKey as DesignStageKey] || stageKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      
+      const stageNameLines = doc.splitTextToSize(stageName, contentWidth);
+      doc.text(stageNameLines, margin, yPos);
+      yPos += stageNameLines.length * lineHeight;
+      doc.setFont(undefined, 'normal');
+      yPos += itemSpacing / 2;
+
+      for (const item of items) {
+        const minItemHeight = item.imageUrl ? imageHeight + 5 : lineHeight * 2;
+        checkPageBreak(minItemHeight); 
+
+        let textX = margin;
+        let currentTextY = yPos; // Y position for the current item's text block
+        let imageBlockEndY = yPos; // Y position after image (if any) is drawn for the current item
+
+        if (item.imageUrl) {
+          // Potentially checkPageBreak for image itself if not done by minItemHeight
+          // For simplicity, checkPageBreak(minItemHeight) above covers this.
+          try {
+            const response = await fetch(item.imageUrl);
+            if (!response.ok) throw new Error(`Image fetch failed: ${response.statusText}`);
+            const blob = await response.blob();
+            const reader = new FileReader();
+            
+            await new Promise<void>((resolve, reject) => {
+              reader.onloadend = () => {
+                try {
+                  if (yPos + imageHeight > pageHeight - margin) { // Check specifically for image space
+                    doc.addPage();
+                    yPos = margin;
+                    currentTextY = margin; // Reset currentTextY if page broke for image
+                  }
+                  doc.addImage(reader.result as string, 'JPEG', margin, yPos, imageWidth, imageHeight);
+                  imageBlockEndY = yPos + imageHeight + 3; 
+                  textX = margin + imageWidth + 5; 
+                  currentTextY = yPos; // Text starts at the same y-level as the image
+                  resolve();
+                } catch (e) {
+                  console.error("PDF: Error adding image", e);
+                  reject(e); 
+                }
+              };
+              reader.onerror = (e) => { 
+                console.error("PDF: Error reading image blob", e);
+                reject(e);
+              };
+              reader.readAsDataURL(blob);
+            });
+          } catch (error) {
+            console.warn(`PDF: Could not load image for ${item.name}: ${item.imageUrl}`, error);
+             doc.setFontSize(8);
+             doc.setTextColor(150);
+             const failedImageText = `[Image for ${item.name} failed to load]`;
+             // Use currentTextY for positioning failed image text
+             const fiLines = doc.splitTextToSize(failedImageText, contentWidth - (textX > margin ? (textX - margin) : 0));
+             if (currentTextY + fiLines.length * (lineHeight * 0.8) > pageHeight - margin) {
+                doc.addPage(); currentTextY = margin;
+             }
+             doc.text(fiLines, textX, currentTextY);
+             currentTextY += fiLines.length * (lineHeight * 0.8); 
+             doc.setTextColor(0);
+             imageBlockEndY = currentTextY; // Update imageBlockEndY to after the placeholder text
+          }
+        }
+        
+        // Render text content
+        doc.setFontSize(10);
+        doc.setFont(undefined, 'bold');
+        const nameLines = doc.splitTextToSize(item.name, contentWidth - (textX - margin));
+        if (currentTextY + nameLines.length * lineHeight > pageHeight - margin) { doc.addPage(); currentTextY = margin; imageBlockEndY = Math.max(imageBlockEndY, currentTextY); }
+        doc.text(nameLines, textX, currentTextY);
+        currentTextY += nameLines.length * lineHeight;
+
+        if (item.description && !item.value) {
+          doc.setFontSize(8);
+          doc.setFont(undefined, 'italic');
+          const descLines = doc.splitTextToSize(item.description, contentWidth - (textX - margin));
+          if (currentTextY + descLines.length * (lineHeight*0.8) > pageHeight - margin) { doc.addPage(); currentTextY = margin; imageBlockEndY = Math.max(imageBlockEndY, currentTextY); }
+          doc.text(descLines, textX, currentTextY);
+          currentTextY += descLines.length * (lineHeight * 0.8);
+        }
+
+        if (item.value !== undefined) {
+          doc.setFontSize(10);
+          doc.setFont(undefined, 'normal');
+          const valueText = typeof item.value === 'number' ? `$${item.value.toLocaleString()}` : String(item.value);
+          const valLines = doc.splitTextToSize(`Value: ${valueText}`, contentWidth - (textX - margin));
+          if (currentTextY + valLines.length * lineHeight > pageHeight - margin) { doc.addPage(); currentTextY = margin; imageBlockEndY = Math.max(imageBlockEndY, currentTextY); }
+          doc.text(valLines, textX, currentTextY);
+          currentTextY += valLines.length * lineHeight;
+        }
+        doc.setFont(undefined, 'normal');
+        
+        yPos = Math.max(imageBlockEndY, currentTextY) + itemSpacing; 
+      } 
+      yPos += sectionSpacing / 2; 
+    }
+
+    try {
+      doc.save("design_summary.pdf");
+      toast({
+        title: "PDF Exported",
+        description: "Your design summary has been downloaded.",
+      });
+    } catch (e) {
+        console.error("Error saving PDF:", e);
+        toast({
+            title: "PDF Export Failed",
+            description: "There was an error generating your PDF. Please try again.",
+            variant: "destructive"
+        })
+    } finally {
+        setIsGeneratingPdf(false);
+    }
   };
     
   return (
@@ -116,9 +279,18 @@ export default function DesignerPage() {
             Use the sidebar to navigate to specific categories and continue customizing your space.
           </p>
           <div className="mt-6 flex justify-center">
-            <Button onClick={handleExportPdf}>
-              <FileDown className="mr-2 h-4 w-4" />
-              Export to PDF
+            <Button onClick={handleExportPdf} disabled={isGeneratingPdf}>
+              {isGeneratingPdf ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Generating...
+                </>
+              ) : (
+                <>
+                  <FileDown className="mr-2 h-4 w-4" />
+                  Export to PDF
+                </>
+              )}
             </Button>
           </div>
         </header>
