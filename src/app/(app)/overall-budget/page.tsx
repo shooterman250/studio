@@ -14,6 +14,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function OverallBudgetPage() {
   const [budget, setBudget] = useState<number[]>([50000]); 
+  const [hasSavedSinceLastChange, setHasSavedSinceLastChange] = useState(false);
   const { updateStageSelections, getStageSelections } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter();
@@ -23,11 +24,14 @@ export default function OverallBudgetPage() {
     const existingSelections = getStageSelections("overall-budget");
     if (existingSelections.length > 0 && typeof existingSelections[0].value === 'number') {
       setBudget([existingSelections[0].value]);
+      // If data is loaded, consider it "saved" initially for this page load
+      // setHasSavedSinceLastChange(true); // Or false if you want to force a save
     }
   }, [getStageSelections]);
 
   const handleBudgetChange = (value: number[]) => {
     setBudget(value);
+    setHasSavedSinceLastChange(false);
   };
 
   const handleSaveChanges = () => {
@@ -43,6 +47,7 @@ export default function OverallBudgetPage() {
     };
 
     updateStageSelections("overall-budget", newProgress, [budgetItem]);
+    setHasSavedSinceLastChange(true);
     
     toast({
       title: "Overall Budget Saved",
@@ -100,6 +105,7 @@ export default function OverallBudgetPage() {
                   onClick={() => router.push(nextStage.href)}
                   variant="outline"
                   className="w-full sm:w-auto"
+                  disabled={!hasSavedSinceLastChange}
                 >
                   Next Section ({nextStage.label})
                   <ArrowRight className="ml-2 h-4 w-4" />

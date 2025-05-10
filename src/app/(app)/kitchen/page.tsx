@@ -25,6 +25,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function KitchenPage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
+  const [hasSavedSinceLastChange, setHasSavedSinceLastChange] = useState(false);
   const { updateStageSelections } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter();
@@ -40,6 +41,7 @@ export default function KitchenPage() {
       }
       return newSelected;
     });
+    setHasSavedSinceLastChange(false);
   };
   
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
@@ -73,6 +75,7 @@ export default function KitchenPage() {
     });
 
     updateStageSelections("kitchen", newProgress, allSelectedItems);
+    setHasSavedSinceLastChange(true);
     
     toast({
       title: "Kitchen Choices Saved",
@@ -126,6 +129,7 @@ export default function KitchenPage() {
               onClick={() => router.push(nextStage.href)}
               variant="outline"
               className="w-full sm:w-auto"
+              disabled={!hasSavedSinceLastChange}
             >
               Next Section ({nextStage.label})
               <ArrowRight className="ml-2 h-4 w-4" />

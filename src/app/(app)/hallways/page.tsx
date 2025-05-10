@@ -20,6 +20,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function HallwaysPage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
+  const [hasSavedSinceLastChange, setHasSavedSinceLastChange] = useState(false);
   const { updateStageSelections } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter();
@@ -35,6 +36,7 @@ export default function HallwaysPage() {
       }
       return newSelected;
     });
+    setHasSavedSinceLastChange(false);
   };
   
   const hallwaySpecificFlooringOptions = hallwayFlooringOptions.filter(opt => opt.id !== 'floor-carpet');
@@ -66,6 +68,7 @@ export default function HallwaysPage() {
     });
     
     updateStageSelections("hallways", newProgress, allSelectedItems);
+    setHasSavedSinceLastChange(true);
     
     toast({
       title: "Hallway Choices Saved",
@@ -119,6 +122,7 @@ export default function HallwaysPage() {
               onClick={() => router.push(nextStage.href)}
               variant="outline"
               className="w-full sm:w-auto"
+              disabled={!hasSavedSinceLastChange}
             >
               Next Section ({nextStage.label})
               <ArrowRight className="ml-2 h-4 w-4" />

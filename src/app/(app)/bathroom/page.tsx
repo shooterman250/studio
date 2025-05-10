@@ -25,6 +25,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function BathroomPage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
+  const [hasSavedSinceLastChange, setHasSavedSinceLastChange] = useState(false);
   const { updateStageSelections } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter();
@@ -40,6 +41,7 @@ export default function BathroomPage() {
       }
       return newSelected;
     });
+    setHasSavedSinceLastChange(false);
   };
   
   const masterBathSections: Array<{ title: string; options: BaseSelectionItem[]; cols?: number }> = [
@@ -83,6 +85,7 @@ export default function BathroomPage() {
     });
     
     updateStageSelections("bathroom", newProgress, allSelectedItems);
+    setHasSavedSinceLastChange(true);
     
     toast({
       title: "Bathroom Choices Saved",
@@ -165,6 +168,7 @@ export default function BathroomPage() {
               onClick={() => router.push(nextStage.href)}
               variant="outline"
               className="w-full sm:w-auto"
+              disabled={!hasSavedSinceLastChange}
             >
               Next Section ({nextStage.label})
               <ArrowRight className="ml-2 h-4 w-4" />

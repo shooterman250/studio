@@ -20,6 +20,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function BedroomPage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
+  const [hasSavedSinceLastChange, setHasSavedSinceLastChange] = useState(false);
   const { updateStageSelections } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter();
@@ -35,6 +36,7 @@ export default function BedroomPage() {
       }
       return newSelected;
     });
+    setHasSavedSinceLastChange(false);
   };
   
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
@@ -64,6 +66,7 @@ export default function BedroomPage() {
     });
 
     updateStageSelections("bedroom", newProgress, allSelectedItems); 
+    setHasSavedSinceLastChange(true);
     
     toast({
       title: "Bedroom Choices Saved",
@@ -117,6 +120,7 @@ export default function BedroomPage() {
               onClick={() => router.push(nextStage.href)}
               variant="outline"
               className="w-full sm:w-auto"
+              disabled={!hasSavedSinceLastChange}
             >
               Next Section ({nextStage.label})
               <ArrowRight className="ml-2 h-4 w-4" />
