@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -67,7 +66,22 @@ export default function BathroomPage() {
 
   const handleSaveChanges = () => {
     const totalOptionsOnPage = allPageSections.reduce((sum, section) => sum + section.options.length, 0);
-    const newProgress = selectedOptions.size > 0 ? Math.min(100, Math.round((selectedOptions.size / totalOptionsOnPage) * 100)) : 0;
+    let newProgress = 0;
+    
+    if (selectedOptions.size > 0) {
+        const allSubsectionsSatisfied = allPageSections.every(section =>
+            section.options.some(option => selectedOptions.has(option.id))
+        );
+
+        if (allSubsectionsSatisfied) {
+            newProgress = 100;
+        } else {
+            newProgress = totalOptionsOnPage > 0 ? Math.round((selectedOptions.size / totalOptionsOnPage) * 100) : 0;
+        }
+    } else {
+        newProgress = 0;
+    }
+    newProgress = Math.max(0, Math.min(100, newProgress));
     
     const allSelectedItems: SelectedDataItem[] = [];
     allPageSections.forEach(section => {

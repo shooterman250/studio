@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -48,7 +47,22 @@ export default function BedroomPage() {
 
   const handleSaveChanges = () => {
     const totalOptionsOnPage = sections.reduce((sum, section) => sum + section.options.length, 0);
-    const newProgress = selectedOptions.size > 0 ? Math.min(100, Math.round((selectedOptions.size / totalOptionsOnPage) * 100)) : 0;
+    let newProgress = 0;
+
+    if (selectedOptions.size > 0) {
+        const subsectionsWithSelections = sections.filter(section =>
+            section.options.some(option => selectedOptions.has(option.id))
+        ).length;
+
+        if (subsectionsWithSelections === sections.length) {
+            newProgress = 100;
+        } else {
+            newProgress = totalOptionsOnPage > 0 ? Math.round((selectedOptions.size / totalOptionsOnPage) * 100) : 0;
+        }
+    } else {
+        newProgress = 0;
+    }
+    newProgress = Math.max(0, Math.min(100, newProgress));
     
     const allSelectedItems: SelectedDataItem[] = [];
     sections.forEach(section => {

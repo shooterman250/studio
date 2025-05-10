@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -43,8 +42,8 @@ export default function OverallStylePage() {
     const totalOptionsOnPage = sections.reduce((sum, section) => sum + section.options.length, 0);
     let newProgress = 0;
 
-    const overallStyleOptionIds = new Set(overallStyleOptions.map(opt => opt.id));
-    const keyElementOptionIds = new Set(keyElementOptions.map(opt => opt.id));
+    const overallStyleOptionIds = new Set(sections.find(s => s.id === 'design-styles')?.options.map(opt => opt.id) || []);
+    const keyElementOptionIds = new Set(sections.find(s => s.id === 'key-elements')?.options.map(opt => opt.id) || []);
 
     let hasSelectedOverallStyle = false;
     let hasSelectedKeyElement = false;
@@ -58,12 +57,16 @@ export default function OverallStylePage() {
       }
     });
 
-    if (hasSelectedOverallStyle && hasSelectedKeyElement) {
-      newProgress = 100;
+    if (selectedOptions.size > 0) {
+      if (hasSelectedOverallStyle && hasSelectedKeyElement) {
+        newProgress = 100;
+      } else {
+        newProgress = totalOptionsOnPage > 0 ? Math.round((selectedOptions.size / totalOptionsOnPage) * 100) : 0;
+      }
     } else {
-      newProgress = selectedOptions.size > 0 ? Math.min(50, Math.round((selectedOptions.size / totalOptionsOnPage) * 100)) : 0; // Cap at 50 if not all subsections touched
-      if (hasSelectedOverallStyle || hasSelectedKeyElement) newProgress = Math.max(newProgress, 50); // if at least one section has selection, ensure 50%
+      newProgress = 0;
     }
+    newProgress = Math.max(0, Math.min(100, newProgress));
     
     const allSelectedItems: SelectedDataItem[] = [];
     sections.forEach(section => {
