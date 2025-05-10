@@ -7,8 +7,10 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { FileDown } from "lucide-react";
+import { FileDown, PencilLine } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation"; // Import useRouter
+import Link from "next/link";
 
 const stageDisplayNames: Record<DesignStageKey, string> = {
   "overall-budget": "Overall Budget",
@@ -85,6 +87,7 @@ const StageSelectionsCard = ({ stageKey, items }: { stageKey: DesignStageKey; it
 export default function DesignerPage() {
   const { getAllSelections } = useDesignProgress();
   const { toast } = useToast();
+  const router = useRouter(); // Initialize useRouter
   const allSelections = getAllSelections();
 
   const activeStages = Object.entries(allSelections)
@@ -150,11 +153,17 @@ export default function DesignerPage() {
                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 21.75l3.75-1.563M12 21.75l-3.75-1.563M12 21.75V19.5M9 19.5V10.5M15 19.5V10.5M3 10.5c0 .995.182 1.94.514 2.826M21 10.5c0 .995-.182 1.94-.514 2.826" />
               </svg>
               <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Start Designing Your Space!</h2>
-              <p className="text-muted-foreground max-w-lg mx-auto">
+              <p className="text-muted-foreground max-w-lg mx-auto mb-6">
                 It looks like you haven't made any selections yet. 
-                Navigate through the sidebar to customize different aspects of your project, 
-                and your choices will appear here.
+                Navigate through the sidebar or click the button below to start customizing different aspects of your project.
               </p>
+              <Button
+                onClick={() => router.push('/overall-budget')}
+                size="lg"
+              >
+                <PencilLine className="mr-2 h-5 w-5" />
+                Start Designing
+              </Button>
             </div>
           )}
         </section>
