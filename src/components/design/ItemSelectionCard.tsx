@@ -42,7 +42,7 @@ const ItemSelectionCard = ({ item, isSelected, onSelect }: ItemSelectionCardProp
         )}
       </CardHeader>
       <CardContent className="p-4 flex-grow flex flex-col justify-center"> {/* Added flex-grow and centering for content */}
-        <CardTitle className="text-lg font-semibold text-center line-clamp-2"> {/* Applied line-clamp-2 */}
+        <CardTitle className="text-base font-semibold text-center line-clamp-2"> {/* Changed text-lg to text-base, Applied line-clamp-2 */}
           {item.name}
         </CardTitle>
         {item.description && (
@@ -54,3 +54,4 @@ const ItemSelectionCard = ({ item, isSelected, onSelect }: ItemSelectionCardProp
 };
 
 export default ItemSelectionCard;
+
