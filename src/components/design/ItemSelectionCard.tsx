@@ -17,7 +17,7 @@ const ItemSelectionCard = ({ item, isSelected, onSelect }: ItemSelectionCardProp
   return (
     <Card
       className={cn(
-        "overflow-hidden transition-all duration-300 ease-in-out hover:shadow-xl bg-card/60 backdrop-blur-lg border-card-foreground/10 cursor-pointer",
+        "overflow-hidden transition-all duration-300 ease-in-out hover:shadow-xl bg-card/60 backdrop-blur-lg border-card-foreground/10 cursor-pointer flex flex-col", // Added flex flex-col
         isSelected && "ring-2 ring-primary shadow-2xl"
       )}
       onClick={() => onSelect(item.id)}
@@ -31,8 +31,8 @@ const ItemSelectionCard = ({ item, isSelected, onSelect }: ItemSelectionCardProp
           src={item.imageUrl}
           alt={item.name}
           width={400}
-          height={200}
-          className="aspect-[4/3] w-full object-cover" // Ensured object-cover class is present
+          height={200} 
+          className="aspect-[4/3] w-full object-cover"
           data-ai-hint={item.dataAiHint || item.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')}
         />
         {isSelected && (
@@ -41,8 +41,10 @@ const ItemSelectionCard = ({ item, isSelected, onSelect }: ItemSelectionCardProp
           </div>
         )}
       </CardHeader>
-      <CardContent className="p-4">
-        <CardTitle className="text-lg font-semibold text-center">{item.name}</CardTitle>
+      <CardContent className="p-4 flex-grow flex flex-col justify-center"> {/* Added flex-grow and centering for content */}
+        <CardTitle className="text-lg font-semibold text-center line-clamp-2"> {/* Applied line-clamp-2 */}
+          {item.name}
+        </CardTitle>
         {item.description && (
             <p className="text-xs text-muted-foreground mt-1 text-center line-clamp-2">{item.description}</p>
         )}
@@ -52,4 +54,3 @@ const ItemSelectionCard = ({ item, isSelected, onSelect }: ItemSelectionCardProp
 };
 
 export default ItemSelectionCard;
-
