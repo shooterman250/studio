@@ -1,3 +1,4 @@
+
 import * as React from "react"
 
 const MOBILE_BREAKPOINT = 768
@@ -17,5 +18,7 @@ export function useIsMobile() {
     return () => mql.removeEventListener("change", onChange)
   }, [])
 
-  return isMobile // Changed from !!isMobile to isMobile
+  return typeof isMobile === 'boolean' ? isMobile : false; // Ensure boolean or a default
 }
+
+    

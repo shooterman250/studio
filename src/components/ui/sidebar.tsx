@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -121,7 +122,7 @@ const SidebarProvider = React.forwardRef<
         state,
         open,
         setOpen,
-        isMobile,
+        isMobile: !!isMobile, // Ensure boolean value
         openMobile,
         setOpenMobile,
         toggleSidebar,
@@ -269,9 +270,9 @@ const SidebarTrigger = React.forwardRef<
     <Button
       ref={ref}
       data-sidebar="trigger"
-      variant="ghost"
-      size="icon"
-      className={cn("h-7 w-7", className)}
+      variant="outline" // Changed from "ghost" for more prominence
+      size="icon" // Defaults to h-10 w-10
+      className={cn("[&_svg]:h-5 [&_svg]:w-5", className)} // Removed h-7 w-7, increased icon size
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()
@@ -761,3 +762,5 @@ export {
   SidebarTrigger,
   useSidebar,
 }
+
+    
