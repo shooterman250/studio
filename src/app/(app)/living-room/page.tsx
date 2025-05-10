@@ -101,7 +101,7 @@ export default function LivingRoomPage() {
               {section.description && <CardDescription>{section.description}</CardDescription>}
             </CardHeader>
             <CardContent>
-              <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${section.cols || 3} gap-6`}>
+              <div className={`grid grid-cols-2 lg:grid-cols-${section.cols || 3} gap-6`}>
                 {section.options.map((option) => (
                   <ItemSelectionCard
                     key={option.id}

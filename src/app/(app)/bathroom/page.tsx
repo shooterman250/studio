@@ -119,7 +119,7 @@ export default function BathroomPage() {
             {masterBathSections.map(section => (
               <div key={section.title}>
                 <h3 className="text-xl font-semibold mb-2 text-card-foreground">{section.title}</h3>
-                <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${section.cols || 3} gap-6`}>
+                <div className={`grid grid-cols-2 lg:grid-cols-${section.cols || 3} gap-6`}>
                   {section.options.map((option) => (
                     <ItemSelectionCard
                       key={option.id}
@@ -144,7 +144,7 @@ export default function BathroomPage() {
             {halfBathSections.map(section => (
               <div key={section.title}>
                 <h3 className="text-xl font-semibold mb-2 text-card-foreground">{section.title}</h3>
-                <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${section.cols || 3} gap-6`}>
+                <div className={`grid grid-cols-2 lg:grid-cols-${section.cols || 3} gap-6`}>
                   {section.options.map((option) => (
                     <ItemSelectionCard
                       key={option.id}
