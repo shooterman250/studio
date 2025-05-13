@@ -1,3 +1,4 @@
+
 import type { LucideIcon } from 'lucide-react';
 
 export interface DesignOption {
@@ -155,6 +156,20 @@ export const utilityStorageOptions: GeneralStorageOption[] = [
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 // Living Room Options
+export interface LivingRoomFurnitureOption extends BaseSelectionItem {}
+export const livingRoomOptionsList: LivingRoomFurnitureOption[] = [
+  { id: 'lr-sofa-sectional', name: 'Sectional Sofa', imageUrl: 'https://picsum.photos/seed/sectionalSofa/400/300', description: 'Large, modular sofa for flexible seating.', dataAiHint: 'sectional sofa living' },
+  { id: 'lr-sofa-loveseat', name: 'Loveseat', imageUrl: 'https://picsum.photos/seed/loveseat/400/300', description: 'Cozy two-seater sofa.', dataAiHint: 'loveseat living room' },
+  { id: 'lr-armchair', name: 'Armchair', imageUrl: 'https://picsum.photos/seed/armchair/400/300', description: 'Comfortable single-seat chair.', dataAiHint: 'armchair living room' },
+  { id: 'lr-coffee-table', name: 'Coffee Table', imageUrl: 'https://picsum.photos/seed/coffeeTable/400/300', description: 'Central table for drinks and decor.', dataAiHint: 'coffee table modern' },
+  { id: 'lr-side-table', name: 'Side Table', imageUrl: 'https://picsum.photos/seed/sideTable/400/300', description: 'Small table next to sofas/chairs.', dataAiHint: 'side table living' },
+  { id: 'lr-tv-unit', name: 'TV Unit / Media Console', imageUrl: 'https://picsum.photos/seed/tvUnit/400/300', description: 'Stand for television and media devices.', dataAiHint: 'tv unit console' },
+  { id: 'lr-bookcase', name: 'Bookcase / Shelving Unit', imageUrl: 'https://picsum.photos/seed/bookcaseLiving/400/300', description: 'For books and display items.', dataAiHint: 'bookcase living room' },
+  { id: 'lr-ottoman', name: 'Ottoman / Pouf', imageUrl: 'https://picsum.photos/seed/ottomanPouf/400/300', description: 'Footrest or extra seating.', dataAiHint: 'ottoman pouf' },
+  { id: 'lr-rug', name: 'Area Rug', imageUrl: 'https://picsum.photos/seed/areaRug/400/300', description: 'Defines the seating area and adds texture.', dataAiHint: 'area rug living' },
+].sort((a, b) => a.name.localeCompare(b.name));
+
+
 export interface LivingRoomStorageOption extends BaseSelectionItem {}
 export const livingRoomStorageOptions: LivingRoomStorageOption[] = [
     { id: 'lr-store-alcove', name: 'Alcove Shelving', imageUrl: 'https://picsum.photos/seed/lralkcoveshelving/400/300', dataAiHint: 'alcove shelving living' },
@@ -210,4 +225,86 @@ export const bathroomMasterSinkOptions: BathroomMasterSinkOption[] = [
     { id: 'bm-sink-pedestal-d', name: 'Pedestal Sink (Double)', imageUrl: 'https://picsum.photos/seed/pedestalsinkdouble/400/300', type: 'double', dataAiHint: 'double pedestal sink' },
     { id: 'bm-sink-pedestal-s', name: 'Pedestal Sink (Single)', imageUrl: 'https://picsum.photos/seed/pedestalsinksingle/400/300', type: 'single', dataAiHint: 'pedestal bathroom sink' },
     { id: 'bm-sink-undermount-d', name: 'Undermount Sink (Double)', imageUrl: 'https://picsum.photos/seed/undermountsinkdouble/400/300', type: 'double', dataAiHint: 'double undermount sink' },
-    { id: 'bm-sink-undermount-s', name: 'Undermount Sink (Single)', imageUrl: 'https://picsum.photos/seed/undermountsinksingle/400/300', type: 'single', dataAi
+    { id: 'bm-sink-undermount-s', name: 'Undermount Sink (Single)', imageUrl: 'https://picsum.photos/seed/undermountsinksingle/400/300', type: 'single', dataAiHint: 'undermount bathroom sink' },
+    { id: 'bm-sink-vessel-d', name: 'Vessel Sink (Double)', imageUrl: 'https://picsum.photos/seed/vesselsinkdouble/400/300', type: 'double', dataAiHint: 'double vessel sink' },
+    { id: 'bm-sink-vessel-s', name: 'Vessel Sink (Single)', imageUrl: 'https://picsum.photos/seed/vesselsinksingle/400/300', type: 'single', dataAiHint: 'vessel bathroom sink' },
+    { id: 'bm-sink-wallmount-d', name: 'Wall-Mount Sink (Double)', imageUrl: 'https://picsum.photos/seed/wallmountsinkdouble/400/300', type: 'double', dataAiHint: 'double wall mount sink' },
+    { id: 'bm-sink-wallmount-s', name: 'Wall-Mount Sink (Single)', imageUrl: 'https://picsum.photos/seed/wallmountsinksingle/400/300', type: 'single', dataAiHint: 'wall mount bathroom sink' },
+].sort((a, b) => a.name.localeCompare(b.name));
+
+export interface BathroomToiletOption extends BaseSelectionItem {}
+export const bathroomToiletOptions: BathroomToiletOption[] = [
+  { id: 'toilet-onepiece', name: 'One Piece Toilet', imageUrl: 'https://picsum.photos/seed/onepiecetoilet/400/300', dataAiHint: 'one piece toilet' },
+  { id: 'toilet-twopiece', name: 'Two Piece Toilet', imageUrl: 'https://picsum.photos/seed/twopiecetoilet/400/300', dataAiHint: 'two piece toilet' },
+  { id: 'toilet-wallhung', name: 'Wall Hung Toilet', imageUrl: 'https://picsum.photos/seed/wallhungtoilet/400/300', dataAiHint: 'wall hung toilet' },
+  { id: 'toilet-touchless', name: 'Touchless Toilet', imageUrl: 'https://picsum.photos/seed/touchlesstoilet/400/300', dataAiHint: 'touchless toilet modern' },
+  { id: 'toilet-bidet', name: 'Toilet with Bidet', imageUrl: 'https://picsum.photos/seed/bidettoilet/400/300', dataAiHint: 'bidet toilet combo' },
+].sort((a, b) => a.name.localeCompare(b.name));
+
+export interface BathroomHardwareFinishOption extends BaseSelectionItem {}
+export const bathroomHardwareFinishOptions: BathroomHardwareFinishOption[] = [
+  { id: 'bath-hardware-chrome', name: 'Chrome/Nickel/Stainless Steel', imageUrl: 'https://picsum.photos/seed/bathchromehardware/400/300', dataAiHint: 'chrome bathroom hardware' },
+  { id: 'bath-hardware-gold', name: 'Gold', imageUrl: 'https://picsum.photos/seed/bathgoldhardware/400/300', dataAiHint: 'gold bathroom hardware' },
+  { id: 'bath-hardware-black', name: 'Black', imageUrl: 'https://picsum.photos/seed/bathblackhardware/400/300', dataAiHint: 'black bathroom hardware' },
+  { id: 'bath-hardware-bronze', name: 'Bronze/Brass', imageUrl: 'https://picsum.photos/seed/bathbronzehardware/400/300', dataAiHint: 'bronze bathroom hardware' },
+  { id: 'bath-hardware-crystal', name: 'Crystal', imageUrl: 'https://picsum.photos/seed/bathcrystalhardware/400/300', dataAiHint: 'crystal bathroom hardware' },
+  { id: 'bath-hardware-handleless', name: 'Handle-less/Flat', imageUrl: 'https://picsum.photos/seed/bathhandleless/400/300', dataAiHint: 'handleless bathroom' },
+  { id: 'bath-hardware-multitone', name: 'Multi-Toned/Abstract', imageUrl: 'https://picsum.photos/seed/bathmultitonehardware/400/300', dataAiHint: 'abstract bathroom hardware' },
+].sort((a, b) => a.name.localeCompare(b.name));
+
+export interface BathroomStorageOption extends BaseSelectionItem {}
+export const bathroomStorageOptions: BathroomStorageOption[] = [
+  { id: 'bath-store-builtinshelving', name: 'Built-In Shelving/Cabinets', imageUrl: 'https://picsum.photos/seed/bathbuiltinshelving/400/300', dataAiHint: 'bathroom built in shelving' },
+  { id: 'bath-store-medicinecabinet', name: 'Medicine Cabinet/Unit', imageUrl: 'https://picsum.photos/seed/bathmedicinecabinet/400/300', dataAiHint: 'medicine cabinet bathroom' },
+  { id: 'bath-store-niches', name: 'Niches', imageUrl: 'https://picsum.photos/seed/bathniches/400/300', dataAiHint: 'bathroom shower niche' },
+  { id: 'bath-store-undersink', name: 'Under-Sink Storage', imageUrl: 'https://picsum.photos/seed/bathundersink/400/300', dataAiHint: 'under sink storage bathroom' },
+  { id: 'bath-store-customvanity', name: 'Custom Vanity', imageUrl: 'https://picsum.photos/seed/bathcustomvanity/400/300', dataAiHint: 'custom bathroom vanity' },
+].sort((a, b) => a.name.localeCompare(b.name));
+
+// Bathroom (Half-Bath) Options
+export interface BathroomHalfSinkOption extends BaseSelectionItem {}
+export const bathroomHalfSinkOptions: BathroomHalfSinkOption[] = [
+    { id: 'bh-sink-console', name: 'Console Sink', imageUrl: 'https://picsum.photos/seed/halfbathconsolesink/400/300', dataAiHint: 'console sink half' },
+    { id: 'bh-sink-dropin', name: 'Drop-In Sink', imageUrl: 'https://picsum.photos/seed/halfbathdropinsink/400/300', dataAiHint: 'drop in sink half' },
+    { id: 'bh-sink-pedestal', name: 'Pedestal Sink', imageUrl: 'https://picsum.photos/seed/halfbathpedestalsink/400/300', dataAiHint: 'pedestal sink half' },
+    { id: 'bh-sink-undermount', name: 'Undermount Sink', imageUrl: 'https://picsum.photos/seed/halfbathundermountsink/400/300', dataAiHint: 'undermount sink half' },
+    { id: 'bh-sink-vessel', name: 'Vessel Sink', imageUrl: 'https://picsum.photos/seed/halfbathvesselsink/400/300', dataAiHint: 'vessel sink half' },
+    { id: 'bh-sink-wallmount', name: 'Wall-Mount Sink', imageUrl: 'https://picsum.photos/seed/halfbathwallmountsink/400/300', dataAiHint: 'wall mount sink half' },
+].sort((a, b) => a.name.localeCompare(b.name));
+
+// Home Office Options
+export interface HomeOfficeStorageOption extends BaseSelectionItem {}
+export const homeOfficeStorageOptions: HomeOfficeStorageOption[] = [
+  { id: 'ho-store-bookcase', name: 'Bookcase/Bookshelves', imageUrl: 'https://picsum.photos/seed/hobookcase/400/300', dataAiHint: 'office bookcase' },
+  { id: 'ho-store-builtin', name: 'Built-In Units', imageUrl: 'https://picsum.photos/seed/hobuiltinunits/400/300', dataAiHint: 'office built in storage' },
+  { id: 'ho-store-custom', name: 'Custom Storage Solutions', imageUrl: 'https://picsum.photos/seed/hocustomstorage/400/300', dataAiHint: 'custom office storage' },
+  { id: 'ho-store-free', name: 'Free-Standing Cabinets', imageUrl: 'https://picsum.photos/seed/hofreecabinet/400/300', dataAiHint: 'office freestanding cabinet' },
+].sort((a, b) => a.name.localeCompare(b.name));
+
+// Hallway Options
+export interface HallwayStorageOption extends BaseSelectionItem {}
+export const hallwayStorageOptions: HallwayStorageOption[] = [
+  { id: 'hall-store-linen', name: 'Linen Closet/Drying Cupboard', imageUrl: 'https://picsum.photos/seed/halllinencloset/400/300', dataAiHint: 'linen closet hallway' },
+  { id: 'hall-store-shelving', name: 'Shelving', imageUrl: 'https://picsum.photos/seed/hallshelving/400/300', dataAiHint: 'hallway shelving unit' },
+].sort((a, b) => a.name.localeCompare(b.name));
+
+// General options for decor and finishes (can be expanded or made specific)
+export interface DecorOption extends BaseSelectionItem {}
+export const decorOptions: DecorOption[] = [
+  { id: 'decor-art', name: 'Artwork', imageUrl: 'https://picsum.photos/seed/artworkdecor/400/300', dataAiHint: 'wall art decor' },
+  { id: 'decor-plants', name: 'Indoor Plants', imageUrl: 'https://picsum.photos/seed/indoorplants/400/300', dataAiHint: 'indoor plants room' },
+  { id: 'decor-rugs', name: 'Rugs', imageUrl: 'https://picsum.photos/seed/rugsdecor/400/300', dataAiHint: 'decorative rugs' },
+  { id: 'decor-mirrors', name: 'Mirrors', imageUrl: 'https://picsum.photos/seed/mirrorsdecor/400/300', dataAiHint: 'decorative mirrors' },
+].sort((a, b) => a.name.localeCompare(b.name));
+
+export interface FinishOption extends BaseSelectionItem {}
+export const finishOptions: FinishOption[] = [
+  { id: 'finish-paint-neutral', name: 'Neutral Paint Colors', imageUrl: 'https://picsum.photos/seed/neutralpaint/400/300', dataAiHint: 'neutral paint wall' },
+  { id: 'finish-paint-bold', name: 'Bold Accent Colors', imageUrl: 'https://picsum.photos/seed/boldpaint/400/300', dataAiHint: 'bold accent wall' },
+  { id: 'finish-wood-light', name: 'Light Wood Finishes', imageUrl: 'https://picsum.photos/seed/lightwood/400/300', dataAiHint: 'light wood finish' },
+  { id: 'finish-wood-dark', name: 'Dark Wood Finishes', imageUrl: 'https://picsum.photos/seed/darkwood/400/300', dataAiHint: 'dark wood finish' },
+  { id: 'finish-metal-matte', name: 'Matte Metal Finishes', imageUrl: 'https://picsum.photos/seed/mattemetal/400/300', dataAiHint: 'matte metal finish' },
+  { id: 'finish-metal-polished', name: 'Polished Metal Finishes', imageUrl: 'https://picsum.photos/seed/polishedmetal/400/300', dataAiHint: 'polished metal' },
+].sort((a, b) => a.name.localeCompare(b.name));
+
+    
