@@ -19,7 +19,7 @@ export default function LandingPage() {
       <div className="text-center space-y-8 max-w-2xl">
         <ButterflyLogo width={320} height={320} className="mx-auto animate-pulse" />
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-          Welcome To Interactive Designs
+          Welcome To Your Personal Design Hub
         </h1>
         <p className="text-md opacity-80 sm:text-lg">
           Unleash your creativity and design the room of your dreams with our interactive tools.
