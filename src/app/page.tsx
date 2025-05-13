@@ -22,7 +22,7 @@ export default function LandingPage() {
           Welcome To Your Personal Design Hub
         </h1>
         <p className="text-md opacity-80 sm:text-lg">
-          Unleash your creativity and design the room of your dreams with our interactive tools.
+          Your Style, Your Needs. Captured and organized in one seamless space.
         </p>
         {mounted ? (
           <Link
@@ -56,4 +56,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
