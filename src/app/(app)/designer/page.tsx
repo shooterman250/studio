@@ -275,8 +275,7 @@ export default function DesignerPage() {
             Design Dashboard
           </h1>
           <p className="mt-4 max-w-3xl mx-auto text-lg opacity-80 sm:text-xl">
-            Welcome to your design overview. Here you can see all the choices you've made across different stages of your project.
-            Use the sidebar to navigate to specific categories and continue customizing your space.
+            Welcome to your personalized design dashboard. This is where all your interior design preferences and selections are gathered in one place. Use the menu to explore each category and continue customizing your space.
           </p>
           <div className="mt-6 flex justify-center">
             <Button onClick={handleExportPdf} disabled={isGeneratingPdf}>
