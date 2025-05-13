@@ -308,21 +308,6 @@ export default function DesignerPage() {
             </>
           ) : (
             <div className="mt-12 p-10 bg-card/60 backdrop-blur-lg border border-card-foreground/10 rounded-lg shadow-lg text-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="mx-auto h-16 w-16 text-muted-foreground opacity-50 mb-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.037-.502.068-.75.098m.75-.098a2.25 2.25 0 00-2.25 2.25c0 1.13.812 2.066 1.903 2.195M16.5 3.104V5.75M16.5 3.104c-.251.037-.502.068-.75.098m.75-.098a2.25 2.25 0 012.25 2.25c0 1.13-.812 2.066-1.903 2.195m0-2.195C14.812 5.134 12.75 4.5 12 4.5c-2.186 0-4.25.63-6.097.934M15 14.5h-3V10.75M15 14.5A2.25 2.25 0 0112.75 12H12m3 2.5A2.25 2.25 0 0012.75 12H12m0 0A2.25 2.25 0 009.75 14.5M9.75 14.5h-3V10.75"
-                />
-                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 21.75l3.75-1.563M12 21.75l-3.75-1.563M12 21.75V19.5M9 19.5V10.5M15 19.5V10.5M3 10.5c0 .995.182 1.94.514 2.826M21 10.5c0 .995-.182 1.94-.514 2.826" />
-              </svg>
               <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Start Designing Your Space!</h2>
               <p className="text-muted-foreground max-w-lg mx-auto mb-6">
                 It looks like you haven't made any selections yet. 
