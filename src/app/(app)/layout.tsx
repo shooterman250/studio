@@ -17,7 +17,7 @@ export default function AppLayout({
           <AppSidebar />
           <div className="flex flex-1 flex-col">
             <AppHeader />
-            <main className="flex-1 overflow-y-auto">
+            <main className="flex-1 overflow-y-auto bg-background text-foreground">
               {children}
             </main>
           </div>

@@ -7,10 +7,9 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { FileDown, PencilLine, Loader2 } from "lucide-react";
+import { FileDown, PencilLine, Loader2, Send } from "lucide-react"; // Added Send icon
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation"; 
-import Link from "next/link";
 import { useState } from "react";
 import jsPDF from 'jspdf';
 
@@ -91,23 +90,23 @@ export default function DesignerPage() {
   const { toast } = useToast();
   const router = useRouter(); 
   const allSelections = getAllSelections();
-  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+  const [isSendingPdf, setIsSendingPdf] = useState(false);
 
   const activeStages = Object.entries(allSelections)
     .filter(([stageKey, items]) => stageKey !== "summary" && items.length > 0);
 
-  const handleExportPdf = async () => {
+  const handleSendPdfByEmail = async () => {
     if (activeStages.length === 0) {
       toast({
-        title: "No Selections to Use",
-        description: "Please make some design choices before generating the PDF.",
+        title: "No Selections to Email",
+        description: "Please make some design choices before sending the PDF.",
         variant: "destructive",
       });
       return;
     }
 
-    setIsGeneratingPdf(true);
-    toast({ title: "Generating PDF for Email...", description: "Please wait, this may take a moment." });
+    setIsSendingPdf(true);
+    toast({ title: "Generating PDF & Sending Email...", description: "Please wait, this may take a moment." });
 
     const doc = new jsPDF();
     let yPos = 15; 
@@ -136,7 +135,6 @@ export default function DesignerPage() {
     yPos += lineHeight;
     doc.setTextColor(0); 
 
-
     checkPageBreak(lineHeight + sectionSpacing);
     doc.setFontSize(18);
     doc.text("Design Summary", pageWidth / 2, yPos, { align: 'center' });
@@ -164,7 +162,7 @@ export default function DesignerPage() {
         let currentTextY = yPos; 
         let imageBlockEndY = yPos; 
 
-        if (item.imageUrl) {
+        if (item.imageUrl && item.imageUrl.startsWith('http')) { // Only attempt to fetch http/https URLs
           try {
             const response = await fetch(item.imageUrl);
             if (!response.ok) throw new Error(`Image fetch failed: ${response.statusText}`);
@@ -179,7 +177,7 @@ export default function DesignerPage() {
                     yPos = margin;
                     currentTextY = margin; 
                   }
-                  doc.addImage(reader.result as string, 'JPEG', margin, yPos, imageWidth, imageHeight);
+                  doc.addImage(reader.result as string, 'JPEG', margin, yPos, imageWidth, imageHeight); // Assuming JPEG, might need to adjust based on actual type
                   imageBlockEndY = yPos + imageHeight + 3; 
                   textX = margin + imageWidth + 5; 
                   currentTextY = yPos; 
@@ -209,6 +207,11 @@ export default function DesignerPage() {
              doc.setTextColor(0);
              imageBlockEndY = currentTextY; 
           }
+        } else if (item.imageUrl) {
+            // For local images (e.g., /images/...), jsPDF can't directly fetch them.
+            // This part might need adjustment if local images must be in the PDF.
+            // For now, we'll skip them or add a placeholder text.
+            console.warn(`PDF: Skipping local image ${item.name}: ${item.imageUrl}`);
         }
         
         doc.setFontSize(10);
@@ -244,26 +247,46 @@ export default function DesignerPage() {
     }
 
     try {
-      // Instead of doc.save(), we'll log that it would be sent.
-      const pdfDataUri = doc.output('datauristring'); // Or 'blob', 'arraybuffer'
-      console.log("PDF generated. Ready to be sent to khinterdesigns@gmail.com.");
-      // console.log("PDF Data (first 100 chars):", pdfDataUri.substring(0, 100)); 
-      // TODO: Implement actual email sending logic here by calling an API endpoint
-      // For example: await sendPdfByEmail(pdfDataUri, 'khinterdesigns@gmail.com');
+      const pdfDataUri = doc.output('datauristring'); 
+      const recipientEmail = 'khinterdesigns@gmail.com'; // Hardcoded for now
+      const emailSubject = 'Your Interactive Design Summary';
+      const emailBodyText = 'Please find attached your design summary PDF.\n\nThank you for using Interactive Designs!';
+      const pdfFileName = 'design_summary.pdf';
+
+      const response = await fetch('/api/send-design-pdf', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          pdfDataUri, 
+          recipientEmail,
+          subject: emailSubject,
+          bodyText: emailBodyText,
+          fileName: pdfFileName,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `API request failed with status ${response.status}`);
+      }
 
       toast({
-        title: "PDF Ready for Email",
-        description: "Your design summary PDF has been generated and would be sent to khinterdesigns@gmail.com.",
+        title: "Email Sent Successfully",
+        description: `Your design summary PDF has been sent to ${recipientEmail}.`,
       });
+
     } catch (e) {
-        console.error("Error preparing PDF for email:", e);
+        console.error("Error sending PDF email:", e);
+        const errorMessage = e instanceof Error ? e.message : "An unknown error occurred.";
         toast({
-            title: "PDF Preparation Failed",
-            description: "There was an error preparing your PDF for email. Please try again.",
+            title: "Email Sending Failed",
+            description: `There was an error sending your PDF: ${errorMessage}. Please try again or check console.`,
             variant: "destructive"
-        })
+        });
     } finally {
-        setIsGeneratingPdf(false);
+        setIsSendingPdf(false);
     }
   };
     
@@ -280,16 +303,16 @@ export default function DesignerPage() {
             Welcome to your personalized design dashboard. This is where all your interior design preferences and selections are gathered in one place. Use the menu to explore each category and continue customizing your space.
           </p>
           <div className="mt-6 flex justify-center">
-            <Button onClick={handleExportPdf} disabled={isGeneratingPdf}>
-              {isGeneratingPdf ? (
+            <Button onClick={handleSendPdfByEmail} disabled={isSendingPdf}>
+              {isSendingPdf ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Generating...
+                  Sending...
                 </>
               ) : (
                 <>
-                  <FileDown className="mr-2 h-4 w-4" />
-                  Export to PDF
+                  <Send className="mr-2 h-4 w-4" /> 
+                  Email Design PDF
                 </>
               )}
             </Button>
@@ -329,5 +352,3 @@ export default function DesignerPage() {
     </div>
   );
 }
-
-    
