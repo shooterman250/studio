@@ -45,152 +45,152 @@ export const overallStyleOptions: OverallStyleOption[] = [
 
 export interface KeyElementOption extends BaseSelectionItem {}
 export const keyElementOptions: KeyElementOption[] = [
-  { id: 'accessible-inclusive', name: 'Accessible & Inclusive', imageUrl: 'https://picsum.photos/seed/accessibledesign/400/300', description: 'Designed to be usable by people of all abilities.', dataAiHint: 'accessible interior' },
-  { id: 'multi-generational-living', name: 'Multi-Generational Living', imageUrl: 'https://picsum.photos/seed/multigenhome/400/300', description: 'Accommodates multiple generations living together comfortably.', dataAiHint: 'multi generational home' },
-  { id: 'sustainable-eco-friendly', name: 'Sustainable & Eco-Friendly', imageUrl: 'https://picsum.photos/seed/sustainablehome/400/300', description: 'Focus on environmentally conscious materials and practices.', dataAiHint: 'eco friendly home' },
-  { id: 'technology-integrated-smart-home', name: 'Technology Integrated Smart Home', imageUrl: 'https://picsum.photos/seed/smarthometech/400/300', description: 'Incorporates smart devices and automation for convenience and efficiency.', dataAiHint: 'smart home technology' },
+  { id: 'accessible-inclusive', name: 'Accessible & Inclusive', imageUrl: 'https://placehold.co/400x300.png', description: 'Designed to be usable by people of all abilities.', dataAiHint: 'accessible interior' },
+  { id: 'multi-generational-living', name: 'Multi-Generational Living', imageUrl: 'https://placehold.co/400x300.png', description: 'Accommodates multiple generations living together comfortably.', dataAiHint: 'multi generational home' },
+  { id: 'sustainable-eco-friendly', name: 'Sustainable & Eco-Friendly', imageUrl: 'https://placehold.co/400x300.png', description: 'Focus on environmentally conscious materials and practices.', dataAiHint: 'eco friendly home' },
+  { id: 'technology-integrated-smart-home', name: 'Technology Integrated Smart Home', imageUrl: 'https://placehold.co/400x300.png', description: 'Incorporates smart devices and automation for convenience and efficiency.', dataAiHint: 'smart home technology' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 
 // Kitchen Options
 export interface KitchenCabinetOption extends BaseSelectionItem {}
 export const kitchenCabinetOptions: KitchenCabinetOption[] = [
-  { id: 'k-cab-arched', name: 'Arched', imageUrl: 'https://picsum.photos/seed/archedcabinet/400/300', dataAiHint: 'arched kitchen cabinet' },
-  { id: 'k-cab-flat', name: 'Flat Panel', imageUrl: 'https://picsum.photos/seed/flatpanelcabinet/400/300', dataAiHint: 'flat panel kitchen' },
-  { id: 'k-cab-glass', name: 'Glass Front', imageUrl: 'https://picsum.photos/seed/glasscabinet/400/300', dataAiHint: 'glass kitchen cabinet' },
-  { id: 'k-cab-open', name: 'Open Shelving', imageUrl: 'https://picsum.photos/seed/openshelving/400/300', dataAiHint: 'open kitchen shelving' },
-  { id: 'k-cab-raised', name: 'Raised Panel', imageUrl: 'https://picsum.photos/seed/raisedpanelcabinet/400/300', dataAiHint: 'raised panel kitchen' },
-  { id: 'k-cab-shaker', name: 'Shaker', imageUrl: 'https://picsum.photos/seed/shakercabinet/400/300', dataAiHint: 'shaker kitchen cabinet' },
+  { id: 'k-cab-arched', name: 'Arched', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'arched kitchen cabinet' },
+  { id: 'k-cab-flat', name: 'Flat Panel', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'flat panel kitchen' },
+  { id: 'k-cab-glass', name: 'Glass Front', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'glass kitchen cabinet' },
+  { id: 'k-cab-open', name: 'Open Shelving', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'open kitchen shelving' },
+  { id: 'k-cab-raised', name: 'Raised Panel', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'raised panel kitchen' },
+  { id: 'k-cab-shaker', name: 'Shaker', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'shaker kitchen cabinet' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface KitchenWorktopOption extends BaseSelectionItem {}
 export const kitchenWorktopOptions: KitchenWorktopOption[] = [
-  { id: 'k-worktop-butcher', name: 'Butcher Block', imageUrl: 'https://picsum.photos/seed/butcherblock/400/300', dataAiHint: 'butcher block countertop' },
-  { id: 'k-worktop-concrete', name: 'Concrete', imageUrl: 'https://picsum.photos/seed/concreteworktop/400/300', dataAiHint: 'concrete countertop kitchen' },
-  { id: 'k-worktop-granite', name: 'Granite', imageUrl: 'https://picsum.photos/seed/graniteworktop/400/300', dataAiHint: 'granite countertop kitchen' },
-  { id: 'k-worktop-marble', name: 'Marble', imageUrl: 'https://picsum.photos/seed/marbleworktop/400/300', dataAiHint: 'marble countertop kitchen' },
-  { id: 'k-worktop-quartz', name: 'Quartz', imageUrl: 'https://picsum.photos/seed/quartzworktop/400/300', dataAiHint: 'quartz countertop kitchen' },
+  { id: 'k-worktop-butcher', name: 'Butcher Block', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'butcher block countertop' },
+  { id: 'k-worktop-concrete', name: 'Concrete', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'concrete countertop kitchen' },
+  { id: 'k-worktop-granite', name: 'Granite', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'granite countertop kitchen' },
+  { id: 'k-worktop-marble', name: 'Marble', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'marble countertop kitchen' },
+  { id: 'k-worktop-quartz', name: 'Quartz', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'quartz countertop kitchen' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface KitchenApplianceOption extends BaseSelectionItem {}
 export const kitchenApplianceOptions: KitchenApplianceOption[] = [
-  { id: 'k-app-freestanding', name: 'Freestanding', imageUrl: 'https://picsum.photos/seed/freestandingappliance/400/300', dataAiHint: 'freestanding kitchen appliance' },
-  { id: 'k-app-integrated', name: 'Integrated', imageUrl: 'https://picsum.photos/seed/integratedappliance/400/300', dataAiHint: 'integrated kitchen appliance' },
-  { id: 'k-app-smart', name: 'Smart Appliances', imageUrl: 'https://picsum.photos/seed/smartappliance/400/300', dataAiHint: 'smart kitchen appliance' },
+  { id: 'k-app-freestanding', name: 'Freestanding', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'freestanding kitchen appliance' },
+  { id: 'k-app-integrated', name: 'Integrated', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'integrated kitchen appliance' },
+  { id: 'k-app-smart', name: 'Smart Appliances', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'smart kitchen appliance' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface KitchenHardwareFinishOption extends BaseSelectionItem {}
 export const kitchenHardwareFinishOptions: KitchenHardwareFinishOption[] = [
-    { id: 'k-hardware-black', name: 'Black', imageUrl: 'https://picsum.photos/seed/blackhardware/400/300', dataAiHint: 'black kitchen hardware' },
-    { id: 'k-hardware-bronze', name: 'Bronze/Brass', imageUrl: 'https://picsum.photos/seed/bronzehardware/400/300', dataAiHint: 'bronze kitchen hardware' },
-    { id: 'k-hardware-chrome', name: 'Chrome/Nickel/Stainless Steel', imageUrl: 'https://picsum.photos/seed/chromehardware/400/300', dataAiHint: 'chrome kitchen hardware' },
-    { id: 'k-hardware-crystal', name: 'Crystal', imageUrl: 'https://picsum.photos/seed/crystalhardware/400/300', dataAiHint: 'crystal kitchen hardware' },
-    { id: 'k-hardware-gold', name: 'Gold', imageUrl: 'https://picsum.photos/seed/goldhardware/400/300', dataAiHint: 'gold kitchen hardware' },
-    { id: 'k-hardware-handleless', name: 'Handle-less/Flat', imageUrl: 'https://picsum.photos/seed/handlelesskitchen/400/300', dataAiHint: 'handleless kitchen' },
-    { id: 'k-hardware-multitone', name: 'Multi-Tone/Abstract', imageUrl: 'https://picsum.photos/seed/multitonehardware/400/300', dataAiHint: 'abstract kitchen hardware' },
+    { id: 'k-hardware-black', name: 'Black', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'black kitchen hardware' },
+    { id: 'k-hardware-bronze', name: 'Bronze/Brass', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'bronze kitchen hardware' },
+    { id: 'k-hardware-chrome', name: 'Chrome/Nickel/Stainless Steel', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'chrome kitchen hardware' },
+    { id: 'k-hardware-crystal', name: 'Crystal', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'crystal kitchen hardware' },
+    { id: 'k-hardware-gold', name: 'Gold', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'gold kitchen hardware' },
+    { id: 'k-hardware-handleless', name: 'Handleless/Flat', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'handleless kitchen' },
+    { id: 'k-hardware-multitone', name: 'Multi-Tone/Abstract', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'abstract kitchen hardware' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface KitchenSinkTypeOption extends BaseSelectionItem {}
 export const kitchenSinkTypeOptions: KitchenSinkTypeOption[] = [
-    { id: 'k-sink-double', name: 'Double Bowl', imageUrl: 'https://picsum.photos/seed/doublebowlsink/400/300', dataAiHint: 'double bowl kitchen sink' },
-    { id: 'k-sink-dropin', name: 'Drop-In (Top-Mount)', imageUrl: 'https://picsum.photos/seed/dropinsink/400/300', dataAiHint: 'drop in kitchen sink' },
-    { id: 'k-sink-farmhouse', name: 'Farmhouse', imageUrl: 'https://picsum.photos/seed/farmhousesink/400/300', dataAiHint: 'farmhouse kitchen sink' },
-    { id: 'k-sink-undermount', name: 'Undermount', imageUrl: 'https://picsum.photos/seed/undermountsink/400/300', dataAiHint: 'undermount kitchen sink' },
-    { id: 'k-sink-workstation', name: 'Workstation', imageUrl: 'https://picsum.photos/seed/workstationsink/400/300', dataAiHint: 'workstation kitchen sink' },
+    { id: 'k-sink-double', name: 'Double Bowl', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'double bowl kitchen sink' },
+    { id: 'k-sink-dropin', name: 'Drop-In (Top-Mount)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'drop in kitchen sink' },
+    { id: 'k-sink-farmhouse', name: 'Farmhouse', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'farmhouse kitchen sink' },
+    { id: 'k-sink-undermount', name: 'Undermount', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'undermount kitchen sink' },
+    { id: 'k-sink-workstation', name: 'Workstation', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'workstation kitchen sink' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface KitchenBacksplashOption extends BaseSelectionItem {}
 export const kitchenBacksplashOptions: KitchenBacksplashOption[] = [
-    { id: 'k-backsplash-stone', name: 'Carved Stone', imageUrl: 'https://picsum.photos/seed/stonebacksplash/400/300', dataAiHint: 'carved stone backsplash' },
-    { id: 'k-backsplash-glass', name: 'Glass', imageUrl: 'https://picsum.photos/seed/glassbacksplash/400/300', dataAiHint: 'glass kitchen backsplash' },
-    { id: 'k-backsplash-matching', name: 'Matching Worktop/Countertop', imageUrl: 'https://picsum.photos/seed/matchingbacksplash/400/300', dataAiHint: 'matching countertop backsplash' },
-    { id: 'k-backsplash-paint', name: 'Paint', imageUrl: 'https://picsum.photos/seed/paintbacksplash/400/300', dataAiHint: 'painted kitchen backsplash' },
-    { id: 'k-backsplash-stainless', name: 'Stainless Steel', imageUrl: 'https://picsum.photos/seed/stainlessbacksplash/400/300', dataAiHint: 'stainless steel backsplash' },
-    { id: 'k-backsplash-tiles', name: 'Tiles', imageUrl: 'https://picsum.photos/seed/tilebacksplash/400/300', dataAiHint: 'kitchen tile backsplash' },
+    { id: 'k-backsplash-stone', name: 'Carved Stone', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'carved stone backsplash' },
+    { id: 'k-backsplash-glass', name: 'Glass', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'glass kitchen backsplash' },
+    { id: 'k-backsplash-matching', name: 'Matching Worktop/Countertop', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'matching countertop backsplash' },
+    { id: 'k-backsplash-paint', name: 'Paint', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'painted kitchen backsplash' },
+    { id: 'k-backsplash-stainless', name: 'Stainless Steel', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'stainless steel backsplash' },
+    { id: 'k-backsplash-tiles', name: 'Tiles', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'kitchen tile backsplash' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface GeneralFlooringOption extends BaseSelectionItem {}
 export const generalFlooringOptions: GeneralFlooringOption[] = [
-    { id: 'floor-bamboo', name: 'Bamboo', imageUrl: 'https://picsum.photos/seed/bambooflooring/400/300', dataAiHint: 'bamboo flooring room' },
-    { id: 'floor-carpet', name: 'Carpet', imageUrl: 'https://picsum.photos/seed/carpetflooring/400/300', dataAiHint: 'carpet room floor' },
-    { id: 'floor-cement', name: 'Cement/Concrete', imageUrl: 'https://picsum.photos/seed/cementflooring/400/300', dataAiHint: 'cement concrete floor' },
-    { id: 'floor-lvinyl', name: 'Luxury Vinyl', imageUrl: 'https://picsum.photos/seed/luxuryvinylfloor/400/300', dataAiHint: 'luxury vinyl flooring' },
-    { id: 'floor-marble', name: 'Marble', imageUrl: 'https://picsum.photos/seed/marbleflooring/400/300', dataAiHint: 'marble flooring room' },
-    { id: 'floor-nstone', name: 'Natural Stone', imageUrl: 'https://picsum.photos/seed/naturalstonefloor/400/300', dataAiHint: 'natural stone flooring' },
-    { id: 'floor-wood', name: 'Wood', imageUrl: 'https://picsum.photos/seed/woodflooring/400/300', dataAiHint: 'wood flooring room' },
+    { id: 'floor-bamboo', name: 'Bamboo', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'bamboo flooring room' },
+    { id: 'floor-carpet', name: 'Carpet', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'carpet room floor' },
+    { id: 'floor-cement', name: 'Cement/Concrete', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'cement concrete floor' },
+    { id: 'floor-lvinyl', name: 'Luxury Vinyl', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'luxury vinyl flooring' },
+    { id: 'floor-marble', name: 'Marble', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'marble flooring room' },
+    { id: 'floor-nstone', name: 'Natural Stone', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'natural stone flooring' },
+    { id: 'floor-wood', name: 'Wood', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'wood flooring room' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface GeneralLightingOption extends BaseSelectionItem {}
 export const generalLightingOptions: GeneralLightingOption[] = [
-    { id: 'light-chandelier', name: 'Chandelier(s)', imageUrl: 'https://picsum.photos/seed/chandelierlight/400/300', dataAiHint: 'chandelier lighting room' },
-    { id: 'light-concealed', name: 'Concealed/Cove Lighting', imageUrl: 'https://picsum.photos/seed/concealedlighting/400/300', dataAiHint: 'concealed cove lighting' },
-    { id: 'light-niche', name: 'Niche/Picture Lighting', imageUrl: 'https://picsum.photos/seed/nichelighing/400/300', dataAiHint: 'niche picture lighting' },
-    { id: 'light-pendant', name: 'Pendant(s)', imageUrl: 'https://picsum.photos/seed/pendantlight/400/300', dataAiHint: 'pendant lighting room' },
-    { id: 'light-recessed-cylinder', name: 'Recessed Cylinder', imageUrl: 'https://picsum.photos/seed/recessedcylinderlight/400/300', dataAiHint: 'recessed cylinder lighting' },
-    { id: 'light-recessed-flush', name: 'Recessed Flush', imageUrl: 'https://picsum.photos/seed/recessedflushlight/400/300', dataAiHint: 'recessed flush lighting' },
-    { id: 'light-wallsconce', name: 'Wall Sconce(s)', imageUrl: 'https://picsum.photos/seed/wallsconcelight/400/300', dataAiHint: 'wall sconce lighting' },
+    { id: 'light-chandelier', name: 'Chandelier(s)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'chandelier lighting room' },
+    { id: 'light-concealed', name: 'Concealed/Cove Lighting', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'concealed cove lighting' },
+    { id: 'light-niche', name: 'Niche/Picture Lighting', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'niche picture lighting' },
+    { id: 'light-pendant', name: 'Pendant(s)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'pendant lighting room' },
+    { id: 'light-recessed-cylinder', name: 'Recessed Cylinder', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'recessed cylinder lighting' },
+    { id: 'light-recessed-flush', name: 'Recessed Flush', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'recessed flush lighting' },
+    { id: 'light-wallsconce', name: 'Wall Sconce(s)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'wall sconce lighting' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 // Utility/Laundry Room Options
 export interface GeneralWallFinishOption extends BaseSelectionItem {}
 export const generalWallFinishOptions: GeneralWallFinishOption[] = [
-    { id: 'wall-exposed-brick', name: 'Exposed Brick / Stone Veneer', imageUrl: 'https://picsum.photos/seed/exposedbrickwall/400/300', dataAiHint: 'exposed brick wall' },
-    { id: 'wall-paint', name: 'Paint', imageUrl: 'https://picsum.photos/seed/wallpaintfinish/400/300', dataAiHint: 'painted wall room' },
-    { id: 'wall-textured', name: 'Textured (e.g., Venetian Plaster)', imageUrl: 'https://picsum.photos/seed/texturedwallfinish/400/300', dataAiHint: 'textured wall finish' },
-    { id: 'wall-wallpaper', name: 'Wallpaper', imageUrl: 'https://picsum.photos/seed/wallpaperfinish/400/300', dataAiHint: 'wallpaper wall room' },
-    { id: 'wall-paneling', name: 'Wood Paneling / Shiplap', imageUrl: 'https://picsum.photos/seed/woodpanelingwall/400/300', dataAiHint: 'wood paneling wall' },
+    { id: 'wall-exposed-brick', name: 'Exposed Brick / Stone Veneer', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'exposed brick wall' },
+    { id: 'wall-paint', name: 'Paint', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'painted wall room' },
+    { id: 'wall-textured', name: 'Textured (e.g., Venetian Plaster)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'textured wall finish' },
+    { id: 'wall-wallpaper', name: 'Wallpaper', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'wallpaper wall room' },
+    { id: 'wall-paneling', name: 'Wood Paneling / Shiplap', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'wood paneling wall' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface UtilityWasherDryerLayoutOption extends BaseSelectionItem {}
 export const utilityWasherDryerLayoutOptions: UtilityWasherDryerLayoutOption[] = [
-    { id: 'util-wd-compact', name: 'Compact', imageUrl: 'https://picsum.photos/seed/compactwd/400/300', dataAiHint: 'compact laundry unit' },
-    { id: 'util-wd-side', name: 'Side-By-Side', imageUrl: 'https://picsum.photos/seed/sidebysidewd/400/300', dataAiHint: 'side by side laundry' },
-    { id: 'util-wd-stacked', name: 'Stacked', imageUrl: 'https://picsum.photos/seed/stackedwd/400/300', dataAiHint: 'stacked laundry unit' },
+    { id: 'util-wd-compact', name: 'Compact', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'compact laundry unit' },
+    { id: 'util-wd-side', name: 'Side-By-Side', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'side by side laundry' },
+    { id: 'util-wd-stacked', name: 'Stacked', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'stacked laundry unit' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface GeneralStorageOption extends BaseSelectionItem {}
 export const utilityStorageOptions: GeneralStorageOption[] = [
-    { id: 'util-store-builtin', name: 'Built-In Units', imageUrl: 'https://picsum.photos/seed/builtinlaundrystorage/400/300', dataAiHint: 'laundry built in storage' },
-    { id: 'util-store-custom', name: 'Custom Storage Solutions', imageUrl: 'https://picsum.photos/seed/customlaundrystorage/400/300', dataAiHint: 'custom laundry storage' },
-    { id: 'util-store-free', name: 'Free-Standing Cabinets', imageUrl: 'https://picsum.photos/seed/freestandinglaundrycabinet/400/300', dataAiHint: 'laundry freestanding cabinet' },
+    { id: 'util-store-builtin', name: 'Built-In Units', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'laundry built in storage' },
+    { id: 'util-store-custom', name: 'Custom Storage Solutions', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'custom laundry storage' },
+    { id: 'util-store-free', name: 'Free-Standing Cabinets', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'laundry freestanding cabinet' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 // Living Room Options
 export interface LivingRoomFurnitureOption extends BaseSelectionItem {}
 export const livingRoomOptionsList: LivingRoomFurnitureOption[] = [
-  { id: 'lr-sofa-sectional', name: 'Sectional Sofa', imageUrl: 'https://picsum.photos/seed/sectionalSofa/400/300', description: 'Large, modular sofa for flexible seating.', dataAiHint: 'sectional sofa living' },
-  { id: 'lr-sofa-loveseat', name: 'Loveseat', imageUrl: 'https://picsum.photos/seed/loveseat/400/300', description: 'Cozy two-seater sofa.', dataAiHint: 'loveseat living room' },
-  { id: 'lr-armchair', name: 'Armchair', imageUrl: 'https://picsum.photos/seed/armchair/400/300', description: 'Comfortable single-seat chair.', dataAiHint: 'armchair living room' },
-  { id: 'lr-coffee-table', name: 'Coffee Table', imageUrl: 'https://picsum.photos/seed/coffeeTable/400/300', description: 'Central table for drinks and decor.', dataAiHint: 'coffee table modern' },
-  { id: 'lr-side-table', name: 'Side Table', imageUrl: 'https://picsum.photos/seed/sideTable/400/300', description: 'Small table next to sofas/chairs.', dataAiHint: 'side table living' },
-  { id: 'lr-tv-unit', name: 'TV Unit / Media Console', imageUrl: 'https://picsum.photos/seed/tvUnit/400/300', description: 'Stand for television and media devices.', dataAiHint: 'tv unit console' },
-  { id: 'lr-bookcase', name: 'Bookcase / Shelving Unit', imageUrl: 'https://picsum.photos/seed/bookcaseLiving/400/300', description: 'For books and display items.', dataAiHint: 'bookcase living room' },
-  { id: 'lr-ottoman', name: 'Ottoman / Pouf', imageUrl: 'https://picsum.photos/seed/ottomanPouf/400/300', description: 'Footrest or extra seating.', dataAiHint: 'ottoman pouf' },
-  { id: 'lr-rug', name: 'Area Rug', imageUrl: 'https://picsum.photos/seed/areaRug/400/300', description: 'Defines the seating area and adds texture.', dataAiHint: 'area rug living' },
+  { id: 'lr-sofa-sectional', name: 'Sectional Sofa', imageUrl: 'https://placehold.co/400x300.png', description: 'Large, modular sofa for flexible seating.', dataAiHint: 'sectional sofa living' },
+  { id: 'lr-sofa-loveseat', name: 'Loveseat', imageUrl: 'https://placehold.co/400x300.png', description: 'Cozy two-seater sofa.', dataAiHint: 'loveseat living room' },
+  { id: 'lr-armchair', name: 'Armchair', imageUrl: 'https://placehold.co/400x300.png', description: 'Comfortable single-seat chair.', dataAiHint: 'armchair living room' },
+  { id: 'lr-coffee-table', name: 'Coffee Table', imageUrl: 'https://placehold.co/400x300.png', description: 'Central table for drinks and decor.', dataAiHint: 'coffee table modern' },
+  { id: 'lr-side-table', name: 'Side Table', imageUrl: 'https://placehold.co/400x300.png', description: 'Small table next to sofas/chairs.', dataAiHint: 'side table living' },
+  { id: 'lr-tv-unit', name: 'TV Unit / Media Console', imageUrl: 'https://placehold.co/400x300.png', description: 'Stand for television and media devices.', dataAiHint: 'tv unit console' },
+  { id: 'lr-bookcase', name: 'Bookcase / Shelving Unit', imageUrl: 'https://placehold.co/400x300.png', description: 'For books and display items.', dataAiHint: 'bookcase living room' },
+  { id: 'lr-ottoman', name: 'Ottoman / Pouf', imageUrl: 'https://placehold.co/400x300.png', description: 'Footrest or extra seating.', dataAiHint: 'ottoman pouf' },
+  { id: 'lr-rug', name: 'Area Rug', imageUrl: 'https://placehold.co/400x300.png', description: 'Defines the seating area and adds texture.', dataAiHint: 'area rug living' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 
 export interface LivingRoomStorageOption extends BaseSelectionItem {}
 export const livingRoomStorageOptions: LivingRoomStorageOption[] = [
-    { id: 'lr-store-alcove', name: 'Alcove Shelving', imageUrl: 'https://picsum.photos/seed/lralkcoveshelving/400/300', dataAiHint: 'alcove shelving living' },
-    { id: 'lr-store-builtin', name: 'Built-In Units (e.g., Media Center)', imageUrl: 'https://picsum.photos/seed/lrbuiltinunits/400/300', dataAiHint: 'living room built in' },
-    { id: 'lr-store-windowseat', name: 'Window Seating with Storage', imageUrl: 'https://picsum.photos/seed/lrwindowseatstorage/400/300', dataAiHint: 'window seat storage' },
+    { id: 'lr-store-alcove', name: 'Alcove Shelving', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'alcove shelving living' },
+    { id: 'lr-store-builtin', name: 'Built-In Units (e.g., Media Center)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'living room built in' },
+    { id: 'lr-store-windowseat', name: 'Window Seating with Storage', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'window seat storage' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface LivingRoomFireplaceOption extends BaseSelectionItem {}
 export const livingRoomFireplaceOptions: LivingRoomFireplaceOption[] = [
-    { id: 'lr-fire-electric', name: 'Electric Fireplace', imageUrl: 'https://picsum.photos/seed/electricfireplace/400/300', dataAiHint: 'electric fireplace living' },
-    { id: 'lr-fire-gas', name: 'Gas Fireplace', imageUrl: 'https://picsum.photos/seed/gasfireplace/400/300', dataAiHint: 'gas fireplace living' },
-    { id: 'lr-fire-wood', name: 'Wood Burning Fireplace', imageUrl: 'https://picsum.photos/seed/woodfireplace/400/300', dataAiHint: 'wood burning fireplace' },
+    { id: 'lr-fire-electric', name: 'Electric Fireplace', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'electric fireplace living' },
+    { id: 'lr-fire-gas', name: 'Gas Fireplace', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'gas fireplace living' },
+    { id: 'lr-fire-wood', name: 'Wood Burning Fireplace', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'wood burning fireplace' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 // Bedroom Options
 export interface BedroomWardrobeOption extends BaseSelectionItem {}
 export const bedroomWardrobeOptions: BedroomWardrobeOption[] = [
-  { id: 'bed-wardrobe-bifold', name: 'Bifold Doors', imageUrl: 'https://picsum.photos/seed/bifoldclosetdoors/400/300', dataAiHint: 'bifold closet doors' },
-  { id: 'bed-wardrobe-custom', name: 'Custom Built-In', imageUrl: 'https://picsum.photos/seed/custombuiltincloset/400/300', dataAiHint: 'custom built in closet' },
-  { id: 'bed-wardrobe-standard', name: 'One/Two Standard Doors', imageUrl: 'https://picsum.photos/seed/standardclosetdoors/400/300', dataAiHint: 'standard closet doors' },
-  { id: 'bed-wardrobe-walkin', name: 'Walk-In Closet', imageUrl: 'https://picsum.photos/seed/walkincloset/400/300', dataAiHint: 'walk in closet' },
+  { id: 'bed-wardrobe-bifold', name: 'Bifold Doors', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'bifold closet doors' },
+  { id: 'bed-wardrobe-custom', name: 'Custom Built-In', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'custom built in closet' },
+  { id: 'bed-wardrobe-standard', name: 'One/Two Standard Doors', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'standard closet doors' },
+  { id: 'bed-wardrobe-walkin', name: 'Walk-In Closet', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'walk in closet' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 // Bathroom Options (Master)
@@ -199,112 +199,114 @@ export const bathroomStyleOptions = overallStyleOptions.sort((a, b) => a.name.lo
 
 export interface BathroomMasterBathTubOption extends BaseSelectionItem {}
 export const bathroomMasterBathTubOptions: BathroomMasterBathTubOption[] = [
-    { id: 'bm-tub-alcove', name: 'Alcove Tub', imageUrl: 'https://picsum.photos/seed/alcovetub/400/300', dataAiHint: 'alcove bathtub' },
-    { id: 'bm-tub-clawfoot', name: 'Claw Foot Tub', imageUrl: 'https://picsum.photos/seed/clawfoottub/400/300', dataAiHint: 'clawfoot bathtub vintage' },
-    { id: 'bm-tub-combo', name: 'Tub/Shower Combo', imageUrl: 'https://picsum.photos/seed/tubshowercombo/400/300', dataAiHint: 'tub shower combination' },
-    { id: 'bm-tub-corner', name: 'Corner Tub', imageUrl: 'https://picsum.photos/seed/cornertub/400/300', dataAiHint: 'corner bathtub' },
-    { id: 'bm-tub-dropin', name: 'Drop-In Tub', imageUrl: 'https://picsum.photos/seed/dropintub/400/300', dataAiHint: 'drop in bathtub' },
-    { id: 'bm-tub-freestanding', name: 'Freestanding Tub', imageUrl: 'https://picsum.photos/seed/freestandingtub/400/300', dataAiHint: 'freestanding bathtub luxury' },
-    { id: 'bm-tub-walkin', name: 'Walk-In Tub', imageUrl: 'https://picsum.photos/seed/walkintub/400/300', dataAiHint: 'walk in bathtub accessible' },
-    { id: 'bm-tub-whirlpool', name: 'Whirlpool/Jacuzzi Tub', imageUrl: 'https://picsum.photos/seed/jacuzzitub/400/300', dataAiHint: 'jacuzzi whirlpool tub' },
+    { id: 'bm-tub-alcove', name: 'Alcove Tub', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'alcove bathtub' },
+    { id: 'bm-tub-clawfoot', name: 'Claw Foot Tub', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'clawfoot bathtub vintage' },
+    { id: 'bm-tub-combo', name: 'Tub/Shower Combo', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'tub shower combination' },
+    { id: 'bm-tub-corner', name: 'Corner Tub', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'corner bathtub' },
+    { id: 'bm-tub-dropin', name: 'Drop-In Tub', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'drop in bathtub' },
+    { id: 'bm-tub-freestanding', name: 'Freestanding Tub', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'freestanding bathtub luxury' },
+    { id: 'bm-tub-walkin', name: 'Walk-In Tub', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'walk in bathtub accessible' },
+    { id: 'bm-tub-whirlpool', name: 'Whirlpool/Jacuzzi Tub', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'jacuzzi whirlpool tub' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface BathroomMasterShowerOption extends BaseSelectionItem {}
 export const bathroomMasterShowerOptions: BathroomMasterShowerOption[] = [
-    { id: 'bm-shower-enclosed', name: 'Enclosed Shower', imageUrl: 'https://picsum.photos/seed/enclosedshower/400/300', dataAiHint: 'enclosed shower stall' },
-    { id: 'bm-shower-combo', name: 'Shower/Tub Combo', imageUrl: 'https://picsum.photos/seed/showertubcombo/400/300', dataAiHint: 'shower tub combination' }, // Repeated for clarity if selected here
-    { id: 'bm-shower-walkin', name: 'Walk-In Shower', imageUrl: 'https://picsum.photos/seed/walkinshowerdesign/400/300', dataAiHint: 'walk in shower bathroom' },
+    { id: 'bm-shower-enclosed', name: 'Enclosed Shower', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'enclosed shower stall' },
+    { id: 'bm-shower-combo', name: 'Shower/Tub Combo', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'shower tub combination' }, // Repeated for clarity if selected here
+    { id: 'bm-shower-walkin', name: 'Walk-In Shower', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'walk in shower bathroom' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface BathroomMasterSinkOption extends BaseSelectionItem { type?: 'single' | 'double'; }
 export const bathroomMasterSinkOptions: BathroomMasterSinkOption[] = [
-    { id: 'bm-sink-console-d', name: 'Console Sink (Double)', imageUrl: 'https://picsum.photos/seed/consolesinkdouble/400/300', type: 'double', dataAiHint: 'double console sink' },
-    { id: 'bm-sink-console-s', name: 'Console Sink (Single)', imageUrl: 'https://picsum.photos/seed/consolesinksingle/400/300', type: 'single', dataAiHint: 'console bathroom sink' },
-    { id: 'bm-sink-dropin-d', name: 'Drop-In Sink (Double)', imageUrl: 'https://picsum.photos/seed/dropinsinkdouble/400/300', type: 'double', dataAiHint: 'double drop in sink' },
-    { id: 'bm-sink-dropin-s', name: 'Drop-In Sink (Single)', imageUrl: 'https://picsum.photos/seed/dropinsinksingle/400/300', type: 'single', dataAiHint: 'drop in bathroom sink' },
-    { id: 'bm-sink-pedestal-d', name: 'Pedestal Sink (Double)', imageUrl: 'https://picsum.photos/seed/pedestalsinkdouble/400/300', type: 'double', dataAiHint: 'double pedestal sink' },
-    { id: 'bm-sink-pedestal-s', name: 'Pedestal Sink (Single)', imageUrl: 'https://picsum.photos/seed/pedestalsinksingle/400/300', type: 'single', dataAiHint: 'pedestal bathroom sink' },
-    { id: 'bm-sink-undermount-d', name: 'Undermount Sink (Double)', imageUrl: 'https://picsum.photos/seed/undermountsinkdouble/400/300', type: 'double', dataAiHint: 'double undermount sink' },
-    { id: 'bm-sink-undermount-s', name: 'Undermount Sink (Single)', imageUrl: 'https://picsum.photos/seed/undermountsinksingle/400/300', type: 'single', dataAiHint: 'undermount bathroom sink' },
-    { id: 'bm-sink-vessel-d', name: 'Vessel Sink (Double)', imageUrl: 'https://picsum.photos/seed/vesselsinkdouble/400/300', type: 'double', dataAiHint: 'double vessel sink' },
-    { id: 'bm-sink-vessel-s', name: 'Vessel Sink (Single)', imageUrl: 'https://picsum.photos/seed/vesselsinksingle/400/300', type: 'single', dataAiHint: 'vessel bathroom sink' },
-    { id: 'bm-sink-wallmount-d', name: 'Wall-Mount Sink (Double)', imageUrl: 'https://picsum.photos/seed/wallmountsinkdouble/400/300', type: 'double', dataAiHint: 'double wall mount sink' },
-    { id: 'bm-sink-wallmount-s', name: 'Wall-Mount Sink (Single)', imageUrl: 'https://picsum.photos/seed/wallmountsinksingle/400/300', type: 'single', dataAiHint: 'wall mount bathroom sink' },
+    { id: 'bm-sink-console-d', name: 'Console Sink (Double)', imageUrl: 'https://placehold.co/400x300.png', type: 'double', dataAiHint: 'double console sink' },
+    { id: 'bm-sink-console-s', name: 'Console Sink (Single)', imageUrl: 'https://placehold.co/400x300.png', type: 'single', dataAiHint: 'console bathroom sink' },
+    { id: 'bm-sink-dropin-d', name: 'Drop-In Sink (Double)', imageUrl: 'https://placehold.co/400x300.png', type: 'double', dataAiHint: 'double drop in sink' },
+    { id: 'bm-sink-dropin-s', name: 'Drop-In Sink (Single)', imageUrl: 'https://placehold.co/400x300.png', type: 'single', dataAiHint: 'drop in bathroom sink' },
+    { id: 'bm-sink-pedestal-d', name: 'Pedestal Sink (Double)', imageUrl: 'https://placehold.co/400x300.png', type: 'double', dataAiHint: 'double pedestal sink' },
+    { id: 'bm-sink-pedestal-s', name: 'Pedestal Sink (Single)', imageUrl: 'https://placehold.co/400x300.png', type: 'single', dataAiHint: 'pedestal bathroom sink' },
+    { id: 'bm-sink-undermount-d', name: 'Undermount Sink (Double)', imageUrl: 'https://placehold.co/400x300.png', type: 'double', dataAiHint: 'double undermount sink' },
+    { id: 'bm-sink-undermount-s', name: 'Undermount Sink (Single)', imageUrl: 'https://placehold.co/400x300.png', type: 'single', dataAiHint: 'undermount bathroom sink' },
+    { id: 'bm-sink-vessel-d', name: 'Vessel Sink (Double)', imageUrl: 'https://placehold.co/400x300.png', type: 'double', dataAiHint: 'double vessel sink' },
+    { id: 'bm-sink-vessel-s', name: 'Vessel Sink (Single)', imageUrl: 'https://placehold.co/400x300.png', type: 'single', dataAiHint: 'vessel bathroom sink' },
+    { id: 'bm-sink-wallmount-d', name: 'Wall-Mount Sink (Double)', imageUrl: 'https://placehold.co/400x300.png', type: 'double', dataAiHint: 'double wall mount sink' },
+    { id: 'bm-sink-wallmount-s', name: 'Wall-Mount Sink (Single)', imageUrl: 'https://placehold.co/400x300.png', type: 'single', dataAiHint: 'wall mount bathroom sink' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface BathroomToiletOption extends BaseSelectionItem {}
 export const bathroomToiletOptions: BathroomToiletOption[] = [
-  { id: 'toilet-onepiece', name: 'One Piece Toilet', imageUrl: 'https://picsum.photos/seed/onepiecetoilet/400/300', dataAiHint: 'one piece toilet' },
-  { id: 'toilet-twopiece', name: 'Two Piece Toilet', imageUrl: 'https://picsum.photos/seed/twopiecetoilet/400/300', dataAiHint: 'two piece toilet' },
-  { id: 'toilet-wallhung', name: 'Wall Hung Toilet', imageUrl: 'https://picsum.photos/seed/wallhungtoilet/400/300', dataAiHint: 'wall hung toilet' },
-  { id: 'toilet-touchless', name: 'Touchless Toilet', imageUrl: 'https://picsum.photos/seed/touchlesstoilet/400/300', dataAiHint: 'touchless toilet modern' },
-  { id: 'toilet-bidet', name: 'Toilet with Bidet', imageUrl: 'https://picsum.photos/seed/bidettoilet/400/300', dataAiHint: 'bidet toilet combo' },
+  { id: 'toilet-onepiece', name: 'One Piece Toilet', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'one piece toilet' },
+  { id: 'toilet-twopiece', name: 'Two Piece Toilet', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'two piece toilet' },
+  { id: 'toilet-wallhung', name: 'Wall Hung Toilet', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'wall hung toilet' },
+  { id: 'toilet-touchless', name: 'Touchless Toilet', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'touchless toilet modern' },
+  { id: 'toilet-bidet', name: 'Toilet with Bidet', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'bidet toilet combo' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface BathroomHardwareFinishOption extends BaseSelectionItem {}
 export const bathroomHardwareFinishOptions: BathroomHardwareFinishOption[] = [
-  { id: 'bath-hardware-chrome', name: 'Chrome/Nickel/Stainless Steel', imageUrl: 'https://picsum.photos/seed/bathchromehardware/400/300', dataAiHint: 'chrome bathroom hardware' },
-  { id: 'bath-hardware-gold', name: 'Gold', imageUrl: 'https://picsum.photos/seed/bathgoldhardware/400/300', dataAiHint: 'gold bathroom hardware' },
-  { id: 'bath-hardware-black', name: 'Black', imageUrl: 'https://picsum.photos/seed/bathblackhardware/400/300', dataAiHint: 'black bathroom hardware' },
-  { id: 'bath-hardware-bronze', name: 'Bronze/Brass', imageUrl: 'https://picsum.photos/seed/bathbronzehardware/400/300', dataAiHint: 'bronze bathroom hardware' },
-  { id: 'bath-hardware-crystal', name: 'Crystal', imageUrl: 'https://picsum.photos/seed/bathcrystalhardware/400/300', dataAiHint: 'crystal bathroom hardware' },
-  { id: 'bath-hardware-handleless', name: 'Handle-less/Flat', imageUrl: 'https://picsum.photos/seed/bathhandleless/400/300', dataAiHint: 'handleless bathroom' },
-  { id: 'bath-hardware-multitone', name: 'Multi-Toned/Abstract', imageUrl: 'https://picsum.photos/seed/bathmultitonehardware/400/300', dataAiHint: 'abstract bathroom hardware' },
+  { id: 'bath-hardware-chrome', name: 'Chrome/Nickel/Stainless Steel', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'chrome bathroom hardware' },
+  { id: 'bath-hardware-gold', name: 'Gold', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'gold bathroom hardware' },
+  { id: 'bath-hardware-black', name: 'Black', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'black bathroom hardware' },
+  { id: 'bath-hardware-bronze', name: 'Bronze/Brass', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'bronze bathroom hardware' },
+  { id: 'bath-hardware-crystal', name: 'Crystal', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'crystal bathroom hardware' },
+  { id: 'bath-hardware-handleless', name: 'Handleless/Flat', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'handleless bathroom' },
+  { id: 'bath-hardware-multitone', name: 'Multi-Toned/Abstract', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'abstract bathroom hardware' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface BathroomStorageOption extends BaseSelectionItem {}
 export const bathroomStorageOptions: BathroomStorageOption[] = [
-  { id: 'bath-store-builtinshelving', name: 'Built-In Shelving/Cabinets', imageUrl: 'https://picsum.photos/seed/bathbuiltinshelving/400/300', dataAiHint: 'bathroom built in shelving' },
-  { id: 'bath-store-medicinecabinet', name: 'Medicine Cabinet/Unit', imageUrl: 'https://picsum.photos/seed/bathmedicinecabinet/400/300', dataAiHint: 'medicine cabinet bathroom' },
-  { id: 'bath-store-niches', name: 'Niches', imageUrl: 'https://picsum.photos/seed/bathniches/400/300', dataAiHint: 'bathroom shower niche' },
-  { id: 'bath-store-undersink', name: 'Under-Sink Storage', imageUrl: 'https://picsum.photos/seed/bathundersink/400/300', dataAiHint: 'under sink storage bathroom' },
-  { id: 'bath-store-customvanity', name: 'Custom Vanity', imageUrl: 'https://picsum.photos/seed/bathcustomvanity/400/300', dataAiHint: 'custom bathroom vanity' },
+  { id: 'bath-store-builtinshelving', name: 'Built-In Shelving/Cabinets', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'bathroom built in shelving' },
+  { id: 'bath-store-medicinecabinet', name: 'Medicine Cabinet/Unit', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'medicine cabinet bathroom' },
+  { id: 'bath-store-niches', name: 'Niches', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'bathroom shower niche' },
+  { id: 'bath-store-undersink', name: 'Under-Sink Storage', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'under sink storage bathroom' },
+  { id: 'bath-store-customvanity', name: 'Custom Vanity', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'custom bathroom vanity' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 // Bathroom (Half-Bath) Options
 export interface BathroomHalfSinkOption extends BaseSelectionItem {}
 export const bathroomHalfSinkOptions: BathroomHalfSinkOption[] = [
-    { id: 'bh-sink-console', name: 'Console Sink', imageUrl: 'https://picsum.photos/seed/halfbathconsolesink/400/300', dataAiHint: 'console sink half' },
-    { id: 'bh-sink-dropin', name: 'Drop-In Sink', imageUrl: 'https://picsum.photos/seed/halfbathdropinsink/400/300', dataAiHint: 'drop in sink half' },
-    { id: 'bh-sink-pedestal', name: 'Pedestal Sink', imageUrl: 'https://picsum.photos/seed/halfbathpedestalsink/400/300', dataAiHint: 'pedestal sink half' },
-    { id: 'bh-sink-undermount', name: 'Undermount Sink', imageUrl: 'https://picsum.photos/seed/halfbathundermountsink/400/300', dataAiHint: 'undermount sink half' },
-    { id: 'bh-sink-vessel', name: 'Vessel Sink', imageUrl: 'https://picsum.photos/seed/halfbathvesselsink/400/300', dataAiHint: 'vessel sink half' },
-    { id: 'bh-sink-wallmount', name: 'Wall-Mount Sink', imageUrl: 'https://picsum.photos/seed/halfbathwallmountsink/400/300', dataAiHint: 'wall mount sink half' },
+    { id: 'bh-sink-console', name: 'Console Sink', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'console sink half' },
+    { id: 'bh-sink-dropin', name: 'Drop-In Sink', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'drop in sink half' },
+    { id: 'bh-sink-pedestal', name: 'Pedestal Sink', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'pedestal sink half' },
+    { id: 'bh-sink-undermount', name: 'Undermount Sink', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'undermount sink half' },
+    { id: 'bh-sink-vessel', name: 'Vessel Sink', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'vessel sink half' },
+    { id: 'bh-sink-wallmount', name: 'Wall-Mount Sink', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'wall mount sink half' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 // Home Office Options
 export interface HomeOfficeStorageOption extends BaseSelectionItem {}
 export const homeOfficeStorageOptions: HomeOfficeStorageOption[] = [
-  { id: 'ho-store-bookcase', name: 'Bookcase/Bookshelves', imageUrl: 'https://picsum.photos/seed/hobookcase/400/300', dataAiHint: 'office bookcase' },
-  { id: 'ho-store-builtin', name: 'Built-In Units', imageUrl: 'https://picsum.photos/seed/hobuiltinunits/400/300', dataAiHint: 'office built in storage' },
-  { id: 'ho-store-custom', name: 'Custom Storage Solutions', imageUrl: 'https://picsum.photos/seed/hocustomstorage/400/300', dataAiHint: 'custom office storage' },
-  { id: 'ho-store-free', name: 'Free-Standing Cabinets', imageUrl: 'https://picsum.photos/seed/hofreecabinet/400/300', dataAiHint: 'office freestanding cabinet' },
+  { id: 'ho-store-bookcase', name: 'Bookcase/Bookshelves', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'office bookcase' },
+  { id: 'ho-store-builtin', name: 'Built-In Units', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'office built in storage' },
+  { id: 'ho-store-custom', name: 'Custom Storage Solutions', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'custom office storage' },
+  { id: 'ho-store-free', name: 'Free-Standing Cabinets', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'office freestanding cabinet' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 // Hallway Options
 export interface HallwayStorageOption extends BaseSelectionItem {}
 export const hallwayStorageOptions: HallwayStorageOption[] = [
-  { id: 'hall-store-linen', name: 'Linen Closet/Drying Cupboard', imageUrl: 'https://picsum.photos/seed/halllinencloset/400/300', dataAiHint: 'linen closet hallway' },
-  { id: 'hall-store-shelving', name: 'Shelving', imageUrl: 'https://picsum.photos/seed/hallshelving/400/300', dataAiHint: 'hallway shelving unit' },
+  { id: 'hall-store-linen', name: 'Linen Closet/Drying Cupboard', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'linen closet hallway' },
+  { id: 'hall-store-shelving', name: 'Shelving', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'hallway shelving unit' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 // General options for decor and finishes (can be expanded or made specific)
 export interface DecorOption extends BaseSelectionItem {}
 export const decorOptions: DecorOption[] = [
-  { id: 'decor-art', name: 'Artwork', imageUrl: 'https://picsum.photos/seed/artworkdecor/400/300', dataAiHint: 'wall art decor' },
-  { id: 'decor-plants', name: 'Indoor Plants', imageUrl: 'https://picsum.photos/seed/indoorplants/400/300', dataAiHint: 'indoor plants room' },
-  { id: 'decor-rugs', name: 'Rugs', imageUrl: 'https://picsum.photos/seed/rugsdecor/400/300', dataAiHint: 'decorative rugs' },
-  { id: 'decor-mirrors', name: 'Mirrors', imageUrl: 'https://picsum.photos/seed/mirrorsdecor/400/300', dataAiHint: 'decorative mirrors' },
+  { id: 'decor-art', name: 'Artwork', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'wall art decor' },
+  { id: 'decor-plants', name: 'Indoor Plants', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'indoor plants room' },
+  { id: 'decor-rugs', name: 'Rugs', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'decorative rugs' },
+  { id: 'decor-mirrors', name: 'Mirrors', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'decorative mirrors' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface FinishOption extends BaseSelectionItem {}
 export const finishOptions: FinishOption[] = [
-  { id: 'finish-paint-neutral', name: 'Neutral Paint Colors', imageUrl: 'https://picsum.photos/seed/neutralpaint/400/300', dataAiHint: 'neutral paint wall' },
-  { id: 'finish-paint-bold', name: 'Bold Accent Colors', imageUrl: 'https://picsum.photos/seed/boldpaint/400/300', dataAiHint: 'bold accent wall' },
-  { id: 'finish-wood-light', name: 'Light Wood Finishes', imageUrl: 'https://picsum.photos/seed/lightwood/400/300', dataAiHint: 'light wood finish' },
-  { id: 'finish-wood-dark', name: 'Dark Wood Finishes', imageUrl: 'https://picsum.photos/seed/darkwood/400/300', dataAiHint: 'dark wood finish' },
-  { id: 'finish-metal-matte', name: 'Matte Metal Finishes', imageUrl: 'https://picsum.photos/seed/mattemetal/400/300', dataAiHint: 'matte metal finish' },
-  { id: 'finish-metal-polished', name: 'Polished Metal Finishes', imageUrl: 'https://picsum.photos/seed/polishedmetal/400/300', dataAiHint: 'polished metal' },
+  { id: 'finish-paint-neutral', name: 'Neutral Paint Colors', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'neutral paint wall' },
+  { id: 'finish-paint-bold', name: 'Bold Accent Colors', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'bold accent wall' },
+  { id: 'finish-wood-light', name: 'Light Wood Finishes', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'light wood finish' },
+  { id: 'finish-wood-dark', name: 'Dark Wood Finishes', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'dark wood finish' },
+  { id: 'finish-metal-matte', name: 'Matte Metal Finishes', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'matte metal finish' },
+  { id: 'finish-metal-polished', name: 'Polished Metal Finishes', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'polished metal' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
     
+
+  
