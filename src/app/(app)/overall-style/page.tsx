@@ -44,7 +44,7 @@ export default function OverallStylePage() {
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number; id: 'design-styles' | 'key-elements' }> = [
     { id: 'design-styles', title: "Select Design Styles", description: "Choose one or more design styles that best represent your vision.", options: overallStyleOptions, cols: 5 },
-    { id: 'key-elements', title: "Select Key Elements", description: "Choose guiding principles for your design.", options: keyElementOptions, cols: 4 },
+    { id: 'key-elements', title: "Select Key Elements", description: "Choose guiding principles for your design.", options: keyElementOptions, cols: 3 }, // Changed cols from 4 to 3
   ];
 
 
@@ -71,19 +71,16 @@ export default function OverallStylePage() {
       if (hasSelectedOverallStyle && hasSelectedKeyElement) {
         newProgress = 100;
       } else {
-        // Calculate progress based on subsections covered or item count for partial completion
         const subsectionsCovered = (hasSelectedOverallStyle ? 1 : 0) + (hasSelectedKeyElement ? 1 : 0);
         if (sections.length > 0) {
-            newProgress = Math.round((subsectionsCovered / sections.length) * 100);
-             // If only one subsection is covered but items are selected, give some partial credit based on item count too.
             if (subsectionsCovered === 1 && selectedOptions.size > 0 && totalOptionsOnPage > 0) {
-                 const itemProgress = Math.round((selectedOptions.size / totalOptionsOnPage) * 50); // 50% weight for items
-                 const sectionProgress = 50; // 50% for one section covered
-                 newProgress = Math.min(itemProgress + sectionProgress, 99); // Cap at 99
+                 const itemProgress = Math.round((selectedOptions.size / totalOptionsOnPage) * 50); 
+                 const sectionProgress = 50; 
+                 newProgress = Math.min(itemProgress + sectionProgress, 99); 
             } else {
                  newProgress = Math.round((subsectionsCovered / sections.length) * 100);
             }
-            if (subsectionsCovered < sections.length && newProgress === 100) newProgress = 99; // Cap at 99 if not all sections covered
+            if (subsectionsCovered < sections.length && newProgress === 100) newProgress = 99; 
         } else {
             newProgress = totalOptionsOnPage > 0 ? Math.round((selectedOptions.size / totalOptionsOnPage) * 100) : 0;
         }
@@ -140,7 +137,7 @@ export default function OverallStylePage() {
               {section.description && <CardDescription>{section.description}</CardDescription>}
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+              <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${section.cols || 3} gap-6`}>
                 {section.options.map((style) => (
                   <ItemSelectionCard
                     key={style.id}
