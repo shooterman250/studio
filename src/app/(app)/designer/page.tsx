@@ -38,7 +38,7 @@ const SelectedItemDisplay = ({ item }: { item: SelectedDataItem }) => (
         width={60} 
         height={45} 
         className="rounded-md object-cover aspect-[4/3] shadow-sm"
-        data-ai-hint={item.dataAiHint || item.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')}
+        data-ai-hint={item.dataAiHint || item.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')}
       />
     )}
     <div className="flex-1">
@@ -99,15 +99,15 @@ export default function DesignerPage() {
   const handleExportPdf = async () => {
     if (activeStages.length === 0) {
       toast({
-        title: "No Selections to Export",
-        description: "Please make some design choices before exporting.",
+        title: "No Selections to Use",
+        description: "Please make some design choices before generating the PDF.",
         variant: "destructive",
       });
       return;
     }
 
     setIsGeneratingPdf(true);
-    toast({ title: "Generating PDF...", description: "Please wait, this may take a moment." });
+    toast({ title: "Generating PDF for Email...", description: "Please wait, this may take a moment." });
 
     const doc = new jsPDF();
     let yPos = 15; 
@@ -161,12 +161,10 @@ export default function DesignerPage() {
         checkPageBreak(minItemHeight); 
 
         let textX = margin;
-        let currentTextY = yPos; // Y position for the current item's text block
-        let imageBlockEndY = yPos; // Y position after image (if any) is drawn for the current item
+        let currentTextY = yPos; 
+        let imageBlockEndY = yPos; 
 
         if (item.imageUrl) {
-          // Potentially checkPageBreak for image itself if not done by minItemHeight
-          // For simplicity, checkPageBreak(minItemHeight) above covers this.
           try {
             const response = await fetch(item.imageUrl);
             if (!response.ok) throw new Error(`Image fetch failed: ${response.statusText}`);
@@ -176,15 +174,15 @@ export default function DesignerPage() {
             await new Promise<void>((resolve, reject) => {
               reader.onloadend = () => {
                 try {
-                  if (yPos + imageHeight > pageHeight - margin) { // Check specifically for image space
+                  if (yPos + imageHeight > pageHeight - margin) { 
                     doc.addPage();
                     yPos = margin;
-                    currentTextY = margin; // Reset currentTextY if page broke for image
+                    currentTextY = margin; 
                   }
                   doc.addImage(reader.result as string, 'JPEG', margin, yPos, imageWidth, imageHeight);
                   imageBlockEndY = yPos + imageHeight + 3; 
                   textX = margin + imageWidth + 5; 
-                  currentTextY = yPos; // Text starts at the same y-level as the image
+                  currentTextY = yPos; 
                   resolve();
                 } catch (e) {
                   console.error("PDF: Error adding image", e);
@@ -202,7 +200,6 @@ export default function DesignerPage() {
              doc.setFontSize(8);
              doc.setTextColor(150);
              const failedImageText = `[Image for ${item.name} failed to load]`;
-             // Use currentTextY for positioning failed image text
              const fiLines = doc.splitTextToSize(failedImageText, contentWidth - (textX > margin ? (textX - margin) : 0));
              if (currentTextY + fiLines.length * (lineHeight * 0.8) > pageHeight - margin) {
                 doc.addPage(); currentTextY = margin;
@@ -210,11 +207,10 @@ export default function DesignerPage() {
              doc.text(fiLines, textX, currentTextY);
              currentTextY += fiLines.length * (lineHeight * 0.8); 
              doc.setTextColor(0);
-             imageBlockEndY = currentTextY; // Update imageBlockEndY to after the placeholder text
+             imageBlockEndY = currentTextY; 
           }
         }
         
-        // Render text content
         doc.setFontSize(10);
         doc.setFont(undefined, 'bold');
         const nameLines = doc.splitTextToSize(item.name, contentWidth - (textX - margin));
@@ -248,16 +244,22 @@ export default function DesignerPage() {
     }
 
     try {
-      doc.save("design_summary.pdf");
+      // Instead of doc.save(), we'll log that it would be sent.
+      const pdfDataUri = doc.output('datauristring'); // Or 'blob', 'arraybuffer'
+      console.log("PDF generated. Ready to be sent to khinterdesigns@gmail.com.");
+      // console.log("PDF Data (first 100 chars):", pdfDataUri.substring(0, 100)); 
+      // TODO: Implement actual email sending logic here by calling an API endpoint
+      // For example: await sendPdfByEmail(pdfDataUri, 'khinterdesigns@gmail.com');
+
       toast({
-        title: "PDF Exported",
-        description: "Your design summary has been downloaded.",
+        title: "PDF Ready for Email",
+        description: "Your design summary PDF has been generated and would be sent to khinterdesigns@gmail.com.",
       });
     } catch (e) {
-        console.error("Error saving PDF:", e);
+        console.error("Error preparing PDF for email:", e);
         toast({
-            title: "PDF Export Failed",
-            description: "There was an error generating your PDF. Please try again.",
+            title: "PDF Preparation Failed",
+            description: "There was an error preparing your PDF for email. Please try again.",
             variant: "destructive"
         })
     } finally {
@@ -328,3 +330,4 @@ export default function DesignerPage() {
   );
 }
 
+    
