@@ -12,34 +12,41 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-let app: FirebaseApp;
-let auth: Auth;
-let db: Firestore;
+let app: FirebaseApp | undefined = undefined;
+let auth: Auth | undefined = undefined;
+let db: Firestore | undefined = undefined;
 
-if (typeof window !== 'undefined' && !getApps().length) {
-  app = initializeApp(firebaseConfig);
-  auth = getAuth(app);
-  db = getFirestore(app);
-} else if (typeof window !== 'undefined') {
-  app = getApp();
-  auth = getAuth(app);
-  db = getFirestore(app);
-} else {
-  // For server-side rendering or environments without window,
-  // you might initialize a server-side admin app if needed,
-  // but client-side SDK primarily uses the above.
-  // For now, we'll ensure these are defined, but they won't be fully functional without client context.
-  if (!getApps().length) {
-     // This will throw an error if not in a client environment and config is not set.
-     // For client components, the above `typeof window !== 'undefined'` block handles it.
-     // For server components that might import this, ensure they handle it gracefully or use Admin SDK.
-    app = initializeApp(firebaseConfig);
-  } else {
-    app = getApp();
+if (typeof window !== 'undefined') {
+  // This code will only run on the client side
+  if (!firebaseConfig.apiKey) {
+    console.error(
+      "CRITICAL_FIREBASE_CONFIG_ERROR: Firebase API key (NEXT_PUBLIC_FIREBASE_API_KEY) is missing or undefined. " +
+      "Please ensure it is correctly set in your .env.local file and that your Next.js development server has been restarted."
+    );
+    // Note: Firebase SDK will still attempt to initialize and will likely throw its own 'auth/invalid-api-key' error.
   }
-  auth = getAuth(app);
-  db = getFirestore(app);
-}
 
+  if (getApps().length === 0) {
+    // Only initialize if no apps exist
+    try {
+      app = initializeApp(firebaseConfig);
+    } catch (e) {
+      console.error("Firebase initialization error (initializeApp call failed):", e);
+      // This is where Firebase SDK might throw 'auth/invalid-api-key' if config is bad
+    }
+  } else {
+    app = getApp(); // Get the default app if already initialized
+  }
+
+  if (app) {
+    try {
+      auth = getAuth(app);
+      db = getFirestore(app);
+    } catch (e) {
+      console.error("Error getting Firebase Auth or Firestore instance:", e);
+      // This could also be a source of 'auth/invalid-api-key' if app init was problematic
+    }
+  }
+}
 
 export { app, auth, db };
