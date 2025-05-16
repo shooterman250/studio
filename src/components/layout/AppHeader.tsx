@@ -27,7 +27,11 @@ const AppHeader = () => {
         // On the server, and initial client render before useEffect runs,
         // isMobileFromContext is false. So, render the desktop Link.
         // This ensures the server and initial client HTML match.
-        <Link href="/designer" className="flex items-center gap-2 text-lg font-semibold md:text-base">
+        <Link 
+          href="/designer" 
+          className="flex items-center gap-2 text-lg font-semibold md:text-base"
+          suppressHydrationWarning={true}
+        >
           <ButterflyLogo width={24} height={24} />
           <span className="sr-only">Interactive Room Designer</span>
         </Link>
@@ -36,7 +40,11 @@ const AppHeader = () => {
         <SidebarTrigger />
       ) : (
         // After mounting, if it's not mobile, render the desktop Link.
-        <Link href="/designer" className="flex items-center gap-2 text-lg font-semibold md:text-base">
+        <Link 
+          href="/designer" 
+          className="flex items-center gap-2 text-lg font-semibold md:text-base"
+          suppressHydrationWarning={true}
+        >
           <ButterflyLogo width={24} height={24} />
           <span className="sr-only">Interactive Room Designer</span>
         </Link>
