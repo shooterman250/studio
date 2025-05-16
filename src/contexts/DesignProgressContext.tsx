@@ -2,7 +2,7 @@
 "use client";
 
 import type { ReactNode } from 'react';
-import { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import { createContext, useContext, useState, useCallback } from 'react';
 import type { BaseSelectionItem } from '@/types';
 
 export type DesignStageKey = 
@@ -24,12 +24,20 @@ export interface SelectedDataItem extends BaseSelectionItem {
   dataAiHint?: string;
 }
 
+export interface CallPreferences {
+  phoneNumber: string;
+  availableDays: string[];
+  availableTimes: string[];
+}
+
 export interface ClientInfoData {
   fullName: string;
   email: string;
-  projectName: string;
-  projectVision: string;
-  mustHaves?: string;
+  // Removed:
+  // projectName: string;
+  // projectVision: string;
+  // mustHaves?: string;
+  callPreferences?: CallPreferences;
 }
 
 interface DesignProgressState {
