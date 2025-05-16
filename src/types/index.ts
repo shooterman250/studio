@@ -31,7 +31,7 @@ export interface BaseSelectionItem {
 // Overall Style
 export interface OverallStyleOption extends BaseSelectionItem {}
 export const overallStyleOptions: OverallStyleOption[] = [
-  { id: 'biophilic', name: 'Biophilic', imageUrl: `https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=681fff95&is=681eae15&hm=6f4dd846c8ae50357502831443826168a87d8f6019ce6aa736e95b64031c209b&=&format=webp&quality=lossless&width=700&height=700`, description: 'Nature-inspired, with natural elements.', dataAiHint: 'biophilic design interior' },
+  { id: 'biophilic', name: 'Biophilic', imageUrl: `/images/Biophilic.png`, description: 'Nature-inspired, with natural elements.', dataAiHint: 'biophilic design interior' },
   { id: 'bohemian', name: 'Bohemian', imageUrl: `https://media.discordapp.net/attachments/1370568040256901200/1370577130659909744/Overall_Style__Modern_1.png?ex=682000ec&is=681eaf6c&hm=361ae221f9d5e4cb6304e6a83e428170a90143b626d3e7c634ec8acd0e0df2bd&=&format=webp&quality=lossless&width=1502&height=1502`, description: 'Eclectic, colorful, and free-spirited.', dataAiHint: 'bohemian interior' },
   { id: 'coastal', name: 'Coastal', imageUrl: `https://media.discordapp.net/attachments/1370568040256901200/1370577942286962748/Overall_Style__Modern_2.png?ex=682001ad&is=681eb02d&hm=fde310c7c8f3b0fede4adb9135dccad019330a4675713158407b7f0ec66399e3&=&format=webp&quality=lossless&width=1502&height=1502`, description: 'Light, airy, and beach-inspired.', dataAiHint: 'coastal interior' },
   { id: 'contemporary', name: 'Contemporary', imageUrl: `https://media.discordapp.net/attachments/1370568040256901200/1370578507385536512/Overall_Style__Modern_3.png?ex=68200234&is=681eb0b4&hm=b2da99066e67481579998805cee745d8dec60c6f31368b90bb3db8d8f5978445&=&format=webp&quality=lossless&width=1502&height=1502`, description: 'Current, fluid, and ever-evolving.', dataAiHint: 'contemporary interior' },
@@ -39,15 +39,15 @@ export const overallStyleOptions: OverallStyleOption[] = [
   { id: 'industrial', name: 'Industrial', imageUrl: `https://media.discordapp.net/attachments/1370568040256901200/1370579979011887294/Overall_Style__Modern_5.png?ex=68200393&is=681eb213&hm=a18a1ddcc056c147ca0aea9ef95972d4af2bda9673386b7dbdccf9b71f590892&=&format=webp&quality=lossless&width=1502&height=1502`, description: 'Raw, edgy, with exposed elements.', dataAiHint: 'industrial interior' },
   { id: 'japandi', name: 'Japandi', imageUrl: `https://media.discordapp.net/attachments/1370568040256901200/1370580542021697597/Overall_Style__Modern_6.png?ex=68200419&is=681eb299&hm=aa4d7defe15b2d42ec30eda99f6fc73d51029b5b48cfceb0d9756ba410f6ebbf&=&format=webp&quality=lossless&width=1502&height=1502`, description: 'Japanese minimalism meets Scandinavian function.', dataAiHint: 'japandi interior' },
   { id: 'mid-century', name: 'Mid-Century Modern', imageUrl: `https://media.discordapp.net/attachments/1370568040256901200/1370581583479967774/Overall_Style__Modern_7.png?ex=68200511&is=681eb391&hm=5db0d1db0f4d2e045829ab67089b4fbb7e2a9048d586878cb1130e8395e1aa84&=&format=webp&quality=lossless&width=1502&height=1502`, description: 'Retro, organic shapes, and functionality.', dataAiHint: 'midcentury modern interior' },
-  { id: 'modern', name: 'Modern', imageUrl: `https://media.discordapp.net/attachments/1370568040256901200/1370571094762721280/Overall_Style__Modern.png?ex=681ffb4c&is=681ea9cc&hm=d81265ac83733784dd6d0fbf8136f1d512c4222cdbe20de4167c4b9a09eb6312&=&format=webp&quality=lossless&width=1502&height=1502`, description: 'Sleek, clean lines, and simplicity.', dataAiHint: 'modern interior' },
+  { id: 'modern', name: 'Modern', imageUrl: `https://drive.google.com/file/d/1TvZm1Aok8NZGMeZEVgpVXrrIAP9sBWX1/view?usp=sharing`, description: 'Sleek, clean lines, and simplicity.', dataAiHint: 'modern interior' },
   { id: 'traditional', name: 'Traditional', imageUrl: `https://media.discordapp.net/attachments/1370568040256901200/1370582056014319727/Overall_Style__Modern_8.png?ex=68200582&is=681eb402&hm=b5cdc7992a1939df4e2e1a17193309263d5138b2edb4e399e5e79c6f51304e72&=&format=webp&quality=lossless&width=1502&height=1502`, description: 'Classic, timeless, and ornate.', dataAiHint: 'traditional interior' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface KeyElementOption extends BaseSelectionItem {}
 export const keyElementOptions: KeyElementOption[] = [
-  { id: 'accessible-inclusive', name: 'Accessible & Inclusive', imageUrl: 'https://placehold.co/400x300.png', description: 'Designed to be usable by people of all abilities.', dataAiHint: 'accessible interior' },
+  { id: 'accessible-inclusive', name: 'Accessible &amp; Inclusive', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373028168042156083/Accessible.png?ex=6828eba0&is=68279a20&hm=5b9607c1fec3ab9ed510756f28f5c318ab4ebd52413ad8f59eebf601579506c8&=&format=webp&quality=lossless&width=1294&height=1294', description: 'Designed to be usable by people of all abilities.', dataAiHint: 'accessible interior' },
   { id: 'multi-generational-living', name: 'Multi-Generational Living', imageUrl: 'https://placehold.co/400x300.png', description: 'Accommodates multiple generations living together comfortably.', dataAiHint: 'multi generational home' },
-  { id: 'sustainable-eco-friendly', name: 'Sustainable & Eco-Friendly', imageUrl: 'https://placehold.co/400x300.png', description: 'Focus on environmentally conscious materials and practices.', dataAiHint: 'eco friendly home' },
+  { id: 'sustainable-eco-friendly', name: 'Sustainable &amp; Eco-Friendly', imageUrl: 'https://placehold.co/400x300.png', description: 'Focus on environmentally conscious materials and practices.', dataAiHint: 'eco friendly home' },
   { id: 'technology-integrated-smart-home', name: 'Technology Integrated Smart Home', imageUrl: 'https://placehold.co/400x300.png', description: 'Incorporates smart devices and automation for convenience and efficiency.', dataAiHint: 'smart home technology' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -200,7 +200,7 @@ export const bathroomStyleOptions = overallStyleOptions.sort((a, b) => a.name.lo
 export interface BathroomMasterBathTubOption extends BaseSelectionItem {}
 export const bathroomMasterBathTubOptions: BathroomMasterBathTubOption[] = [
     { id: 'bm-tub-alcove', name: 'Alcove Tub', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'alcove bathtub' },
-    { id: 'bm-tub-clawfoot', name: 'Claw Foot Tub', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'clawfoot bathtub vintage' },
+    { id: 'bm-tub-clawfoot', name: 'Claw Foot Tub', imageUrl: '/images/clawfoot.png', dataAiHint: 'clawfoot bathtub vintage' },
     { id: 'bm-tub-combo', name: 'Tub/Shower Combo', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'tub shower combination' },
     { id: 'bm-tub-corner', name: 'Corner Tub', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'corner bathtub' },
     { id: 'bm-tub-dropin', name: 'Drop-In Tub', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'drop in bathtub' },
@@ -310,3 +310,4 @@ export const finishOptions: FinishOption[] = [
     
 
   
+
