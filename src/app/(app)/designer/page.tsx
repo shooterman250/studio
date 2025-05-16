@@ -1,7 +1,7 @@
 
 "use client";
 
-import type { DesignStageKey, SelectedDataItem } from "@/contexts/DesignProgressContext";
+import type { DesignStageKey, SelectedDataItem, ClientInfoData } from "@/contexts/DesignProgressContext";
 import { useDesignProgress } from "@/contexts/DesignProgressContext";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Image from "next/image";
@@ -86,20 +86,21 @@ const StageSelectionsCard = ({ stageKey, items }: { stageKey: DesignStageKey; it
 
 
 export default function DesignerPage() {
-  const { getAllSelections } = useDesignProgress();
+  const { getAllSelections, getClientInfo } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter(); 
   const allSelections = getAllSelections();
+  const clientInfo = getClientInfo();
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
 
   const activeStages = Object.entries(allSelections)
     .filter(([stageKey, items]) => stageKey !== "summary" && items.length > 0);
 
   const handleDownloadPdf = async () => {
-    if (activeStages.length === 0) {
+    if (activeStages.length === 0 && !clientInfo) {
       toast({
-        title: "No Selections to Export",
-        description: "Please make some design choices before exporting to PDF.",
+        title: "No Information to Export",
+        description: "Please make some design choices or add client info before exporting to PDF.",
         variant: "destructive",
       });
       return;
@@ -108,42 +109,46 @@ export default function DesignerPage() {
     setIsGeneratingPdf(true);
     toast({ title: "Generating PDF...", description: "Please wait, this may take a moment." });
 
-    const doc = new jsPDF();
+    const doc = new jsPDF({
+      orientation: 'p',
+      unit: 'mm',
+      format: 'a4'
+    });
+    
     let yPos = 0; 
     const pageHeight = doc.internal.pageSize.height;
     const pageWidth = doc.internal.pageSize.width;
-    const margin = 15;
+    const margin = 12; // Reduced margin for more content space
     const contentWidth = pageWidth - margin * 2;
 
-    // Theme Colors (RGB approximations)
-    const colorForeground = '#4F4A45'; // hsl(20, 12%, 25%)
-    const colorPrimary = '#008080';    // hsl(180, 100%, 25%)
-    const colorMuted = '#8A8480';      // Lighter grey for descriptions, derived from muted
+    // Theme Colors (RGB approximations from HSL for jsPDF)
+    const colorForegroundRgb = [79, 74, 69]; // hsl(20, 12%, 25%)
+    const colorPrimaryRgb = [0, 128, 128];   // hsl(180, 100%, 25%)
+    const colorMutedRgb = [138, 132, 128];   // hsl(20, 10%, 55%) - from original muted-foreground
 
-    // Font Sizes (in points)
-    const FONT_SIZE_LOGO_TITLE = 10;
-    const FONT_SIZE_PAGE_TITLE = 18;
-    const FONT_SIZE_SECTION_TITLE = 14;
-    const FONT_SIZE_ITEM_NAME = 10;
-    const FONT_SIZE_ITEM_VALUE = 9;
-    const FONT_SIZE_ITEM_DESCRIPTION = 8;
-    const FONT_SIZE_FOOTER = 8;
+    // Font Sizes (in points) - Reduced for compactness
+    const FONT_SIZE_LOGO_TITLE = 9;
+    const FONT_SIZE_PAGE_TITLE = 16;
+    const FONT_SIZE_SECTION_TITLE = 12;
+    const FONT_SIZE_CLIENT_LABEL = 9;
+    const FONT_SIZE_CLIENT_DATA = 9;
+    const FONT_SIZE_ITEM_NAME = 9;
+    const FONT_SIZE_ITEM_VALUE = 8;
+    const FONT_SIZE_ITEM_DESCRIPTION = 7;
+    const FONT_SIZE_FOOTER = 7;
 
-    // Spacing (in mm)
-    const spacingSection = 8;
-    const spacingItem = 4;
-    const spacingImageText = 3;
+    // Spacing (in mm) - Reduced
+    const spacingSection = 6;
+    const spacingItem = 3;
+    const spacingImageText = 2;
     
-    // Image dimensions (in mm)
-    const itemImageWidth = 30;
-    const itemImageHeight = (itemImageWidth * 3) / 4; // Maintain 4:3 aspect ratio
+    // Image dimensions (in mm) - Reduced
+    const itemImageWidth = 20; 
+    const itemImageHeight = (itemImageWidth * 3) / 4; 
 
     const getLineHeight = (sizeInPoints: number) => {
-      // jsPDF's getLineHeightRauto() returns line height in user units (mm by default)
-      // Factor is approx 0.352778 to convert points to mm, then a line height factor (e.g., 1.2)
-      // doc.getLineHeightRauto() is simpler if font is set
       doc.setFontSize(sizeInPoints);
-      return doc.getLineHeight(); // This returns in points, jsPDF handles conversion in text()
+      return doc.getLineHeight() / doc.internal.scaleFactor; // Convert points to mm
     };
     
     const checkAndAddPage = (neededHeight: number) => {
@@ -156,18 +161,19 @@ export default function DesignerPage() {
         return false;
     };
     
+    let currentPageNumber = 1;
     const addPageNumber = () => {
-        const pageCount = doc.internal.getNumberOfPages();
         doc.setFontSize(FONT_SIZE_FOOTER);
-        doc.setTextColor(colorMuted);
-        doc.text(`Page ${pageCount}`, pageWidth - margin, pageHeight - margin / 2, { align: 'right' });
+        doc.setTextColor(colorMutedRgb[0], colorMutedRgb[1], colorMutedRgb[2]);
+        doc.text(`Page ${currentPageNumber}`, pageWidth - margin, pageHeight - margin / 2, { align: 'right' });
+        currentPageNumber++;
     };
 
 
     // --- Start PDF Generation ---
-    doc.setFont("helvetica", "normal"); // Set a default clean font
+    doc.setFont("helvetica", "normal"); 
 
-    // 1. Add Logo
+    // 1. Add Logo & Company Name
     const logoUrl = "https://media.discordapp.net/attachments/1370568040256901200/1370582735122468954/butterfly_logo.png?ex=68200624&is=681eb4a4&hm=857aa242c852f51e2691ade9087a798c239d804caf79d4e04b0e1903c57337e9&=&format=webp&quality=lossless&width=1502&height=1502";
     let logoDataUri: string | null = null;
     try {
@@ -184,29 +190,89 @@ export default function DesignerPage() {
         console.warn("Could not load logo for PDF:", e);
     }
 
-    const logoHeight = 20; // mm
-    const logoWidth = 20; // mm, assuming square, adjust if needed
+    const logoHeight = 15; // mm
+    const logoWidth = 15;  // mm
     yPos = margin;
 
     if (logoDataUri) {
         const logoX = (pageWidth - logoWidth) / 2;
         doc.addImage(logoDataUri, 'PNG', logoX, yPos, logoWidth, logoHeight);
-        yPos += logoHeight + 3; 
+        yPos += logoHeight + 2; 
     }
     
     doc.setFontSize(FONT_SIZE_LOGO_TITLE);
-    doc.setTextColor(colorForeground);
+    doc.setTextColor(colorForegroundRgb[0], colorForegroundRgb[1], colorForegroundRgb[2]);
     doc.text("Interactive Designs", pageWidth / 2, yPos, { align: 'center' });
-    yPos += getLineHeight(FONT_SIZE_LOGO_TITLE) * 0.5 + 5;
+    yPos += getLineHeight(FONT_SIZE_LOGO_TITLE) + 4;
 
+    // Horizontal line
+    doc.setDrawColor(colorMutedRgb[0], colorMutedRgb[1], colorMutedRgb[2]);
+    doc.setLineWidth(0.2);
+    doc.line(margin, yPos, pageWidth - margin, yPos);
+    yPos += 4;
 
-    // 2. Page Title
-    checkAndAddPage(getLineHeight(FONT_SIZE_PAGE_TITLE) * 0.5 + spacingSection);
+    // 2. Client Information
+    if (clientInfo) {
+        checkAndAddPage(getLineHeight(FONT_SIZE_SECTION_TITLE) + (clientInfo.callPreferences ? 4 : 2) * getLineHeight(FONT_SIZE_CLIENT_DATA) + 5);
+        doc.setFontSize(FONT_SIZE_SECTION_TITLE);
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(colorPrimaryRgb[0], colorPrimaryRgb[1], colorPrimaryRgb[2]);
+        doc.text("Client Details", margin, yPos);
+        yPos += getLineHeight(FONT_SIZE_SECTION_TITLE) + 1;
+        doc.setFont("helvetica", "normal");
+
+        doc.setFontSize(FONT_SIZE_CLIENT_LABEL);
+        doc.setTextColor(colorForegroundRgb[0], colorForegroundRgb[1], colorForegroundRgb[2]);
+        
+        const clientInfoStartY = yPos;
+        let clientInfoCol1X = margin;
+        let clientInfoCol2X = margin + (contentWidth / 2) + 5;
+
+        doc.setFont("helvetica", "bold");
+        doc.text("Full Name:", clientInfoCol1X, yPos);
+        doc.setFont("helvetica", "normal");
+        doc.text(clientInfo.fullName || "N/A", clientInfoCol1X + 20, yPos);
+        yPos += getLineHeight(FONT_SIZE_CLIENT_DATA) + 0.5;
+
+        doc.setFont("helvetica", "bold");
+        doc.text("Email:", clientInfoCol1X, yPos);
+        doc.setFont("helvetica", "normal");
+        doc.text(clientInfo.email || "N/A", clientInfoCol1X + 20, yPos);
+        
+        if (clientInfo.callPreferences && (clientInfo.callPreferences.phoneNumber || clientInfo.callPreferences.availableDays.length > 0 || clientInfo.callPreferences.availableTimes.length > 0)) {
+            yPos = clientInfoStartY; // Reset yPos for second column
+            doc.setFont("helvetica", "bold");
+            doc.text("Phone:", clientInfoCol2X, yPos);
+            doc.setFont("helvetica", "normal");
+            doc.text(clientInfo.callPreferences.phoneNumber || "N/A", clientInfoCol2X + 15, yPos);
+            yPos += getLineHeight(FONT_SIZE_CLIENT_DATA) + 0.5;
+
+            if(clientInfo.callPreferences.availableDays.length > 0 || clientInfo.callPreferences.availableTimes.length > 0){
+                doc.setFont("helvetica", "bold");
+                doc.text("Availability:", clientInfoCol2X, yPos);
+                doc.setFont("helvetica", "normal");
+                const availabilityText = `${clientInfo.callPreferences.availableDays.join(', ')} - ${clientInfo.callPreferences.availableTimes.join(', ')}`;
+                const splitAvailability = doc.splitTextToSize(availabilityText, contentWidth / 2 - 20);
+                doc.text(splitAvailability, clientInfoCol2X + 20, yPos);
+                yPos += getLineHeight(FONT_SIZE_CLIENT_DATA) * splitAvailability.length;
+            }
+        }
+        yPos += getLineHeight(FONT_SIZE_CLIENT_LABEL) + 3; // Space after client info block
+    }
+    
+    // Horizontal line
+    doc.setDrawColor(colorMutedRgb[0], colorMutedRgb[1], colorMutedRgb[2]);
+    doc.setLineWidth(0.2);
+    doc.line(margin, yPos, pageWidth - margin, yPos);
+    yPos += 4;
+
+    // 3. Design Selections Title
+    checkAndAddPage(getLineHeight(FONT_SIZE_PAGE_TITLE) + spacingSection);
     doc.setFontSize(FONT_SIZE_PAGE_TITLE);
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(colorForeground);
-    doc.text("Design Summary", pageWidth / 2, yPos, { align: 'center' });
-    yPos += getLineHeight(FONT_SIZE_PAGE_TITLE) * 0.5 + spacingSection;
+    doc.setTextColor(colorForegroundRgb[0], colorForegroundRgb[1], colorForegroundRgb[2]);
+    doc.text("Design Selections", pageWidth / 2, yPos, { align: 'center' });
+    yPos += getLineHeight(FONT_SIZE_PAGE_TITLE) + spacingSection / 2;
     doc.setFont("helvetica", "normal");
 
     try {
@@ -215,21 +281,18 @@ export default function DesignerPage() {
 
         const stageName = stageDisplayNames[stageKey as DesignStageKey] || stageKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
         
-        checkAndAddPage(getLineHeight(FONT_SIZE_SECTION_TITLE) * 0.5 + 3 + spacingItem); // Section title + line + space
+        checkAndAddPage(getLineHeight(FONT_SIZE_SECTION_TITLE) + 2 + spacingItem); 
         doc.setFontSize(FONT_SIZE_SECTION_TITLE);
         doc.setFont("helvetica", "bold");
-        doc.setTextColor(colorPrimary);
+        doc.setTextColor(colorPrimaryRgb[0], colorPrimaryRgb[1], colorPrimaryRgb[2]);
         doc.text(stageName, margin, yPos);
-        yPos += getLineHeight(FONT_SIZE_SECTION_TITLE) * 0.5;
-        
-        doc.setDrawColor(colorPrimary); // Line color
-        doc.setLineWidth(0.3);
-        doc.line(margin, yPos, pageWidth - margin, yPos); // Underline section title
-        yPos += 3; // Space after line
+        yPos += getLineHeight(FONT_SIZE_SECTION_TITLE) + 1; 
         doc.setFont("helvetica", "normal");
 
         for (const item of items) {
-          const estItemHeight = item.imageUrl ? itemImageHeight + spacingItem : getLineHeight(FONT_SIZE_ITEM_NAME) * 0.5 * 2 + spacingItem;
+          const estItemHeightBase = getLineHeight(FONT_SIZE_ITEM_NAME);
+          const estItemHeightWithDesc = item.description ? estItemHeightBase + getLineHeight(FONT_SIZE_ITEM_DESCRIPTION) : estItemHeightBase;
+          const estItemHeight = item.imageUrl ? Math.max(itemImageHeight, estItemHeightWithDesc) + spacingItem : estItemHeightWithDesc + spacingItem;
           checkAndAddPage(estItemHeight); 
 
           let textX = margin;
@@ -239,15 +302,12 @@ export default function DesignerPage() {
           if (item.imageUrl && (item.imageUrl.startsWith('http') || item.imageUrl.startsWith('data:image') || item.imageUrl.startsWith('/images/'))) {
             try {
               let imageData: string | ArrayBuffer | null = null;
-              let imageFormat = 'JPEG'; // Default
+              let imageFormat = 'JPEG'; 
 
               if (item.imageUrl.startsWith('data:image')) {
                 imageData = item.imageUrl;
                 if (imageData.startsWith('data:image/png')) imageFormat = 'PNG';
               } else if (item.imageUrl.startsWith('/images/')) {
-                // For local public images, construct full URL for fetching during PDF generation
-                // This assumes the app is running on localhost:3000 during PDF generation
-                // For deployment, ensure this path is accessible or embed images differently
                 const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
                 const fullImageUrl = `${baseUrl}${item.imageUrl}`;
                 const response = await fetch(fullImageUrl);
@@ -261,7 +321,7 @@ export default function DesignerPage() {
                   reader.readAsDataURL(blob);
                 });
 
-              } else { // HTTP(S) URLs
+              } else { 
                 const response = await fetch(item.imageUrl);
                 if (!response.ok) throw new Error(`Image fetch failed: ${response.statusText}`);
                 const blob = await response.blob();
@@ -275,74 +335,42 @@ export default function DesignerPage() {
               }
               
               if (imageData) {
-                if (yPos + itemImageHeight > pageHeight - margin) { 
-                  doc.addPage(); yPos = margin; addPageNumber();
-                }
                 doc.addImage(imageData as string, imageFormat, margin, yPos, itemImageWidth, itemImageHeight);
-                imageBlockEndY = yPos + itemImageHeight + 1; // Small gap if image exists
+                imageBlockEndY = yPos + itemImageHeight + 0.5; 
                 textX = margin + itemImageWidth + spacingImageText; 
-                currentTextY = yPos; 
+                currentTextY = yPos + getLineHeight(FONT_SIZE_ITEM_NAME) / 2; // Align text better with image center
               }
             } catch (error) {
               console.warn(`PDF: Could not load image for ${item.name}: ${item.imageUrl}`, error);
-              // Placeholder for failed image
-              doc.setFontSize(FONT_SIZE_ITEM_DESCRIPTION);
-              doc.setTextColor(colorMuted);
-              const failText = `[Image for ${item.name} failed to load]`;
-              const failLines = doc.splitTextToSize(failText, contentWidth - (textX > margin ? (textX - margin) : 0));
-              if (currentTextY + failLines.length * getLineHeight(FONT_SIZE_ITEM_DESCRIPTION) * 0.5 > pageHeight - margin) {
-                  doc.addPage(); currentTextY = margin; addPageNumber();
-              }
-              doc.text(failLines, textX, currentTextY);
-              currentTextY += failLines.length * getLineHeight(FONT_SIZE_ITEM_DESCRIPTION) * 0.5 + 1;
-              imageBlockEndY = Math.max(imageBlockEndY, currentTextY);
             }
-          } else if (item.imageUrl) {
-              console.warn(`PDF: Skipping unsupported image ${item.name}: ${item.imageUrl}`);
           }
           
           doc.setFontSize(FONT_SIZE_ITEM_NAME);
           doc.setFont("helvetica", "bold");
-          doc.setTextColor(colorForeground);
-          const nameLines = doc.splitTextToSize(item.name, contentWidth - (textX - margin + (item.imageUrl ? 0 : - (itemImageWidth + spacingImageText) ) ) ); // Adjust width if no image
-
-          let textBlockRequiredHeight = nameLines.length * getLineHeight(FONT_SIZE_ITEM_NAME) * 0.5;
-          if (item.value !== undefined) textBlockRequiredHeight += getLineHeight(FONT_SIZE_ITEM_VALUE) * 0.5;
-          if (item.description) textBlockRequiredHeight += getLineHeight(FONT_SIZE_ITEM_DESCRIPTION) * 0.5 * 2; // Estimate 2 lines for description
-
-          if (textX > margin && currentTextY + textBlockRequiredHeight > yPos + itemImageHeight && yPos + itemImageHeight < pageHeight - margin) {
-            // If text next to image is too tall and image isn't at bottom of page, move text below image
-            currentTextY = yPos + itemImageHeight + 2;
-            textX = margin;
-             if (checkAndAddPage(textBlockRequiredHeight)) { // check if new position needs new page
-                currentTextY = margin; // reset currentTextY if new page
-            }
-          } else {
-            checkAndAddPage(currentTextY - yPos + textBlockRequiredHeight); // Use currentTextY - yPos as already drawn height for this item on current page
-          }
-          
+          doc.setTextColor(colorForegroundRgb[0], colorForegroundRgb[1], colorForegroundRgb[2]);
+          const nameLines = doc.splitTextToSize(item.name, contentWidth - (textX - margin));
           doc.text(nameLines, textX, currentTextY);
-          currentTextY += nameLines.length * getLineHeight(FONT_SIZE_ITEM_NAME) * 0.5;
+          currentTextY += nameLines.length * getLineHeight(FONT_SIZE_ITEM_NAME);
 
 
           if (item.value !== undefined) {
             doc.setFontSize(FONT_SIZE_ITEM_VALUE);
             doc.setFont("helvetica", "normal");
-            doc.setTextColor(colorForeground); 
+            doc.setTextColor(colorPrimaryRgb[0], colorPrimaryRgb[1], colorPrimaryRgb[2]); 
             const valueText = typeof item.value === 'number' ? `$${item.value.toLocaleString()}` : String(item.value);
-            const valLines = doc.splitTextToSize(valueText, contentWidth - (textX - margin + (item.imageUrl ? 0 : - (itemImageWidth + spacingImageText) ) ) );
+            const valLines = doc.splitTextToSize(valueText, contentWidth - (textX - margin));
             doc.text(valLines, textX, currentTextY);
-            currentTextY += valLines.length * getLineHeight(FONT_SIZE_ITEM_VALUE) * 0.5;
+            currentTextY += valLines.length * getLineHeight(FONT_SIZE_ITEM_VALUE);
           }
 
           const itemOwnDescription = (item.description && !Object.values(stageDisplayNames).includes(item.description) && item.description !== stageName && item.description.toLowerCase() !== "your selections for this stage.");
           if (itemOwnDescription) {
             doc.setFontSize(FONT_SIZE_ITEM_DESCRIPTION);
             doc.setFont("helvetica", "italic");
-            doc.setTextColor(colorMuted);
-            const descLines = doc.splitTextToSize(item.description!, contentWidth - (textX - margin + (item.imageUrl ? 0 : - (itemImageWidth + spacingImageText) ) ) );
+            doc.setTextColor(colorMutedRgb[0], colorMutedRgb[1], colorMutedRgb[2]);
+            const descLines = doc.splitTextToSize(item.description!, contentWidth - (textX - margin) );
             doc.text(descLines, textX, currentTextY);
-            currentTextY += descLines.length * getLineHeight(FONT_SIZE_ITEM_DESCRIPTION) * 0.5;
+            currentTextY += descLines.length * getLineHeight(FONT_SIZE_ITEM_DESCRIPTION);
           }
           
           yPos = Math.max(imageBlockEndY, currentTextY) + spacingItem; 
@@ -350,7 +378,7 @@ export default function DesignerPage() {
         yPos += spacingSection / 2; 
       }
       
-      addPageNumber(); // Add page number to the last page
+      addPageNumber(); 
 
       doc.save('design_summary.pdf');
       toast({
@@ -401,16 +429,38 @@ export default function DesignerPage() {
         </header>
 
         <section className="max-w-7xl mx-auto space-y-12">
-          {activeStages.length > 0 ? (
+          {activeStages.length > 0 || clientInfo ? ( // Show overview if there are selections OR client info
             <>
               <h2 className="text-3xl font-semibold mb-8 text-center text-foreground">
                 Your Design Selections Overview
               </h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-                {activeStages.map(([stageKey, items]) => (
-                  <StageSelectionsCard key={stageKey} stageKey={stageKey as DesignStageKey} items={items} />
-                ))}
-              </div>
+              {clientInfo && (
+                <Card className="mb-8 bg-card/70 backdrop-blur-lg border border-card-foreground/10 shadow-xl overflow-hidden">
+                  <CardHeader className="bg-card-foreground/5">
+                    <CardTitle className="text-xl">Client Information</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-4 space-y-1 text-sm">
+                    <p><strong>Full Name:</strong> {clientInfo.fullName}</p>
+                    <p><strong>Email:</strong> {clientInfo.email}</p>
+                    {clientInfo.callPreferences && (clientInfo.callPreferences.phoneNumber || clientInfo.callPreferences.availableDays.length > 0 || clientInfo.callPreferences.availableTimes.length > 0) && (
+                      <>
+                        <p className="mt-2 pt-2 border-t border-border/30"><strong>Contact Preferences:</strong></p>
+                        {clientInfo.callPreferences.phoneNumber && <p>Phone: {clientInfo.callPreferences.phoneNumber}</p>}
+                        {(clientInfo.callPreferences.availableDays.length > 0 || clientInfo.callPreferences.availableTimes.length > 0) &&
+                          <p>Availability: {clientInfo.callPreferences.availableDays.join(', ')} - {clientInfo.callPreferences.availableTimes.join(', ')}</p>
+                        }
+                      </>
+                    )}
+                  </CardContent>
+                </Card>
+              )}
+              {activeStages.length > 0 && (
+                <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+                  {activeStages.map(([stageKey, items]) => (
+                    <StageSelectionsCard key={stageKey} stageKey={stageKey as DesignStageKey} items={items} />
+                  ))}
+                </div>
+              )}
             </>
           ) : (
             <div className="mt-12 p-10 bg-card/60 backdrop-blur-lg border border-card-foreground/10 rounded-lg shadow-lg text-center">
@@ -433,7 +483,5 @@ export default function DesignerPage() {
     </div>
   );
 }
-
-    
 
     
