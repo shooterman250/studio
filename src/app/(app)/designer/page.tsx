@@ -286,15 +286,15 @@ export default function DesignerPage() {
             } catch (error) {
               console.warn(`PDF: Could not load image for ${item.name}: ${item.imageUrl}`, error);
               // Placeholder for failed image
-              doc.setFontSize(fontSizeItemDescription);
+              doc.setFontSize(FONT_SIZE_ITEM_DESCRIPTION);
               doc.setTextColor(colorMuted);
               const failText = `[Image for ${item.name} failed to load]`;
               const failLines = doc.splitTextToSize(failText, contentWidth - (textX > margin ? (textX - margin) : 0));
-              if (currentTextY + failLines.length * getLineHeight(fontSizeItemDescription) * 0.5 > pageHeight - margin) {
+              if (currentTextY + failLines.length * getLineHeight(FONT_SIZE_ITEM_DESCRIPTION) * 0.5 > pageHeight - margin) {
                   doc.addPage(); currentTextY = margin; addPageNumber();
               }
               doc.text(failLines, textX, currentTextY);
-              currentTextY += failLines.length * getLineHeight(fontSizeItemDescription) * 0.5 + 1;
+              currentTextY += failLines.length * getLineHeight(FONT_SIZE_ITEM_DESCRIPTION) * 0.5 + 1;
               imageBlockEndY = Math.max(imageBlockEndY, currentTextY);
             }
           } else if (item.imageUrl) {
@@ -420,7 +420,7 @@ export default function DesignerPage() {
                 Navigate through the sidebar or click the button below to start customizing different aspects of your project.
               </p>
               <Button
-                onClick={() => router.push('/client-info')} // Updated to client-info
+                onClick={() => router.push('/overall-budget')}
                 size="lg"
               >
                 <PencilLine className="mr-2 h-5 w-5" />
@@ -433,5 +433,7 @@ export default function DesignerPage() {
     </div>
   );
 }
+
+    
 
     
