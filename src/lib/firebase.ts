@@ -1,6 +1,6 @@
 
 import { initializeApp, getApps, getApp, type FirebaseApp } from 'firebase/app';
-import { getAuth, type Auth } from 'firebase/auth';
+// Removed: import { getAuth, type Auth } from 'firebase/auth';
 import { getFirestore, type Firestore } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -13,7 +13,7 @@ const firebaseConfig = {
 };
 
 let app: FirebaseApp | undefined = undefined;
-let auth: Auth | undefined = undefined;
+// Removed: let auth: Auth | undefined = undefined;
 let db: Firestore | undefined = undefined;
 
 if (typeof window !== 'undefined') {
@@ -40,13 +40,12 @@ if (typeof window !== 'undefined') {
 
   if (app) {
     try {
-      auth = getAuth(app);
+      // Removed: auth = getAuth(app);
       db = getFirestore(app);
     } catch (e) {
-      console.error("Error getting Firebase Auth or Firestore instance:", e);
-      // This could also be a source of 'auth/invalid-api-key' if app init was problematic
+      console.error("Error getting Firebase Firestore instance:", e);
     }
   }
 }
 
-export { app, auth, db };
+export { app, db };

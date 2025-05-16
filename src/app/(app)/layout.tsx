@@ -4,7 +4,7 @@ import { SidebarProvider } from '@/components/ui/sidebar';
 import AppSidebar from '@/components/layout/AppSidebar';
 import AppHeader from '@/components/layout/AppHeader';
 import { DesignProgressProvider } from '@/contexts/DesignProgressContext';
-// AuthProvider is now in RootLayout (src/app/layout.tsx)
+// AuthProvider was already removed from here and moved to RootLayout, then subsequently removed from RootLayout.
 
 export default function AppLayout({
   children,
@@ -12,7 +12,6 @@ export default function AppLayout({
   children: ReactNode;
 }) {
   return (
-    // AuthProvider is no longer here, moved to RootLayout
     <DesignProgressProvider>
       <SidebarProvider defaultOpen={true}>
         <div className="flex min-h-screen w-full">
