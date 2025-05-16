@@ -11,6 +11,27 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing required fields: pdfDataUri, recipientEmail, subject, bodyText, fileName' }, { status: 400 });
     }
 
+    // Check for essential environment variables
+    const requiredEnvVars = [
+      'EMAIL_SMTP_HOST',
+      'EMAIL_SMTP_PORT',
+      'EMAIL_SMTP_USER',
+      'EMAIL_SMTP_PASSWORD',
+      'EMAIL_FROM_ADDRESS',
+    ];
+    const missingEnvVars = requiredEnvVars.filter(v => !process.env[v]);
+
+    if (missingEnvVars.length > 0) {
+      console.error(`Email sending failed: Missing required environment variables: ${missingEnvVars.join(', ')}`);
+      return NextResponse.json(
+        { 
+          error: 'Email server configuration is incomplete.',
+          details: `The following server environment variables are missing: ${missingEnvVars.join(', ')}. Please contact the administrator.`
+        }, 
+        { status: 500 }
+      );
+    }
+
     // Extract base64 content and mime type from data URI
     const parts = pdfDataUri.match(/^data:(.+);base64,(.+)$/);
     if (!parts || parts.length !== 3) {
@@ -28,11 +49,15 @@ export async function POST(request: NextRequest) {
         user: process.env.EMAIL_SMTP_USER,
         pass: process.env.EMAIL_SMTP_PASSWORD,
       },
+      // It's good practice to add a timeout
+      connectionTimeout: 10000, // 10 seconds
+      greetingTimeout: 10000, // 10 seconds
+      socketTimeout: 10000, // 10 seconds
     });
 
     const mailOptions = {
       from: process.env.EMAIL_FROM_ADDRESS, 
-      to: recipientEmail,
+      to: recipientEmail, // This will be khinterdesigns@gmail.com based on your request for the frontend
       subject: subject,
       text: bodyText,
       html: `<p>${bodyText.replace(/\n/g, '<br>')}</p>`,
@@ -50,24 +75,27 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: 'Email sent successfully!' }, { status: 200 });
 
   } catch (error) {
-    console.error('Full error object sending email:', error); // Enhanced logging for the full error
+    console.error('Full error object sending email:', error); 
 
-    let errorDetails = 'An unknown error occurred.';
+    let errorDetails = 'An unknown error occurred while trying to send the email.';
     if (error instanceof Error) {
       errorDetails = error.message;
     }
     
-    // Add more specific nodemailer error codes if available
+    // Check for nodemailer specific error codes
     if (error && typeof error === 'object') {
-      if ('code' in error && error.code) {
-        errorDetails += ` (Code: ${error.code})`;
+      const nodemailerError = error as { code?: string; responseCode?: number; command?: string; message: string };
+      let details = `Message: ${nodemailerError.message}`;
+      if (nodemailerError.code) {
+        details += ` (Code: ${nodemailerError.code})`;
       }
-      if ('responseCode' in error && error.responseCode) {
-        errorDetails += ` (Response Code: ${error.responseCode})`;
+      if (nodemailerError.responseCode) {
+        details += ` (Response Code: ${nodemailerError.responseCode})`;
       }
-      if ('command' in error && error.command) {
-        errorDetails += ` (Command: ${error.command})`;
+      if (nodemailerError.command) {
+        details += ` (Command: ${nodemailerError.command})`;
       }
+      errorDetails = details;
     }
 
     return NextResponse.json({ error: 'Failed to send email.', details: errorDetails }, { status: 500 });
