@@ -26,15 +26,13 @@ export default function LandingPage() {
         </p>
         {mounted ? (
           <Link
-            href="/designer"
+            href="/client-info" // CHANGED from /designer
             className={cn(
               buttonVariants({ variant: 'default', size: 'lg' }),
-              // The user previously requested this button background to be #99847A.
-              // The 'default' variant in globals.css for buttons is currently:
-              // "bg-card text-primary-foreground hover:bg-card/[.90]"
-              // --card is 20 12% 62% (#9E918A) which is close to #99847A
-              // Custom classes for specific sizing and look:
               'text-lg px-10 py-6 shadow-lg hover:shadow-xl transition-shadow duration-300'
+              // The color #99847A was previously requested for this button.
+              // Current default button variant from globals.css: "bg-card text-primary-foreground hover:bg-card/[.90]"
+              // --card is 20 12% 62% (#9E918A) which is close.
             )}
           >
             Start Designing
