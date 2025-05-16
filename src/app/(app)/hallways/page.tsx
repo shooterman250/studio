@@ -16,7 +16,7 @@ import { useDesignProgress, type SelectedDataItem, DesignStageKey } from "@/cont
 import { useToast } from "@/hooks/use-toast";
 import { useRouter, usePathname } from "next/navigation";
 import { baseNavItemsConfig } from "@/config/navigation";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Home } from "lucide-react"; // Added Home icon
 
 const PAGE_STAGE_KEY: DesignStageKey = "hallways";
 
@@ -107,6 +107,11 @@ export default function HallwaysPage() {
     });
   };
 
+  const handleFinishAndGoToDashboard = () => {
+    handleSaveChanges();
+    router.push('/designer');
+  };
+
   const designStagesNavConfig = baseNavItemsConfig.filter(item => item.id !== 'dashboard' && item.id !== 'settings');
   const currentIndex = designStagesNavConfig.findIndex(item => item.href === pathname);
   const nextStage = currentIndex !== -1 && currentIndex < designStagesNavConfig.length - 1 ? designStagesNavConfig[currentIndex + 1] : null;
@@ -148,6 +153,15 @@ export default function HallwaysPage() {
           <Button className="w-full sm:w-auto" onClick={handleSaveChanges}>
             Save Hallway Choices ({selectedOptions.size})
           </Button>
+          <Button
+            onClick={handleFinishAndGoToDashboard}
+            variant="default" // Or another variant like "primary" if you have one
+            className="w-full sm:w-auto"
+          >
+            <Home className="mr-2 h-4 w-4" />
+            Finish &amp; View Dashboard
+          </Button>
+          {/* The Next Section button will likely not render here as Hallways is the last design stage */}
           {nextStage && (
             <Button
               onClick={() => router.push(nextStage.href)}
@@ -164,3 +178,4 @@ export default function HallwaysPage() {
     </div>
   );
 }
+
