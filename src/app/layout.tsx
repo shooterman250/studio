@@ -35,6 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body 
+        suppressHydrationWarning // Added to mitigate body-specific hydration issues
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
           geistSans.variable, 
