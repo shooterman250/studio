@@ -39,7 +39,7 @@ export const overallStyleOptions: OverallStyleOption[] = [
   { id: 'industrial', name: 'Industrial', imageUrl: `https://media.discordapp.net/attachments/1370568040256901200/1370579979011887294/Overall_Style__Modern_5.png?ex=68200393&is=681eb213&hm=a18a1ddcc056c147ca0aea9ef95972d4af2bda9673386b7dbdccf9b71f590892&=&format=webp&quality=lossless&width=1502&height=1502`, description: 'Raw, edgy, with exposed elements.', dataAiHint: 'industrial interior' },
   { id: 'japandi', name: 'Japandi', imageUrl: `https://media.discordapp.net/attachments/1370568040256901200/1370580542021697597/Overall_Style__Modern_6.png?ex=68200419&is=681eb299&hm=aa4d7defe15b2d42ec30eda99f6fc73d51029b5b48cfceb0d9756ba410f6ebbf&=&format=webp&quality=lossless&width=1502&height=1502`, description: 'Japanese minimalism meets Scandinavian function.', dataAiHint: 'japandi interior' },
   { id: 'mid-century', name: 'Mid-Century Modern', imageUrl: `https://media.discordapp.net/attachments/1370568040256901200/1370581583479967774/Overall_Style__Modern_7.png?ex=68200511&is=681eb391&hm=5db0d1db0f4d2e045829ab67089b4fbb7e2a9048d586878cb1130e8395e1aa84&=&format=webp&quality=lossless&width=1502&height=1502`, description: 'Retro, organic shapes, and functionality.', dataAiHint: 'midcentury modern interior' },
-  { id: 'modern', name: 'Modern', imageUrl: `https://drive.google.com/file/d/1TvZm1Aok8NZGMeZEVgpVXrrIAP9sBWX1/view?usp=sharing`, description: 'Sleek, clean lines, and simplicity.', dataAiHint: 'modern interior' },
+  { id: 'modern', name: 'Modern', imageUrl: `https://media.discordapp.net/attachments/1370568040256901200/1370571094762721280/Overall_Style__Modern.png?ex=68288d0c&is=68273b8c&hm=c0906f93b28f823c300716e59a6f73cc3375fb32acaa93692c3171199a3e5d9e&=&format=webp&quality=lossless&width=1502&height=1502`, description: 'Sleek, clean lines, and simplicity.', dataAiHint: 'modern interior' },
   { id: 'traditional', name: 'Traditional', imageUrl: `https://media.discordapp.net/attachments/1370568040256901200/1370582056014319727/Overall_Style__Modern_8.png?ex=68200582&is=681eb402&hm=b5cdc7992a1939df4e2e1a17193309263d5138b2edb4e399e5e79c6f51304e72&=&format=webp&quality=lossless&width=1502&height=1502`, description: 'Classic, timeless, and ornate.', dataAiHint: 'traditional interior' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -312,3 +312,6 @@ export const finishOptions: FinishOption[] = [
   
 
 
+
+
+    
