@@ -31,7 +31,7 @@ export interface BaseSelectionItem {
 // Overall Style
 export interface OverallStyleOption extends BaseSelectionItem {}
 export const overallStyleOptions: OverallStyleOption[] = [
-  { id: 'biophilic', name: 'Biophilic', imageUrl: `/images/Biophilic.png`, description: 'Nature-inspired, with natural elements.', dataAiHint: 'biophilic design interior' },
+  { id: 'biophilic', name: 'Biophilic', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=68289155&is=68273fd5&hm=863564b39ff081ce56d636878c8ed47844c4f6f85919af86ad4f2bb004913602&=&format=webp&quality=lossless&width=1502&height=1502', description: 'Nature-inspired, with natural elements.', dataAiHint: 'biophilic design interior' },
   { id: 'bohemian', name: 'Bohemian', imageUrl: `https://media.discordapp.net/attachments/1370568040256901200/1370577130659909744/Overall_Style__Modern_1.png?ex=682000ec&is=681eaf6c&hm=361ae221f9d5e4cb6304e6a83e428170a90143b626d3e7c634ec8acd0e0df2bd&=&format=webp&quality=lossless&width=1502&height=1502`, description: 'Eclectic, colorful, and free-spirited.', dataAiHint: 'bohemian interior' },
   { id: 'coastal', name: 'Coastal', imageUrl: `https://media.discordapp.net/attachments/1370568040256901200/1370577942286962748/Overall_Style__Modern_2.png?ex=682001ad&is=681eb02d&hm=fde310c7c8f3b0fede4adb9135dccad019330a4675713158407b7f0ec66399e3&=&format=webp&quality=lossless&width=1502&height=1502`, description: 'Light, airy, and beach-inspired.', dataAiHint: 'coastal interior' },
   { id: 'contemporary', name: 'Contemporary', imageUrl: `https://media.discordapp.net/attachments/1370568040256901200/1370578507385536512/Overall_Style__Modern_3.png?ex=68200234&is=681eb0b4&hm=b2da99066e67481579998805cee745d8dec60c6f31368b90bb3db8d8f5978445&=&format=webp&quality=lossless&width=1502&height=1502`, description: 'Current, fluid, and ever-evolving.', dataAiHint: 'contemporary interior' },
@@ -310,4 +310,5 @@ export const finishOptions: FinishOption[] = [
     
 
   
+
 
