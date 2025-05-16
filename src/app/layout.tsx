@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/toaster";
 // import AppSidebar from '@/components/layout/AppSidebar';
 // import AppHeader from '@/components/layout/AppHeader';
 import { ThemeProvider } from '@/components/theme-provider'; // Assuming ThemeProvider for dark mode toggle
+import { AuthProvider } from '@/contexts/AuthContext'; // Import AuthProvider
 
 // Using Geist from the original scaffold
 import { Geist, Geist_Mono } from 'next/font/google';
@@ -48,12 +49,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {/* SidebarProvider, AppSidebar, and AppHeader are moved to (app)/layout.tsx */}
-          {children}
-          <Toaster />
+          <AuthProvider> {/* Wrap children with AuthProvider */}
+            {/* SidebarProvider, AppSidebar, and AppHeader are moved to (app)/layout.tsx */}
+            {children}
+            <Toaster />
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
   );
 }
-
