@@ -26,7 +26,7 @@ export default function LandingPage() {
         </p>
         {mounted ? (
           <Link
-            href="/client-info" // CHANGED from /designer
+            href="/overall-budget" // CHANGED from /client-info
             className={cn(
               buttonVariants({ variant: 'default', size: 'lg' }),
               'text-lg px-10 py-6 shadow-lg hover:shadow-xl transition-shadow duration-300'
