@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { FileDown, PencilLine, Loader2, Send } from "lucide-react"; // Added Send icon
+import { FileDown, PencilLine, Loader2 } from "lucide-react"; 
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation"; 
 import { useState } from "react";
@@ -90,23 +90,23 @@ export default function DesignerPage() {
   const { toast } = useToast();
   const router = useRouter(); 
   const allSelections = getAllSelections();
-  const [isSendingPdf, setIsSendingPdf] = useState(false);
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
 
   const activeStages = Object.entries(allSelections)
     .filter(([stageKey, items]) => stageKey !== "summary" && items.length > 0);
 
-  const handleSendPdfByEmail = async () => {
+  const handleDownloadPdf = async () => {
     if (activeStages.length === 0) {
       toast({
-        title: "No Selections to Email",
-        description: "Please make some design choices before sending the PDF.",
+        title: "No Selections to Export",
+        description: "Please make some design choices before exporting to PDF.",
         variant: "destructive",
       });
       return;
     }
 
-    setIsSendingPdf(true);
-    toast({ title: "Generating PDF & Sending Email...", description: "Please wait, this may take a moment." });
+    setIsGeneratingPdf(true);
+    toast({ title: "Generating PDF...", description: "Please wait, this may take a moment." });
 
     const doc = new jsPDF();
     let yPos = 15; 
@@ -140,153 +140,131 @@ export default function DesignerPage() {
     doc.text("Design Summary", pageWidth / 2, yPos, { align: 'center' });
     yPos += sectionSpacing;
 
-    for (const [stageKey, items] of activeStages) {
-      if (items.length === 0) continue;
-
-      checkPageBreak(lineHeight + sectionSpacing / 2);
-      doc.setFontSize(14);
-      doc.setFont(undefined, 'bold');
-      const stageName = stageDisplayNames[stageKey as DesignStageKey] || stageKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-      
-      const stageNameLines = doc.splitTextToSize(stageName, contentWidth);
-      doc.text(stageNameLines, margin, yPos);
-      yPos += stageNameLines.length * lineHeight;
-      doc.setFont(undefined, 'normal');
-      yPos += itemSpacing / 2;
-
-      for (const item of items) {
-        const minItemHeight = item.imageUrl ? imageHeight + 5 : lineHeight * 2;
-        checkPageBreak(minItemHeight); 
-
-        let textX = margin;
-        let currentTextY = yPos; 
-        let imageBlockEndY = yPos; 
-
-        if (item.imageUrl && item.imageUrl.startsWith('http')) { // Only attempt to fetch http/https URLs
-          try {
-            const response = await fetch(item.imageUrl);
-            if (!response.ok) throw new Error(`Image fetch failed: ${response.statusText}`);
-            const blob = await response.blob();
-            const reader = new FileReader();
-            
-            await new Promise<void>((resolve, reject) => {
-              reader.onloadend = () => {
-                try {
-                  if (yPos + imageHeight > pageHeight - margin) { 
-                    doc.addPage();
-                    yPos = margin;
-                    currentTextY = margin; 
-                  }
-                  doc.addImage(reader.result as string, 'JPEG', margin, yPos, imageWidth, imageHeight); // Assuming JPEG, might need to adjust based on actual type
-                  imageBlockEndY = yPos + imageHeight + 3; 
-                  textX = margin + imageWidth + 5; 
-                  currentTextY = yPos; 
-                  resolve();
-                } catch (e) {
-                  console.error("PDF: Error adding image", e);
-                  reject(e); 
-                }
-              };
-              reader.onerror = (e) => { 
-                console.error("PDF: Error reading image blob", e);
-                reject(e);
-              };
-              reader.readAsDataURL(blob);
-            });
-          } catch (error) {
-            console.warn(`PDF: Could not load image for ${item.name}: ${item.imageUrl}`, error);
-             doc.setFontSize(8);
-             doc.setTextColor(150);
-             const failedImageText = `[Image for ${item.name} failed to load]`;
-             const fiLines = doc.splitTextToSize(failedImageText, contentWidth - (textX > margin ? (textX - margin) : 0));
-             if (currentTextY + fiLines.length * (lineHeight * 0.8) > pageHeight - margin) {
-                doc.addPage(); currentTextY = margin;
-             }
-             doc.text(fiLines, textX, currentTextY);
-             currentTextY += fiLines.length * (lineHeight * 0.8); 
-             doc.setTextColor(0);
-             imageBlockEndY = currentTextY; 
-          }
-        } else if (item.imageUrl) {
-            // For local images (e.g., /images/...), jsPDF can't directly fetch them.
-            // This part might need adjustment if local images must be in the PDF.
-            // For now, we'll skip them or add a placeholder text.
-            console.warn(`PDF: Skipping local image ${item.name}: ${item.imageUrl}`);
-        }
-        
-        doc.setFontSize(10);
-        doc.setFont(undefined, 'bold');
-        const nameLines = doc.splitTextToSize(item.name, contentWidth - (textX - margin));
-        if (currentTextY + nameLines.length * lineHeight > pageHeight - margin) { doc.addPage(); currentTextY = margin; imageBlockEndY = Math.max(imageBlockEndY, currentTextY); }
-        doc.text(nameLines, textX, currentTextY);
-        currentTextY += nameLines.length * lineHeight;
-
-        if (item.description && !item.value) {
-          doc.setFontSize(8);
-          doc.setFont(undefined, 'italic');
-          const descLines = doc.splitTextToSize(item.description, contentWidth - (textX - margin));
-          if (currentTextY + descLines.length * (lineHeight*0.8) > pageHeight - margin) { doc.addPage(); currentTextY = margin; imageBlockEndY = Math.max(imageBlockEndY, currentTextY); }
-          doc.text(descLines, textX, currentTextY);
-          currentTextY += descLines.length * (lineHeight * 0.8);
-        }
-
-        if (item.value !== undefined) {
-          doc.setFontSize(10);
-          doc.setFont(undefined, 'normal');
-          const valueText = typeof item.value === 'number' ? `$${item.value.toLocaleString()}` : String(item.value);
-          const valLines = doc.splitTextToSize(`Value: ${valueText}`, contentWidth - (textX - margin));
-          if (currentTextY + valLines.length * lineHeight > pageHeight - margin) { doc.addPage(); currentTextY = margin; imageBlockEndY = Math.max(imageBlockEndY, currentTextY); }
-          doc.text(valLines, textX, currentTextY);
-          currentTextY += valLines.length * lineHeight;
-        }
-        doc.setFont(undefined, 'normal');
-        
-        yPos = Math.max(imageBlockEndY, currentTextY) + itemSpacing; 
-      } 
-      yPos += sectionSpacing / 2; 
-    }
-
     try {
-      const pdfDataUri = doc.output('datauristring'); 
-      const recipientEmail = 'khinterdesigns@gmail.com'; // Hardcoded for now
-      const emailSubject = 'Your Interactive Design Summary';
-      const emailBodyText = 'Please find attached your design summary PDF.\n\nThank you for using Interactive Designs!';
-      const pdfFileName = 'design_summary.pdf';
+      for (const [stageKey, items] of activeStages) {
+        if (items.length === 0) continue;
 
-      const response = await fetch('/api/send-design-pdf', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          pdfDataUri, 
-          recipientEmail,
-          subject: emailSubject,
-          bodyText: emailBodyText,
-          fileName: pdfFileName,
-        }),
-      });
+        checkPageBreak(lineHeight + sectionSpacing / 2);
+        doc.setFontSize(14);
+        doc.setFont(undefined, 'bold');
+        const stageName = stageDisplayNames[stageKey as DesignStageKey] || stageKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        
+        const stageNameLines = doc.splitTextToSize(stageName, contentWidth);
+        doc.text(stageNameLines, margin, yPos);
+        yPos += stageNameLines.length * lineHeight;
+        doc.setFont(undefined, 'normal');
+        yPos += itemSpacing / 2;
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || `API request failed with status ${response.status}`);
+        for (const item of items) {
+          const minItemHeight = item.imageUrl ? imageHeight + 5 : lineHeight * 2;
+          checkPageBreak(minItemHeight); 
+
+          let textX = margin;
+          let currentTextY = yPos; 
+          let imageBlockEndY = yPos; 
+
+          if (item.imageUrl && (item.imageUrl.startsWith('http') || item.imageUrl.startsWith('data:'))) {
+            try {
+              let imageData: string | ArrayBuffer | null = null;
+              if (item.imageUrl.startsWith('http')) {
+                const response = await fetch(item.imageUrl);
+                if (!response.ok) throw new Error(`Image fetch failed: ${response.statusText}`);
+                const blob = await response.blob();
+                imageData = await new Promise<string | ArrayBuffer | null>((resolve, reject) => {
+                  const reader = new FileReader();
+                  reader.onloadend = () => resolve(reader.result);
+                  reader.onerror = reject;
+                  reader.readAsDataURL(blob);
+                });
+              } else {
+                imageData = item.imageUrl; // For data URIs
+              }
+              
+              if (imageData) {
+                if (yPos + imageHeight > pageHeight - margin) { 
+                  doc.addPage();
+                  yPos = margin;
+                  currentTextY = margin; 
+                }
+                // Determine image type for jsPDF
+                let imageFormat = 'JPEG'; // Default
+                if (typeof imageData === 'string') {
+                    if (imageData.startsWith('data:image/png')) imageFormat = 'PNG';
+                    else if (imageData.startsWith('data:image/jpeg')) imageFormat = 'JPEG';
+                    // Add more types if needed, or use a library to detect
+                }
+
+                doc.addImage(imageData as string, imageFormat, margin, yPos, imageWidth, imageHeight);
+                imageBlockEndY = yPos + imageHeight + 3; 
+                textX = margin + imageWidth + 5; 
+                currentTextY = yPos; 
+              }
+            } catch (error) {
+              console.warn(`PDF: Could not load image for ${item.name}: ${item.imageUrl}`, error);
+               doc.setFontSize(8);
+               doc.setTextColor(150);
+               const failedImageText = `[Image for ${item.name} failed to load]`;
+               const fiLines = doc.splitTextToSize(failedImageText, contentWidth - (textX > margin ? (textX - margin) : 0));
+               if (currentTextY + fiLines.length * (lineHeight * 0.8) > pageHeight - margin) {
+                  doc.addPage(); currentTextY = margin;
+               }
+               doc.text(fiLines, textX, currentTextY);
+               currentTextY += fiLines.length * (lineHeight * 0.8); 
+               doc.setTextColor(0);
+               imageBlockEndY = currentTextY; 
+            }
+          } else if (item.imageUrl) {
+              console.warn(`PDF: Skipping local/unsupported image ${item.name}: ${item.imageUrl}`);
+          }
+          
+          doc.setFontSize(10);
+          doc.setFont(undefined, 'bold');
+          const nameLines = doc.splitTextToSize(item.name, contentWidth - (textX - margin));
+          if (currentTextY + nameLines.length * lineHeight > pageHeight - margin) { doc.addPage(); currentTextY = margin; imageBlockEndY = Math.max(imageBlockEndY, currentTextY); }
+          doc.text(nameLines, textX, currentTextY);
+          currentTextY += nameLines.length * lineHeight;
+
+          if (item.description && !item.value) {
+            doc.setFontSize(8);
+            doc.setFont(undefined, 'italic');
+            const descLines = doc.splitTextToSize(item.description, contentWidth - (textX - margin));
+            if (currentTextY + descLines.length * (lineHeight*0.8) > pageHeight - margin) { doc.addPage(); currentTextY = margin; imageBlockEndY = Math.max(imageBlockEndY, currentTextY); }
+            doc.text(descLines, textX, currentTextY);
+            currentTextY += descLines.length * (lineHeight * 0.8);
+          }
+
+          if (item.value !== undefined) {
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            const valueText = typeof item.value === 'number' ? `$${item.value.toLocaleString()}` : String(item.value);
+            const valLines = doc.splitTextToSize(`Value: ${valueText}`, contentWidth - (textX - margin));
+            if (currentTextY + valLines.length * lineHeight > pageHeight - margin) { doc.addPage(); currentTextY = margin; imageBlockEndY = Math.max(imageBlockEndY, currentTextY); }
+            doc.text(valLines, textX, currentTextY);
+            currentTextY += valLines.length * lineHeight;
+          }
+          doc.setFont(undefined, 'normal');
+          
+          yPos = Math.max(imageBlockEndY, currentTextY) + itemSpacing; 
+        } 
+        yPos += sectionSpacing / 2; 
       }
 
+      doc.save('design_summary.pdf');
       toast({
-        title: "Email Sent Successfully",
-        description: `Your design summary PDF has been sent to ${recipientEmail}.`,
+        title: "PDF Generated",
+        description: "Your design summary PDF has started downloading.",
       });
 
     } catch (e) {
-        console.error("Error sending PDF email:", e);
+        console.error("Error generating PDF:", e);
         const errorMessage = e instanceof Error ? e.message : "An unknown error occurred.";
         toast({
-            title: "Email Sending Failed",
-            description: `There was an error sending your PDF: ${errorMessage}. Please try again or check console.`,
+            title: "PDF Generation Failed",
+            description: `There was an error generating your PDF: ${errorMessage}. Please try again or check console.`,
             variant: "destructive"
         });
     } finally {
-        setIsSendingPdf(false);
+        setIsGeneratingPdf(false);
     }
   };
     
@@ -303,16 +281,16 @@ export default function DesignerPage() {
             Welcome to your personalized design dashboard. This is where all your interior design preferences and selections are gathered in one place. Use the menu to explore each category and continue customizing your space.
           </p>
           <div className="mt-6 flex justify-center">
-            <Button onClick={handleSendPdfByEmail} disabled={isSendingPdf}>
-              {isSendingPdf ? (
+            <Button onClick={handleDownloadPdf} disabled={isGeneratingPdf}>
+              {isGeneratingPdf ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Sending...
+                  Generating...
                 </>
               ) : (
                 <>
-                  <Send className="mr-2 h-4 w-4" /> 
-                  Email Design PDF
+                  <FileDown className="mr-2 h-4 w-4" /> 
+                  Export to PDF
                 </>
               )}
             </Button>
@@ -352,3 +330,4 @@ export default function DesignerPage() {
     </div>
   );
 }
+
