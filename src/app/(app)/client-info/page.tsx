@@ -20,10 +20,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowRight, Phone, CheckSquare, CalendarDays, Clock } from "lucide-react";
 import { useDesignProgress, type ClientInfoData, type CallPreferences } from "@/contexts/DesignProgressContext";
 import { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 
 const clientInfoFormSchema = z.object({
   fullName: z.string().min(2, { message: "Full name must be at least 2 characters." }),
@@ -56,6 +57,12 @@ export default function ClientInfoPage() {
   const [selectedDays, setSelectedDays] = useState<Set<string>>(new Set());
   const [selectedTimes, setSelectedTimes] = useState<Set<string>>(new Set());
 
+  // For displaying confirmed preferences
+  const [confirmedPhoneNumber, setConfirmedPhoneNumber] = useState("");
+  const [confirmedDays, setConfirmedDays] = useState<string[]>([]);
+  const [confirmedTimes, setConfirmedTimes] = useState<string[]>([]);
+
+
   const form = useForm<ClientInfoFormValues>({
     resolver: zodResolver(clientInfoFormSchema),
     defaultValues: {
@@ -72,6 +79,10 @@ export default function ClientInfoPage() {
         setPhoneNumber(existingInfo.callPreferences.phoneNumber);
         setSelectedDays(new Set(existingInfo.callPreferences.availableDays));
         setSelectedTimes(new Set(existingInfo.callPreferences.availableTimes));
+        // Also update confirmed display state
+        setConfirmedPhoneNumber(existingInfo.callPreferences.phoneNumber);
+        setConfirmedDays(existingInfo.callPreferences.availableDays);
+        setConfirmedTimes(existingInfo.callPreferences.availableTimes);
       }
     }
   }, [getClientInfo, form]);
@@ -80,11 +91,12 @@ export default function ClientInfoPage() {
     const completeClientInfo: ClientInfoData = {
       ...data,
     };
-    if (phoneNumber || selectedDays.size > 0 || selectedTimes.size > 0) {
+    // Use the confirmed preferences for saving
+    if (confirmedPhoneNumber || confirmedDays.length > 0 || confirmedTimes.length > 0) {
       completeClientInfo.callPreferences = {
-        phoneNumber,
-        availableDays: Array.from(selectedDays),
-        availableTimes: Array.from(selectedTimes),
+        phoneNumber: confirmedPhoneNumber,
+        availableDays: confirmedDays,
+        availableTimes: confirmedTimes,
       };
     }
     
@@ -116,15 +128,21 @@ export default function ClientInfoPage() {
   };
 
   const handleConfirmCallPreferences = () => {
-    // Call preferences are already updated in local state (phoneNumber, selectedDays, selectedTimes)
-    // These will be picked up by the main onSubmit function.
-    console.log("Call preferences confirmed locally:", { phoneNumber, days: Array.from(selectedDays), times: Array.from(selectedTimes) });
+    setConfirmedPhoneNumber(phoneNumber);
+    setConfirmedDays(Array.from(selectedDays));
+    const selectedTimeLabels = availableTimesOptions
+        .filter(time => selectedTimes.has(time.id))
+        .map(time => time.label);
+    setConfirmedTimes(selectedTimeLabels);
+
     setIsCallPrefDialogOpen(false);
     toast({
         title: "Call Preferences Noted",
-        description: "Your call preferences have been noted. Please save the form to confirm.",
+        description: "Your call preferences have been updated. Please save the form to confirm all changes.",
       });
   };
+  
+  const hasConfirmedPreferences = confirmedPhoneNumber || confirmedDays.length > 0 || confirmedTimes.length > 0;
 
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground flex items-center justify-center">
@@ -164,12 +182,46 @@ export default function ClientInfoPage() {
                   </FormItem>
                 )}
               />
-              <div className="flex flex-col sm:flex-row justify-between items-center pt-4 gap-4">
+
+              {hasConfirmedPreferences && (
+                <Card className="mt-6 bg-muted/30 p-4">
+                  <CardHeader className="p-2 pb-3">
+                    <CardTitle className="text-lg flex items-center">
+                      <CheckSquare className="mr-2 h-5 w-5 text-primary" />
+                      Confirmed Call Preferences
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-2 text-sm p-2">
+                    {confirmedPhoneNumber && (
+                      <div className="flex items-center">
+                        <Phone className="mr-2 h-4 w-4 text-muted-foreground" />
+                        <p><span className="font-medium">Phone:</span> {confirmedPhoneNumber}</p>
+                      </div>
+                    )}
+                    {confirmedDays.length > 0 && (
+                      <div className="flex items-start">
+                        <CalendarDays className="mr-2 h-4 w-4 text-muted-foreground mt-0.5" />
+                        <p><span className="font-medium">Available Days:</span> {confirmedDays.join(', ')}</p>
+                      </div>
+                    )}
+                    {confirmedTimes.length > 0 && (
+                       <div className="flex items-start">
+                        <Clock className="mr-2 h-4 w-4 text-muted-foreground mt-0.5" />
+                        <p><span className="font-medium">Available Times:</span> {confirmedTimes.join(', ')}</p>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              )}
+
+              <Separator className="my-6" />
+
+              <div className="flex flex-col sm:flex-row justify-between items-center pt-2 gap-4">
                 <Dialog open={isCallPrefDialogOpen} onOpenChange={setIsCallPrefDialogOpen}>
                   <DialogTrigger asChild>
                     <Button variant="outline" className="w-full sm:w-auto">
                       <Phone className="mr-2 h-4 w-4" />
-                      Prefer a Call?
+                      {hasConfirmedPreferences ? "Edit Call Preferences" : "Prefer a Call?"}
                     </Button>
                   </DialogTrigger>
                   <DialogContent className="sm:max-w-[425px]">
@@ -247,3 +299,4 @@ export default function ClientInfoPage() {
     </div>
   );
 }
+
