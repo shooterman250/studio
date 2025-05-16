@@ -109,145 +109,248 @@ export default function DesignerPage() {
     toast({ title: "Generating PDF...", description: "Please wait, this may take a moment." });
 
     const doc = new jsPDF();
-    let yPos = 15; 
+    let yPos = 0; 
     const pageHeight = doc.internal.pageSize.height;
     const pageWidth = doc.internal.pageSize.width;
     const margin = 15;
     const contentWidth = pageWidth - margin * 2;
-    const lineHeight = 7;
-    const sectionSpacing = 12;
-    const itemSpacing = 6;
-    const imageWidth = 50; 
-    const imageHeight = (imageWidth * 3) / 4; 
 
-    const checkPageBreak = (neededHeight: number): boolean => {
-      if (yPos + neededHeight > pageHeight - margin) {
-        doc.addPage();
-        yPos = margin;
-        return true; 
-      }
-      return false; 
+    // Theme Colors (RGB approximations)
+    const colorForeground = '#4F4A45'; // hsl(20, 12%, 25%)
+    const colorPrimary = '#008080';    // hsl(180, 100%, 25%)
+    const colorMuted = '#8A8480';      // Lighter grey for descriptions, derived from muted
+
+    // Font Sizes (in points)
+    const FONT_SIZE_LOGO_TITLE = 10;
+    const FONT_SIZE_PAGE_TITLE = 18;
+    const FONT_SIZE_SECTION_TITLE = 14;
+    const FONT_SIZE_ITEM_NAME = 10;
+    const FONT_SIZE_ITEM_VALUE = 9;
+    const FONT_SIZE_ITEM_DESCRIPTION = 8;
+    const FONT_SIZE_FOOTER = 8;
+
+    // Spacing (in mm)
+    const spacingSection = 8;
+    const spacingItem = 4;
+    const spacingImageText = 3;
+    
+    // Image dimensions (in mm)
+    const itemImageWidth = 30;
+    const itemImageHeight = (itemImageWidth * 3) / 4; // Maintain 4:3 aspect ratio
+
+    const getLineHeight = (sizeInPoints: number) => {
+      // jsPDF's getLineHeightRauto() returns line height in user units (mm by default)
+      // Factor is approx 0.352778 to convert points to mm, then a line height factor (e.g., 1.2)
+      // doc.getLineHeightRauto() is simpler if font is set
+      doc.setFontSize(sizeInPoints);
+      return doc.getLineHeight(); // This returns in points, jsPDF handles conversion in text()
+    };
+    
+    const checkAndAddPage = (neededHeight: number) => {
+        if (yPos + neededHeight > pageHeight - margin) {
+            doc.addPage();
+            yPos = margin;
+            addPageNumber();
+            return true;
+        }
+        return false;
+    };
+    
+    const addPageNumber = () => {
+        const pageCount = doc.internal.getNumberOfPages();
+        doc.setFontSize(FONT_SIZE_FOOTER);
+        doc.setTextColor(colorMuted);
+        doc.text(`Page ${pageCount}`, pageWidth - margin, pageHeight - margin / 2, { align: 'right' });
     };
 
-    doc.setFontSize(10);
-    doc.setTextColor(100); 
-    doc.text("Interactive Designs", pageWidth / 2, margin, { align: 'center' });
-    yPos += lineHeight;
-    doc.setTextColor(0); 
 
-    checkPageBreak(lineHeight + sectionSpacing);
-    doc.setFontSize(18);
+    // --- Start PDF Generation ---
+    doc.setFont("helvetica", "normal"); // Set a default clean font
+
+    // 1. Add Logo
+    const logoUrl = "https://media.discordapp.net/attachments/1370568040256901200/1370582735122468954/butterfly_logo.png?ex=68200624&is=681eb4a4&hm=857aa242c852f51e2691ade9087a798c239d804caf79d4e04b0e1903c57337e9&=&format=webp&quality=lossless&width=1502&height=1502";
+    let logoDataUri: string | null = null;
+    try {
+        const response = await fetch(logoUrl);
+        if (!response.ok) throw new Error(`Logo fetch failed: ${response.statusText}`);
+        const blob = await response.blob();
+        logoDataUri = await new Promise<string | null>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result as string);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+        });
+    } catch (e) {
+        console.warn("Could not load logo for PDF:", e);
+    }
+
+    const logoHeight = 20; // mm
+    const logoWidth = 20; // mm, assuming square, adjust if needed
+    yPos = margin;
+
+    if (logoDataUri) {
+        const logoX = (pageWidth - logoWidth) / 2;
+        doc.addImage(logoDataUri, 'PNG', logoX, yPos, logoWidth, logoHeight);
+        yPos += logoHeight + 3; 
+    }
+    
+    doc.setFontSize(FONT_SIZE_LOGO_TITLE);
+    doc.setTextColor(colorForeground);
+    doc.text("Interactive Designs", pageWidth / 2, yPos, { align: 'center' });
+    yPos += getLineHeight(FONT_SIZE_LOGO_TITLE) * 0.5 + 5;
+
+
+    // 2. Page Title
+    checkAndAddPage(getLineHeight(FONT_SIZE_PAGE_TITLE) * 0.5 + spacingSection);
+    doc.setFontSize(FONT_SIZE_PAGE_TITLE);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(colorForeground);
     doc.text("Design Summary", pageWidth / 2, yPos, { align: 'center' });
-    yPos += sectionSpacing;
+    yPos += getLineHeight(FONT_SIZE_PAGE_TITLE) * 0.5 + spacingSection;
+    doc.setFont("helvetica", "normal");
 
     try {
       for (const [stageKey, items] of activeStages) {
         if (items.length === 0) continue;
 
-        checkPageBreak(lineHeight + sectionSpacing / 2);
-        doc.setFontSize(14);
-        doc.setFont(undefined, 'bold');
         const stageName = stageDisplayNames[stageKey as DesignStageKey] || stageKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
         
-        const stageNameLines = doc.splitTextToSize(stageName, contentWidth);
-        doc.text(stageNameLines, margin, yPos);
-        yPos += stageNameLines.length * lineHeight;
-        doc.setFont(undefined, 'normal');
-        yPos += itemSpacing / 2;
+        checkAndAddPage(getLineHeight(FONT_SIZE_SECTION_TITLE) * 0.5 + 3 + spacingItem); // Section title + line + space
+        doc.setFontSize(FONT_SIZE_SECTION_TITLE);
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(colorPrimary);
+        doc.text(stageName, margin, yPos);
+        yPos += getLineHeight(FONT_SIZE_SECTION_TITLE) * 0.5;
+        
+        doc.setDrawColor(colorPrimary); // Line color
+        doc.setLineWidth(0.3);
+        doc.line(margin, yPos, pageWidth - margin, yPos); // Underline section title
+        yPos += 3; // Space after line
+        doc.setFont("helvetica", "normal");
 
         for (const item of items) {
-          const minItemHeight = item.imageUrl ? imageHeight + 5 : lineHeight * 2;
-          checkPageBreak(minItemHeight); 
+          const estItemHeight = item.imageUrl ? itemImageHeight + spacingItem : getLineHeight(FONT_SIZE_ITEM_NAME) * 0.5 * 2 + spacingItem;
+          checkAndAddPage(estItemHeight); 
 
           let textX = margin;
           let currentTextY = yPos; 
           let imageBlockEndY = yPos; 
 
-          if (item.imageUrl && (item.imageUrl.startsWith('http') || item.imageUrl.startsWith('data:'))) {
+          if (item.imageUrl && (item.imageUrl.startsWith('http') || item.imageUrl.startsWith('data:image') || item.imageUrl.startsWith('/images/'))) {
             try {
               let imageData: string | ArrayBuffer | null = null;
-              if (item.imageUrl.startsWith('http')) {
-                const response = await fetch(item.imageUrl);
-                if (!response.ok) throw new Error(`Image fetch failed: ${response.statusText}`);
+              let imageFormat = 'JPEG'; // Default
+
+              if (item.imageUrl.startsWith('data:image')) {
+                imageData = item.imageUrl;
+                if (imageData.startsWith('data:image/png')) imageFormat = 'PNG';
+              } else if (item.imageUrl.startsWith('/images/')) {
+                // For local public images, construct full URL for fetching during PDF generation
+                // This assumes the app is running on localhost:3000 during PDF generation
+                // For deployment, ensure this path is accessible or embed images differently
+                const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+                const fullImageUrl = `${baseUrl}${item.imageUrl}`;
+                const response = await fetch(fullImageUrl);
+                if (!response.ok) throw new Error(`Local image fetch failed: ${response.statusText} for ${fullImageUrl}`);
                 const blob = await response.blob();
+                imageFormat = blob.type === 'image/png' ? 'PNG' : 'JPEG';
                 imageData = await new Promise<string | ArrayBuffer | null>((resolve, reject) => {
                   const reader = new FileReader();
                   reader.onloadend = () => resolve(reader.result);
                   reader.onerror = reject;
                   reader.readAsDataURL(blob);
                 });
-              } else {
-                imageData = item.imageUrl; // For data URIs
+
+              } else { // HTTP(S) URLs
+                const response = await fetch(item.imageUrl);
+                if (!response.ok) throw new Error(`Image fetch failed: ${response.statusText}`);
+                const blob = await response.blob();
+                imageFormat = blob.type === 'image/png' ? 'PNG' : 'JPEG';
+                imageData = await new Promise<string | ArrayBuffer | null>((resolve, reject) => {
+                  const reader = new FileReader();
+                  reader.onloadend = () => resolve(reader.result);
+                  reader.onerror = reject;
+                  reader.readAsDataURL(blob);
+                });
               }
               
               if (imageData) {
-                if (yPos + imageHeight > pageHeight - margin) { 
-                  doc.addPage();
-                  yPos = margin;
-                  currentTextY = margin; 
+                if (yPos + itemImageHeight > pageHeight - margin) { 
+                  doc.addPage(); yPos = margin; addPageNumber();
                 }
-                // Determine image type for jsPDF
-                let imageFormat = 'JPEG'; // Default
-                if (typeof imageData === 'string') {
-                    if (imageData.startsWith('data:image/png')) imageFormat = 'PNG';
-                    else if (imageData.startsWith('data:image/jpeg')) imageFormat = 'JPEG';
-                    // Add more types if needed, or use a library to detect
-                }
-
-                doc.addImage(imageData as string, imageFormat, margin, yPos, imageWidth, imageHeight);
-                imageBlockEndY = yPos + imageHeight + 3; 
-                textX = margin + imageWidth + 5; 
+                doc.addImage(imageData as string, imageFormat, margin, yPos, itemImageWidth, itemImageHeight);
+                imageBlockEndY = yPos + itemImageHeight + 1; // Small gap if image exists
+                textX = margin + itemImageWidth + spacingImageText; 
                 currentTextY = yPos; 
               }
             } catch (error) {
               console.warn(`PDF: Could not load image for ${item.name}: ${item.imageUrl}`, error);
-               doc.setFontSize(8);
-               doc.setTextColor(150);
-               const failedImageText = `[Image for ${item.name} failed to load]`;
-               const fiLines = doc.splitTextToSize(failedImageText, contentWidth - (textX > margin ? (textX - margin) : 0));
-               if (currentTextY + fiLines.length * (lineHeight * 0.8) > pageHeight - margin) {
-                  doc.addPage(); currentTextY = margin;
-               }
-               doc.text(fiLines, textX, currentTextY);
-               currentTextY += fiLines.length * (lineHeight * 0.8); 
-               doc.setTextColor(0);
-               imageBlockEndY = currentTextY; 
+              // Placeholder for failed image
+              doc.setFontSize(fontSizeItemDescription);
+              doc.setTextColor(colorMuted);
+              const failText = `[Image for ${item.name} failed to load]`;
+              const failLines = doc.splitTextToSize(failText, contentWidth - (textX > margin ? (textX - margin) : 0));
+              if (currentTextY + failLines.length * getLineHeight(fontSizeItemDescription) * 0.5 > pageHeight - margin) {
+                  doc.addPage(); currentTextY = margin; addPageNumber();
+              }
+              doc.text(failLines, textX, currentTextY);
+              currentTextY += failLines.length * getLineHeight(fontSizeItemDescription) * 0.5 + 1;
+              imageBlockEndY = Math.max(imageBlockEndY, currentTextY);
             }
           } else if (item.imageUrl) {
-              console.warn(`PDF: Skipping local/unsupported image ${item.name}: ${item.imageUrl}`);
+              console.warn(`PDF: Skipping unsupported image ${item.name}: ${item.imageUrl}`);
           }
           
-          doc.setFontSize(10);
-          doc.setFont(undefined, 'bold');
-          const nameLines = doc.splitTextToSize(item.name, contentWidth - (textX - margin));
-          if (currentTextY + nameLines.length * lineHeight > pageHeight - margin) { doc.addPage(); currentTextY = margin; imageBlockEndY = Math.max(imageBlockEndY, currentTextY); }
-          doc.text(nameLines, textX, currentTextY);
-          currentTextY += nameLines.length * lineHeight;
+          doc.setFontSize(FONT_SIZE_ITEM_NAME);
+          doc.setFont("helvetica", "bold");
+          doc.setTextColor(colorForeground);
+          const nameLines = doc.splitTextToSize(item.name, contentWidth - (textX - margin + (item.imageUrl ? 0 : - (itemImageWidth + spacingImageText) ) ) ); // Adjust width if no image
 
-          if (item.description && !item.value) {
-            doc.setFontSize(8);
-            doc.setFont(undefined, 'italic');
-            const descLines = doc.splitTextToSize(item.description, contentWidth - (textX - margin));
-            if (currentTextY + descLines.length * (lineHeight*0.8) > pageHeight - margin) { doc.addPage(); currentTextY = margin; imageBlockEndY = Math.max(imageBlockEndY, currentTextY); }
-            doc.text(descLines, textX, currentTextY);
-            currentTextY += descLines.length * (lineHeight * 0.8);
+          let textBlockRequiredHeight = nameLines.length * getLineHeight(FONT_SIZE_ITEM_NAME) * 0.5;
+          if (item.value !== undefined) textBlockRequiredHeight += getLineHeight(FONT_SIZE_ITEM_VALUE) * 0.5;
+          if (item.description) textBlockRequiredHeight += getLineHeight(FONT_SIZE_ITEM_DESCRIPTION) * 0.5 * 2; // Estimate 2 lines for description
+
+          if (textX > margin && currentTextY + textBlockRequiredHeight > yPos + itemImageHeight && yPos + itemImageHeight < pageHeight - margin) {
+            // If text next to image is too tall and image isn't at bottom of page, move text below image
+            currentTextY = yPos + itemImageHeight + 2;
+            textX = margin;
+             if (checkAndAddPage(textBlockRequiredHeight)) { // check if new position needs new page
+                currentTextY = margin; // reset currentTextY if new page
+            }
+          } else {
+            checkAndAddPage(currentTextY - yPos + textBlockRequiredHeight); // Use currentTextY - yPos as already drawn height for this item on current page
           }
+          
+          doc.text(nameLines, textX, currentTextY);
+          currentTextY += nameLines.length * getLineHeight(FONT_SIZE_ITEM_NAME) * 0.5;
+
 
           if (item.value !== undefined) {
-            doc.setFontSize(10);
-            doc.setFont(undefined, 'normal');
+            doc.setFontSize(FONT_SIZE_ITEM_VALUE);
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(colorForeground); 
             const valueText = typeof item.value === 'number' ? `$${item.value.toLocaleString()}` : String(item.value);
-            const valLines = doc.splitTextToSize(`Value: ${valueText}`, contentWidth - (textX - margin));
-            if (currentTextY + valLines.length * lineHeight > pageHeight - margin) { doc.addPage(); currentTextY = margin; imageBlockEndY = Math.max(imageBlockEndY, currentTextY); }
+            const valLines = doc.splitTextToSize(valueText, contentWidth - (textX - margin + (item.imageUrl ? 0 : - (itemImageWidth + spacingImageText) ) ) );
             doc.text(valLines, textX, currentTextY);
-            currentTextY += valLines.length * lineHeight;
+            currentTextY += valLines.length * getLineHeight(FONT_SIZE_ITEM_VALUE) * 0.5;
           }
-          doc.setFont(undefined, 'normal');
+
+          const itemOwnDescription = (item.description && !Object.values(stageDisplayNames).includes(item.description) && item.description !== stageName && item.description.toLowerCase() !== "your selections for this stage.");
+          if (itemOwnDescription) {
+            doc.setFontSize(FONT_SIZE_ITEM_DESCRIPTION);
+            doc.setFont("helvetica", "italic");
+            doc.setTextColor(colorMuted);
+            const descLines = doc.splitTextToSize(item.description!, contentWidth - (textX - margin + (item.imageUrl ? 0 : - (itemImageWidth + spacingImageText) ) ) );
+            doc.text(descLines, textX, currentTextY);
+            currentTextY += descLines.length * getLineHeight(FONT_SIZE_ITEM_DESCRIPTION) * 0.5;
+          }
           
-          yPos = Math.max(imageBlockEndY, currentTextY) + itemSpacing; 
+          yPos = Math.max(imageBlockEndY, currentTextY) + spacingItem; 
         } 
-        yPos += sectionSpacing / 2; 
+        yPos += spacingSection / 2; 
       }
+      
+      addPageNumber(); // Add page number to the last page
 
       doc.save('design_summary.pdf');
       toast({
@@ -317,7 +420,7 @@ export default function DesignerPage() {
                 Navigate through the sidebar or click the button below to start customizing different aspects of your project.
               </p>
               <Button
-                onClick={() => router.push('/overall-budget')}
+                onClick={() => router.push('/client-info')} // Updated to client-info
                 size="lg"
               >
                 <PencilLine className="mr-2 h-5 w-5" />
@@ -331,3 +434,4 @@ export default function DesignerPage() {
   );
 }
 
+    
