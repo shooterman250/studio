@@ -19,7 +19,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { baseNavItemsConfig } from "@/config/navigation";
+// import { baseNavItemsConfig } from "@/config/navigation"; // No longer needed for next stage logic
 import { ArrowRight } from "lucide-react";
 import { useDesignProgress, type ClientInfoData } from "@/contexts/DesignProgressContext";
 import { useEffect } from "react";
@@ -63,21 +63,11 @@ export default function ClientInfoPage() {
     
     toast({
       title: "Information Saved",
-      description: "Your information has been recorded. Let's continue designing!",
+      description: "Your information has been recorded.",
     });
 
-    // Navigate to the first actual design stage
-    const firstDesignStage = baseNavItemsConfig.find(item => item.id !== 'dashboard' && item.id !== 'settings' && item.id !== 'overall-budget' && item.href !== '/client-info');
-    const overallBudgetStage = baseNavItemsConfig.find(item => item.id === 'overall-budget');
-
-    if (firstDesignStage) {
-      router.push(firstDesignStage.href);
-    } else if (overallBudgetStage) {
-      router.push(overallBudgetStage.href); // Fallback to overall budget if other design stages are removed/changed
-    }
-    else {
-      router.push("/designer"); // Fallback to dashboard if no design stages are configured
-    }
+    // Navigate to the dashboard page
+    router.push("/designer");
   }
 
   return (
@@ -167,7 +157,7 @@ export default function ClientInfoPage() {
               />
               <div className="flex justify-end pt-2">
                 <Button type="submit" className="w-full sm:w-auto">
-                  Save &amp; Proceed <ArrowRight className="ml-2 h-4 w-4" />
+                  Save & Proceed <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
             </form>
