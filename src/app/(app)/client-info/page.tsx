@@ -21,6 +21,8 @@ import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { baseNavItemsConfig } from "@/config/navigation";
 import { ArrowRight } from "lucide-react";
+import { useDesignProgress, type ClientInfoData } from "@/contexts/DesignProgressContext";
+import { useEffect } from "react";
 
 const clientInfoFormSchema = z.object({
   fullName: z.string().min(2, { message: "Full name must be at least 2 characters." }),
@@ -35,6 +37,7 @@ type ClientInfoFormValues = z.infer<typeof clientInfoFormSchema>;
 export default function ClientInfoPage() {
   const { toast } = useToast();
   const router = useRouter();
+  const { updateClientInfo, getClientInfo } = useDesignProgress();
 
   const form = useForm<ClientInfoFormValues>({
     resolver: zodResolver(clientInfoFormSchema),
@@ -47,20 +50,32 @@ export default function ClientInfoPage() {
     },
   });
 
+  useEffect(() => {
+    const existingInfo = getClientInfo();
+    if (existingInfo) {
+      form.reset(existingInfo);
+    }
+  }, [getClientInfo, form]);
+
   function onSubmit(data: ClientInfoFormValues) {
-    console.log("Client Info Submitted:", data);
-    // In a real app, you would save this data (e.g., to DesignProgressContext or a database)
+    console.log("Client Info Submitted/Updated:", data);
+    updateClientInfo(data as ClientInfoData); // Save/Update data in context
     
     toast({
       title: "Information Saved",
-      description: "Your information has been recorded. Let's start designing!",
+      description: "Your information has been recorded. Let's continue designing!",
     });
 
     // Navigate to the first actual design stage
-    const firstDesignStage = baseNavItemsConfig.find(item => item.id !== 'dashboard' && item.id !== 'settings');
+    const firstDesignStage = baseNavItemsConfig.find(item => item.id !== 'dashboard' && item.id !== 'settings' && item.id !== 'overall-budget' && item.href !== '/client-info');
+    const overallBudgetStage = baseNavItemsConfig.find(item => item.id === 'overall-budget');
+
     if (firstDesignStage) {
       router.push(firstDesignStage.href);
-    } else {
+    } else if (overallBudgetStage) {
+      router.push(overallBudgetStage.href); // Fallback to overall budget if other design stages are removed/changed
+    }
+    else {
       router.push("/designer"); // Fallback to dashboard if no design stages are configured
     }
   }
@@ -71,7 +86,7 @@ export default function ClientInfoPage() {
         <CardHeader>
           <CardTitle className="text-2xl sm:text-3xl text-center">Client Information</CardTitle>
           <CardDescription className="text-center">
-            Please tell us a bit about yourself and your project to get started.
+            Please tell us a bit about yourself and your project. You can update this information anytime.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -152,7 +167,7 @@ export default function ClientInfoPage() {
               />
               <div className="flex justify-end pt-2">
                 <Button type="submit" className="w-full sm:w-auto">
-                  Proceed to Design <ArrowRight className="ml-2 h-4 w-4" />
+                  Save &amp; Proceed <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
             </form>

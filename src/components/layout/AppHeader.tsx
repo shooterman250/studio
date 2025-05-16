@@ -3,13 +3,17 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Menu } from "lucide-react"; // Settings might be used by sidebar, Bell removed
+import { Menu, User } from "lucide-react"; 
 import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
-// Removed: import { Button } from "@/components/ui/button";
 import ButterflyLogo from "@/components/common/Logo";
 import { ModeToggle } from "@/components/mode-toggle";
-// Removed AuthContext, auth, signOut, UserCircle2, LogOut, LayoutGrid, DropdownMenu related imports
-// Removed useRouter, useToast as they were only for auth actions here
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const AppHeader = () => {
   const { isMobile: isMobileFromContext } = useSidebar();
@@ -18,9 +22,6 @@ const AppHeader = () => {
   useEffect(() => {
     setHasMounted(true);
   }, []);
-
-  // Removed handleSignOut function
-  // Removed renderAuthSection function
 
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 shadow-sm backdrop-blur-md md:px-6">
@@ -48,7 +49,21 @@ const AppHeader = () => {
       <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
         <div className="ml-auto flex items-center gap-2">
           <ModeToggle />
-          {/* Removed renderAuthSection() call */}
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" asChild>
+                  <Link href="/client-info">
+                    <User className="h-[1.2rem] w-[1.2rem]" />
+                    <span className="sr-only">Client Profile</span>
+                  </Link>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Client Profile</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </div>
     </header>

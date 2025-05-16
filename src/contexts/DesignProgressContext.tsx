@@ -4,7 +4,6 @@
 import type { ReactNode } from 'react';
 import { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import type { BaseSelectionItem } from '@/types';
-// Removed: import { useAuth } from './AuthContext'; 
 
 export type DesignStageKey = 
   "overall-budget" |
@@ -25,15 +24,24 @@ export interface SelectedDataItem extends BaseSelectionItem {
   dataAiHint?: string;
 }
 
-// Removed UserDesignSelections interface
+export interface ClientInfoData {
+  fullName: string;
+  email: string;
+  projectName: string;
+  projectVision: string;
+  mustHaves?: string;
+}
 
 interface DesignProgressState {
   progress: Record<DesignStageKey, number>;
   selections: Record<DesignStageKey, SelectedDataItem[]>;
+  clientInfo: ClientInfoData | null;
   updateStageSelections: (stage: DesignStageKey, progressValue: number, items: SelectedDataItem[]) => void;
   getStageProgress: (stage: DesignStageKey) => number;
   getStageSelections: (stage: DesignStageKey) => SelectedDataItem[];
   getAllSelections: () => Record<DesignStageKey, SelectedDataItem[]>;
+  updateClientInfo: (data: ClientInfoData) => void;
+  getClientInfo: () => ClientInfoData | null;
 }
 
 const DesignProgressContext = createContext<DesignProgressState | undefined>(undefined);
@@ -52,21 +60,15 @@ const initialSelections: Record<DesignStageKey, SelectedDataItem[]> = {
   "decor": [], "finishes": [], "summary": [],
 };
 
-// Removed userSpecificStorage
-
 export const DesignProgressProvider = ({ children }: { children: ReactNode }) => {
-  // Removed: const { userId: currentAuthUserId } = useAuth();
-
   const [progress, setProgress] = useState<Record<DesignStageKey, number>>(initialProgress);
   const [selections, setSelections] = useState<Record<DesignStageKey, SelectedDataItem[]>>(initialSelections);
-
-  // Removed useEffect that depended on currentAuthUserId
+  const [clientInfo, setClientInfo] = useState<ClientInfoData | null>(null);
 
   const updateStageSelections = useCallback((stage: DesignStageKey, progressValue: number, items: SelectedDataItem[]) => {
     const newProgressValue = Math.max(0, Math.min(100, progressValue));
     setProgress(prev => ({ ...prev, [stage]: newProgressValue }));
     setSelections(prev => ({ ...prev, [stage]: items }));
-    // Placeholder: console.log(`Data for stage ${stage} updated. Not saved to DB (auth removed).`);
   }, []);
 
   const getStageProgress = useCallback((stage: DesignStageKey): number => {
@@ -81,8 +83,26 @@ export const DesignProgressProvider = ({ children }: { children: ReactNode }) =>
     return selections;
   }, [selections]);
 
+  const updateClientInfo = useCallback((data: ClientInfoData) => {
+    setClientInfo(data);
+  }, []);
+
+  const getClientInfo = useCallback((): ClientInfoData | null => {
+    return clientInfo;
+  }, [clientInfo]);
+
   return (
-    <DesignProgressContext.Provider value={{ progress, selections, updateStageSelections, getStageProgress, getStageSelections, getAllSelections }}>
+    <DesignProgressContext.Provider value={{ 
+      progress, 
+      selections, 
+      clientInfo,
+      updateStageSelections, 
+      getStageProgress, 
+      getStageSelections, 
+      getAllSelections,
+      updateClientInfo,
+      getClientInfo
+    }}>
       {children}
     </DesignProgressContext.Provider>
   );
