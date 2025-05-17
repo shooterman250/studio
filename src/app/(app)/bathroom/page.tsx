@@ -73,6 +73,12 @@ export default function BathroomPage() {
         name: "Chrome, Nickel or\nStainless Steel"
       };
     }
+    if (finish.id === 'bath-hardware-bronze') {
+      return {
+        ...finish,
+        name: "Bronze or Brass"
+      };
+    }
     return finish;
   });
   
