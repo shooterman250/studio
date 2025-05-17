@@ -17,7 +17,7 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground p-4">
       <div className="text-center space-y-8 max-w-2xl">
-        <ButterflyLogo width={320} height={320} className="mx-auto animate-pulse" />
+        <ButterflyLogo width={320} height={320} className="mx-auto" />
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
           Welcome To Your Personal Design Hub
         </h1>
@@ -26,7 +26,7 @@ export default function LandingPage() {
         </p>
         {mounted ? (
           <Link
-            href="/overall-budget" // CHANGED from /client-info
+            href="/overall-budget" 
             className={cn(
               buttonVariants({ variant: 'default', size: 'lg' }),
               'text-lg px-10 py-6 shadow-lg hover:shadow-xl transition-shadow duration-300'
