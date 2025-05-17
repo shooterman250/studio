@@ -51,7 +51,7 @@ export default function OverallStylePage() {
     if (style.id === 'biophilic') {
       return {
         ...style,
-        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=68289155&is=68273fd5&hm=863564b39ff081ce56d636878c8ed47844c4f6f85919af86ad4f2bb004913602&=&format=webp&quality=lossless&width=1308&height=1308' // New URL for Biophilic on this page
+        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=68289155&is=68273fd5&hm=863564b39ff081ce56d636878c8ed47844c4f6f85919af86ad4f2bb004913602&=&format=webp&quality=lossless&width=1308&height=1308' 
       };
     }
     return style;
@@ -62,14 +62,14 @@ export default function OverallStylePage() {
       id: 'design-styles', 
       title: "Select Design Styles", 
       description: "Choose one or more design styles that best represent your vision.", 
-      options: pageSpecificDisplayOverallStyleOptions, // Use the display-specific version
+      options: pageSpecificDisplayOverallStyleOptions, 
       cols: 3 
     },
     { 
       id: 'key-elements', 
       title: "Select Key Elements", 
       description: "Choose guiding principles for your design.", 
-      options: baseKeyElementOptions, // Key elements don't have overrides in this request
+      options: baseKeyElementOptions, 
       cols: 3 
     }, 
   ];
@@ -121,8 +121,10 @@ export default function OverallStylePage() {
     selectedOptions.forEach(selectedId => {
       let originalItem: BaseSelectionItem | undefined;
       
+      // Check if the selectedId belongs to overallStyleOptions
       originalItem = baseOverallStyleOptions.find(item => item.id === selectedId);
       
+      // If not found in overallStyleOptions, check keyElementOptions
       if (!originalItem) {
         originalItem = baseKeyElementOptions.find(item => item.id === selectedId);
       }
@@ -154,7 +156,7 @@ export default function OverallStylePage() {
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
       <header className="mb-8 text-center">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
           Overall Style & Key Elements
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg opacity-80 sm:text-xl">
@@ -171,10 +173,10 @@ export default function OverallStylePage() {
             </CardHeader>
             <CardContent className="space-y-6">
               <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${section.cols || 3} gap-6`}>
-                {section.options.map((style) => ( // 'style' here refers to items from pageSpecificDisplayOverallStyleOptions or baseKeyElementOptions
+                {section.options.map((style) => ( 
                   <ItemSelectionCard
                     key={style.id}
-                    item={style} // Use the (potentially modified) item for display
+                    item={style} 
                     isSelected={selectedOptions.has(style.id)}
                     onSelect={handleOptionChange}
                   />
@@ -204,4 +206,3 @@ export default function OverallStylePage() {
     </div>
   );
 }
-
