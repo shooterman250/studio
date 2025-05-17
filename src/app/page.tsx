@@ -26,24 +26,20 @@ export default function LandingPage() {
         </p>
         {mounted ? (
           <Link
-            href="/client-info" // CHANGED from /overall-budget
+            href="/overall-budget" // CHANGED from /client-info
             className={cn(
               buttonVariants({ variant: 'default', size: 'lg' }),
               'text-lg px-10 py-6 shadow-lg hover:shadow-xl transition-shadow duration-300'
-              // The color #99847A was previously requested for this button.
-              // Current default button variant from globals.css: "bg-card text-primary-foreground hover:bg-card/[.90]"
-              // --card is 20 12% 62% (#9E918A) which is close.
             )}
           >
             Start Designing
           </Link>
         ) : (
-          // Placeholder to prevent layout shift and avoid rendering potentially mismatched component on initial load
           <div
             className={cn(
-              "inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium", // Base structure
-              "text-lg px-10 py-6 shadow-lg", // Sizing and appearance from custom classes
-              "bg-muted text-muted-foreground animate-pulse" // Placeholder styling
+              "inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium", 
+              "text-lg px-10 py-6 shadow-lg", 
+              "bg-muted text-muted-foreground animate-pulse" 
             )}
             aria-hidden="true"
           >

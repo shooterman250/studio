@@ -16,14 +16,14 @@ import { useDesignProgress, type SelectedDataItem, DesignStageKey } from "@/cont
 import { useToast } from "@/hooks/use-toast";
 import { useRouter, usePathname } from "next/navigation";
 import { baseNavItemsConfig } from "@/config/navigation";
-import { ArrowRight, Home } from "lucide-react"; // Added Home icon
+import { ArrowRight, Home } from "lucide-react";
 
 const PAGE_STAGE_KEY: DesignStageKey = "hallways";
 
 export default function HallwaysPage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [hasSavedSinceLastChange, setHasSavedSinceLastChange] = useState(false);
-  const { updateStageSelections, getStageSelections } = useDesignProgress();
+  const { updateStageSelections, getStageSelections, getClientInfo } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter();
   const pathname = usePathname();
@@ -32,7 +32,6 @@ export default function HallwaysPage() {
     const existingSelections = getStageSelections(PAGE_STAGE_KEY);
     if (existingSelections.length > 0) {
       setSelectedOptions(new Set(existingSelections.map(item => item.id)));
-      // setHasSavedSinceLastChange(true); 
     }
   }, [getStageSelections]);
 
@@ -92,7 +91,7 @@ export default function HallwaysPage() {
             name: option.name,
             imageUrl: option.imageUrl,
             description: option.description,
-            dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
+            dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
           });
         }
       });
@@ -107,14 +106,29 @@ export default function HallwaysPage() {
     });
   };
 
-  const handleFinishAndGoToDashboard = () => {
-    handleSaveChanges();
-    router.push('/designer');
+  const handleFinishAndProceed = () => {
+    handleSaveChanges(); // Save current choices first
+    const clientInfo = getClientInfo();
+    if (!clientInfo || !clientInfo.fullName || !clientInfo.email) {
+      toast({
+        title: "Client Information Needed",
+        description: "Please fill out your client information before viewing the dashboard.",
+        variant: "default", 
+      });
+      router.push('/client-info');
+    } else {
+      router.push('/designer');
+    }
   };
 
   const designStagesNavConfig = baseNavItemsConfig.filter(item => item.id !== 'dashboard' && item.id !== 'settings');
   const currentIndex = designStagesNavConfig.findIndex(item => item.href === pathname);
-  const nextStage = currentIndex !== -1 && currentIndex < designStagesNavConfig.length - 1 ? designStagesNavConfig[currentIndex + 1] : null;
+  // Check if there's a next *design* stage. Client-info is handled by the "Finish" button.
+  const nextDesignStage = currentIndex !== -1 && currentIndex < designStagesNavConfig.length - 1 && 
+                         designStagesNavConfig[currentIndex + 1].id !== 'dashboard' && 
+                         designStagesNavConfig[currentIndex + 1].id !== 'settings' 
+                         ? designStagesNavConfig[currentIndex + 1] : null;
+
 
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
@@ -153,24 +167,27 @@ export default function HallwaysPage() {
           <Button className="w-full sm:w-auto" onClick={handleSaveChanges}>
             Save Hallway Choices ({selectedOptions.size})
           </Button>
-          <Button
-            onClick={handleFinishAndGoToDashboard}
-            variant="default" // Or another variant like "primary" if you have one
-            className="w-full sm:w-auto"
-          >
-            <Home className="mr-2 h-4 w-4" />
-            Finish &amp; View Dashboard
-          </Button>
-          {/* The Next Section button will likely not render here as Hallways is the last design stage */}
-          {nextStage && (
+          {/* If there's another design stage after Hallways, show "Next Section" */}
+          {nextDesignStage ? (
             <Button
-              onClick={() => router.push(nextStage.href)}
+              onClick={() => router.push(nextDesignStage.href)}
               variant="outline"
               className="w-full sm:w-auto"
               disabled={!hasSavedSinceLastChange}
             >
-              Next Section ({nextStage.label})
+              Next Section ({nextDesignStage.label})
               <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          ) : (
+            // If Hallways is the last design stage, show "Finish & Proceed"
+            <Button
+              onClick={handleFinishAndProceed}
+              variant="default"
+              className="w-full sm:w-auto"
+              disabled={!hasSavedSinceLastChange}
+            >
+              <Home className="mr-2 h-4 w-4" />
+              Finish &amp; Proceed
             </Button>
           )}
         </div>
@@ -178,4 +195,3 @@ export default function HallwaysPage() {
     </div>
   );
 }
-
