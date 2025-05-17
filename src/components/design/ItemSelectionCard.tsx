@@ -29,11 +29,11 @@ const ItemSelectionCard = ({ item, isSelected, onSelect }: ItemSelectionCardProp
       <CardHeader className="p-0 relative">
         <Image
           src={item.imageUrl}
-          alt={item.name}
+          alt={item.name.replace(/\\n/g, ' ')} // Replace newline for alt text
           width={400}
           height={200} 
           className="aspect-[4/3] w-full object-cover"
-          data-ai-hint={item.dataAiHint || item.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')}
+          data-ai-hint={item.dataAiHint || item.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')}
         />
         {isSelected && (
           <div className="absolute top-2 right-2 bg-primary text-primary-foreground p-2 rounded-full shadow-lg">
@@ -42,7 +42,7 @@ const ItemSelectionCard = ({ item, isSelected, onSelect }: ItemSelectionCardProp
         )}
       </CardHeader>
       <CardContent className="p-4 flex-grow flex flex-col justify-center"> {/* Added flex-grow and centering for content */}
-        <CardTitle className="text-sm font-semibold text-center line-clamp-2"> {/* Changed text-base to text-sm, Applied line-clamp-2 */}
+        <CardTitle className="text-sm font-semibold text-center line-clamp-2 whitespace-pre-line"> {/* Applied line-clamp-2 and whitespace-pre-line */}
           {item.name}
         </CardTitle>
         {item.description && (
@@ -54,5 +54,6 @@ const ItemSelectionCard = ({ item, isSelected, onSelect }: ItemSelectionCardProp
 };
 
 export default ItemSelectionCard;
+
 
 

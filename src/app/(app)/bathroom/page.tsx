@@ -62,7 +62,7 @@ export default function BathroomPage() {
     const originalNamePart = sink.name.replace(/ Sink/i, "").trim(); // Remove " Sink" case-insensitively and trim
     return {
       ...sink, 
-      name: `${originalNamePart} Bathroom Sink` 
+      name: `${originalNamePart}\nBathroom Sink` 
     };
   });
   
@@ -118,19 +118,35 @@ export default function BathroomPage() {
         if (selectedOptions.has(displayOption.id)) {
           let originalItem: BaseSelectionItem | undefined;
 
+          // Find the original item from the base arrays to save its original name and details
           if (section.title === "Master Bath: Style") {
             originalItem = bathroomStyleOptions.find(opt => opt.id === displayOption.id);
           } else if (section.title === "Master Bath: Sink (Single/Double)") {
             originalItem = baseBathroomMasterSinkOptions.find(opt => opt.id === displayOption.id);
           } else {
-            originalItem = displayOption;
+            // For other sections, the displayOption is the original item or can be found in its respective base array
+            const baseArray = 
+              section.options === bathroomMasterBathTubOptions ? bathroomMasterBathTubOptions :
+              section.options === bathroomMasterShowerOptions ? bathroomMasterShowerOptions :
+              section.options === bathroomToiletOptions ? bathroomToiletOptions :
+              section.options === bathroomHardwareFinishOptions ? bathroomHardwareFinishOptions :
+              section.options === bathroomStorageOptions ? bathroomStorageOptions :
+              section.options === bathroomLightingOptions ? bathroomLightingOptions :
+              section.options === bathroomHalfSinkOptions ? bathroomHalfSinkOptions :
+              null; // Add more cases if other sections also have transformed names
+            
+            if (baseArray) {
+              originalItem = baseArray.find(opt => opt.id === displayOption.id);
+            } else {
+              originalItem = displayOption; // Fallback, assuming displayOption has original data
+            }
           }
           
           if (originalItem) {
             allSelectedItems.push({
               id: originalItem.id,
-              name: originalItem.name, 
-              imageUrl: originalItem.imageUrl, 
+              name: originalItem.name, // Save the original name
+              imageUrl: originalItem.imageUrl, // Save the original imageUrl
               description: originalItem.description, 
               dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
             });
@@ -205,3 +221,4 @@ export default function BathroomPage() {
     </div>
   );
 }
+
