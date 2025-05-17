@@ -10,7 +10,7 @@ import {
     kitchenWorktopOptions,
     kitchenApplianceOptions,
     kitchenHardwareFinishOptions,
-    kitchenSinkTypeOptions,
+    kitchenSinkTypeOptions as baseKitchenSinkTypeOptions, // Renamed for clarity
     kitchenBacksplashOptions,
     generalFlooringOptions as kitchenFlooringOptions, 
     generalLightingOptions as kitchenLightingOptions,
@@ -54,18 +54,21 @@ export default function KitchenPage() {
   };
   
   const pageSpecificKitchenStyleOptions: BaseSelectionItem[] = overallStyleOptions.map(style => {
-    let imageUrl = style.imageUrl; // Start with the original image URL
-    // If the style ID is 'biophilic', override its imageUrl for this page
+    let imageUrl = style.imageUrl; 
     if (style.id === 'biophilic') {
       imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=68289155&is=68273fd5&hm=863564b39ff081ce56d636878c8ed47844c4f6f85919af86ad4f2bb004913602&=&format=webp&quality=lossless&width=1308&height=1308';
     }
     return {
-      ...style, // Spread all original properties
-      name: `${style.name} Kitchen`, // Append " Kitchen" to the name
-      imageUrl: imageUrl, // Use the (potentially overridden) imageUrl
-      // Keep the original id, description, dataAiHint etc.
+      ...style, 
+      name: `${style.name} Kitchen`, 
+      imageUrl: imageUrl, 
     };
   });
+
+  const pageSpecificSinkTypeOptions: BaseSelectionItem[] = baseKitchenSinkTypeOptions.map(sinkType => ({
+    ...sinkType,
+    name: `${sinkType.name} Kitchen Sink`,
+  }));
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Kitchen Style", description: "Select the overall style for your kitchen.", options: pageSpecificKitchenStyleOptions, cols: 3 },
@@ -73,7 +76,7 @@ export default function KitchenPage() {
     { title: "Worktop/Countertop", description: "Select materials for your countertops.", options: kitchenWorktopOptions, cols: 3 },
     { title: "Appliances", description: "Choose appliance integration types.", options: kitchenApplianceOptions, cols: 3 },
     { title: "Appliance/Hardware Finish", description: "Select finishes for hardware and appliances.", options: kitchenHardwareFinishOptions, cols: 3 },
-    { title: "Sink Type", description: "Choose your sink configuration.", options: kitchenSinkTypeOptions, cols: 3 },
+    { title: "Sink Type", description: "Choose your sink configuration.", options: pageSpecificSinkTypeOptions, cols: 3 }, // Use page-specific options
     { title: "Backsplash", description: "Select backsplash materials.", options: kitchenBacksplashOptions, cols: 3 },
     { title: "Flooring", description: "Choose flooring for the kitchen.", options: kitchenFlooringOptions, cols: 3 },
     { title: "Lighting", description: "Select lighting fixtures.", options: kitchenLightingOptions, cols: 3 },
@@ -106,25 +109,24 @@ export default function KitchenPage() {
     
     const allSelectedItems: SelectedDataItem[] = [];
     sections.forEach(section => {
-      // Iterate over the options that were *displayed* on the page for this section
       section.options.forEach(displayOption => { 
         if (selectedOptions.has(displayOption.id)) {
           let originalItem: BaseSelectionItem | undefined;
 
-          // For "Kitchen Style", find the original item from `overallStyleOptions` using the ID,
-          // because `displayOption` here has a modified name and potentially image.
           if (section.title === "Kitchen Style") {
             originalItem = overallStyleOptions.find(opt => opt.id === displayOption.id);
-          } else {
-            // For all other sections, the `displayOption` is the original item itself.
+          } else if (section.title === "Sink Type") {
+            originalItem = baseKitchenSinkTypeOptions.find(opt => opt.id === displayOption.id);
+          }
+          else {
             originalItem = displayOption;
           }
           
           if (originalItem) {
             allSelectedItems.push({
               id: originalItem.id,
-              name: originalItem.name, // Save the ORIGINAL name
-              imageUrl: originalItem.imageUrl, // Save the ORIGINAL imageUrl
+              name: originalItem.name, 
+              imageUrl: originalItem.imageUrl, 
               description: originalItem.description,
               dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
             });
@@ -166,10 +168,10 @@ export default function KitchenPage() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {section.options.map((option) => ( // 'option' here is from pageSpecific... for Style, or original for others
+                {section.options.map((option) => ( 
                   <ItemSelectionCard
                     key={option.id} 
-                    item={option} // Pass the modified item for display
+                    item={option} 
                     isSelected={selectedOptions.has(option.id)}
                     onSelect={handleOptionChange}
                   />
