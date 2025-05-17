@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
-    bathroomStyleOptions,
+    bathroomStyleOptions, // This is overallStyleOptions
     bathroomMasterBathTubOptions,
     bathroomMasterShowerOptions,
     bathroomMasterSinkOptions,
@@ -37,7 +37,6 @@ export default function BathroomPage() {
     const existingSelections = getStageSelections(PAGE_STAGE_KEY);
     if (existingSelections.length > 0) {
       setSelectedOptions(new Set(existingSelections.map(item => item.id)));
-      // setHasSavedSinceLastChange(true); 
     }
   }, [getStageSelections]);
 
@@ -53,9 +52,15 @@ export default function BathroomPage() {
     });
     setHasSavedSinceLastChange(false);
   };
+
+  // Create page-specific display options for Master Bath Style
+  const pageSpecificDisplayBathroomStyleOptions: BaseSelectionItem[] = bathroomStyleOptions.map(style => ({
+    ...style, // Copies id, imageUrl, original description, dataAiHint
+    name: `${style.name} Bathroom` // Override only the name for display on this page
+  }));
   
   const masterBathSubSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
-    { title: "Master Bath: Style", options: bathroomStyleOptions, cols: 3, description: "Define the overall style for your master bathroom." },
+    { title: "Master Bath: Style", options: pageSpecificDisplayBathroomStyleOptions, cols: 3, description: "Define the overall style for your master bathroom." },
     { title: "Master Bath: Bath Tub", options: bathroomMasterBathTubOptions, cols: 3, description: "Choose a bathtub type." },
     { title: "Master Bath: Shower", options: bathroomMasterShowerOptions, cols: 3, description: "Select your preferred shower setup." },
     { title: "Master Bath: Sink (Single/Double)", options: bathroomMasterSinkOptions, cols: 3, description: "Choose sink style and count." },
@@ -102,15 +107,28 @@ export default function BathroomPage() {
     
     const allSelectedItems: SelectedDataItem[] = [];
     sections.forEach(section => {
-      section.options.forEach(option => {
-        if (selectedOptions.has(option.id)) {
-          allSelectedItems.push({
-            id: option.id,
-            name: option.name,
-            imageUrl: option.imageUrl,
-            description: option.description, // This is the subsection's description, not item's.
-            dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
-          });
+      // Iterate over the options used for display in this section
+      section.options.forEach(displayOption => { 
+        if (selectedOptions.has(displayOption.id)) {
+          let originalItem: BaseSelectionItem | undefined;
+
+          if (section.title === "Master Bath: Style") {
+            // For the style section, find the original item from bathroomStyleOptions (which is overallStyleOptions)
+            originalItem = bathroomStyleOptions.find(opt => opt.id === displayOption.id);
+          } else {
+            // For other sections, the displayOption is the original item
+            originalItem = displayOption;
+          }
+          
+          if (originalItem) {
+            allSelectedItems.push({
+              id: originalItem.id,
+              name: originalItem.name, // Save the original name
+              imageUrl: originalItem.imageUrl, // Save the original image URL
+              description: originalItem.description, // Save the original item's description
+              dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
+            });
+          }
         }
       });
     });
@@ -148,10 +166,10 @@ export default function BathroomPage() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {section.options.map((option) => (
+                {section.options.map((option) => ( // 'option' here is from pageSpecific... for Style, or original for others
                   <ItemSelectionCard
                     key={option.id}
-                    item={option}
+                    item={option} // Pass the item with the modified name for display in the Style section
                     isSelected={selectedOptions.has(option.id)}
                     onSelect={handleOptionChange}
                   />
