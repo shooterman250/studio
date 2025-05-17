@@ -157,10 +157,10 @@ export default function OverallStylePage() {
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
       <header className="mb-8 text-center">
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
-          Overall Style & Key Elements
+          Overall Style &amp; Key Elements
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg opacity-80 sm:text-xl">
-          Define the main aesthetic and core principles for your design.
+          Let's start by defining your main design style
         </p>
       </header>
 
