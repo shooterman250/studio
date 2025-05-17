@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
-    overallStyleOptions as kitchenStyleOptions, 
+    overallStyleOptions, // Keep using overallStyleOptions as the base
     kitchenCabinetOptions,
     kitchenWorktopOptions,
     kitchenApplianceOptions,
@@ -37,7 +37,6 @@ export default function KitchenPage() {
     const existingSelections = getStageSelections(PAGE_STAGE_KEY);
     if (existingSelections.length > 0) {
       setSelectedOptions(new Set(existingSelections.map(item => item.id)));
-      // setHasSavedSinceLastChange(true); // Optional: consider if loading existing selections counts as "saved"
     }
   }, [getStageSelections]);
 
@@ -54,8 +53,16 @@ export default function KitchenPage() {
     setHasSavedSinceLastChange(false);
   };
   
+  // Dynamically modify style option names for this page only
+  const pageSpecificKitchenStyleOptions: BaseSelectionItem[] = overallStyleOptions.map(style => ({
+    ...style,
+    name: `${style.name} Kitchen`,
+    // Important: Keep the original ID for selection tracking
+    id: style.id 
+  }));
+
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
-    { title: "Kitchen Style", description: "Select the overall style for your kitchen.", options: kitchenStyleOptions, cols: 3 },
+    { title: "Kitchen Style", description: "Select the overall style for your kitchen.", options: pageSpecificKitchenStyleOptions, cols: 3 },
     { title: "Cabinets", description: "Choose your preferred cabinet style.", options: kitchenCabinetOptions, cols: 3 },
     { title: "Worktop/Countertop", description: "Select materials for your countertops.", options: kitchenWorktopOptions, cols: 3 },
     { title: "Appliances", description: "Choose appliance integration types.", options: kitchenApplianceOptions, cols: 3 },
@@ -83,9 +90,8 @@ export default function KitchenPage() {
     } else if (totalSubsections > 0 && subsectionsWithSelections === totalSubsections) {
         newProgress = 100;
     } else if (totalSubsections > 0) {
-        // Fallback: progress based on number of subsections with selections, or overall item count
          newProgress = totalOptionsOnPage > 0 ? Math.round((selectedOptions.size / totalOptionsOnPage) * 50) + Math.round((subsectionsWithSelections / totalSubsections) * 50) : 0;
-         newProgress = Math.min(newProgress, 99); // Cap at 99 if not all subsections are covered
+         newProgress = Math.min(newProgress, 99); 
     } else {
         newProgress = 0;
     }
@@ -96,13 +102,26 @@ export default function KitchenPage() {
     sections.forEach(section => {
       section.options.forEach(option => {
         if (selectedOptions.has(option.id)) {
-          allSelectedItems.push({
-            id: option.id,
-            name: option.name,
-            imageUrl: option.imageUrl,
-            description: option.description,
-            dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
-          });
+          // Find the original item from types.ts to store its original name and other data
+          // This is important because pageSpecificKitchenStyleOptions has modified names.
+          // We need to find the base item from which the selection was made.
+          let baseItem: BaseSelectionItem | undefined;
+          if (section.title === "Kitchen Style") {
+            baseItem = overallStyleOptions.find(originalStyle => originalStyle.id === option.id);
+          } else {
+            // For other sections, the option itself is the base item
+            baseItem = option;
+          }
+          
+          if (baseItem) {
+            allSelectedItems.push({
+              id: baseItem.id, // Use original ID
+              name: baseItem.name, // Use original name for storage/PDF
+              imageUrl: baseItem.imageUrl,
+              description: baseItem.description, // Use original description
+              dataAiHint: baseItem.dataAiHint || baseItem.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
+            });
+          }
         }
       });
     });
@@ -142,8 +161,8 @@ export default function KitchenPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {section.options.map((option) => (
                   <ItemSelectionCard
-                    key={option.id}
-                    item={option}
+                    key={option.id} // Key should be unique, original ID is fine here
+                    item={option} // Pass the modified item (with " Kitchen" in name) for display
                     isSelected={selectedOptions.has(option.id)}
                     onSelect={handleOptionChange}
                   />
