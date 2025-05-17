@@ -10,7 +10,7 @@ import {
     generalLightingOptions as livingRoomLightingOptions,
     livingRoomStorageOptions,
     livingRoomFireplaceOptions,
-    livingRoomOptionsList, 
+    // livingRoomOptionsList, // No longer needed for sections on this page
     type BaseSelectionItem
 } from "@/types"; 
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
@@ -52,7 +52,7 @@ export default function LivingRoomPage() {
   };
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
-    { title: "Main Furniture", description: "Select core furniture pieces like sofas and chairs.", options: livingRoomOptionsList, cols: 3 },
+    // { title: "Main Furniture", description: "Select core furniture pieces like sofas and chairs.", options: livingRoomOptionsList, cols: 3 }, // Removed this section
     { title: "Wall Finish", description: "Choose finishes for your living room walls.", options: livingRoomWallFinishOptions, cols: 3 },
     { title: "Flooring", description: "Select flooring for the living room.", options: livingRoomFlooringOptions, cols: 3 },
     { title: "Lighting", description: "Select lighting fixtures.", options: livingRoomLightingOptions, cols: 3 },
