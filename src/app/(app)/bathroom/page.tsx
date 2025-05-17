@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
-    bathroomStyleOptions, 
+    bathroomStyleOptions as baseBathroomStyleOptions, // Renamed to avoid conflict
     bathroomMasterBathTubOptions,
     bathroomMasterShowerOptions,
     bathroomMasterSinkOptions as baseBathroomMasterSinkOptions, 
@@ -53,7 +53,7 @@ export default function BathroomPage() {
     setHasSavedSinceLastChange(false);
   };
 
-  const pageSpecificDisplayBathroomStyleOptions: BaseSelectionItem[] = bathroomStyleOptions.map(style => ({
+  const pageSpecificDisplayBathroomStyleOptions: BaseSelectionItem[] = baseBathroomStyleOptions.map(style => ({
     ...style, 
     name: `${style.name} Bathroom` 
   }));
@@ -82,9 +82,15 @@ export default function BathroomPage() {
     if (finish.id === 'bath-hardware-handleless') {
       return {
         ...finish,
-        name: "Handlesless or Flat"
+        name: "Handlesless or Flat" // Corrected typo: Handleless -> Handlesless
       };
     }
+    if (finish.id === 'bath-hardware-multitone') {
+        return {
+          ...finish,
+          name: "Multi-Tone or Abstract"
+        };
+      }
     return finish;
   });
   
@@ -142,7 +148,7 @@ export default function BathroomPage() {
 
           // Find the original item from the base arrays to save its original name and details
           if (section.title === "Master Bath: Style") {
-            originalItem = bathroomStyleOptions.find(opt => opt.id === displayOption.id);
+            originalItem = baseBathroomStyleOptions.find(opt => opt.id === displayOption.id);
           } else if (section.title === "Master Bath: Sink (Single/Double)") {
             originalItem = baseBathroomMasterSinkOptions.find(opt => opt.id === displayOption.id);
           } else if (section.title === "Master Bath: Hardware Finish" || section.title === "Half-Bath: Hardware Finish") {
@@ -153,7 +159,6 @@ export default function BathroomPage() {
               section.options === bathroomMasterBathTubOptions ? bathroomMasterBathTubOptions :
               section.options === bathroomMasterShowerOptions ? bathroomMasterShowerOptions :
               section.options === bathroomToiletOptions ? bathroomToiletOptions :
-              // section.options === baseBathroomHardwareFinishOptions ? baseBathroomHardwareFinishOptions : // Already handled by specific case above
               section.options === bathroomStorageOptions ? bathroomStorageOptions :
               section.options === bathroomLightingOptions ? bathroomLightingOptions :
               section.options === bathroomHalfSinkOptions ? bathroomHalfSinkOptions :
@@ -165,7 +170,7 @@ export default function BathroomPage() {
               // If not found in specific mappings or common base arrays used directly,
               // check if the displayOption's source was one of the transformed arrays
               if (section.options === pageSpecificDisplayBathroomStyleOptions) {
-                originalItem = bathroomStyleOptions.find(opt => opt.id === displayOption.id);
+                originalItem = baseBathroomStyleOptions.find(opt => opt.id === displayOption.id);
               } else if (section.options === pageSpecificDisplayMasterSinkOptions) {
                 originalItem = baseBathroomMasterSinkOptions.find(opt => opt.id === displayOption.id);
               } else if (section.options === pageSpecificDisplayHardwareFinishOptions) {
