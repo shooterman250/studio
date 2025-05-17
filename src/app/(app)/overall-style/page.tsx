@@ -43,8 +43,8 @@ export default function OverallStylePage() {
   };
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number; id: 'design-styles' | 'key-elements' }> = [
-    { id: 'design-styles', title: "Select Design Styles", description: "Choose one or more design styles that best represent your vision.", options: overallStyleOptions, cols: 5 },
-    { id: 'key-elements', title: "Select Key Elements", description: "Choose guiding principles for your design.", options: keyElementOptions, cols: 3 }, // Changed cols from 4 to 3
+    { id: 'design-styles', title: "Select Design Styles", description: "Choose one or more design styles that best represent your vision.", options: overallStyleOptions, cols: 3 },
+    { id: 'key-elements', title: "Select Key Elements", description: "Choose guiding principles for your design.", options: keyElementOptions, cols: 3 }, 
   ];
 
 
