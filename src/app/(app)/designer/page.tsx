@@ -257,6 +257,8 @@ export default function DesignerPage() {
                 yPos += getLineHeight(FONT_SIZE_CLIENT_DATA) * splitAvailability.length;
             }
         }
+        // Adjust yPos to be below the taller of the two columns if client info was split
+        yPos = Math.max(yPos, clientInfoStartY + 2 * (getLineHeight(FONT_SIZE_CLIENT_DATA) + 0.5)); // Ensure space for at least two lines in col1
         yPos += getLineHeight(FONT_SIZE_CLIENT_LABEL) + 3; // Space after client info block
     }
     
@@ -429,38 +431,37 @@ export default function DesignerPage() {
         </header>
 
         <section className="max-w-7xl mx-auto space-y-12">
-          {activeStages.length > 0 || clientInfo ? ( // Show overview if there are selections OR client info
+          {clientInfo && (
+            <Card className="mb-8 bg-card/70 backdrop-blur-lg border border-card-foreground/10 shadow-xl overflow-hidden">
+              <CardHeader className="bg-card-foreground/5">
+                <CardTitle className="text-xl">Client Information</CardTitle>
+              </CardHeader>
+              <CardContent className="p-4 space-y-1 text-sm">
+                <p><strong>Full Name:</strong> {clientInfo.fullName}</p>
+                <p><strong>Email:</strong> {clientInfo.email}</p>
+                {clientInfo.callPreferences && (clientInfo.callPreferences.phoneNumber || clientInfo.callPreferences.availableDays.length > 0 || clientInfo.callPreferences.availableTimes.length > 0) && (
+                  <>
+                    <p className="mt-2 pt-2 border-t border-border/30"><strong>Contact Preferences:</strong></p>
+                    {clientInfo.callPreferences.phoneNumber && <p>Phone: {clientInfo.callPreferences.phoneNumber}</p>}
+                    {(clientInfo.callPreferences.availableDays.length > 0 || clientInfo.callPreferences.availableTimes.length > 0) &&
+                      <p>Availability: {clientInfo.callPreferences.availableDays.join(', ')} - {clientInfo.callPreferences.availableTimes.join(', ')}</p>
+                    }
+                  </>
+                )}
+              </CardContent>
+            </Card>
+          )}
+
+          {activeStages.length > 0 ? (
             <>
               <h2 className="text-3xl font-semibold mb-8 text-center text-foreground">
                 Your Design Selections Overview
               </h2>
-              {clientInfo && (
-                <Card className="mb-8 bg-card/70 backdrop-blur-lg border border-card-foreground/10 shadow-xl overflow-hidden">
-                  <CardHeader className="bg-card-foreground/5">
-                    <CardTitle className="text-xl">Client Information</CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-4 space-y-1 text-sm">
-                    <p><strong>Full Name:</strong> {clientInfo.fullName}</p>
-                    <p><strong>Email:</strong> {clientInfo.email}</p>
-                    {clientInfo.callPreferences && (clientInfo.callPreferences.phoneNumber || clientInfo.callPreferences.availableDays.length > 0 || clientInfo.callPreferences.availableTimes.length > 0) && (
-                      <>
-                        <p className="mt-2 pt-2 border-t border-border/30"><strong>Contact Preferences:</strong></p>
-                        {clientInfo.callPreferences.phoneNumber && <p>Phone: {clientInfo.callPreferences.phoneNumber}</p>}
-                        {(clientInfo.callPreferences.availableDays.length > 0 || clientInfo.callPreferences.availableTimes.length > 0) &&
-                          <p>Availability: {clientInfo.callPreferences.availableDays.join(', ')} - {clientInfo.callPreferences.availableTimes.join(', ')}</p>
-                        }
-                      </>
-                    )}
-                  </CardContent>
-                </Card>
-              )}
-              {activeStages.length > 0 && (
-                <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-                  {activeStages.map(([stageKey, items]) => (
-                    <StageSelectionsCard key={stageKey} stageKey={stageKey as DesignStageKey} items={items} />
-                  ))}
-                </div>
-              )}
+              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+                {activeStages.map(([stageKey, items]) => (
+                  <StageSelectionsCard key={stageKey} stageKey={stageKey as DesignStageKey} items={items} />
+                ))}
+              </div>
             </>
           ) : (
             <div className="mt-12 p-10 bg-card/60 backdrop-blur-lg border border-card-foreground/10 rounded-lg shadow-lg text-center">
@@ -483,7 +484,3 @@ export default function DesignerPage() {
     </div>
   );
 }
-
-    
-
-    
