@@ -143,7 +143,7 @@ export const generalWallFinishOptions: GeneralWallFinishOption[] = [
 
 export interface UtilityWasherDryerLayoutOption extends BaseSelectionItem {}
 export const utilityWasherDryerLayoutOptions: UtilityWasherDryerLayoutOption[] = [
-    { id: 'util-wd-compact', name: 'Compact', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'compact laundry unit' },
+    { id: 'util-wd-compact', name: 'All-In-One', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'all in one laundry' },
     { id: 'util-wd-side', name: 'Side-By-Side', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'side by side laundry' },
     { id: 'util-wd-stacked', name: 'Stacked', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'stacked laundry unit' },
 ].sort((a, b) => a.name.localeCompare(b.name));
@@ -336,3 +336,4 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
