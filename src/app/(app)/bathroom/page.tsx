@@ -8,7 +8,7 @@ import {
     bathroomStyleOptions, 
     bathroomMasterBathTubOptions,
     bathroomMasterShowerOptions,
-    bathroomMasterSinkOptions as baseBathroomMasterSinkOptions, // Alias original import
+    bathroomMasterSinkOptions as baseBathroomMasterSinkOptions, 
     bathroomToiletOptions, 
     bathroomHardwareFinishOptions, 
     bathroomStorageOptions, 
@@ -53,17 +53,18 @@ export default function BathroomPage() {
     setHasSavedSinceLastChange(false);
   };
 
-  // Create page-specific display options for Master Bath Style
   const pageSpecificDisplayBathroomStyleOptions: BaseSelectionItem[] = bathroomStyleOptions.map(style => ({
-    ...style, // Copies id, imageUrl, original description, dataAiHint
-    name: `${style.name} Bathroom` // Override only the name for display on this page
+    ...style, 
+    name: `${style.name} Bathroom` 
   }));
 
-  // Create page-specific display options for Master Bath Sink
-  const pageSpecificDisplayMasterSinkOptions: BaseSelectionItem[] = baseBathroomMasterSinkOptions.map(sink => ({
-    ...sink, // Copies id, imageUrl, original description, dataAiHint, type
-    name: `${sink.name} Bathroom Sink` // Override only the name for display on this page
-  }));
+  const pageSpecificDisplayMasterSinkOptions: BaseSelectionItem[] = baseBathroomMasterSinkOptions.map(sink => {
+    const originalNamePart = sink.name.replace(/ Sink/i, "").trim(); // Remove " Sink" case-insensitively and trim
+    return {
+      ...sink, 
+      name: `${originalNamePart} Bathroom Sink` 
+    };
+  });
   
   const masterBathSubSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Master Bath: Style", options: pageSpecificDisplayBathroomStyleOptions, cols: 3, description: "Define the overall style for your master bathroom." },
@@ -105,7 +106,7 @@ export default function BathroomPage() {
         newProgress = 100;
     } else if (totalSubsections > 0) {
         newProgress = totalOptionsOnPage > 0 ? Math.round((selectedOptions.size / totalOptionsOnPage) * 50) + Math.round((subsectionsWithSelections / totalSubsections) * 50) : 0;
-        newProgress = Math.min(newProgress, 99); // Cap at 99 if not all subsections covered
+        newProgress = Math.min(newProgress, 99); 
     } else {
         newProgress = 0;
     }
@@ -113,28 +114,24 @@ export default function BathroomPage() {
     
     const allSelectedItems: SelectedDataItem[] = [];
     sections.forEach(section => {
-      // Iterate over the options used for display in this section
       section.options.forEach(displayOption => { 
         if (selectedOptions.has(displayOption.id)) {
           let originalItem: BaseSelectionItem | undefined;
 
           if (section.title === "Master Bath: Style") {
-            // For the style section, find the original item from bathroomStyleOptions
             originalItem = bathroomStyleOptions.find(opt => opt.id === displayOption.id);
           } else if (section.title === "Master Bath: Sink (Single/Double)") {
-            // For the Master Bath Sink section, find the original item from baseBathroomMasterSinkOptions
             originalItem = baseBathroomMasterSinkOptions.find(opt => opt.id === displayOption.id);
           } else {
-            // For other sections, the displayOption is the original item
             originalItem = displayOption;
           }
           
           if (originalItem) {
             allSelectedItems.push({
               id: originalItem.id,
-              name: originalItem.name, // Save the original name
-              imageUrl: originalItem.imageUrl, // Save the original image URL
-              description: originalItem.description, // Save the original item's description
+              name: originalItem.name, 
+              imageUrl: originalItem.imageUrl, 
+              description: originalItem.description, 
               dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
             });
           }
