@@ -8,7 +8,7 @@ import {
     bathroomStyleOptions, 
     bathroomMasterBathTubOptions,
     bathroomMasterShowerOptions,
-    bathroomMasterSinkOptions,
+    bathroomMasterSinkOptions as baseBathroomMasterSinkOptions, // Alias original import
     bathroomToiletOptions, 
     bathroomHardwareFinishOptions, 
     bathroomStorageOptions, 
@@ -58,12 +58,18 @@ export default function BathroomPage() {
     ...style, // Copies id, imageUrl, original description, dataAiHint
     name: `${style.name} Bathroom` // Override only the name for display on this page
   }));
+
+  // Create page-specific display options for Master Bath Sink
+  const pageSpecificDisplayMasterSinkOptions: BaseSelectionItem[] = baseBathroomMasterSinkOptions.map(sink => ({
+    ...sink, // Copies id, imageUrl, original description, dataAiHint, type
+    name: `${sink.name} Bathroom Sink` // Override only the name for display on this page
+  }));
   
   const masterBathSubSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Master Bath: Style", options: pageSpecificDisplayBathroomStyleOptions, cols: 3, description: "Define the overall style for your master bathroom." },
     { title: "Master Bath: Bath Tub", options: bathroomMasterBathTubOptions, cols: 3, description: "Choose a bathtub type." },
     { title: "Master Bath: Shower", options: bathroomMasterShowerOptions, cols: 3, description: "Select your preferred shower setup." },
-    { title: "Master Bath: Sink (Single/Double)", options: bathroomMasterSinkOptions, cols: 3, description: "Choose sink style and count." },
+    { title: "Master Bath: Sink (Single/Double)", options: pageSpecificDisplayMasterSinkOptions, cols: 3, description: "Choose sink style and count." },
     { title: "Master Bath: Toilet", options: bathroomToiletOptions, cols: 3, description: "Select a toilet type." },
     { title: "Master Bath: Hardware Finish", options: bathroomHardwareFinishOptions, cols: 3, description: "Pick finishes for faucets, handles, etc." },
     { title: "Master Bath: Storage", options: bathroomStorageOptions, cols: 3, description: "Select storage solutions." },
@@ -113,8 +119,11 @@ export default function BathroomPage() {
           let originalItem: BaseSelectionItem | undefined;
 
           if (section.title === "Master Bath: Style") {
-            // For the style section, find the original item from bathroomStyleOptions (which is overallStyleOptions)
+            // For the style section, find the original item from bathroomStyleOptions
             originalItem = bathroomStyleOptions.find(opt => opt.id === displayOption.id);
+          } else if (section.title === "Master Bath: Sink (Single/Double)") {
+            // For the Master Bath Sink section, find the original item from baseBathroomMasterSinkOptions
+            originalItem = baseBathroomMasterSinkOptions.find(opt => opt.id === displayOption.id);
           } else {
             // For other sections, the displayOption is the original item
             originalItem = displayOption;
@@ -166,10 +175,10 @@ export default function BathroomPage() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {section.options.map((option) => ( // 'option' here is from pageSpecific... for Style, or original for others
+                {section.options.map((option) => ( 
                   <ItemSelectionCard
                     key={option.id}
-                    item={option} // Pass the item with the modified name for display in the Style section
+                    item={option} 
                     isSelected={selectedOptions.has(option.id)}
                     onSelect={handleOptionChange}
                   />
