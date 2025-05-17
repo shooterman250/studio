@@ -133,7 +133,7 @@ export default function HallwaysPage() {
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
       <header className="mb-8 text-center">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
           Hallway(s) Design
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg opacity-80 sm:text-xl">

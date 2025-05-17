@@ -407,7 +407,7 @@ export default function DesignerPage() {
     >
       <div className="relative z-[1] isolate">
         <header className="mb-12 text-center">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
             Design Dashboard
           </h1>
           <p className="mt-4 max-w-3xl mx-auto text-lg opacity-80 sm:text-xl">

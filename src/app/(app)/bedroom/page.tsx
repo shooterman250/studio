@@ -53,7 +53,7 @@ export default function BedroomPage() {
     { title: "Wall Finish", description: "Choose finishes for your bedroom walls.", options: bedroomWallFinishOptions, cols: 3 },
     { title: "Flooring", description: "Select flooring for the bedroom.", options: bedroomFlooringOptions, cols: 3 },
     { title: "Lighting", description: "Select lighting fixtures.", options: bedroomLightingOptions, cols: 3 },
-    { title: "Wardrobe/Closet", description: "Select your preferred wardrobe or closet type(s).", options: bedroomWardrobeOptions, cols: 2 },
+    { title: "Wardrobe/Closet", description: "Select your preferred wardrobe or closet type(s).", options: bedroomWardrobeOptions, cols: 3 },
   ];
 
   const handleSaveChanges = () => {
@@ -89,7 +89,7 @@ export default function BedroomPage() {
             name: option.name,
             imageUrl: option.imageUrl,
             description: option.description,
-            dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
+            dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
           });
         }
       });
@@ -111,7 +111,7 @@ export default function BedroomPage() {
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
       <header className="mb-8 text-center">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
           Bedroom(s) Customization
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg opacity-80 sm:text-xl">

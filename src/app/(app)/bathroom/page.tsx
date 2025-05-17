@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
-    bathroomStyleOptions, // This is overallStyleOptions
+    bathroomStyleOptions, 
     bathroomMasterBathTubOptions,
     bathroomMasterShowerOptions,
     bathroomMasterSinkOptions,
@@ -126,7 +126,7 @@ export default function BathroomPage() {
               name: originalItem.name, // Save the original name
               imageUrl: originalItem.imageUrl, // Save the original image URL
               description: originalItem.description, // Save the original item's description
-              dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
+              dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
             });
           }
         }
@@ -149,7 +149,7 @@ export default function BathroomPage() {
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
       <header className="mb-8 text-center">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
           Bathroom(s) Customization
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg opacity-80 sm:text-xl">

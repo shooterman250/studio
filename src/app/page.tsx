@@ -18,7 +18,7 @@ export default function LandingPage() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground p-4">
       <div className="text-center space-y-8 max-w-2xl">
         <ButterflyLogo width={320} height={320} className="mx-auto" />
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
           Welcome To Your Personal Design Hub
         </h1>
         <p className="text-md opacity-80 sm:text-lg">

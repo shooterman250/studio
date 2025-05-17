@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
-    overallStyleOptions, // Keep using overallStyleOptions as the base
+    overallStyleOptions, 
     kitchenCabinetOptions,
     kitchenWorktopOptions,
     kitchenApplianceOptions,
@@ -53,18 +53,17 @@ export default function KitchenPage() {
     setHasSavedSinceLastChange(false);
   };
   
-  // Dynamically modify style option names and specific images for this page only
   const pageSpecificKitchenStyleOptions: BaseSelectionItem[] = overallStyleOptions.map(style => {
-    let imageUrl = style.imageUrl;
+    let imageUrl = style.imageUrl; // Start with the original image URL
+    // If the style ID is 'biophilic', override its imageUrl for this page
     if (style.id === 'biophilic') {
       imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=68289155&is=68273fd5&hm=863564b39ff081ce56d636878c8ed47844c4f6f85919af86ad4f2bb004913602&=&format=webp&quality=lossless&width=1308&height=1308';
     }
     return {
-      ...style,
-      name: `${style.name} Kitchen`,
-      imageUrl: imageUrl, // Use original or overridden imageUrl
-      // Important: Keep the original ID for selection tracking
-      id: style.id 
+      ...style, // Spread all original properties
+      name: `${style.name} Kitchen`, // Append " Kitchen" to the name
+      imageUrl: imageUrl, // Use the (potentially overridden) imageUrl
+      // Keep the original id, description, dataAiHint etc.
     };
   });
 
@@ -107,26 +106,27 @@ export default function KitchenPage() {
     
     const allSelectedItems: SelectedDataItem[] = [];
     sections.forEach(section => {
-      section.options.forEach(option => {
-        if (selectedOptions.has(option.id)) {
-          // Find the original item from types.ts to store its original name and other data
-          // This is important because pageSpecificKitchenStyleOptions has modified names.
-          // We need to find the base item from which the selection was made.
-          let baseItem: BaseSelectionItem | undefined;
+      // Iterate over the options that were *displayed* on the page for this section
+      section.options.forEach(displayOption => { 
+        if (selectedOptions.has(displayOption.id)) {
+          let originalItem: BaseSelectionItem | undefined;
+
+          // For "Kitchen Style", find the original item from `overallStyleOptions` using the ID,
+          // because `displayOption` here has a modified name and potentially image.
           if (section.title === "Kitchen Style") {
-            baseItem = overallStyleOptions.find(originalStyle => originalStyle.id === option.id);
+            originalItem = overallStyleOptions.find(opt => opt.id === displayOption.id);
           } else {
-            // For other sections, the option itself is the base item
-            baseItem = option;
+            // For all other sections, the `displayOption` is the original item itself.
+            originalItem = displayOption;
           }
           
-          if (baseItem) {
+          if (originalItem) {
             allSelectedItems.push({
-              id: baseItem.id, // Use original ID
-              name: baseItem.name, // Use original name for storage/PDF
-              imageUrl: baseItem.imageUrl, // Use original imageUrl for storage
-              description: baseItem.description, // Use original description
-              dataAiHint: baseItem.dataAiHint || baseItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
+              id: originalItem.id,
+              name: originalItem.name, // Save the ORIGINAL name
+              imageUrl: originalItem.imageUrl, // Save the ORIGINAL imageUrl
+              description: originalItem.description,
+              dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
             });
           }
         }
@@ -149,7 +149,7 @@ export default function KitchenPage() {
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
       <header className="mb-8 text-center">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
           Kitchen Customization
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg opacity-80 sm:text-xl">
@@ -166,10 +166,10 @@ export default function KitchenPage() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {section.options.map((option) => (
+                {section.options.map((option) => ( // 'option' here is from pageSpecific... for Style, or original for others
                   <ItemSelectionCard
-                    key={option.id} // Key should be unique, original ID is fine here
-                    item={option} // Pass the modified item (with " Kitchen" in name and potentially different image) for display
+                    key={option.id} 
+                    item={option} // Pass the modified item for display
                     isSelected={selectedOptions.has(option.id)}
                     onSelect={handleOptionChange}
                   />
