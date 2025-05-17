@@ -79,6 +79,12 @@ export default function BathroomPage() {
         name: "Bronze or Brass"
       };
     }
+    if (finish.id === 'bath-hardware-handleless') {
+      return {
+        ...finish,
+        name: "Handlesless or Flat"
+      };
+    }
     return finish;
   });
   
