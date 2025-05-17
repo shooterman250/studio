@@ -53,13 +53,20 @@ export default function KitchenPage() {
     setHasSavedSinceLastChange(false);
   };
   
-  // Dynamically modify style option names for this page only
-  const pageSpecificKitchenStyleOptions: BaseSelectionItem[] = overallStyleOptions.map(style => ({
-    ...style,
-    name: `${style.name} Kitchen`,
-    // Important: Keep the original ID for selection tracking
-    id: style.id 
-  }));
+  // Dynamically modify style option names and specific images for this page only
+  const pageSpecificKitchenStyleOptions: BaseSelectionItem[] = overallStyleOptions.map(style => {
+    let imageUrl = style.imageUrl;
+    if (style.id === 'biophilic') {
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=68289155&is=68273fd5&hm=863564b39ff081ce56d636878c8ed47844c4f6f85919af86ad4f2bb004913602&=&format=webp&quality=lossless&width=1308&height=1308';
+    }
+    return {
+      ...style,
+      name: `${style.name} Kitchen`,
+      imageUrl: imageUrl, // Use original or overridden imageUrl
+      // Important: Keep the original ID for selection tracking
+      id: style.id 
+    };
+  });
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Kitchen Style", description: "Select the overall style for your kitchen.", options: pageSpecificKitchenStyleOptions, cols: 3 },
@@ -117,9 +124,9 @@ export default function KitchenPage() {
             allSelectedItems.push({
               id: baseItem.id, // Use original ID
               name: baseItem.name, // Use original name for storage/PDF
-              imageUrl: baseItem.imageUrl,
+              imageUrl: baseItem.imageUrl, // Use original imageUrl for storage
               description: baseItem.description, // Use original description
-              dataAiHint: baseItem.dataAiHint || baseItem.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
+              dataAiHint: baseItem.dataAiHint || baseItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
             });
           }
         }
@@ -162,7 +169,7 @@ export default function KitchenPage() {
                 {section.options.map((option) => (
                   <ItemSelectionCard
                     key={option.id} // Key should be unique, original ID is fine here
-                    item={option} // Pass the modified item (with " Kitchen" in name) for display
+                    item={option} // Pass the modified item (with " Kitchen" in name and potentially different image) for display
                     isSelected={selectedOptions.has(option.id)}
                     onSelect={handleOptionChange}
                   />
