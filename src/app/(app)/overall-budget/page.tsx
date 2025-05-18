@@ -68,6 +68,9 @@ export default function OverallBudgetPage() {
         <p className="mt-4 max-w-2xl mx-auto text-lg opacity-80 sm:text-xl">
           Estimate your total budget for the design project.
         </p>
+        <p className="mt-1 max-w-2xl mx-auto text-sm opacity-70">
+          (This does not include Interior Designer Fees)
+        </p>
       </header>
 
       <section className="max-w-2xl mx-auto space-y-8">
