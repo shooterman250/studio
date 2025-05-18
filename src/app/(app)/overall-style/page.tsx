@@ -61,6 +61,12 @@ export default function OverallStylePage() {
         imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370577130659909744/Overall_Style__Modern_1.png?ex=682b35ac&is=6829e42c&hm=9d175175076b1e18b077e2f38944c5074472c1e5445a0b06c9df28c975f2b465&=&format=webp&quality=lossless&width=774&height=774'
       };
     }
+    if (style.id === 'coastal') {
+      return {
+        ...style,
+        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370577942286962748/Overall_Style__Modern_2.png?ex=682b366d&is=6829e4ed&hm=a5c7998dc80c65d66bc87d4cb8ad64dd5d3d78be155bb34498c7bd7f305129b1&=&format=webp&quality=lossless&width=774&height=774'
+      };
+    }
     // For other styles, if a page-specific image is needed, add another if block here.
     // Otherwise, it uses the image from baseOverallStyleOptions by returning 'style'.
     return style;
