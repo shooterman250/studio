@@ -77,6 +77,11 @@ export const kitchenApplianceOptions: KitchenApplianceOption[] = [
   { id: 'k-app-freestanding', name: 'Freestanding', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'freestanding kitchen appliance' },
   { id: 'k-app-integrated', name: 'Integrated', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'integrated kitchen appliance' },
   { id: 'k-app-smart', name: 'Smart Appliances', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'smart kitchen appliance' },
+  { id: 'k-app-fingerprint', name: 'Fingerprint Resistant', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'fingerprint resistant appliance' },
+  { id: 'k-app-finish-black', name: 'Black', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'black kitchen appliance' },
+  { id: 'k-app-finish-stainless', name: 'Stainless Steel', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'stainless steel appliance' },
+  { id: 'k-app-finish-white', name: 'White', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'white kitchen appliance' },
+  { id: 'k-app-finish-color', name: 'Color (e.g. Red, Blue)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'colored kitchen appliance' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface KitchenHardwareFinishOption extends BaseSelectionItem {}
@@ -143,9 +148,9 @@ export const generalWallFinishOptions: GeneralWallFinishOption[] = [
 
 export interface UtilityWasherDryerLayoutOption extends BaseSelectionItem {}
 export const utilityWasherDryerLayoutOptions: UtilityWasherDryerLayoutOption[] = [
-    { id: 'util-wd-compact', name: 'All-In-One', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'all in one laundry' },
-    { id: 'util-wd-side', name: 'Side-By-Side', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'side by side laundry' },
-    { id: 'util-wd-stacked', name: 'Stacked', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'stacked laundry unit' },
+  { id: 'util-wd-compact', name: 'All-In-One', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'all in one laundry' },
+  { id: 'util-wd-side', name: 'Side-By-Side', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'side by side laundry' },
+  { id: 'util-wd-stacked', name: 'Stacked', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'stacked laundry unit' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface GeneralStorageOption extends BaseSelectionItem {}
@@ -337,3 +342,6 @@ export const finishOptions: FinishOption[] = [
 
     
 
+
+
+    
