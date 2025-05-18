@@ -31,7 +31,7 @@ export interface BaseSelectionItem {
 // Overall Style
 export interface OverallStyleOption extends BaseSelectionItem {}
 export const overallStyleOptions: OverallStyleOption[] = [
-  { id: 'biophilic', name: 'Biophilic', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043155422679210/Biophilic.png?ex=682b9c96&is=682a4b16&hm=70d9f3993cc847e4a298610610118d7f6f038cb8e9160a96fb837aee964a622d&=&format=webp&quality=lossless&width=774&height=774', description: 'Nature-inspired, with natural elements.', dataAiHint: 'biophilic design interior' },
+  { id: 'biophilic', name: 'Biophilic', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373799883810672790/Biophilic_.png?ex=682bba58&is=682a68d8&hm=48c2fa6dcf5a914890087d71650f56908e9a60c78fa19a60741c7b52439f5291&=&format=webp&quality=lossless&width=774&height=774', description: 'Nature-inspired, with natural elements.', dataAiHint: 'biophilic design interior' },
   { id: 'bohemian', name: 'Bohemian', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043156102152344/Bohemian.png?ex=6828f996&is=6827a816&hm=bac9a4dbf1a4fe7714c124a9f57e761114e2841477368caf206177230174599e&=&format=webp&quality=lossless&width=380&height=380', description: 'Eclectic, colorful, and free-spirited.', dataAiHint: 'bohemian interior' },
   { id: 'coastal', name: 'Coastal', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043156815446198/Coastal.png?ex=6828f996&is=6827a816&hm=eec376ebe01eac625acfc72b6d96228df4bb3705c85a5c3336ae7a708c702dd5&=&format=webp&quality=lossless&width=380&height=380', description: 'Light, airy, and beach-inspired.', dataAiHint: 'coastal interior' },
   { id: 'contemporary', name: 'Contemporary', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043157452984470/Contemporary.png?ex=6828f996&is=6827a816&hm=79ba96bcfb75a6b1b778edbea778fc72b77452a6bfa86817e19a8b6edde85453&=&format=webp&quality=lossless&width=380&height=380', description: 'Current, fluid, and ever-evolving.', dataAiHint: 'contemporary interior' },
@@ -121,7 +121,7 @@ export const generalFlooringOptions: GeneralFlooringOption[] = [
     { id: 'floor-cement', name: 'Cement/Concrete', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373801630192893972/Cement.png?ex=682bbbf8&is=682a6a78&hm=c2c539223e8997fd2cb9c199e470351cd28fc010ce07383bd58af6ce110dd0b9&=&format=webp&quality=lossless&width=774&height=774', dataAiHint: 'cement concrete floor' },
     { id: 'floor-lvinyl', name: 'Luxury Vinyl', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373801630612455434/Laminate_Vinyl_.png?ex=682bbbf8&is=682a6a78&hm=8929435d1b1b1cca849ab64d7094b13128026d240add61b82cad5cb7d0f226a0&=&format=webp&quality=lossless&width=774&height=774', dataAiHint: 'luxury vinyl flooring' },
     { id: 'floor-marble', name: 'Marble', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373801632743166093/Marble.png?ex=682bbbf9&is=682a6a79&hm=e5efe6e147490d8ea77555a6180084a180979627f646371662fe568aef7e6810&=&format=webp&quality=lossless&width=774&height=774', dataAiHint: 'marble flooring room' },
-    { id: 'floor-nstone', name: 'Natural Stone', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'natural stone flooring' },
+    { id: 'floor-nstone', name: 'Natural Stone', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373801631027822713/Natural_Stone.png?ex=682bbbf8&is=682a6a78&hm=2317e226944ec4084adf5e22d712b946e11ee9c3e2c183f6d349e3e2a134b6a2&=&format=webp&quality=lossless&width=774&height=774', dataAiHint: 'natural stone flooring' },
     { id: 'floor-wood', name: 'Wood', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'wood flooring room' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -312,3 +312,5 @@ export const finishOptions: FinishOption[] = [
   { id: 'finish-metal-polished', name: 'Polished Metal Finishes', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'polished metal' },
 ].sort((a, b) => a.name.localeCompare(b.name));
   
+
+    
