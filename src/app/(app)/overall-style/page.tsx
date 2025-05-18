@@ -79,6 +79,12 @@ export default function OverallStylePage() {
         imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370579139647635568/Overall_Style__Modern_4.png?ex=682b378b&is=6829e60b&hm=e74da4ef1e9efd2dabe032b1dd7832b064b65bdddc76879457032736a6574be3&=&format=webp&quality=lossless&width=774&height=774'
       };
     }
+    if (style.id === 'industrial') {
+      return {
+        ...style,
+        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370579979011887294/Overall_Style__Modern_5.png?ex=682b3853&is=6829e6d3&hm=85c09e020d6f52915da82f9c1cfe73781a6958c58fd483a347424b0cfc9459fe&=&format=webp&quality=lossless&width=774&height=774'
+      };
+    }
     // For other styles, if a page-specific image is needed, add another if block here.
     // Otherwise, it uses the image from baseOverallStyleOptions by returning 'style'.
     return style;
@@ -232,4 +238,3 @@ export default function OverallStylePage() {
     </div>
   );
 }
-
