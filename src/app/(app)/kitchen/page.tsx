@@ -4,15 +4,15 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-    overallStyleOptions, 
+import {
+    overallStyleOptions,
     kitchenCabinetOptions,
     kitchenWorktopOptions,
     kitchenApplianceOptions,
     kitchenHardwareFinishOptions,
     kitchenSinkTypeOptions as baseKitchenSinkTypeOptions, // Renamed for clarity
     kitchenBacksplashOptions,
-    generalFlooringOptions as kitchenFlooringOptions, 
+    generalFlooringOptions as kitchenFlooringOptions,
     generalLightingOptions as kitchenLightingOptions,
     type BaseSelectionItem
 } from "@/types";
@@ -52,16 +52,16 @@ export default function KitchenPage() {
     });
     setHasSavedSinceLastChange(false);
   };
-  
+
   const pageSpecificKitchenStyleOptions: BaseSelectionItem[] = overallStyleOptions.map(style => {
-    let imageUrl = style.imageUrl; 
+    let imageUrl = style.imageUrl;
     if (style.id === 'biophilic') {
       imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=68289155&is=68273fd5&hm=863564b39ff081ce56d636878c8ed47844c4f6f85919af86ad4f2bb004913602&=&format=webp&quality=lossless&width=1308&height=1308';
     }
     return {
-      ...style, 
-      name: `${style.name} Kitchen`, 
-      imageUrl: imageUrl, 
+      ...style,
+      name: `${style.name} Kitchen`,
+      imageUrl: imageUrl,
     };
   });
 
@@ -74,7 +74,7 @@ export default function KitchenPage() {
     { title: "Kitchen Style", description: "Select the overall style for your kitchen.", options: pageSpecificKitchenStyleOptions, cols: 3 },
     { title: "Cabinets", description: "Choose your preferred cabinet style.", options: kitchenCabinetOptions, cols: 3 },
     { title: "Worktop/Countertop", description: "Select materials for your countertops.", options: kitchenWorktopOptions, cols: 3 },
-    { title: "Appliances", description: "Choose appliance integration types.", options: kitchenApplianceOptions, cols: 3 },
+    { title: "Appliance Integration & Finish", description: "Choose appliance integration types.", options: kitchenApplianceOptions, cols: 3 },
     { title: "Appliance/Hardware Finish", description: "Select finishes for hardware and appliances.", options: kitchenHardwareFinishOptions, cols: 3 },
     { title: "Sink Type", description: "Choose your sink configuration.", options: pageSpecificSinkTypeOptions, cols: 3 }, // Use page-specific options
     { title: "Backsplash", description: "Select backsplash materials.", options: kitchenBacksplashOptions, cols: 3 },
@@ -100,33 +100,37 @@ export default function KitchenPage() {
         newProgress = 100;
     } else if (totalSubsections > 0) {
          newProgress = totalOptionsOnPage > 0 ? Math.round((selectedOptions.size / totalOptionsOnPage) * 50) + Math.round((subsectionsWithSelections / totalSubsections) * 50) : 0;
-         newProgress = Math.min(newProgress, 99); 
+         newProgress = Math.min(newProgress, 99);
     } else {
         newProgress = 0;
     }
-    
+
     newProgress = Math.max(0, Math.min(100, newProgress));
-    
+
     const allSelectedItems: SelectedDataItem[] = [];
     sections.forEach(section => {
-      section.options.forEach(displayOption => { 
+      section.options.forEach(displayOption => {
         if (selectedOptions.has(displayOption.id)) {
           let originalItem: BaseSelectionItem | undefined;
 
+          // Handle cases where display name/image might be different from base data
           if (section.title === "Kitchen Style") {
             originalItem = overallStyleOptions.find(opt => opt.id === displayOption.id);
           } else if (section.title === "Sink Type") {
             originalItem = baseKitchenSinkTypeOptions.find(opt => opt.id === displayOption.id);
           }
+          // For other sections, or if no specific mapping, assume displayOption is close enough or is the original
           else {
-            originalItem = displayOption;
+            originalItem = displayOption; // Fallback: use the item as is from the section.options
+                                        // This assumes that for most sections, the item in section.options IS the original item
+                                        // or has all necessary original fields.
           }
-          
+
           if (originalItem) {
             allSelectedItems.push({
               id: originalItem.id,
-              name: originalItem.name, 
-              imageUrl: originalItem.imageUrl, 
+              name: originalItem.name, // Ensure this is the ORIGINAL name
+              imageUrl: originalItem.imageUrl, // Ensure this is the ORIGINAL imageUrl
               description: originalItem.description,
               dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
             });
@@ -137,7 +141,7 @@ export default function KitchenPage() {
 
     updateStageSelections(PAGE_STAGE_KEY, newProgress, allSelectedItems);
     setHasSavedSinceLastChange(true);
-    
+
     toast({
       title: "Kitchen Choices Saved",
       description: `You've selected ${allSelectedItems.length} item(s) for the kitchen. Progress updated to ${newProgress}%.`,
@@ -168,10 +172,10 @@ export default function KitchenPage() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {section.options.map((option) => ( 
+                {section.options.map((option) => (
                   <ItemSelectionCard
-                    key={option.id} 
-                    item={option} 
+                    key={option.id}
+                    item={option}
                     isSelected={selectedOptions.has(option.id)}
                     onSelect={handleOptionChange}
                   />
@@ -180,7 +184,7 @@ export default function KitchenPage() {
             </CardContent>
           </Card>
         ))}
-        
+
         <div className="pt-4 flex flex-col sm:flex-row justify-end gap-2">
           <Button className="w-full sm:w-auto" onClick={handleSaveChanges}>
             Save Kitchen Choices ({selectedOptions.size})
