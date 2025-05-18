@@ -73,6 +73,12 @@ export default function OverallStylePage() {
         imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370578507385536512/Overall_Style__Modern_3.png?ex=682b36f4&is=6829e574&hm=3a49ddf9aa1b0594c890dbacb94352a4c130dd5c3e2947c0ea14a6ccbfe7adb4&=&format=webp&quality=lossless&width=774&height=774'
       };
     }
+    if (style.id === 'country-farmhouse') {
+      return {
+        ...style,
+        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370579139647635568/Overall_Style__Modern_4.png?ex=682b378b&is=6829e60b&hm=e74da4ef1e9efd2dabe032b1dd7832b064b65bdddc76879457032736a6574be3&=&format=webp&quality=lossless&width=774&height=774'
+      };
+    }
     // For other styles, if a page-specific image is needed, add another if block here.
     // Otherwise, it uses the image from baseOverallStyleOptions by returning 'style'.
     return style;
@@ -91,7 +97,7 @@ export default function OverallStylePage() {
       title: "Select Key Elements", 
       description: "Choose guiding principles for your design.", 
       options: baseKeyElementOptions, // Key elements use their base options for display
-      cols: 4 
+      cols: 3 
     }, 
   ];
 
