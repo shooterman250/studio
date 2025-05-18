@@ -4,7 +4,8 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
+// Renamed for clarity to distinguish from page-specific versions
+import {
     overallStyleOptions as baseOverallStyleOptions, 
     keyElementOptions as baseKeyElementOptions, 
     type BaseSelectionItem 
@@ -54,6 +55,8 @@ export default function OverallStylePage() {
         imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=68289155&is=68273fd5&hm=863564b39ff081ce56d636878c8ed47844c4f6f85919af86ad4f2bb004913602&=&format=webp&quality=lossless&width=1308&height=1308' 
       };
     }
+    // For other styles, if a page-specific image is needed, add another if block here.
+    // Otherwise, it uses the image from baseOverallStyleOptions by returning 'style'.
     return style;
   });
 
@@ -62,14 +65,14 @@ export default function OverallStylePage() {
       id: 'design-styles', 
       title: "Select Design Styles", 
       description: "Choose one or more design styles that best represent your vision.", 
-      options: pageSpecificDisplayOverallStyleOptions, 
+      options: pageSpecificDisplayOverallStyleOptions, // Uses the potentially overridden images for display
       cols: 3 
     },
     { 
       id: 'key-elements', 
       title: "Select Key Elements", 
       description: "Choose guiding principles for your design.", 
-      options: baseKeyElementOptions, 
+      options: baseKeyElementOptions, // Key elements use their base options for display
       cols: 3 
     }, 
   ];
@@ -121,21 +124,20 @@ export default function OverallStylePage() {
     selectedOptions.forEach(selectedId => {
       let originalItem: BaseSelectionItem | undefined;
       
-      // Check if the selectedId belongs to overallStyleOptions
-      originalItem = baseOverallStyleOptions.find(item => item.id === selectedId);
-      
-      // If not found in overallStyleOptions, check keyElementOptions
-      if (!originalItem) {
+      // Find the original item from the base arrays to ensure original data is saved
+      if (sections.find(s => s.id === 'design-styles')?.options.some(o => o.id === selectedId)) {
+        originalItem = baseOverallStyleOptions.find(item => item.id === selectedId);
+      } else if (sections.find(s => s.id === 'key-elements')?.options.some(o => o.id === selectedId)) {
         originalItem = baseKeyElementOptions.find(item => item.id === selectedId);
       }
   
       if (originalItem) {
         allSelectedItems.push({
           id: originalItem.id,
-          name: originalItem.name,
-          imageUrl: originalItem.imageUrl, // Use original imageUrl for saving
+          name: originalItem.name, // Saves the original name
+          imageUrl: originalItem.imageUrl, // Saves the original imageUrl
           description: originalItem.description,
-          dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
+          dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
         });
       }
     });
@@ -206,3 +208,4 @@ export default function OverallStylePage() {
     </div>
   );
 }
+
