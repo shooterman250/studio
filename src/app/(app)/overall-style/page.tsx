@@ -31,6 +31,7 @@ export default function OverallStylePage() {
     const existingSelections = getStageSelections(PAGE_STAGE_KEY);
     if (existingSelections.length > 0) {
       setSelectedOptions(new Set(existingSelections.map(item => item.id)));
+      // setHasSavedSinceLastChange(true); 
     }
   }, [getStageSelections]);
 
@@ -83,6 +84,12 @@ export default function OverallStylePage() {
       return {
         ...style,
         imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370579979011887294/Overall_Style__Modern_5.png?ex=682b3853&is=6829e6d3&hm=85c09e020d6f52915da82f9c1cfe73781a6958c58fd483a347424b0cfc9459fe&=&format=webp&quality=lossless&width=774&height=774'
+      };
+    }
+    if (style.id === 'japandi') {
+      return {
+        ...style,
+        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370580542021697597/Overall_Style__Modern_6.png?ex=682b38d9&is=6829e759&hm=8ec1cc6ec23fe6f63053bf124f8a496a1f2d749115f9e80f812e6c6400c2184a&=&format=webp&quality=lossless&width=774&height=774'
       };
     }
     // For other styles, if a page-specific image is needed, add another if block here.
@@ -155,10 +162,13 @@ export default function OverallStylePage() {
       let originalItem: BaseSelectionItem | undefined;
       
       // Find the original item from the base arrays to ensure original data is saved
-      if (baseOverallStyleOptions.some(o => o.id === selectedId)) {
-        originalItem = baseOverallStyleOptions.find(item => item.id === selectedId);
-      } else if (baseKeyElementOptions.some(o => o.id === selectedId)) {
-        originalItem = baseKeyElementOptions.find(item => item.id === selectedId);
+      const styleOption = baseOverallStyleOptions.find(item => item.id === selectedId);
+      const keyElement = baseKeyElementOptions.find(item => item.id === selectedId);
+
+      if (styleOption) {
+        originalItem = styleOption;
+      } else if (keyElement) {
+        originalItem = keyElement;
       }
   
       if (originalItem) {
