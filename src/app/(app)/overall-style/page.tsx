@@ -53,7 +53,7 @@ export default function OverallStylePage() {
     if (style.id === 'biophilic') {
       return {
         ...style,
-        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=68289155&is=68273fd5&hm=863564b39ff081ce56d636878c8ed47844c4f6f85919af86ad4f2bb004913602&=&format=webp&quality=lossless&width=1308&height=1308' 
+        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043155422679210/Biophilic.png?ex=682b9c96&is=682a4b16&hm=70d9f3993cc847e4a298610610118d7f6f038cb8e9160a96fb837aee964a622d&=&format=webp&quality=lossless&width=774&height=774' 
       };
     }
     if (style.id === 'bohemian') {
