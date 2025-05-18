@@ -94,7 +94,7 @@ export default function OverallBudgetPage() {
               />
               <div className="flex justify-between text-sm text-muted-foreground">
                 <span>$1,000</span>
-                <span>$500,000</span>
+                <span>$500,000+</span>
               </div>
             </div>
             
@@ -120,3 +120,4 @@ export default function OverallBudgetPage() {
     </div>
   );
 }
+
