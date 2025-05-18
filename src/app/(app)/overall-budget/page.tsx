@@ -76,7 +76,7 @@ export default function OverallBudgetPage() {
       <section className="max-w-2xl mx-auto space-y-8">
         <Card className="bg-card/60 backdrop-blur-lg border border-card-foreground/10 shadow-lg">
           <CardHeader>
-            <CardTitle>Use the slider to indicate your approximate budget.</CardTitle>
+            <CardTitle>Use Slider To Select Approximate Budget.</CardTitle>
             {/* <CardDescription>Use the slider to indicate your approximate budget.</CardDescription> */}
           </CardHeader>
           <CardContent className="space-y-6 pt-6">
@@ -121,3 +121,4 @@ export default function OverallBudgetPage() {
     </div>
   );
 }
+
