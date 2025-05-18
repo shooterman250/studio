@@ -31,7 +31,7 @@ export interface BaseSelectionItem {
 // Overall Style
 export interface OverallStyleOption extends BaseSelectionItem {}
 export const overallStyleOptions: OverallStyleOption[] = [
-  { id: 'biophilic', name: 'Biophilic', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043155422679210/Biophilic.png?ex=682b9c96&is=682a4b16&hm=70d9f3993cc847e4a298610610118d7f6f038cb8e9160a96fb837aee964a622d&=&format=webp&quality=lossless&width=774&height=774', description: 'Nature-inspired, with natural elements.', dataAiHint: 'biophilic design interior' },
+  { id: 'biophilic', name: 'Biophilic', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373799883810672790/Biophilic_.png?ex=682bba58&is=682a68d8&hm=48c2fa6dcf5a914890087d71650f56908e9a60c78fa19a60741c7b52439f5291&=&format=webp&quality=lossless&width=774&height=774', description: 'Nature-inspired, with natural elements.', dataAiHint: 'biophilic design interior' },
   { id: 'bohemian', name: 'Bohemian', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043156102152344/Bohemian.png?ex=6828f996&is=6827a816&hm=bac9a4dbf1a4fe7714c124a9f57e761114e2841477368caf206177230174599e&=&format=webp&quality=lossless&width=380&height=380', description: 'Eclectic, colorful, and free-spirited.', dataAiHint: 'bohemian interior' },
   { id: 'coastal', name: 'Coastal', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043156815446198/Coastal.png?ex=6828f996&is=6827a816&hm=eec376ebe01eac625acfc72b6d96228df4bb3705c85a5c3336ae7a708c702dd5&=&format=webp&quality=lossless&width=380&height=380', description: 'Light, airy, and beach-inspired.', dataAiHint: 'coastal interior' },
   { id: 'contemporary', name: 'Contemporary', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043157452984470/Contemporary.png?ex=6828f996&is=6827a816&hm=79ba96bcfb75a6b1b778edbea778fc72b77452a6bfa86817e19a8b6edde85453&=&format=webp&quality=lossless&width=380&height=380', description: 'Current, fluid, and ever-evolving.', dataAiHint: 'contemporary interior' },
@@ -205,7 +205,7 @@ export const bathroomStyleOptions = overallStyleOptions.sort((a, b) => a.name.lo
 export interface BathroomMasterBathTubOption extends BaseSelectionItem {}
 export const bathroomMasterBathTubOptions: BathroomMasterBathTubOption[] = [
     { id: 'bm-tub-alcove', name: 'Alcove Tub', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'alcove bathtub' },
-    { id: 'bm-tub-clawfoot', name: 'Claw Foot Tub', imageUrl: '/images/clawfoot.png', dataAiHint: 'clawfoot bathtub vintage' },
+    { id: 'bm-tub-clawfoot', name: 'Claw Foot Tub', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373807240498253865/Clawfoot.png?ex=682bc132&is=682a6fb2&hm=b260cf3822c5e655dee454986892f471c6c9f70251ee9e7370dbb3babbe71063&=&format=webp&quality=lossless&width=774&height=774', dataAiHint: 'clawfoot bathtub vintage' },
     { id: 'bm-tub-combo', name: 'Tub/Shower Combo', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'tub shower combination' },
     { id: 'bm-tub-corner', name: 'Corner Tub', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'corner bathtub' },
     { id: 'bm-tub-dropin', name: 'Drop-In Tub', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'drop in bathtub' },
@@ -316,3 +316,4 @@ export const finishOptions: FinishOption[] = [
     
 
     
+
