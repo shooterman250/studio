@@ -55,6 +55,12 @@ export default function OverallStylePage() {
         imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=68289155&is=68273fd5&hm=863564b39ff081ce56d636878c8ed47844c4f6f85919af86ad4f2bb004913602&=&format=webp&quality=lossless&width=1308&height=1308' 
       };
     }
+    if (style.id === 'bohemian') {
+      return {
+        ...style,
+        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370577130659909744/Overall_Style__Modern_1.png?ex=682b35ac&is=6829e42c&hm=9d175175076b1e18b077e2f38944c5074472c1e5445a0b06c9df28c975f2b465&=&format=webp&quality=lossless&width=774&height=774'
+      };
+    }
     // For other styles, if a page-specific image is needed, add another if block here.
     // Otherwise, it uses the image from baseOverallStyleOptions by returning 'style'.
     return style;
@@ -125,9 +131,9 @@ export default function OverallStylePage() {
       let originalItem: BaseSelectionItem | undefined;
       
       // Find the original item from the base arrays to ensure original data is saved
-      if (sections.find(s => s.id === 'design-styles')?.options.some(o => o.id === selectedId)) {
+      if (baseOverallStyleOptions.some(o => o.id === selectedId)) {
         originalItem = baseOverallStyleOptions.find(item => item.id === selectedId);
-      } else if (sections.find(s => s.id === 'key-elements')?.options.some(o => o.id === selectedId)) {
+      } else if (baseKeyElementOptions.some(o => o.id === selectedId)) {
         originalItem = baseKeyElementOptions.find(item => item.id === selectedId);
       }
   
