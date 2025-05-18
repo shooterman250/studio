@@ -118,7 +118,7 @@ export interface GeneralFlooringOption extends BaseSelectionItem {}
 export const generalFlooringOptions: GeneralFlooringOption[] = [
     { id: 'floor-bamboo', name: 'Bamboo', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373801632185319464/Bamboo.png?ex=682bbbf9&is=682a6a79&hm=268441e7532ff6b2eb1ae95c39d7e356bbb68947759e50754dbeba608864423b&=&format=webp&quality=lossless&width=774&height=774', dataAiHint: 'bamboo flooring room' },
     { id: 'floor-carpet', name: 'Carpet', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373801629505294346/Carpet.png?ex=682bbbf8&is=682a6a78&hm=801ae93da5f045cb51d442b0f7484daf279c68eb9a9bcc60b6a13069dc19d61b&=&format=webp&quality=lossless&width=774&height=774', dataAiHint: 'carpet room floor' },
-    { id: 'floor-cement', name: 'Cement/Concrete', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'cement concrete floor' },
+    { id: 'floor-cement', name: 'Cement/Concrete', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373801630192893972/Cement.png?ex=682bbbf8&is=682a6a78&hm=c2c539223e8997fd2cb9c199e470351cd28fc010ce07383bd58af6ce110dd0b9&=&format=webp&quality=lossless&width=774&height=774', dataAiHint: 'cement concrete floor' },
     { id: 'floor-lvinyl', name: 'Luxury Vinyl', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'luxury vinyl flooring' },
     { id: 'floor-marble', name: 'Marble', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'marble flooring room' },
     { id: 'floor-nstone', name: 'Natural Stone', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'natural stone flooring' },
