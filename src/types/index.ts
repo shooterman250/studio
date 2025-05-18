@@ -132,7 +132,7 @@ export const generalLightingOptions: GeneralLightingOption[] = [
     { id: 'light-niche', name: 'Niche/Picture Lighting', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'niche picture lighting' },
     { id: 'light-pendant', name: 'Pendant(s)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'pendant lighting room' },
     { id: 'light-recessed-cylinder', name: 'Recessed Cylinder', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'recessed cylinder lighting' },
-    { id: 'light-recessed-flush', name: 'Recessed Flush', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'recessed flush lighting' },
+    { id: 'light-recessed-flush', name: 'Recessed Flush', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373806275061616760/Recessed_Flush.jpg?ex=682bc04c&is=682a6ecc&hm=0c36da07e211067d4c66f7569f1da9f3c4d4e6a8aa1c476e1c8ee38b94634e38&=&format=webp&width=713&height=774', dataAiHint: 'recessed flush lighting' },
     { id: 'light-wallsconce', name: 'Wall Sconce(s)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'wall sconce lighting' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
