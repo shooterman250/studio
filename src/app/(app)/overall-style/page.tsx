@@ -98,6 +98,12 @@ export default function OverallStylePage() {
         imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370581583479967774/Overall_Style__Modern_7.png?ex=682b39d1&is=6829e851&hm=a72b550757893a41bcff206af1111f3424ea05ce7e89ef1eac9809891c526ec7&=&format=webp&quality=lossless&width=774&height=774'
       };
     }
+    if (style.id === 'modern') {
+      return {
+        ...style,
+        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043013986549760/Modern.png?ex=682b9c74&is=682a4af4&hm=18c4de9386ecccb1790abe2b7863368716ccabe3dad2739fea23d07430e1f89b&=&format=webp&quality=lossless&width=774&height=774'
+      };
+    }
     if (style.id === 'traditional') {
       return {
         ...style,
@@ -189,7 +195,7 @@ export default function OverallStylePage() {
           name: originalItem.name, // Saves the original name
           imageUrl: originalItem.imageUrl, // Saves the original imageUrl
           description: originalItem.description,
-          dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
+          dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
         });
       }
     });
@@ -260,3 +266,4 @@ export default function OverallStylePage() {
     </div>
   );
 }
+
