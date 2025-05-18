@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
-    bathroomStyleOptions as baseBathroomStyleOptions, 
+    overallStyleOptions as baseBathroomStyleOptions, 
     bathroomMasterBathTubOptions,
     bathroomMasterShowerOptions,
     bathroomMasterSinkOptions as baseBathroomMasterSinkOptions, 
@@ -54,8 +54,10 @@ export default function BathroomPage() {
   };
 
   const pageSpecificDisplayBathroomStyleOptions: BaseSelectionItem[] = baseBathroomStyleOptions.map(style => ({
-    ...style, 
+    ...style, // This includes the original imageUrl
     name: `${style.name} Bathroom` 
+    // If a page-specific image for 'biophilic' was needed here, it would be:
+    // imageUrl: style.id === 'biophilic' ? 'NEW_BATHROOM_BIOPHILIC_URL' : style.imageUrl,
   }));
 
   const pageSpecificDisplayMasterSinkOptions: BaseSelectionItem[] = baseBathroomMasterSinkOptions.map(sink => {
@@ -79,13 +81,13 @@ export default function BathroomPage() {
         name: "Bronze or Brass"
       };
     }
-    if (finish.id === 'bath-hardware-handleless') {
+    if (finish.id === 'bath-hardware-handleless') { // Corrected ID reference
       return {
         ...finish,
         name: "Handlesless or Flat" 
       };
     }
-    if (finish.id === 'bath-hardware-multitone') {
+    if (finish.id === 'bath-hardware-multitone') { // Corrected ID reference
         return {
           ...finish,
           name: "Multi-Tone or Abstract"
@@ -156,6 +158,7 @@ export default function BathroomPage() {
         if (selectedOptions.has(displayOption.id)) {
           let originalItem: BaseSelectionItem | undefined;
 
+          // Logic to find the original item from base arrays to ensure original data is saved
           if (section.title === "Master Bath: Style") {
             originalItem = baseBathroomStyleOptions.find(opt => opt.id === displayOption.id);
           } else if (section.title === "Master Bath: Sink (Single/Double)") {
@@ -165,20 +168,23 @@ export default function BathroomPage() {
           } else if (section.title === "Half-Bath: Sink") {
             originalItem = baseBathroomHalfSinkOptions.find(opt => opt.id === displayOption.id);
           }
+          // Add more else if blocks here for other sections if their display options are transformed
           else {
+            // Fallback: Find the original item from the array used to populate section.options
+            // This assumes that for many sections, the item in section.options IS the original item
+            // or can be found in one of the base arrays.
             const baseArray = 
               section.options === bathroomMasterBathTubOptions ? bathroomMasterBathTubOptions :
               section.options === bathroomMasterShowerOptions ? bathroomMasterShowerOptions :
               section.options === bathroomToiletOptions ? bathroomToiletOptions :
               section.options === bathroomStorageOptions ? bathroomStorageOptions :
               section.options === bathroomLightingOptions ? bathroomLightingOptions : // For Master Bath lighting
-              // Note: for Half-Bath lighting, section.options will be the filtered list.
-              // The 'else' block below should correctly handle finding the original item from bathroomLightingOptions.
               null; 
             
             if (baseArray) {
               originalItem = baseArray.find(opt => opt.id === displayOption.id);
             } else {
+              // More specific fallbacks if section.options was directly pageSpecificDisplay...
               if (section.options === pageSpecificDisplayBathroomStyleOptions) {
                 originalItem = baseBathroomStyleOptions.find(opt => opt.id === displayOption.id);
               } else if (section.options === pageSpecificDisplayMasterSinkOptions) {
@@ -191,6 +197,7 @@ export default function BathroomPage() {
                 originalItem = bathroomLightingOptions.find(opt => opt.id === displayOption.id);
               }
                else {
+                // Safest fallback if no direct match is found by array comparison above
                 originalItem = displayOption; 
               }
             }
@@ -275,4 +282,3 @@ export default function BathroomPage() {
     </div>
   );
 }
-
