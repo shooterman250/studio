@@ -92,6 +92,12 @@ export default function OverallStylePage() {
         imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370580542021697597/Overall_Style__Modern_6.png?ex=682b38d9&is=6829e759&hm=8ec1cc6ec23fe6f63053bf124f8a496a1f2d749115f9e80f812e6c6400c2184a&=&format=webp&quality=lossless&width=774&height=774'
       };
     }
+    if (style.id === 'mid-century') {
+      return {
+        ...style,
+        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370581583479967774/Overall_Style__Modern_7.png?ex=682b39d1&is=6829e851&hm=a72b550757893a41bcff206af1111f3424ea05ce7e89ef1eac9809891c526ec7&=&format=webp&quality=lossless&width=774&height=774'
+      };
+    }
     // For other styles, if a page-specific image is needed, add another if block here.
     // Otherwise, it uses the image from baseOverallStyleOptions by returning 'style'.
     return style;
