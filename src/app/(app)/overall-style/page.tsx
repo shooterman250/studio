@@ -53,7 +53,7 @@ export default function OverallStylePage() {
     if (style.id === 'biophilic') {
       return {
         ...style,
-        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043155422679210/Biophilic.png?ex=682b9c96&is=682a4b16&hm=70d9f3993cc847e4a298610610118d7f6f038cb8e9160a96fb837aee964a622d&=&format=webp&quality=lossless&width=774&height=774' 
+        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373799883810672790/Biophilic_.png?ex=682bba58&is=682a68d8&hm=48c2fa6dcf5a914890087d71650f56908e9a60c78fa19a60741c7b52439f5291&=&format=webp&quality=lossless&width=774&height=774' 
       };
     }
     if (style.id === 'bohemian') {
@@ -195,7 +195,7 @@ export default function OverallStylePage() {
           name: originalItem.name, // Saves the original name
           imageUrl: originalItem.imageUrl, // Saves the original imageUrl
           description: originalItem.description,
-          dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
+          dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
         });
       }
     });
