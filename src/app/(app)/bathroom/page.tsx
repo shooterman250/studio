@@ -92,8 +92,23 @@ export default function BathroomPage() {
     };
   });
   
-  const pageSpecificDisplayMasterLightingOptions: BaseSelectionItem[] = baseBathroomLightingOptions.filter(option => option.id !== 'light-niche');
-  const filteredHalfBathLightingOptions = baseBathroomLightingOptions.filter(option => option.id !== 'light-niche');
+  const pageSpecificDisplayMasterLightingOptions: BaseSelectionItem[] = baseBathroomLightingOptions
+    .filter(option => option.id !== 'light-niche') // Keep filtering out the original 'light-niche'
+    .map(option => {
+      if (option.id === 'light-concealed') {
+        return { ...option, name: "Niche Lighting" }; // Rename 'light-concealed' for display
+      }
+      return option;
+    });
+
+  const filteredHalfBathLightingOptions = baseBathroomLightingOptions
+    .filter(option => option.id !== 'light-niche') // Keep filtering out the original 'light-niche'
+    .map(option => {
+      if (option.id === 'light-concealed') {
+        return { ...option, name: "Niche Lighting" }; // Rename 'light-concealed' for display
+      }
+      return option;
+    });
   
   const masterBathSubSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Master Bath: Style", options: pageSpecificDisplayBathroomStyleOptions, cols: 3, description: "Define the overall style for your master bathroom." },
@@ -155,12 +170,12 @@ export default function BathroomPage() {
             originalItem = baseBathroomHardwareFinishOptions.find(opt => opt.id === displayOption.id);
           } else if (section.title === "Half-Bath: Sink") {
             originalItem = baseBathroomHalfSinkOptions.find(opt => opt.id === displayOption.id);
-          } else if (section.title === "Master Bath: Lighting") { // Check for Master Bath Lighting
+          } else if (section.title === "Master Bath: Lighting") { 
             originalItem = baseBathroomLightingOptions.find(opt => opt.id === displayOption.id);
-          } else if (section.title === "Half-Bath: Lighting") { // Check for Half Bath Lighting
+          } else if (section.title === "Half-Bath: Lighting") { 
             originalItem = baseBathroomLightingOptions.find(opt => opt.id === displayOption.id);
           }
-          else { // General fallback for other sections not explicitly handled above
+          else { 
             const baseArray = 
               section.options === bathroomMasterBathTubOptions ? bathroomMasterBathTubOptions :
               section.options === bathroomMasterShowerOptions ? bathroomMasterShowerOptions :
@@ -171,7 +186,6 @@ export default function BathroomPage() {
             if (baseArray) {
               originalItem = baseArray.find(opt => opt.id === displayOption.id);
             } else {
-                // This is a deeper fallback, ideally all specific cases are handled above
                 originalItem = displayOption; 
             }
           }
