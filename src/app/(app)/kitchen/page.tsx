@@ -58,7 +58,6 @@ export default function KitchenPage() {
     if (style.id === 'biophilic') {
       imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=682b3455&is=6829e2d5&hm=d25337aa613c5b72296fbfd9070e35e2f7f5ab0d14f24869777d3f9d397f7dca&=&format=webp&quality=lossless&width=774&height=774';
     }
-    // Add other specific image overrides for the kitchen page if needed
     return {
       ...style,
       name: `${style.name} Kitchen`,
@@ -75,9 +74,16 @@ export default function KitchenPage() {
     option => option.id !== 'k-app-freestanding' && option.id !== 'k-app-integrated'
   );
 
-  const pageSpecificLightingOptions: BaseSelectionItem[] = baseKitchenLightingOptions.filter(
-    option => option.id !== 'light-wallsconce' && option.id !== 'light-niche' && option.id !== 'light-chandelier'
-  );
+  const pageSpecificLightingOptions: BaseSelectionItem[] = baseKitchenLightingOptions
+    .filter(
+      option => option.id !== 'light-wallsconce' && option.id !== 'light-niche' && option.id !== 'light-chandelier'
+    )
+    .map(option => {
+      if (option.id === 'light-concealed') {
+        return { ...option, name: "Under Cabinet or Shelf Lighting" };
+      }
+      return option;
+    });
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Kitchen Style", description: "Select the overall style for your kitchen.", options: pageSpecificKitchenStyleOptions, cols: 3 },
@@ -122,7 +128,6 @@ export default function KitchenPage() {
         if (selectedOptions.has(displayOption.id)) {
           let originalItem: BaseSelectionItem | undefined;
 
-          // Find original item from base arrays to ensure original data (name, imageUrl) is saved
           if (section.options === pageSpecificKitchenStyleOptions) {
             originalItem = overallStyleOptions.find(opt => opt.id === displayOption.id);
           } else if (section.options === pageSpecificSinkTypeOptions) {
@@ -130,10 +135,10 @@ export default function KitchenPage() {
           } else if (section.options === pageSpecificDisplayApplianceOptions) {
             originalItem = baseKitchenApplianceOptions.find(opt => opt.id === displayOption.id);
           } else if (section.options === pageSpecificLightingOptions) {
+            // Find the original item from baseKitchenLightingOptions using the id
             originalItem = baseKitchenLightingOptions.find(opt => opt.id === displayOption.id);
           }
           else {
-            // For sections that use direct base options
             const allBaseOptions = [ 
               ...kitchenCabinetOptions,
               ...kitchenWorktopOptions,
@@ -223,6 +228,4 @@ export default function KitchenPage() {
     </div>
   );
 }
-    
-
     
