@@ -74,7 +74,7 @@ export default function KitchenPage() {
     { title: "Kitchen Style", description: "Select the overall style for your kitchen.", options: pageSpecificKitchenStyleOptions, cols: 3 },
     { title: "Cabinets", description: "Choose your preferred cabinet style.", options: kitchenCabinetOptions, cols: 3 },
     { title: "Worktop/Countertop", description: "Select materials for your countertops.", options: kitchenWorktopOptions, cols: 3 },
-    { title: "Appliance Integration & Finish", description: "Choose appliance integration types.", options: kitchenApplianceOptions, cols: 3 },
+    { title: "Appliance Finish & Features", description: "Select appliance features and finishes.", options: kitchenApplianceOptions, cols: 3 },
     { title: "Appliance/Hardware Finish", description: "Select finishes for hardware and appliances.", options: kitchenHardwareFinishOptions, cols: 3 },
     { title: "Sink Type", description: "Choose your sink configuration.", options: pageSpecificSinkTypeOptions, cols: 3 }, // Use page-specific options
     { title: "Backsplash", description: "Select backsplash materials.", options: kitchenBacksplashOptions, cols: 3 },
@@ -121,16 +121,24 @@ export default function KitchenPage() {
           }
           // For other sections, or if no specific mapping, assume displayOption is close enough or is the original
           else {
-            originalItem = displayOption; // Fallback: use the item as is from the section.options
-                                        // This assumes that for most sections, the item in section.options IS the original item
-                                        // or has all necessary original fields.
+            // Find the original item from the correct base array based on its ID
+            const allBaseOptions = [
+              ...kitchenCabinetOptions,
+              ...kitchenWorktopOptions,
+              ...kitchenApplianceOptions,
+              ...kitchenHardwareFinishOptions,
+              ...kitchenBacksplashOptions,
+              ...kitchenFlooringOptions, // These are general options, ensure they match
+              ...kitchenLightingOptions,  // These are general options, ensure they match
+            ];
+            originalItem = allBaseOptions.find(opt => opt.id === displayOption.id) || displayOption;
           }
 
           if (originalItem) {
             allSelectedItems.push({
               id: originalItem.id,
-              name: originalItem.name, // Ensure this is the ORIGINAL name
-              imageUrl: originalItem.imageUrl, // Ensure this is the ORIGINAL imageUrl
+              name: originalItem.name, 
+              imageUrl: originalItem.imageUrl, 
               description: originalItem.description,
               dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
             });
