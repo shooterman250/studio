@@ -8,12 +8,12 @@ import {
     overallStyleOptions,
     kitchenCabinetOptions,
     kitchenWorktopOptions,
-    kitchenApplianceOptions as baseKitchenApplianceOptions, // Renamed for clarity
+    kitchenApplianceOptions as baseKitchenApplianceOptions, 
     kitchenHardwareFinishOptions,
     kitchenSinkTypeOptions as baseKitchenSinkTypeOptions, 
     kitchenBacksplashOptions,
     generalFlooringOptions as kitchenFlooringOptions,
-    generalLightingOptions as kitchenLightingOptions,
+    generalLightingOptions as baseKitchenLightingOptions, // Renamed for clarity
     type BaseSelectionItem
 } from "@/types";
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
@@ -54,8 +54,7 @@ export default function KitchenPage() {
   };
 
   const pageSpecificKitchenStyleOptions: BaseSelectionItem[] = overallStyleOptions.map(style => {
-    let imageUrl = style.imageUrl; // Default to original image
-    // Example of page-specific image override (can be extended for other styles if needed)
+    let imageUrl = style.imageUrl; 
     if (style.id === 'biophilic') {
       imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=682b3455&is=6829e2d5&hm=d25337aa613c5b72296fbfd9070e35e2f7f5ab0d14f24869777d3f9d397f7dca&=&format=webp&quality=lossless&width=774&height=774';
     }
@@ -71,9 +70,12 @@ export default function KitchenPage() {
     name: `${sinkType.name} Kitchen Sink`,
   }));
 
-  // Filter out "Freestanding" and "Integrated" for display on this page only
   const pageSpecificDisplayApplianceOptions: BaseSelectionItem[] = baseKitchenApplianceOptions.filter(
     option => option.id !== 'k-app-freestanding' && option.id !== 'k-app-integrated'
+  );
+
+  const pageSpecificLightingOptions: BaseSelectionItem[] = baseKitchenLightingOptions.filter(
+    option => option.id !== 'light-wallsconce'
   );
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
@@ -85,7 +87,7 @@ export default function KitchenPage() {
     { title: "Sink Type", description: "Choose your sink configuration.", options: pageSpecificSinkTypeOptions, cols: 3 }, 
     { title: "Backsplash", description: "Select backsplash materials.", options: kitchenBacksplashOptions, cols: 3 },
     { title: "Flooring", description: "Choose flooring for the kitchen.", options: kitchenFlooringOptions, cols: 3 },
-    { title: "Lighting", description: "Select lighting fixtures.", options: kitchenLightingOptions, cols: 3 },
+    { title: "Lighting", description: "Select lighting fixtures.", options: pageSpecificLightingOptions, cols: 3 },
   ];
 
   const handleSaveChanges = () => {
@@ -115,30 +117,31 @@ export default function KitchenPage() {
 
     const allSelectedItems: SelectedDataItem[] = [];
     sections.forEach(section => {
-      section.options.forEach(displayOption => { // displayOption is from the potentially filtered/modified list
+      section.options.forEach(displayOption => { 
         if (selectedOptions.has(displayOption.id)) {
           let originalItem: BaseSelectionItem | undefined;
 
-          // Find the original item from the base arrays to ensure original data is saved
           if (section.title === "Kitchen Style") {
             originalItem = overallStyleOptions.find(opt => opt.id === displayOption.id);
           } else if (section.title === "Sink Type") {
             originalItem = baseKitchenSinkTypeOptions.find(opt => opt.id === displayOption.id);
           } else if (section.title === "Appliance Finish & Features") {
             originalItem = baseKitchenApplianceOptions.find(opt => opt.id === displayOption.id);
+          } else if (section.title === "Lighting") {
+            originalItem = baseKitchenLightingOptions.find(opt => opt.id === displayOption.id);
           }
           else {
-            const allBaseOptions = [ // Combine all *original* options lists
+            const allBaseOptions = [ 
               ...kitchenCabinetOptions,
               ...kitchenWorktopOptions,
-              ...baseKitchenApplianceOptions, // Use base list for lookup
+              ...baseKitchenApplianceOptions, 
               ...kitchenHardwareFinishOptions,
-              ...baseKitchenSinkTypeOptions, // Use base list for lookup
+              ...baseKitchenSinkTypeOptions, 
               ...kitchenBacksplashOptions,
               ...kitchenFlooringOptions, 
-              ...kitchenLightingOptions,  
+              ...baseKitchenLightingOptions,  
             ];
-            originalItem = allBaseOptions.find(opt => opt.id === displayOption.id) || displayOption; // Fallback to displayOption if not found (should ideally always find)
+            originalItem = allBaseOptions.find(opt => opt.id === displayOption.id) || displayOption; 
           }
 
           if (originalItem) {
@@ -220,5 +223,6 @@ export default function KitchenPage() {
     </div>
   );
 }
+    
 
     
