@@ -58,6 +58,7 @@ export default function KitchenPage() {
     if (style.id === 'biophilic') {
       imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=682b3455&is=6829e2d5&hm=d25337aa613c5b72296fbfd9070e35e2f7f5ab0d14f24869777d3f9d397f7dca&=&format=webp&quality=lossless&width=774&height=774';
     }
+    // Add other specific image overrides for the kitchen page if needed
     return {
       ...style,
       name: `${style.name} Kitchen`,
@@ -75,7 +76,7 @@ export default function KitchenPage() {
   );
 
   const pageSpecificLightingOptions: BaseSelectionItem[] = baseKitchenLightingOptions.filter(
-    option => option.id !== 'light-wallsconce'
+    option => option.id !== 'light-wallsconce' && option.id !== 'light-niche'
   );
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
@@ -121,25 +122,24 @@ export default function KitchenPage() {
         if (selectedOptions.has(displayOption.id)) {
           let originalItem: BaseSelectionItem | undefined;
 
-          if (section.title === "Kitchen Style") {
+          // Find original item from base arrays to ensure original data (name, imageUrl) is saved
+          if (section.options === pageSpecificKitchenStyleOptions) {
             originalItem = overallStyleOptions.find(opt => opt.id === displayOption.id);
-          } else if (section.title === "Sink Type") {
+          } else if (section.options === pageSpecificSinkTypeOptions) {
             originalItem = baseKitchenSinkTypeOptions.find(opt => opt.id === displayOption.id);
-          } else if (section.title === "Appliance Finish & Features") {
+          } else if (section.options === pageSpecificDisplayApplianceOptions) {
             originalItem = baseKitchenApplianceOptions.find(opt => opt.id === displayOption.id);
-          } else if (section.title === "Lighting") {
+          } else if (section.options === pageSpecificLightingOptions) {
             originalItem = baseKitchenLightingOptions.find(opt => opt.id === displayOption.id);
           }
           else {
+            // For sections that use direct base options
             const allBaseOptions = [ 
               ...kitchenCabinetOptions,
               ...kitchenWorktopOptions,
-              ...baseKitchenApplianceOptions, 
               ...kitchenHardwareFinishOptions,
-              ...baseKitchenSinkTypeOptions, 
               ...kitchenBacksplashOptions,
               ...kitchenFlooringOptions, 
-              ...baseKitchenLightingOptions,  
             ];
             originalItem = allBaseOptions.find(opt => opt.id === displayOption.id) || displayOption; 
           }
