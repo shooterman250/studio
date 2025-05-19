@@ -12,7 +12,7 @@ import {
     bathroomToiletOptions, 
     bathroomHardwareFinishOptions as baseBathroomHardwareFinishOptions, 
     bathroomStorageOptions, 
-    generalLightingOptions as bathroomLightingOptions, 
+    generalLightingOptions as baseBathroomLightingOptions, // Renamed for clarity
     bathroomHalfSinkOptions as baseBathroomHalfSinkOptions, 
     type BaseSelectionItem
 } from "@/types";
@@ -53,12 +53,17 @@ export default function BathroomPage() {
     setHasSavedSinceLastChange(false);
   };
 
-  const pageSpecificDisplayBathroomStyleOptions: BaseSelectionItem[] = baseBathroomStyleOptions.map(style => ({
-    ...style, // This includes the original imageUrl
-    name: `${style.name} Bathroom` 
-    // If a page-specific image for 'biophilic' was needed here, it would be:
-    // imageUrl: style.id === 'biophilic' ? 'NEW_BATHROOM_BIOPHILIC_URL' : style.imageUrl,
-  }));
+  // Page-specific display for Bathroom Styles
+  const pageSpecificDisplayBathroomStyleOptions: BaseSelectionItem[] = baseBathroomStyleOptions.map(style => {
+    // Example: If you wanted a specific image for 'biophilic' ONLY on this page, you'd add:
+    // if (style.id === 'biophilic') {
+    //   return { ...style, name: `${style.name} Bathroom`, imageUrl: 'YOUR_BATHROOM_SPECIFIC_BIOPHILIC_IMAGE_URL' };
+    // }
+    return {
+     ...style, // This includes the original imageUrl by default
+      name: `${style.name} Bathroom` 
+    };
+  });
 
   const pageSpecificDisplayMasterSinkOptions: BaseSelectionItem[] = baseBathroomMasterSinkOptions.map(sink => {
     const originalNamePart = sink.name.replace(/ Sink/i, "").trim(); 
@@ -70,29 +75,17 @@ export default function BathroomPage() {
 
   const pageSpecificDisplayHardwareFinishOptions: BaseSelectionItem[] = baseBathroomHardwareFinishOptions.map(finish => {
     if (finish.id === 'bath-hardware-chrome') {
-      return {
-        ...finish,
-        name: "Chrome, Nickel or\nStainless Steel"
-      };
+      return { ...finish, name: "Chrome, Nickel or\nStainless Steel" };
     }
     if (finish.id === 'bath-hardware-bronze') {
-      return {
-        ...finish,
-        name: "Bronze or Brass"
-      };
+      return { ...finish, name: "Bronze or Brass" };
     }
-    if (finish.id === 'bath-hardware-handleless') { // Corrected ID reference
-      return {
-        ...finish,
-        name: "Handlesless or Flat" 
-      };
+    if (finish.id === 'bath-hardware-handleless') {
+      return { ...finish, name: "Handlesless or Flat" };
     }
-    if (finish.id === 'bath-hardware-multitone') { // Corrected ID reference
-        return {
-          ...finish,
-          name: "Multi-Tone or Abstract"
-        };
-      }
+    if (finish.id === 'bath-hardware-multitone') {
+        return { ...finish, name: "Multi-Tone or Abstract" };
+    }
     return finish;
   });
 
@@ -103,8 +96,8 @@ export default function BathroomPage() {
       name: `${originalNamePart}\nBathroom Sink`
     };
   });
-
-  const filteredHalfBathLightingOptions = bathroomLightingOptions.filter(option => option.id !== 'light-niche');
+  
+  const filteredHalfBathLightingOptions = baseBathroomLightingOptions.filter(option => option.id !== 'light-niche');
   
   const masterBathSubSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Master Bath: Style", options: pageSpecificDisplayBathroomStyleOptions, cols: 3, description: "Define the overall style for your master bathroom." },
@@ -114,7 +107,7 @@ export default function BathroomPage() {
     { title: "Master Bath: Toilet", options: bathroomToiletOptions, cols: 3, description: "Select a toilet type." },
     { title: "Master Bath: Hardware Finish", options: pageSpecificDisplayHardwareFinishOptions, cols: 3, description: "Pick finishes for faucets, handles, etc." },
     { title: "Master Bath: Storage", options: bathroomStorageOptions, cols: 3, description: "Select storage solutions." },
-    { title: "Master Bath: Lighting", options: bathroomLightingOptions, cols: 3, description: "Choose lighting fixtures." },
+    { title: "Master Bath: Lighting", options: baseBathroomLightingOptions, cols: 3, description: "Choose lighting fixtures." }, // Uses base lighting options
   ];
 
   const halfBathSubSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
@@ -168,23 +161,18 @@ export default function BathroomPage() {
           } else if (section.title === "Half-Bath: Sink") {
             originalItem = baseBathroomHalfSinkOptions.find(opt => opt.id === displayOption.id);
           }
-          // Add more else if blocks here for other sections if their display options are transformed
           else {
-            // Fallback: Find the original item from the array used to populate section.options
-            // This assumes that for many sections, the item in section.options IS the original item
-            // or can be found in one of the base arrays.
             const baseArray = 
               section.options === bathroomMasterBathTubOptions ? bathroomMasterBathTubOptions :
               section.options === bathroomMasterShowerOptions ? bathroomMasterShowerOptions :
               section.options === bathroomToiletOptions ? bathroomToiletOptions :
               section.options === bathroomStorageOptions ? bathroomStorageOptions :
-              section.options === bathroomLightingOptions ? bathroomLightingOptions : // For Master Bath lighting
+              section.options === baseBathroomLightingOptions ? baseBathroomLightingOptions : // For Master Bath lighting
               null; 
             
             if (baseArray) {
               originalItem = baseArray.find(opt => opt.id === displayOption.id);
             } else {
-              // More specific fallbacks if section.options was directly pageSpecificDisplay...
               if (section.options === pageSpecificDisplayBathroomStyleOptions) {
                 originalItem = baseBathroomStyleOptions.find(opt => opt.id === displayOption.id);
               } else if (section.options === pageSpecificDisplayMasterSinkOptions) {
@@ -193,11 +181,10 @@ export default function BathroomPage() {
                  originalItem = baseBathroomHardwareFinishOptions.find(opt => opt.id === displayOption.id);
               } else if (section.options === pageSpecificDisplayBathroomHalfSinkOptions) {
                 originalItem = baseBathroomHalfSinkOptions.find(opt => opt.id === displayOption.id);
-              } else if (section.title === "Half-Bath: Lighting") { // Specifically handle Half-Bath Lighting
-                originalItem = bathroomLightingOptions.find(opt => opt.id === displayOption.id);
+              } else if (section.title === "Half-Bath: Lighting") { 
+                originalItem = baseBathroomLightingOptions.find(opt => opt.id === displayOption.id);
               }
                else {
-                // Safest fallback if no direct match is found by array comparison above
                 originalItem = displayOption; 
               }
             }
@@ -282,3 +269,4 @@ export default function BathroomPage() {
     </div>
   );
 }
+
