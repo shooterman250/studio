@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
-    overallStyleOptions as baseBathroomStyleOptions, 
+    overallStyleOptions as baseOverallStyleOptions, 
     bathroomMasterBathTubOptions,
     bathroomMasterShowerOptions,
     bathroomMasterSinkOptions as baseBathroomMasterSinkOptions, 
@@ -53,7 +53,7 @@ export default function BathroomPage() {
     setHasSavedSinceLastChange(false);
   };
 
-  const pageSpecificDisplayBathroomStyleOptions: BaseSelectionItem[] = baseBathroomStyleOptions.map(style => {
+  const pageSpecificDisplayBathroomStyleOptions: BaseSelectionItem[] = baseOverallStyleOptions.map(style => {
     return {
      ...style,
       name: `${style.name} Bathroom` 
@@ -93,19 +93,19 @@ export default function BathroomPage() {
   });
   
   const pageSpecificDisplayMasterLightingOptions: BaseSelectionItem[] = baseBathroomLightingOptions
-    .filter(option => option.id !== 'light-niche') // Keep filtering out the original 'light-niche'
+    .filter(option => option.id !== 'light-niche') 
     .map(option => {
       if (option.id === 'light-concealed') {
-        return { ...option, name: "Niche Lighting" }; // Rename 'light-concealed' for display
+        return { ...option, name: "Niche Lighting" }; 
       }
       return option;
     });
 
   const filteredHalfBathLightingOptions = baseBathroomLightingOptions
-    .filter(option => option.id !== 'light-niche') // Keep filtering out the original 'light-niche'
+    .filter(option => option.id !== 'light-niche') 
     .map(option => {
       if (option.id === 'light-concealed') {
-        return { ...option, name: "Niche Lighting" }; // Rename 'light-concealed' for display
+        return { ...option, name: "Niche Lighting" }; 
       }
       return option;
     });
@@ -126,7 +126,7 @@ export default function BathroomPage() {
     { title: "Half-Bath: Toilet", options: bathroomToiletOptions, cols: 3, description: "Choose a toilet." }, 
     { title: "Half-Bath: Hardware Finish", options: pageSpecificDisplayHardwareFinishOptions, cols: 3, description: "Select hardware finishes." }, 
     { title: "Half-Bath: Storage", options: bathroomStorageOptions.slice(0,3), cols: 3, description: "Consider storage options." }, 
-    { title: "Half-Bath: Lighting", options: filteredHalfBathLightingOptions.slice(0, Math.min(3, filteredHalfBathLightingOptions.length)), cols: 3, description: "Choose lighting." }, 
+    { title: "Half-Bath: Lighting", options: filteredHalfBathLightingOptions, cols: 3, description: "Choose lighting." }, 
   ];
 
   const sections = [...masterBathSubSections, ...halfBathSubSections];
@@ -162,17 +162,15 @@ export default function BathroomPage() {
         if (selectedOptions.has(displayOption.id)) {
           let originalItem: BaseSelectionItem | undefined;
 
-          if (section.title === "Master Bath: Style") {
-            originalItem = baseBathroomStyleOptions.find(opt => opt.id === displayOption.id);
-          } else if (section.title === "Master Bath: Sink (Single/Double)") {
+          if (section.options === pageSpecificDisplayBathroomStyleOptions) {
+            originalItem = baseOverallStyleOptions.find(opt => opt.id === displayOption.id);
+          } else if (section.options === pageSpecificDisplayMasterSinkOptions) {
             originalItem = baseBathroomMasterSinkOptions.find(opt => opt.id === displayOption.id);
-          } else if (section.title === "Master Bath: Hardware Finish" || section.title === "Half-Bath: Hardware Finish") {
+          } else if (section.options === pageSpecificDisplayHardwareFinishOptions) {
             originalItem = baseBathroomHardwareFinishOptions.find(opt => opt.id === displayOption.id);
-          } else if (section.title === "Half-Bath: Sink") {
+          } else if (section.options === pageSpecificDisplayBathroomHalfSinkOptions) {
             originalItem = baseBathroomHalfSinkOptions.find(opt => opt.id === displayOption.id);
-          } else if (section.title === "Master Bath: Lighting") { 
-            originalItem = baseBathroomLightingOptions.find(opt => opt.id === displayOption.id);
-          } else if (section.title === "Half-Bath: Lighting") { 
+          } else if (section.options === pageSpecificDisplayMasterLightingOptions || section.options === filteredHalfBathLightingOptions) { 
             originalItem = baseBathroomLightingOptions.find(opt => opt.id === displayOption.id);
           }
           else { 
