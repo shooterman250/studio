@@ -31,7 +31,7 @@ export interface BaseSelectionItem {
 // Overall Style
 export interface OverallStyleOption extends BaseSelectionItem {}
 export const overallStyleOptions: OverallStyleOption[] = [
-  { id: 'biophilic', name: 'Biophilic', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043155422679210/Biophilic.png?ex=6828f996&is=6827a816&hm=288b860b99c52764046b3d4da9450baa0b4faa9f219611a3fcbe7e616d0d2db3&=&format=webp&quality=lossless&width=380&height=380', description: 'Nature-inspired, with natural elements.', dataAiHint: 'biophilic design interior' },
+  { id: 'biophilic', name: 'Biophilic', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043155422679210/Biophilic.png?ex=682b9c96&is=682a4b16&hm=70d9f3993cc847e4a298610610118d7f6f038cb8e9160a96fb837aee964a622d&=&format=webp&quality=lossless&width=774&height=774', description: 'Nature-inspired, with natural elements.', dataAiHint: 'biophilic design interior' },
   { id: 'bohemian', name: 'Bohemian', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043156102152344/Bohemian.png?ex=6828f996&is=6827a816&hm=bac9a4dbf1a4fe7714c124a9f57e761114e2841477368caf206177230174599e&=&format=webp&quality=lossless&width=380&height=380', description: 'Eclectic, colorful, and free-spirited.', dataAiHint: 'bohemian interior' },
   { id: 'coastal', name: 'Coastal', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043156815446198/Coastal.png?ex=6828f996&is=6827a816&hm=eec376ebe01eac625acfc72b6d96228df4bb3705c85a5c3336ae7a708c702dd5&=&format=webp&quality=lossless&width=380&height=380', description: 'Light, airy, and beach-inspired.', dataAiHint: 'coastal interior' },
   { id: 'contemporary', name: 'Contemporary', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043157452984470/Contemporary.png?ex=6828f996&is=6827a816&hm=79ba96bcfb75a6b1b778edbea778fc72b77452a6bfa86817e19a8b6edde85453&=&format=webp&quality=lossless&width=380&height=380', description: 'Current, fluid, and ever-evolving.', dataAiHint: 'contemporary interior' },
@@ -260,7 +260,7 @@ export const bathroomHardwareFinishOptions: BathroomHardwareFinishOption[] = [
 export interface BathroomStorageOption extends BaseSelectionItem {}
 export const bathroomStorageOptions: BathroomStorageOption[] = [
   { id: 'bath-store-builtinshelving', name: 'Built-In Shelving/Cabinets', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'bathroom built in shelving' },
-  { id: 'bath-store-medicinecabinet', name: 'Medicine Cabinet/Unit', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'medicine cabinet bathroom' },
+  { id: 'bath-store-medicinecabinet', name: 'Medicine Cabinet Storage', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'medicine cabinet bathroom' },
   { id: 'bath-store-niches', name: 'Niches', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'bathroom shower niche' },
   { id: 'bath-store-undersink', name: 'Under-Sink Storage', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'under sink storage bathroom' },
   { id: 'bath-store-customvanity', name: 'Custom Vanity', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'custom bathroom vanity' },
@@ -326,3 +326,6 @@ export const finishOptions: FinishOption[] = [
     
 
 
+
+
+    
