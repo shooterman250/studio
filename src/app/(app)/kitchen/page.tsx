@@ -76,7 +76,7 @@ export default function KitchenPage() {
   );
 
   const pageSpecificLightingOptions: BaseSelectionItem[] = baseKitchenLightingOptions.filter(
-    option => option.id !== 'light-wallsconce' && option.id !== 'light-niche'
+    option => option.id !== 'light-wallsconce' && option.id !== 'light-niche' && option.id !== 'light-chandelier'
   );
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
@@ -150,7 +150,7 @@ export default function KitchenPage() {
               name: originalItem.name, 
               imageUrl: originalItem.imageUrl, 
               description: originalItem.description,
-              dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
+              dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
             });
           }
         }
