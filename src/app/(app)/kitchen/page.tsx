@@ -8,9 +8,9 @@ import {
     overallStyleOptions,
     kitchenCabinetOptions,
     kitchenWorktopOptions,
-    kitchenApplianceOptions,
+    kitchenApplianceOptions as baseKitchenApplianceOptions, // Renamed for clarity
     kitchenHardwareFinishOptions,
-    kitchenSinkTypeOptions as baseKitchenSinkTypeOptions, // Renamed for clarity
+    kitchenSinkTypeOptions as baseKitchenSinkTypeOptions, 
     kitchenBacksplashOptions,
     generalFlooringOptions as kitchenFlooringOptions,
     generalLightingOptions as kitchenLightingOptions,
@@ -54,14 +54,15 @@ export default function KitchenPage() {
   };
 
   const pageSpecificKitchenStyleOptions: BaseSelectionItem[] = overallStyleOptions.map(style => {
-    let imageUrl = style.imageUrl;
+    let imageUrl = style.imageUrl; // Default to original image
+    // Example of page-specific image override (can be extended for other styles if needed)
     if (style.id === 'biophilic') {
-      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=68289155&is=68273fd5&hm=863564b39ff081ce56d636878c8ed47844c4f6f85919af86ad4f2bb004913602&=&format=webp&quality=lossless&width=1308&height=1308';
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=682b3455&is=6829e2d5&hm=d25337aa613c5b72296fbfd9070e35e2f7f5ab0d14f24869777d3f9d397f7dca&=&format=webp&quality=lossless&width=774&height=774';
     }
     return {
       ...style,
       name: `${style.name} Kitchen`,
-      imageUrl: imageUrl,
+      imageUrl: imageUrl, 
     };
   });
 
@@ -70,13 +71,18 @@ export default function KitchenPage() {
     name: `${sinkType.name} Kitchen Sink`,
   }));
 
+  // Filter out "Freestanding" and "Integrated" for display on this page only
+  const pageSpecificDisplayApplianceOptions: BaseSelectionItem[] = baseKitchenApplianceOptions.filter(
+    option => option.id !== 'k-app-freestanding' && option.id !== 'k-app-integrated'
+  );
+
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Kitchen Style", description: "Select the overall style for your kitchen.", options: pageSpecificKitchenStyleOptions, cols: 3 },
     { title: "Cabinets", description: "Choose your preferred cabinet style.", options: kitchenCabinetOptions, cols: 3 },
     { title: "Worktop/Countertop", description: "Select materials for your countertops.", options: kitchenWorktopOptions, cols: 3 },
-    { title: "Appliance Finish & Features", description: "Select appliance features and finishes.", options: kitchenApplianceOptions, cols: 3 },
+    { title: "Appliance Finish & Features", description: "Select appliance features and finishes.", options: pageSpecificDisplayApplianceOptions, cols: 3 },
     { title: "Appliance/Hardware Finish", description: "Select finishes for hardware and appliances.", options: kitchenHardwareFinishOptions, cols: 3 },
-    { title: "Sink Type", description: "Choose your sink configuration.", options: pageSpecificSinkTypeOptions, cols: 3 }, // Use page-specific options
+    { title: "Sink Type", description: "Choose your sink configuration.", options: pageSpecificSinkTypeOptions, cols: 3 }, 
     { title: "Backsplash", description: "Select backsplash materials.", options: kitchenBacksplashOptions, cols: 3 },
     { title: "Flooring", description: "Choose flooring for the kitchen.", options: kitchenFlooringOptions, cols: 3 },
     { title: "Lighting", description: "Select lighting fixtures.", options: kitchenLightingOptions, cols: 3 },
@@ -109,29 +115,30 @@ export default function KitchenPage() {
 
     const allSelectedItems: SelectedDataItem[] = [];
     sections.forEach(section => {
-      section.options.forEach(displayOption => {
+      section.options.forEach(displayOption => { // displayOption is from the potentially filtered/modified list
         if (selectedOptions.has(displayOption.id)) {
           let originalItem: BaseSelectionItem | undefined;
 
-          // Handle cases where display name/image might be different from base data
+          // Find the original item from the base arrays to ensure original data is saved
           if (section.title === "Kitchen Style") {
             originalItem = overallStyleOptions.find(opt => opt.id === displayOption.id);
           } else if (section.title === "Sink Type") {
             originalItem = baseKitchenSinkTypeOptions.find(opt => opt.id === displayOption.id);
+          } else if (section.title === "Appliance Finish & Features") {
+            originalItem = baseKitchenApplianceOptions.find(opt => opt.id === displayOption.id);
           }
-          // For other sections, or if no specific mapping, assume displayOption is close enough or is the original
           else {
-            // Find the original item from the correct base array based on its ID
-            const allBaseOptions = [
+            const allBaseOptions = [ // Combine all *original* options lists
               ...kitchenCabinetOptions,
               ...kitchenWorktopOptions,
-              ...kitchenApplianceOptions,
+              ...baseKitchenApplianceOptions, // Use base list for lookup
               ...kitchenHardwareFinishOptions,
+              ...baseKitchenSinkTypeOptions, // Use base list for lookup
               ...kitchenBacksplashOptions,
-              ...kitchenFlooringOptions, // These are general options, ensure they match
-              ...kitchenLightingOptions,  // These are general options, ensure they match
+              ...kitchenFlooringOptions, 
+              ...kitchenLightingOptions,  
             ];
-            originalItem = allBaseOptions.find(opt => opt.id === displayOption.id) || displayOption;
+            originalItem = allBaseOptions.find(opt => opt.id === displayOption.id) || displayOption; // Fallback to displayOption if not found (should ideally always find)
           }
 
           if (originalItem) {
@@ -140,7 +147,7 @@ export default function KitchenPage() {
               name: originalItem.name, 
               imageUrl: originalItem.imageUrl, 
               description: originalItem.description,
-              dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
+              dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0,2).join(' ')
             });
           }
         }
@@ -213,3 +220,5 @@ export default function KitchenPage() {
     </div>
   );
 }
+
+    
