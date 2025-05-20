@@ -62,7 +62,7 @@ export default function BedroomPage() {
   
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Wall Finish", options: bedroomWallFinishOptions, cols: 3 },
-    { title: "Flooring", description: "Select flooring for the bedroom.", options: bedroomFlooringOptions, cols: 3 },
+    { title: "Flooring", options: bedroomFlooringOptions, cols: 3 },
     { title: "Lighting", description: "Select lighting fixtures.", options: bedroomLightingOptions, cols: 3 },
     { title: "Wardrobe/Closet", description: "Select your preferred wardrobe or closet type(s).", options: pageSpecificBedroomWardrobeOptions, cols: 3 },
   ];
