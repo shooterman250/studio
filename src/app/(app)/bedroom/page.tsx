@@ -55,7 +55,7 @@ export default function BedroomPage() {
       id: 'bed-wardrobe-fitted-display', // Unique ID for this page-specific option
       name: 'Fitted Wardrobe',
       imageUrl: 'https://placehold.co/400x300.png',
-      description: 'Built-in wardrobe, flush with walls.',
+      // description: 'Built-in wardrobe, flush with walls.', // Removed description here
       dataAiHint: 'fitted wardrobe bedroom',
     },
   ].sort((a, b) => a.name.localeCompare(b.name));
@@ -101,7 +101,7 @@ export default function BedroomPage() {
             id: option.id,
             name: option.name,
             imageUrl: option.imageUrl,
-            description: option.description,
+            description: option.description, // Will be undefined for Fitted Wardrobe
             dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
           });
         }
