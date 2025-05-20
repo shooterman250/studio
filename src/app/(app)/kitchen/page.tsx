@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
-    overallStyleOptions,
+    overallStyleOptions as baseOverallStyleOptions, // Renamed for clarity
     kitchenCabinetOptions,
     kitchenWorktopOptions,
     kitchenApplianceOptions as baseKitchenApplianceOptions, 
@@ -13,7 +13,7 @@ import {
     kitchenSinkTypeOptions as baseKitchenSinkTypeOptions, 
     kitchenBacksplashOptions,
     generalFlooringOptions as kitchenFlooringOptions,
-    generalLightingOptions as baseKitchenLightingOptions, // Renamed for clarity
+    generalLightingOptions as baseKitchenLightingOptions,
     type BaseSelectionItem
 } from "@/types";
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
@@ -53,7 +53,7 @@ export default function KitchenPage() {
     setHasSavedSinceLastChange(false);
   };
 
-  const pageSpecificKitchenStyleOptions: BaseSelectionItem[] = overallStyleOptions.map(style => {
+  const pageSpecificKitchenStyleOptions: BaseSelectionItem[] = baseOverallStyleOptions.map(style => {
     let imageUrl = style.imageUrl; 
     if (style.id === 'biophilic') {
       imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=682b3455&is=6829e2d5&hm=d25337aa613c5b72296fbfd9070e35e2f7f5ab0d14f24869777d3f9d397f7dca&=&format=webp&quality=lossless&width=774&height=774';
@@ -76,7 +76,10 @@ export default function KitchenPage() {
 
   const pageSpecificLightingOptions: BaseSelectionItem[] = baseKitchenLightingOptions
     .filter(
-      option => option.id !== 'light-wallsconce' && option.id !== 'light-niche' && option.id !== 'light-chandelier'
+      option => 
+        option.id !== 'light-wallsconce' && 
+        option.id !== 'light-niche' && 
+        option.id !== 'light-chandelier'
     )
     .map(option => {
       if (option.id === 'light-concealed') {
@@ -129,13 +132,12 @@ export default function KitchenPage() {
           let originalItem: BaseSelectionItem | undefined;
 
           if (section.options === pageSpecificKitchenStyleOptions) {
-            originalItem = overallStyleOptions.find(opt => opt.id === displayOption.id);
+            originalItem = baseOverallStyleOptions.find(opt => opt.id === displayOption.id);
           } else if (section.options === pageSpecificSinkTypeOptions) {
             originalItem = baseKitchenSinkTypeOptions.find(opt => opt.id === displayOption.id);
           } else if (section.options === pageSpecificDisplayApplianceOptions) {
             originalItem = baseKitchenApplianceOptions.find(opt => opt.id === displayOption.id);
           } else if (section.options === pageSpecificLightingOptions) {
-            // Find the original item from baseKitchenLightingOptions using the id
             originalItem = baseKitchenLightingOptions.find(opt => opt.id === displayOption.id);
           }
           else {
@@ -181,8 +183,8 @@ export default function KitchenPage() {
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
           Kitchen Customization
         </h1>
-        <p className="mt-4 max-w-2xl mx-auto text-lg opacity-80 sm:text-xl">
-          Design your dream kitchen by selecting options for each category below. You can select multiple items.
+        <p className="mt-2 max-w-2xl mx-auto text-base opacity-80 sm:text-lg">
+          Select One or More Options For Each Section
         </p>
       </header>
 
