@@ -52,7 +52,7 @@ export default function HallwaysPage() {
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Wall Finish", options: hallwayWallFinishOptions, cols: 3 },
-    { title: "Flooring", description: "Select durable and stylish flooring.", options: hallwaySpecificFlooringOptions, cols: 3 },
+    { title: "Flooring", options: hallwaySpecificFlooringOptions, cols: 3 },
     { title: "Lighting", description: "Illuminate your hallways effectively.", options: hallwayLightingOptions, cols: 3 },
     { title: "Storage", description: "Consider storage solutions for hallways.", options: hallwayStorageOptions, cols: 3 },
   ];

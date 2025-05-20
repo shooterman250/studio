@@ -51,7 +51,7 @@ export default function LivingRoomPage() {
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Wall Finish", options: livingRoomWallFinishOptions, cols: 3 },
-    { title: "Flooring", description: "Select flooring for the living room.", options: livingRoomFlooringOptions, cols: 3 },
+    { title: "Flooring", options: livingRoomFlooringOptions, cols: 3 },
     { title: "Lighting", description: "Select lighting fixtures.", options: livingRoomLightingOptions, cols: 3 },
     { title: "Storage", description: "Choose storage solutions.", options: livingRoomStorageOptions, cols: 3 },
     { title: "Fireplace", description: "Select a fireplace type.", options: livingRoomFireplaceOptions, cols: 3 },
