@@ -97,7 +97,7 @@ export default function KitchenPage() {
     { title: "Sink Type", description: "Choose your sink configuration.", options: pageSpecificSinkTypeOptions, cols: 3 }, 
     { title: "Backsplash", description: "Select backsplash materials.", options: kitchenBacksplashOptions, cols: 3 },
     { title: "Flooring", options: kitchenFlooringOptions, cols: 3 },
-    { title: "Lighting", description: "Select lighting fixtures.", options: pageSpecificLightingOptions, cols: 3 },
+    { title: "Lighting", options: pageSpecificLightingOptions, cols: 3 },
   ];
 
   const handleSaveChanges = () => {
@@ -230,6 +230,8 @@ export default function KitchenPage() {
     </div>
   );
 }
+    
+
     
 
     
