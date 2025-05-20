@@ -194,7 +194,8 @@ export interface BedroomWardrobeOption extends BaseSelectionItem {}
 export const bedroomWardrobeOptions: BedroomWardrobeOption[] = [
   { id: 'bed-wardrobe-bifold', name: 'Bifold Doors', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'bifold closet doors' },
   { id: 'bed-wardrobe-custom', name: 'Custom Built-In', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'custom built in closet' },
-  { id: 'bed-wardrobe-standard', name: 'One/Two Standard Doors', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'standard closet doors' },
+  { id: 'bed-wardrobe-one-door', name: 'One Standard Door', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'one standard closet' },
+  { id: 'bed-wardrobe-two-doors', name: 'Two Standard Doors', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'two standard closet' },
   { id: 'bed-wardrobe-walkin', name: 'Walk-In Closet', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'walk in closet' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -327,5 +328,7 @@ export const finishOptions: FinishOption[] = [
 
 
 
+
+    
 
     
