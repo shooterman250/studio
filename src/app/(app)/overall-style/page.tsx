@@ -119,7 +119,7 @@ export default function OverallStylePage() {
     { 
       id: 'design-styles', 
       title: "Select Design Styles", 
-      description: "Choose one or more design styles that best represent your vision.", 
+      description: "Choose The Style(s) That Represent Your Vision", 
       options: pageSpecificDisplayOverallStyleOptions, // Uses the potentially overridden images for display
       cols: 3 
     },
