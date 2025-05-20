@@ -114,8 +114,8 @@ export default function BedroomPage() {
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
           Bedroom(s) Customization
         </h1>
-        <p className="mt-4 max-w-2xl mx-auto text-lg opacity-80 sm:text-xl">
-          Tailor your personal sanctuary by selecting options for each category.
+        <p className="mt-2 max-w-2xl mx-auto text-base opacity-80 sm:text-lg">
+          Select One or More Options For Each Section
         </p>
       </header>
 
