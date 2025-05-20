@@ -120,7 +120,7 @@ export default function LivingRoomPage() {
           Living Room Customization
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg opacity-80 sm:text-xl">
-          Personalize your living space by choosing options for each element below.
+          Select One or More Options For Each Section
         </p>
       </header>
 
