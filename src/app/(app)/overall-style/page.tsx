@@ -126,7 +126,7 @@ export default function OverallStylePage() {
     { 
       id: 'key-elements', 
       title: "Select Key Elements", 
-      description: "Choose guiding principles for your design.", 
+      description: "Add One or More Optional Principles", 
       options: baseKeyElementOptions, // Key elements use their base options for display
       cols: 3 
     }, 
