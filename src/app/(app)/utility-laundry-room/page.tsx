@@ -50,7 +50,7 @@ export default function UtilityLaundryRoomPage() {
   };
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
-    { title: "Wall Finish", description: "Choose finishes for the utility/laundry room walls.", options: utilityWallFinishOptions, cols: 3 },
+    { title: "Wall Finish", options: utilityWallFinishOptions, cols: 3 },
     { title: "Flooring", description: "Select flooring for this practical space.", options: utilityFlooringOptions, cols: 3 },
     { title: "Washer/Dryer Layout", description: "Choose the layout for your laundry appliances.", options: utilityWasherDryerLayoutOptions, cols: 3 },
     { title: "Storage", description: "Select storage solutions for organization.", options: utilityStorageOptions, cols: 3 },

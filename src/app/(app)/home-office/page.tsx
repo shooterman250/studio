@@ -50,7 +50,7 @@ export default function HomeOfficePage() {
   };
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
-    { title: "Wall Finish", description: "Choose finishes for your home office walls.", options: homeOfficeWallFinishOptions, cols: 3 },
+    { title: "Wall Finish", options: homeOfficeWallFinishOptions, cols: 3 },
     { title: "Flooring", description: "Select flooring for your workspace.", options: homeOfficeFlooringOptions, cols: 3 },
     { title: "Lighting", description: "Select lighting to enhance productivity.", options: homeOfficeLightingOptions, cols: 3 },
     { title: "Storage", description: "Choose storage solutions for organization.", options: homeOfficeStorageOptions, cols: 3 },
