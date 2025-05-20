@@ -64,7 +64,7 @@ export default function BedroomPage() {
     { title: "Wall Finish", options: bedroomWallFinishOptions, cols: 3 },
     { title: "Flooring", options: bedroomFlooringOptions, cols: 3 },
     { title: "Lighting", options: bedroomLightingOptions, cols: 3 },
-    { title: "Wardrobe/Closet", description: "Select your preferred wardrobe or closet type(s).", options: pageSpecificBedroomWardrobeOptions, cols: 3 },
+    { title: "Wardrobe/Closet", options: pageSpecificBedroomWardrobeOptions, cols: 3 },
   ];
 
   const handleSaveChanges = () => {
