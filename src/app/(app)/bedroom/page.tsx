@@ -8,7 +8,7 @@ import {
     generalWallFinishOptions as bedroomWallFinishOptions,
     generalFlooringOptions as bedroomFlooringOptions,
     generalLightingOptions as bedroomLightingOptions,
-    bedroomWardrobeOptions,
+    bedroomWardrobeOptions as baseBedroomWardrobeOptions, // Aliased for clarity
     type BaseSelectionItem 
 } from "@/types";
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
@@ -32,7 +32,6 @@ export default function BedroomPage() {
     const existingSelections = getStageSelections(PAGE_STAGE_KEY);
     if (existingSelections.length > 0) {
       setSelectedOptions(new Set(existingSelections.map(item => item.id)));
-      // setHasSavedSinceLastChange(true); 
     }
   }, [getStageSelections]);
 
@@ -48,12 +47,24 @@ export default function BedroomPage() {
     });
     setHasSavedSinceLastChange(false);
   };
+
+  // Create page-specific wardrobe options
+  const pageSpecificBedroomWardrobeOptions: BaseSelectionItem[] = [
+    ...baseBedroomWardrobeOptions,
+    {
+      id: 'bed-wardrobe-fitted-display', // Unique ID for this page-specific option
+      name: 'Fitted Wardrobe',
+      imageUrl: 'https://placehold.co/400x300.png',
+      description: 'Built-in wardrobe, flush with walls.',
+      dataAiHint: 'fitted wardrobe bedroom',
+    },
+  ].sort((a, b) => a.name.localeCompare(b.name));
   
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Wall Finish", description: "Choose finishes for your bedroom walls.", options: bedroomWallFinishOptions, cols: 3 },
     { title: "Flooring", description: "Select flooring for the bedroom.", options: bedroomFlooringOptions, cols: 3 },
     { title: "Lighting", description: "Select lighting fixtures.", options: bedroomLightingOptions, cols: 3 },
-    { title: "Wardrobe/Closet", description: "Select your preferred wardrobe or closet type(s).", options: bedroomWardrobeOptions, cols: 3 },
+    { title: "Wardrobe/Closet", description: "Select your preferred wardrobe or closet type(s).", options: pageSpecificBedroomWardrobeOptions, cols: 3 },
   ];
 
   const handleSaveChanges = () => {
@@ -82,8 +93,10 @@ export default function BedroomPage() {
     
     const allSelectedItems: SelectedDataItem[] = [];
     sections.forEach(section => {
-      section.options.forEach(option => {
+      section.options.forEach(option => { // This iterates over the options used for display
         if (selectedOptions.has(option.id)) {
+          // If it's a base option or the page-specific "Fitted Wardrobe",
+          // its details (name, imageUrl, description, dataAiHint) are already in 'option'
           allSelectedItems.push({
             id: option.id,
             name: option.name,
