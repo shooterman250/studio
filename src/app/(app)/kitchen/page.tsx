@@ -93,7 +93,7 @@ export default function KitchenPage() {
     { title: "Cabinets", options: kitchenCabinetOptions, cols: 3 },
     { title: "Worktop/Countertop", description: "Select materials for your countertops.", options: kitchenWorktopOptions, cols: 3 },
     { title: "Appliance Finish & Features", description: "Select appliance features and finishes.", options: pageSpecificDisplayApplianceOptions, cols: 3 },
-    { title: "Appliance/Hardware Finish", description: "Select finishes for hardware and appliances.", options: kitchenHardwareFinishOptions, cols: 3 },
+    { title: "Appliance/Hardware Finish", options: kitchenHardwareFinishOptions, cols: 3 },
     { title: "Sink Type", description: "Choose your sink configuration.", options: pageSpecificSinkTypeOptions, cols: 3 }, 
     { title: "Backsplash", description: "Select backsplash materials.", options: kitchenBacksplashOptions, cols: 3 },
     { title: "Flooring", options: kitchenFlooringOptions, cols: 3 },
@@ -230,4 +230,6 @@ export default function KitchenPage() {
     </div>
   );
 }
+    
+
     
