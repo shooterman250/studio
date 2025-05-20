@@ -136,8 +136,8 @@ export default function HallwaysPage() {
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
           Hallway(s) Design
         </h1>
-        <p className="mt-4 max-w-2xl mx-auto text-lg opacity-80 sm:text-xl">
-          Design welcoming and functional hallways and transitional spaces.
+        <p className="mt-2 max-w-2xl mx-auto text-base opacity-80 sm:text-lg">
+          Select One or More Options For Each Section
         </p>
       </header>
 
@@ -182,7 +182,7 @@ export default function HallwaysPage() {
             // If Hallways is the last design stage, show "Finish & Proceed"
             <Button
               onClick={handleFinishAndProceed}
-              variant="default"
+              variant="default" 
               className="w-full sm:w-auto"
               disabled={!hasSavedSinceLastChange}
             >
@@ -195,3 +195,4 @@ export default function HallwaysPage() {
     </div>
   );
 }
+
