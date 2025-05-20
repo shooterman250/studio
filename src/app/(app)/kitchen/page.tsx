@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
-    overallStyleOptions as baseOverallStyleOptions, // Renamed for clarity
+    overallStyleOptions as baseOverallStyleOptions,
     kitchenCabinetOptions,
     kitchenWorktopOptions,
     kitchenApplianceOptions as baseKitchenApplianceOptions, 
