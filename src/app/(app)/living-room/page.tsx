@@ -10,7 +10,6 @@ import {
     generalLightingOptions as livingRoomLightingOptions,
     livingRoomStorageOptions,
     livingRoomFireplaceOptions,
-    // livingRoomOptionsList, // No longer needed for sections on this page
     type BaseSelectionItem
 } from "@/types"; 
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
@@ -34,7 +33,6 @@ export default function LivingRoomPage() {
     const existingSelections = getStageSelections(PAGE_STAGE_KEY);
     if (existingSelections.length > 0) {
       setSelectedOptions(new Set(existingSelections.map(item => item.id)));
-      // setHasSavedSinceLastChange(true); 
     }
   }, [getStageSelections]);
 
@@ -52,7 +50,6 @@ export default function LivingRoomPage() {
   };
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
-    // { title: "Main Furniture", description: "Select core furniture pieces like sofas and chairs.", options: livingRoomOptionsList, cols: 3 }, // Removed this section
     { title: "Wall Finish", description: "Choose finishes for your living room walls.", options: livingRoomWallFinishOptions, cols: 3 },
     { title: "Flooring", description: "Select flooring for the living room.", options: livingRoomFlooringOptions, cols: 3 },
     { title: "Lighting", description: "Select lighting fixtures.", options: livingRoomLightingOptions, cols: 3 },
@@ -119,7 +116,7 @@ export default function LivingRoomPage() {
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
           Living Room Customization
         </h1>
-        <p className="mt-4 max-w-2xl mx-auto text-lg opacity-80 sm:text-xl">
+        <p className="mt-2 max-w-2xl mx-auto text-base opacity-80 sm:text-lg">
           Select One or More Options For Each Section
         </p>
       </header>
