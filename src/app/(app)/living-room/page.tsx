@@ -54,7 +54,7 @@ export default function LivingRoomPage() {
     { title: "Flooring", options: livingRoomFlooringOptions, cols: 3 },
     { title: "Lighting", description: "Select lighting fixtures.", options: livingRoomLightingOptions, cols: 3 },
     { title: "Storage", description: "Choose storage solutions.", options: livingRoomStorageOptions, cols: 3 },
-    { title: "Fireplace", description: "Select a fireplace type.", options: livingRoomFireplaceOptions, cols: 3 },
+    { title: "Fireplace", options: livingRoomFireplaceOptions, cols: 3 },
   ];
 
   const handleSaveChanges = () => {
@@ -163,3 +163,4 @@ export default function LivingRoomPage() {
     </div>
   );
 }
+
