@@ -110,7 +110,7 @@ export default function BathroomPage() {
         return { ...option, name: "Niche Lighting" }; 
       }
       if (option.id === 'light-chandelier') {
-        return { ...option, name: "Chandelier(s) or Statement Fixtures" };
+        return { ...option, name: "Chandelier(s) or\nStatement Fixtures" };
       }
       return option;
     });
@@ -122,7 +122,7 @@ export default function BathroomPage() {
         return { ...option, name: "Niche Lighting" }; 
       }
       if (option.id === 'light-chandelier') {
-        return { ...option, name: "Chandelier(s) or Statement Fixtures" };
+        return { ...option, name: "Chandelier(s) or\nStatement Fixtures" };
       }
       return option;
     });
@@ -142,7 +142,7 @@ export default function BathroomPage() {
     { title: "Half-Bath: Sink", options: pageSpecificDisplayBathroomHalfSinkOptions, cols: 3, description: "Select a sink for the powder room." },
     { title: "Half-Bath: Toilet", options: bathroomToiletOptions, cols: 3, description: "Choose a toilet." }, 
     { title: "Half-Bath: Hardware Finish", options: pageSpecificDisplayHardwareFinishOptions, cols: 3, description: "Select hardware finishes." }, 
-    { title: "Half-Bath: Storage", options: bathroomStorageOptions.slice(0,3), cols: 3, description: "Consider storage options." }, 
+    { title: "Half-Bath: Storage", options: bathroomStorageOptions, cols: 3, description: "Consider storage options." }, 
     { title: "Half-Bath: Lighting", options: filteredHalfBathLightingOptions, cols: 3, description: "Choose lighting." }, 
   ];
 
@@ -179,7 +179,6 @@ export default function BathroomPage() {
         if (selectedOptions.has(displayOption.id)) {
           let originalItem: BaseSelectionItem | undefined;
 
-          // Prioritize finding in page-specific mapped arrays first if they represent the section
           if (section.options === pageSpecificDisplayBathroomStyleOptions) {
             originalItem = baseOverallStyleOptions.find(opt => opt.id === displayOption.id);
           } else if (section.options === pageSpecificDisplayMasterSinkOptions) {
@@ -192,7 +191,6 @@ export default function BathroomPage() {
             originalItem = baseBathroomLightingOptions.find(opt => opt.id === displayOption.id);
           }
           else { 
-            // Fallback for sections that use base options directly
             const baseArray = 
               section.options === bathroomMasterBathTubOptions ? bathroomMasterBathTubOptions :
               section.options === bathroomMasterShowerOptions ? bathroomMasterShowerOptions :
@@ -203,8 +201,6 @@ export default function BathroomPage() {
             if (baseArray) {
               originalItem = baseArray.find(opt => opt.id === displayOption.id);
             } else {
-                // If it's not a specifically mapped section or a direct base section, use displayOption itself
-                // This case might not be hit if all sections are handled above, but as a safeguard:
                 originalItem = displayOption; 
             }
           }
@@ -212,8 +208,8 @@ export default function BathroomPage() {
           if (originalItem) {
             allSelectedItems.push({
               id: originalItem.id,
-              name: originalItem.name, // Use the original name from base data
-              imageUrl: originalItem.imageUrl, // Use the original imageUrl from base data
+              name: originalItem.name, 
+              imageUrl: originalItem.imageUrl, 
               description: originalItem.description, 
               dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
             });

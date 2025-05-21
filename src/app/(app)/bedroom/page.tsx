@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { 
     generalWallFinishOptions as bedroomWallFinishOptions,
     generalFlooringOptions as bedroomFlooringOptions,
-    generalLightingOptions as baseBedroomLightingOptions, // Aliased for clarity
+    generalLightingOptions as baseBedroomLightingOptions, 
     bedroomWardrobeOptions as baseBedroomWardrobeOptions, 
     type BaseSelectionItem 
 } from "@/types";
@@ -60,7 +60,7 @@ export default function BedroomPage() {
 
   const pageSpecificBedroomLightingOptions: BaseSelectionItem[] = baseBedroomLightingOptions.map(option => {
     if (option.id === 'light-chandelier') {
-      return { ...option, name: "Chandelier(s) or Statement Fixtures" };
+      return { ...option, name: "Chandelier(s) or\nStatement Fixtures" };
     }
     return option;
   });
@@ -105,16 +105,12 @@ export default function BedroomPage() {
           if (section.options === pageSpecificBedroomLightingOptions) {
             originalItem = baseBedroomLightingOptions.find(opt => opt.id === displayOption.id);
           } else if (section.options === pageSpecificBedroomWardrobeOptions) {
-             // For wardrobe, if it's the page-specific 'Fitted Wardrobe', use its details.
-             // Otherwise, find the original from baseBedroomWardrobeOptions.
             if (displayOption.id === 'bed-wardrobe-fitted-display') {
-              originalItem = displayOption; // Use the page-specific item directly
+              originalItem = displayOption; 
             } else {
               originalItem = baseBedroomWardrobeOptions.find(opt => opt.id === displayOption.id);
             }
           } else {
-            // For other sections (Wall Finish, Flooring), assume displayOption is the originalItem
-            // as they are not currently being transformed for display.
             originalItem = displayOption; 
           }
           

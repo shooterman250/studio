@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { 
     generalWallFinishOptions as utilityWallFinishOptions,
     generalFlooringOptions as utilityFlooringOptions,
-    generalLightingOptions as baseUtilityLightingOptions, // Added for lighting
+    generalLightingOptions as baseUtilityLightingOptions, 
     utilityWasherDryerLayoutOptions,
     utilityStorageOptions,
     type BaseSelectionItem
@@ -51,7 +51,7 @@ export default function UtilityLaundryRoomPage() {
 
   const pageSpecificUtilityLightingOptions: BaseSelectionItem[] = baseUtilityLightingOptions.map(option => {
     if (option.id === 'light-chandelier') {
-      return { ...option, name: "Chandelier(s) or Statement Fixtures" };
+      return { ...option, name: "Chandelier(s) or\nStatement Fixtures" };
     }
     return option;
   });
@@ -59,7 +59,7 @@ export default function UtilityLaundryRoomPage() {
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Wall Finish", options: utilityWallFinishOptions, cols: 3 },
     { title: "Flooring", options: utilityFlooringOptions, cols: 3 },
-    { title: "Lighting", options: pageSpecificUtilityLightingOptions, cols: 3, description: "Choose lighting for your utility/laundry area." }, // Added Lighting Section
+    { title: "Lighting", options: pageSpecificUtilityLightingOptions, cols: 3, description: "Choose lighting for your utility/laundry area." }, 
     { title: "Washer/Dryer Layout", description: "Choose the layout for your laundry appliances.", options: utilityWasherDryerLayoutOptions, cols: 3 },
     { title: "Storage", description: "Select storage solutions for organization.", options: utilityStorageOptions, cols: 3 },
   ];
@@ -97,7 +97,7 @@ export default function UtilityLaundryRoomPage() {
           if (section.options === pageSpecificUtilityLightingOptions) {
             originalItem = baseUtilityLightingOptions.find(opt => opt.id === displayOption.id);
           } else {
-            originalItem = displayOption; // Placeholder for other sections
+            originalItem = displayOption; 
             if (section.options === utilityWallFinishOptions) originalItem = utilityWallFinishOptions.find(opt => opt.id === displayOption.id);
             else if (section.options === utilityFlooringOptions) originalItem = utilityFlooringOptions.find(opt => opt.id === displayOption.id);
             else if (section.options === utilityWasherDryerLayoutOptions) originalItem = utilityWasherDryerLayoutOptions.find(opt => opt.id === displayOption.id);

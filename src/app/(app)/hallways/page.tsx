@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { 
     generalWallFinishOptions as hallwayWallFinishOptions,
     generalFlooringOptions as hallwayFlooringOptions, 
-    generalLightingOptions as baseHallwayLightingOptions, // Aliased for clarity
+    generalLightingOptions as baseHallwayLightingOptions, 
     hallwayStorageOptions,
     type BaseSelectionItem
 } from "@/types";
@@ -52,7 +52,7 @@ export default function HallwaysPage() {
 
   const pageSpecificHallwayLightingOptions: BaseSelectionItem[] = baseHallwayLightingOptions.map(option => {
     if (option.id === 'light-chandelier') {
-      return { ...option, name: "Chandelier(s) or Statement Fixtures" };
+      return { ...option, name: "Chandelier(s) or\nStatement Fixtures" };
     }
     return option;
   });
@@ -97,11 +97,9 @@ export default function HallwaysPage() {
           if (section.options === pageSpecificHallwayLightingOptions) {
             originalItem = baseHallwayLightingOptions.find(opt => opt.id === displayOption.id);
           } else {
-            // For other sections, assume displayOption is the original item or find in their respective base arrays
-            // This example assumes other sections use options directly or need similar handling
-            originalItem = displayOption; // Placeholder for other sections' original item lookup
+             originalItem = displayOption; 
              if (section.options === hallwayWallFinishOptions) originalItem = hallwayWallFinishOptions.find(opt => opt.id === displayOption.id);
-             else if (section.options === hallwaySpecificFlooringOptions) originalItem = hallwayFlooringOptions.find(opt => opt.id === displayOption.id); // Note: finding in hallwayFlooringOptions
+             else if (section.options === hallwaySpecificFlooringOptions) originalItem = hallwayFlooringOptions.find(opt => opt.id === displayOption.id); 
              else if (section.options === hallwayStorageOptions) originalItem = hallwayStorageOptions.find(opt => opt.id === displayOption.id);
           }
           

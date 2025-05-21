@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { 
     generalWallFinishOptions as homeOfficeWallFinishOptions,
     generalFlooringOptions as homeOfficeFlooringOptions,
-    generalLightingOptions as baseHomeOfficeLightingOptions, // Aliased for clarity
+    generalLightingOptions as baseHomeOfficeLightingOptions, 
     homeOfficeStorageOptions,
     type BaseSelectionItem
 } from "@/types";
@@ -50,7 +50,7 @@ export default function HomeOfficePage() {
 
   const pageSpecificHomeOfficeLightingOptions: BaseSelectionItem[] = baseHomeOfficeLightingOptions.map(option => {
     if (option.id === 'light-chandelier') {
-      return { ...option, name: "Chandelier(s) or Statement Fixtures" };
+      return { ...option, name: "Chandelier(s) or\nStatement Fixtures" };
     }
     return option;
   });
@@ -95,7 +95,7 @@ export default function HomeOfficePage() {
           if (section.options === pageSpecificHomeOfficeLightingOptions) {
             originalItem = baseHomeOfficeLightingOptions.find(opt => opt.id === displayOption.id);
           } else {
-             originalItem = displayOption; // Placeholder for other sections
+             originalItem = displayOption; 
              if (section.options === homeOfficeWallFinishOptions) originalItem = homeOfficeWallFinishOptions.find(opt => opt.id === displayOption.id);
              else if (section.options === homeOfficeFlooringOptions) originalItem = homeOfficeFlooringOptions.find(opt => opt.id === displayOption.id);
              else if (section.options === homeOfficeStorageOptions) originalItem = homeOfficeStorageOptions.find(opt => opt.id === displayOption.id);
