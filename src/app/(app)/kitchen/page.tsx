@@ -56,7 +56,7 @@ export default function KitchenPage() {
   const pageSpecificKitchenStyleOptions: BaseSelectionItem[] = baseOverallStyleOptions.map(style => {
     let imageUrl = style.imageUrl; 
     if (style.id === 'biophilic') {
-      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=682b3455&is=6829e2d5&hm=d25337aa613c5b72296fbfd9070e35e2f7f5ab0d14f24869777d3f9d397f7dca&=&format=webp&quality=lossless&width=774&height=774';
+      imageUrl = 'https://media.discordapp.net/attachments/1374799696127721638/1374807181366526022/Biophilic_Kitchen.png?ex=682f6476&is=682e12f6&hm=0a97c7bd5dd44b0b2d75058a72978aaa34b76f9d82b3a312b3e7dcf1566442fd&=&format=webp&quality=lossless&width=938&height=938';
     }
     return {
       ...style,
