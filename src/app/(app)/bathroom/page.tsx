@@ -104,7 +104,7 @@ export default function BathroomPage() {
   });
   
   const pageSpecificDisplayMasterLightingOptions: BaseSelectionItem[] = baseBathroomLightingOptions
-    .filter(option => option.id !== 'light-niche') 
+    .filter(option => option.id !== 'light-niche' && option.id !== 'light-recessed-cylinder') 
     .map(option => {
       if (option.id === 'light-concealed') {
         return { ...option, name: "Niche Lighting" }; 
@@ -113,7 +113,7 @@ export default function BathroomPage() {
     });
 
   const filteredHalfBathLightingOptions = baseBathroomLightingOptions
-    .filter(option => option.id !== 'light-niche') 
+    .filter(option => option.id !== 'light-niche' && option.id !== 'light-recessed-cylinder') 
     .map(option => {
       if (option.id === 'light-concealed') {
         return { ...option, name: "Niche Lighting" }; 
