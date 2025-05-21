@@ -65,8 +65,8 @@ export const kitchenCabinetOptions: KitchenCabinetOption[] = [
 
 export interface KitchenWorktopOption extends BaseSelectionItem {}
 export const kitchenWorktopOptions: KitchenWorktopOption[] = [
-  { id: 'k-worktop-butcher', name: 'Butcher Block', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'butcher block countertop' },
-  { id: 'k-worktop-concrete', name: 'Concrete', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'concrete countertop kitchen' },
+  { id: 'k-worktop-butcher', name: 'Butcher Block', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374884016880095284/Butcher_Block_Countertop.png?ex=682fac05&is=682e5a85&hm=f0704f3153e0d1c71b2d46e39d73287b0290cbe491b46ac2294099a92f921527&=&format=webp&quality=lossless&width=938&height=938', dataAiHint: 'butcher block countertop' },
+  { id: 'k-worktop-concrete', name: 'Concrete', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374884017450651789/Cement_Countertop.png?ex=682fac05&is=682e5a85&hm=6abc03501a1505b1ecb2ce1cd95e4b04353957fff978c3a88758465bc80f4fbe&=&format=webp&quality=lossless&width=938&height=938', dataAiHint: 'concrete countertop kitchen' },
   { id: 'k-worktop-granite', name: 'Granite', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'granite countertop kitchen' },
   { id: 'k-worktop-marble', name: 'Marble', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'marble countertop kitchen' },
   { id: 'k-worktop-quartz', name: 'Quartz', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'quartz countertop kitchen' },
@@ -332,6 +332,7 @@ export const finishOptions: FinishOption[] = [
     
 
     
+
 
 
 
