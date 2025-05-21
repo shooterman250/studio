@@ -101,7 +101,7 @@ export default function OverallStylePage() {
     if (style.id === 'modern') {
       return {
         ...style,
-        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043013986549760/Modern.png?ex=682b9c74&is=682a4af4&hm=18c4de9386ecccb1790abe2b7863368716ccabe3dad2739fea23d07430e1f89b&=&format=webp&quality=lossless&width=774&height=774'
+        imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374807182142341210/Overall_Style__Modern.png?ex=682f6476&is=682e12f6&hm=a114616baf979e6cb038c526f8aea1874cea1c9ec68106ecfab5044b50893e43&=&format=webp&quality=lossless&width=938&height=938'
       };
     }
     if (style.id === 'traditional') {
@@ -219,7 +219,7 @@ export default function OverallStylePage() {
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
           Overall Style &amp; Key Elements
         </h1>
-        <p className="mt-4 max-w-2xl mx-auto text-lg opacity-80 sm:text-xl">
+        <p className="mt-2 max-w-2xl mx-auto text-base opacity-80 sm:text-lg">
           Let's start by defining your main design style
         </p>
       </header>
