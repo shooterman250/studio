@@ -81,7 +81,7 @@ export const kitchenApplianceOptions: KitchenApplianceOption[] = [
   { id: 'k-app-finish-black', name: 'Black', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374800577728610445/Black_Kitchen_Appliances_Finish.png?ex=682f5e50&is=682e0cd0&hm=8a1a609c4190eba8d5c9a07670ae165d5f99e1e172c5992d0ad82daf1fbb017b&=&format=webp&quality=lossless&width=936&height=936', dataAiHint: 'black kitchen appliance' },
   { id: 'k-app-finish-stainless', name: 'Stainless Steel', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'stainless steel appliance' },
   { id: 'k-app-finish-white', name: 'White', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'white kitchen appliance' },
-  { id: 'k-app-finish-color', name: 'Color (e.g. Red, Blue)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'colored kitchen appliance' },
+  { id: 'k-app-finish-color', name: 'Color (e.g. Red, Blue)', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374800578235990057/Color_Option_Kitchen_Appliances_Finish.png?ex=682f5e50&is=682e0cd0&hm=84b8d312dcdc06a95dc838788ec05e61776ee5b0e3e0113059519a00b10a4fc6&=&format=webp&quality=lossless&width=936&height=936', dataAiHint: 'colored kitchen appliance' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface KitchenHardwareFinishOption extends BaseSelectionItem {}
@@ -332,4 +332,5 @@ export const finishOptions: FinishOption[] = [
     
 
     
+
 
