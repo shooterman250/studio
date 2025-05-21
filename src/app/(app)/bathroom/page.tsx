@@ -24,6 +24,7 @@ import { baseNavItemsConfig } from "@/config/navigation";
 import { ArrowRight } from "lucide-react";
 
 const PAGE_STAGE_KEY: DesignStageKey = "bathroom";
+const newConsoleImageUrl = "https://media.discordapp.net/attachments/1374539386368167948/1374541051578024126/Console.png?ex=682e6c9c&is=682d1b1c&hm=9d427df1e7f3690029dd359522e2359d172c7fa8603e20f8cc5b32b1568523f5&=&format=webp&quality=lossless&width=1242&height=1242";
 
 export default function BathroomPage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
@@ -62,9 +63,14 @@ export default function BathroomPage() {
 
   const pageSpecificDisplayMasterSinkOptions: BaseSelectionItem[] = baseBathroomMasterSinkOptions.map(sink => {
     const originalNamePart = sink.name.replace(/ Sink/i, "").trim(); 
+    let imageUrl = sink.imageUrl;
+    if (sink.id === 'bm-sink-console-s') {
+      imageUrl = newConsoleImageUrl;
+    }
     return {
       ...sink, 
-      name: `${originalNamePart}\nBathroom Sink` 
+      name: `${originalNamePart}\nBathroom Sink`,
+      imageUrl: imageUrl
     };
   });
 
@@ -86,9 +92,14 @@ export default function BathroomPage() {
 
   const pageSpecificDisplayBathroomHalfSinkOptions: BaseSelectionItem[] = baseBathroomHalfSinkOptions.map(sink => {
     const originalNamePart = sink.name.replace(/ Sink/i, "").trim();
+    let imageUrl = sink.imageUrl;
+    if (sink.id === 'bh-sink-console') {
+      imageUrl = newConsoleImageUrl;
+    }
     return {
       ...sink,
-      name: `${originalNamePart}\nBathroom Sink`
+      name: `${originalNamePart}\nBathroom Sink`,
+      imageUrl: imageUrl
     };
   });
   
@@ -162,6 +173,7 @@ export default function BathroomPage() {
         if (selectedOptions.has(displayOption.id)) {
           let originalItem: BaseSelectionItem | undefined;
 
+          // Prioritize finding in page-specific mapped arrays first if they represent the section
           if (section.options === pageSpecificDisplayBathroomStyleOptions) {
             originalItem = baseOverallStyleOptions.find(opt => opt.id === displayOption.id);
           } else if (section.options === pageSpecificDisplayMasterSinkOptions) {
@@ -174,6 +186,7 @@ export default function BathroomPage() {
             originalItem = baseBathroomLightingOptions.find(opt => opt.id === displayOption.id);
           }
           else { 
+            // Fallback for sections that use base options directly
             const baseArray = 
               section.options === bathroomMasterBathTubOptions ? bathroomMasterBathTubOptions :
               section.options === bathroomMasterShowerOptions ? bathroomMasterShowerOptions :
@@ -184,6 +197,8 @@ export default function BathroomPage() {
             if (baseArray) {
               originalItem = baseArray.find(opt => opt.id === displayOption.id);
             } else {
+                // If it's not a specifically mapped section or a direct base section, use displayOption itself
+                // This case might not be hit if all sections are handled above, but as a safeguard:
                 originalItem = displayOption; 
             }
           }
@@ -191,8 +206,8 @@ export default function BathroomPage() {
           if (originalItem) {
             allSelectedItems.push({
               id: originalItem.id,
-              name: originalItem.name, 
-              imageUrl: originalItem.imageUrl, 
+              name: originalItem.name, // Use the original name from base data
+              imageUrl: originalItem.imageUrl, // Use the original imageUrl from base data
               description: originalItem.description, 
               dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
             });
