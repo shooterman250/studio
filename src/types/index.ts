@@ -78,7 +78,7 @@ export const kitchenApplianceOptions: KitchenApplianceOption[] = [
   { id: 'k-app-integrated', name: 'Integrated', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'integrated kitchen appliance' },
   { id: 'k-app-smart', name: 'Smart Appliances', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'smart kitchen appliance' },
   { id: 'k-app-fingerprint', name: 'Fingerprint Resistant', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'fingerprint resistant appliance' },
-  { id: 'k-app-finish-black', name: 'Black', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'black kitchen appliance' },
+  { id: 'k-app-finish-black', name: 'Black', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374800577728610445/Black_Kitchen_Appliances_Finish.png?ex=682f5e50&is=682e0cd0&hm=8a1a609c4190eba8d5c9a07670ae165d5f99e1e172c5992d0ad82daf1fbb017b&=&format=webp&quality=lossless&width=936&height=936', dataAiHint: 'black kitchen appliance' },
   { id: 'k-app-finish-stainless', name: 'Stainless Steel', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'stainless steel appliance' },
   { id: 'k-app-finish-white', name: 'White', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'white kitchen appliance' },
   { id: 'k-app-finish-color', name: 'Color (e.g. Red, Blue)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'colored kitchen appliance' },
@@ -332,3 +332,4 @@ export const finishOptions: FinishOption[] = [
     
 
     
+
