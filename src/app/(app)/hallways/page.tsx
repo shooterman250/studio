@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { 
     generalWallFinishOptions as hallwayWallFinishOptions,
     generalFlooringOptions as hallwayFlooringOptions, 
-    generalLightingOptions as hallwayLightingOptions,
+    generalLightingOptions as baseHallwayLightingOptions, // Aliased for clarity
     hallwayStorageOptions,
     type BaseSelectionItem
 } from "@/types";
@@ -50,10 +50,17 @@ export default function HallwaysPage() {
   
   const hallwaySpecificFlooringOptions = hallwayFlooringOptions.filter(opt => opt.id !== 'floor-carpet');
 
+  const pageSpecificHallwayLightingOptions: BaseSelectionItem[] = baseHallwayLightingOptions.map(option => {
+    if (option.id === 'light-chandelier') {
+      return { ...option, name: "Chandelier(s) or Statement Fixtures" };
+    }
+    return option;
+  });
+
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Wall Finish", options: hallwayWallFinishOptions, cols: 3 },
     { title: "Flooring", options: hallwaySpecificFlooringOptions, cols: 3 },
-    { title: "Lighting", description: "Illuminate your hallways effectively.", options: hallwayLightingOptions, cols: 3 },
+    { title: "Lighting", description: "Illuminate your hallways effectively.", options: pageSpecificHallwayLightingOptions, cols: 3 },
     { title: "Storage", description: "Consider storage solutions for hallways.", options: hallwayStorageOptions, cols: 3 },
   ];
 
@@ -84,15 +91,29 @@ export default function HallwaysPage() {
     
     const allSelectedItems: SelectedDataItem[] = [];
     sections.forEach(section => {
-      section.options.forEach(option => {
-        if (selectedOptions.has(option.id)) {
-          allSelectedItems.push({
-            id: option.id,
-            name: option.name,
-            imageUrl: option.imageUrl,
-            description: option.description,
-            dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
-          });
+      section.options.forEach(displayOption => {
+        if (selectedOptions.has(displayOption.id)) {
+          let originalItem: BaseSelectionItem | undefined;
+          if (section.options === pageSpecificHallwayLightingOptions) {
+            originalItem = baseHallwayLightingOptions.find(opt => opt.id === displayOption.id);
+          } else {
+            // For other sections, assume displayOption is the original item or find in their respective base arrays
+            // This example assumes other sections use options directly or need similar handling
+            originalItem = displayOption; // Placeholder for other sections' original item lookup
+             if (section.options === hallwayWallFinishOptions) originalItem = hallwayWallFinishOptions.find(opt => opt.id === displayOption.id);
+             else if (section.options === hallwaySpecificFlooringOptions) originalItem = hallwayFlooringOptions.find(opt => opt.id === displayOption.id); // Note: finding in hallwayFlooringOptions
+             else if (section.options === hallwayStorageOptions) originalItem = hallwayStorageOptions.find(opt => opt.id === displayOption.id);
+          }
+          
+          if (originalItem) {
+            allSelectedItems.push({
+              id: originalItem.id,
+              name: originalItem.name,
+              imageUrl: originalItem.imageUrl,
+              description: originalItem.description,
+              dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
+            });
+          }
         }
       });
     });
@@ -107,7 +128,7 @@ export default function HallwaysPage() {
   };
 
   const handleFinishAndProceed = () => {
-    handleSaveChanges(); // Save current choices first
+    handleSaveChanges(); 
     const clientInfo = getClientInfo();
     if (!clientInfo || !clientInfo.fullName || !clientInfo.email) {
       toast({
@@ -123,7 +144,6 @@ export default function HallwaysPage() {
 
   const designStagesNavConfig = baseNavItemsConfig.filter(item => item.id !== 'dashboard' && item.id !== 'settings');
   const currentIndex = designStagesNavConfig.findIndex(item => item.href === pathname);
-  // Check if there's a next *design* stage. Client-info is handled by the "Finish" button.
   const nextDesignStage = currentIndex !== -1 && currentIndex < designStagesNavConfig.length - 1 && 
                          designStagesNavConfig[currentIndex + 1].id !== 'dashboard' && 
                          designStagesNavConfig[currentIndex + 1].id !== 'settings' 
@@ -167,7 +187,6 @@ export default function HallwaysPage() {
           <Button className="w-full sm:w-auto" onClick={handleSaveChanges}>
             Save Hallway Choices ({selectedOptions.size})
           </Button>
-          {/* If there's another design stage after Hallways, show "Next Section" */}
           {nextDesignStage ? (
             <Button
               onClick={() => router.push(nextDesignStage.href)}
@@ -179,7 +198,6 @@ export default function HallwaysPage() {
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           ) : (
-            // If Hallways is the last design stage, show "Finish & Proceed"
             <Button
               onClick={handleFinishAndProceed}
               variant="default" 

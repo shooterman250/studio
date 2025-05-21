@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { 
     generalWallFinishOptions as utilityWallFinishOptions,
     generalFlooringOptions as utilityFlooringOptions,
+    generalLightingOptions as baseUtilityLightingOptions, // Added for lighting
     utilityWasherDryerLayoutOptions,
     utilityStorageOptions,
     type BaseSelectionItem
@@ -32,7 +33,6 @@ export default function UtilityLaundryRoomPage() {
     const existingSelections = getStageSelections(PAGE_STAGE_KEY);
     if (existingSelections.length > 0) {
       setSelectedOptions(new Set(existingSelections.map(item => item.id)));
-      // setHasSavedSinceLastChange(true); 
     }
   }, [getStageSelections]);
 
@@ -49,9 +49,17 @@ export default function UtilityLaundryRoomPage() {
     setHasSavedSinceLastChange(false);
   };
 
+  const pageSpecificUtilityLightingOptions: BaseSelectionItem[] = baseUtilityLightingOptions.map(option => {
+    if (option.id === 'light-chandelier') {
+      return { ...option, name: "Chandelier(s) or Statement Fixtures" };
+    }
+    return option;
+  });
+
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Wall Finish", options: utilityWallFinishOptions, cols: 3 },
     { title: "Flooring", options: utilityFlooringOptions, cols: 3 },
+    { title: "Lighting", options: pageSpecificUtilityLightingOptions, cols: 3, description: "Choose lighting for your utility/laundry area." }, // Added Lighting Section
     { title: "Washer/Dryer Layout", description: "Choose the layout for your laundry appliances.", options: utilityWasherDryerLayoutOptions, cols: 3 },
     { title: "Storage", description: "Select storage solutions for organization.", options: utilityStorageOptions, cols: 3 },
   ];
@@ -83,15 +91,28 @@ export default function UtilityLaundryRoomPage() {
     
     const allSelectedItems: SelectedDataItem[] = [];
     sections.forEach(section => {
-      section.options.forEach(option => {
-        if (selectedOptions.has(option.id)) {
-          allSelectedItems.push({
-            id: option.id,
-            name: option.name,
-            imageUrl: option.imageUrl,
-            description: option.description,
-            dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
-          });
+      section.options.forEach(displayOption => {
+        if (selectedOptions.has(displayOption.id)) {
+          let originalItem: BaseSelectionItem | undefined;
+          if (section.options === pageSpecificUtilityLightingOptions) {
+            originalItem = baseUtilityLightingOptions.find(opt => opt.id === displayOption.id);
+          } else {
+            originalItem = displayOption; // Placeholder for other sections
+            if (section.options === utilityWallFinishOptions) originalItem = utilityWallFinishOptions.find(opt => opt.id === displayOption.id);
+            else if (section.options === utilityFlooringOptions) originalItem = utilityFlooringOptions.find(opt => opt.id === displayOption.id);
+            else if (section.options === utilityWasherDryerLayoutOptions) originalItem = utilityWasherDryerLayoutOptions.find(opt => opt.id === displayOption.id);
+            else if (section.options === utilityStorageOptions) originalItem = utilityStorageOptions.find(opt => opt.id === displayOption.id);
+          }
+          
+          if (originalItem) {
+            allSelectedItems.push({
+              id: originalItem.id,
+              name: originalItem.name,
+              imageUrl: originalItem.imageUrl,
+              description: originalItem.description,
+              dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
+            });
+          }
         }
       });
     });

@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 import { 
     generalWallFinishOptions as bedroomWallFinishOptions,
     generalFlooringOptions as bedroomFlooringOptions,
-    generalLightingOptions as bedroomLightingOptions,
-    bedroomWardrobeOptions as baseBedroomWardrobeOptions, // Aliased for clarity
+    generalLightingOptions as baseBedroomLightingOptions, // Aliased for clarity
+    bedroomWardrobeOptions as baseBedroomWardrobeOptions, 
     type BaseSelectionItem 
 } from "@/types";
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
@@ -48,22 +48,27 @@ export default function BedroomPage() {
     setHasSavedSinceLastChange(false);
   };
 
-  // Create page-specific wardrobe options
   const pageSpecificBedroomWardrobeOptions: BaseSelectionItem[] = [
     ...baseBedroomWardrobeOptions,
     {
-      id: 'bed-wardrobe-fitted-display', // Unique ID for this page-specific option
+      id: 'bed-wardrobe-fitted-display', 
       name: 'Fitted Wardrobe',
       imageUrl: 'https://placehold.co/400x300.png',
-      // description: 'Built-in wardrobe, flush with walls.', // Removed description here
       dataAiHint: 'fitted wardrobe bedroom',
     },
   ].sort((a, b) => a.name.localeCompare(b.name));
+
+  const pageSpecificBedroomLightingOptions: BaseSelectionItem[] = baseBedroomLightingOptions.map(option => {
+    if (option.id === 'light-chandelier') {
+      return { ...option, name: "Chandelier(s) or Statement Fixtures" };
+    }
+    return option;
+  });
   
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Wall Finish", options: bedroomWallFinishOptions, cols: 3 },
     { title: "Flooring", options: bedroomFlooringOptions, cols: 3 },
-    { title: "Lighting", options: bedroomLightingOptions, cols: 3 },
+    { title: "Lighting", options: pageSpecificBedroomLightingOptions, cols: 3 },
     { title: "Wardrobe/Closet", options: pageSpecificBedroomWardrobeOptions, cols: 3 },
   ];
 
@@ -93,17 +98,35 @@ export default function BedroomPage() {
     
     const allSelectedItems: SelectedDataItem[] = [];
     sections.forEach(section => {
-      section.options.forEach(option => { // This iterates over the options used for display
-        if (selectedOptions.has(option.id)) {
-          // If it's a base option or the page-specific "Fitted Wardrobe",
-          // its details (name, imageUrl, description, dataAiHint) are already in 'option'
-          allSelectedItems.push({
-            id: option.id,
-            name: option.name,
-            imageUrl: option.imageUrl,
-            description: option.description, // Will be undefined for Fitted Wardrobe
-            dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
-          });
+      section.options.forEach(displayOption => { 
+        if (selectedOptions.has(displayOption.id)) {
+          let originalItem: BaseSelectionItem | undefined;
+
+          if (section.options === pageSpecificBedroomLightingOptions) {
+            originalItem = baseBedroomLightingOptions.find(opt => opt.id === displayOption.id);
+          } else if (section.options === pageSpecificBedroomWardrobeOptions) {
+             // For wardrobe, if it's the page-specific 'Fitted Wardrobe', use its details.
+             // Otherwise, find the original from baseBedroomWardrobeOptions.
+            if (displayOption.id === 'bed-wardrobe-fitted-display') {
+              originalItem = displayOption; // Use the page-specific item directly
+            } else {
+              originalItem = baseBedroomWardrobeOptions.find(opt => opt.id === displayOption.id);
+            }
+          } else {
+            // For other sections (Wall Finish, Flooring), assume displayOption is the originalItem
+            // as they are not currently being transformed for display.
+            originalItem = displayOption; 
+          }
+          
+          if (originalItem) {
+            allSelectedItems.push({
+              id: originalItem.id,
+              name: originalItem.name,
+              imageUrl: originalItem.imageUrl,
+              description: originalItem.description, 
+              dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
+            });
+          }
         }
       });
     });

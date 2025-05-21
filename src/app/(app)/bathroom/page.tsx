@@ -109,6 +109,9 @@ export default function BathroomPage() {
       if (option.id === 'light-concealed') {
         return { ...option, name: "Niche Lighting" }; 
       }
+      if (option.id === 'light-chandelier') {
+        return { ...option, name: "Chandelier(s) or Statement Fixtures" };
+      }
       return option;
     });
 
@@ -117,6 +120,9 @@ export default function BathroomPage() {
     .map(option => {
       if (option.id === 'light-concealed') {
         return { ...option, name: "Niche Lighting" }; 
+      }
+      if (option.id === 'light-chandelier') {
+        return { ...option, name: "Chandelier(s) or Statement Fixtures" };
       }
       return option;
     });

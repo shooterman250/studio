@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { 
     generalWallFinishOptions as homeOfficeWallFinishOptions,
     generalFlooringOptions as homeOfficeFlooringOptions,
-    generalLightingOptions as homeOfficeLightingOptions,
+    generalLightingOptions as baseHomeOfficeLightingOptions, // Aliased for clarity
     homeOfficeStorageOptions,
     type BaseSelectionItem
 } from "@/types";
@@ -32,7 +32,6 @@ export default function HomeOfficePage() {
     const existingSelections = getStageSelections(PAGE_STAGE_KEY);
     if (existingSelections.length > 0) {
       setSelectedOptions(new Set(existingSelections.map(item => item.id)));
-      // setHasSavedSinceLastChange(true); 
     }
   }, [getStageSelections]);
 
@@ -49,10 +48,17 @@ export default function HomeOfficePage() {
     setHasSavedSinceLastChange(false);
   };
 
+  const pageSpecificHomeOfficeLightingOptions: BaseSelectionItem[] = baseHomeOfficeLightingOptions.map(option => {
+    if (option.id === 'light-chandelier') {
+      return { ...option, name: "Chandelier(s) or Statement Fixtures" };
+    }
+    return option;
+  });
+
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Wall Finish", options: homeOfficeWallFinishOptions, cols: 3 },
     { title: "Flooring", options: homeOfficeFlooringOptions, cols: 3 },
-    { title: "Lighting", description: "Select lighting to enhance productivity.", options: homeOfficeLightingOptions, cols: 3 },
+    { title: "Lighting", description: "Select lighting to enhance productivity.", options: pageSpecificHomeOfficeLightingOptions, cols: 3 },
     { title: "Storage", description: "Choose storage solutions for organization.", options: homeOfficeStorageOptions, cols: 3 },
   ];
 
@@ -83,15 +89,27 @@ export default function HomeOfficePage() {
     
     const allSelectedItems: SelectedDataItem[] = [];
     sections.forEach(section => {
-      section.options.forEach(option => {
-        if (selectedOptions.has(option.id)) {
-          allSelectedItems.push({
-            id: option.id,
-            name: option.name,
-            imageUrl: option.imageUrl,
-            description: option.description,
-            dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
-          });
+      section.options.forEach(displayOption => {
+        if (selectedOptions.has(displayOption.id)) {
+          let originalItem: BaseSelectionItem | undefined;
+          if (section.options === pageSpecificHomeOfficeLightingOptions) {
+            originalItem = baseHomeOfficeLightingOptions.find(opt => opt.id === displayOption.id);
+          } else {
+             originalItem = displayOption; // Placeholder for other sections
+             if (section.options === homeOfficeWallFinishOptions) originalItem = homeOfficeWallFinishOptions.find(opt => opt.id === displayOption.id);
+             else if (section.options === homeOfficeFlooringOptions) originalItem = homeOfficeFlooringOptions.find(opt => opt.id === displayOption.id);
+             else if (section.options === homeOfficeStorageOptions) originalItem = homeOfficeStorageOptions.find(opt => opt.id === displayOption.id);
+          }
+          
+          if (originalItem) {
+            allSelectedItems.push({
+              id: originalItem.id,
+              name: originalItem.name,
+              imageUrl: originalItem.imageUrl,
+              description: originalItem.description,
+              dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
+            });
+          }
         }
       });
     });
