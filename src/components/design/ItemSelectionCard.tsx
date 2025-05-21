@@ -32,7 +32,7 @@ const ItemSelectionCard = ({ item, isSelected, onSelect }: ItemSelectionCardProp
           alt={item.name.replace(/\\n/g, ' ')} // Replace newline for alt text
           width={400}
           height={200} 
-          className="aspect-[4/3] w-full object-cover"
+          className="aspect-[4/3] w-full object-contain" // Changed object-cover to object-contain
           data-ai-hint={item.dataAiHint || item.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')}
         />
         {isSelected && (
@@ -54,6 +54,3 @@ const ItemSelectionCard = ({ item, isSelected, onSelect }: ItemSelectionCardProp
 };
 
 export default ItemSelectionCard;
-
-
-
