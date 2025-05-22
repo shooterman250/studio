@@ -128,7 +128,7 @@ export default function BathroomPage() {
   const masterBathSubSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Master Bath: Style", options: pageSpecificDisplayBathroomStyleOptions, cols: 3, description: "Define the overall style for your master bathroom." },
     { title: "Master Bath: Bath Tub", options: bathroomMasterBathTubOptions, cols: 3, description: "Choose a bathtub type." },
-    { title: "Master Bath: Shower", options: bathroomMasterShowerOptions, cols: 3, description: "Select your preferred shower setup." },
+    { title: "Master Bath: Shower", options: bathroomMasterShowerOptions, cols: 3 },
     { title: "Master Bathroom: Sink (Double/Single)", options: pageSpecificDisplayMasterSinkOptions, cols: 3, description: "Choose Sink Style. Double or Single." },
     { title: "Master Bath: Toilet", options: bathroomToiletOptions, cols: 3 },
     { title: "Master Bath: Hardware Finish", options: pageSpecificDisplayHardwareFinishOptions, cols: 3, description: "Pick finishes for faucets, handles, etc." },
@@ -285,4 +285,3 @@ export default function BathroomPage() {
     </div>
   );
 }
-
