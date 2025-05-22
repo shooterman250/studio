@@ -79,6 +79,9 @@ export default function BathroomPage() {
     if (style.id === 'japandi') {
       imageUrl = 'https://media.discordapp.net/attachments/1374799696127721638/1375174292265894008/Japandi_Bathroom.png?ex=6830ba5c&is=682f68dc&hm=3366ac8995745f4a87966ff3bff9107591a5d80c3ab8c284554760ccf0d71cb9&=&format=webp&quality=lossless&width=998&height=998';
     }
+    if (style.id === 'mid-century') {
+      imageUrl = 'https://media.discordapp.net/attachments/1374799696127721638/1375174292979060756/Mid-Century_Bathroom.png?ex=6830ba5c&is=682f68dc&hm=d8efca3b34d67e3ef6c50a9c72d4e489ea354c425b60e8e6f831c0b6d210538c&=&format=webp&quality=lossless&width=998&height=998';
+    }
     return {
      ...style,
       name: name,
