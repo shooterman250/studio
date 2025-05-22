@@ -55,9 +55,14 @@ export default function BathroomPage() {
   };
 
   const pageSpecificDisplayBathroomStyleOptions: BaseSelectionItem[] = baseBathroomStyleOptions.map(style => {
+    let imageUrl = style.imageUrl;
+    if (style.id === 'biophilic') {
+      imageUrl = 'https://media.discordapp.net/attachments/1374799696127721638/1375174283067658260/Biophilic_Bathroom.png?ex=6830ba5a&is=682f68da&hm=8738860856a01e830d93ee034cfef2f989578500231f0c8944bb27a0372e42a8&=&format=webp&quality=lossless&width=998&height=998';
+    }
     return {
      ...style,
-      name: `${style.name} Bathroom` 
+      name: `${style.name} Bathroom`,
+      imageUrl: imageUrl,
     };
   });
 
@@ -177,6 +182,7 @@ export default function BathroomPage() {
         if (selectedOptions.has(displayOption.id)) {
           let originalItem: BaseSelectionItem | undefined;
 
+          // Find original item to save its canonical data (name, imageUrl)
           if (pageSpecificDisplayBathroomStyleOptions.some(opt => opt.id === displayOption.id)) {
             originalItem = baseBathroomStyleOptions.find(opt => opt.id === displayOption.id);
           } else if (pageSpecificDisplayMasterSinkOptions.some(opt => opt.id === displayOption.id)) {
@@ -191,6 +197,7 @@ export default function BathroomPage() {
             originalItem = baseBathroomStorageOptions.find(opt => opt.id === displayOption.id);
           }
           else { 
+            // For sections that use base options directly
             const baseArray = 
               section.options === bathroomMasterBathTubOptions ? bathroomMasterBathTubOptions :
               section.options === bathroomMasterShowerOptions ? bathroomMasterShowerOptions :
@@ -200,6 +207,7 @@ export default function BathroomPage() {
             if (baseArray) {
               originalItem = baseArray.find(opt => opt.id === displayOption.id);
             } else {
+                // Fallback if the option wasn't from a specifically handled array (should ideally not happen)
                 originalItem = displayOption; 
             }
           }
