@@ -76,7 +76,9 @@ export default function BathroomPage() {
     if (style.id === 'industrial') {
       imageUrl = 'https://media.discordapp.net/attachments/1374799696127721638/1375174291552866364/Industrial_Bathroom.png?ex=6830ba5c&is=682f68dc&hm=f521ace10c93514ff865d097335b5925822eeedf35c42b4df39f8f76f7a7295c&=&format=webp&quality=lossless&width=998&height=998';
     }
-    // Add other style-specific image overrides here if needed
+    if (style.id === 'japandi') {
+      imageUrl = 'https://media.discordapp.net/attachments/1374799696127721638/1375174292265894008/Japandi_Bathroom.png?ex=6830ba5c&is=682f68dc&hm=3366ac8995745f4a87966ff3bff9107591a5d80c3ab8c284554760ccf0d71cb9&=&format=webp&quality=lossless&width=998&height=998';
+    }
     return {
      ...style,
       name: name,
@@ -309,4 +311,3 @@ export default function BathroomPage() {
     </div>
   );
 }
-
