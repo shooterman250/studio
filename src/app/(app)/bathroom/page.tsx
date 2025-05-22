@@ -133,7 +133,7 @@ export default function BathroomPage() {
     { title: "Master Bath: Toilet", options: bathroomToiletOptions, cols: 3 },
     { title: "Master Bath: Hardware Finish", options: pageSpecificDisplayHardwareFinishOptions, cols: 3, description: "Pick finishes for faucets, handles, etc." },
     { title: "Master Bath: Storage", options: pageSpecificBathroomStorageOptions, cols: 3 },
-    { title: "Master Bath: Lighting", options: pageSpecificDisplayMasterLightingOptions, cols: 3, description: "Choose lighting fixtures." }, 
+    { title: "Master Bath: Lighting", options: pageSpecificDisplayMasterLightingOptions, cols: 3 }, 
   ];
 
   const halfBathSubSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
@@ -286,3 +286,5 @@ export default function BathroomPage() {
   );
 }
 
+
+    
