@@ -39,7 +39,7 @@ export const overallStyleOptions: OverallStyleOption[] = [
   { id: 'industrial', name: 'Industrial', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043012279472169/Industrial.png?ex=6828f974&is=6827a7f4&hm=859e40b9764e038ce8f952133d5575402a14c6e8032256008347beb6505515f6&=&format=webp&quality=lossless&width=380&height=380', description: 'Raw, edgy, with exposed elements.', dataAiHint: 'industrial interior' },
   { id: 'japandi', name: 'Japandi', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043012824862840/Japandi.png?ex=6828f974&is=6827a7f4&hm=9cc6abd531984c322c5d79d55b08dac05cb26cad49ba42bc85cb097c89d49bda&=&format=webp&quality=lossless&width=380&height=380', description: 'Japanese minimalism meets Scandinavian function.', dataAiHint: 'japandi interior' },
   { id: 'mid-century', name: 'Mid-Century Modern', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043013378642064/Mid-Century.png?ex=6828f974&is=6827a7f4&hm=0a441405db4f152d2d97e04618f88b99a882b03d7df6d7c0f2d8284239e82237&=&format=webp&quality=lossless&width=380&height=380', description: 'Retro, organic shapes, and functionality.', dataAiHint: 'midcentury modern interior' },
-  { id: 'modern', name: 'Modern', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043013986549760/Modern.png?ex=6828f974&is=6827a7f4&hm=0bf5bd709b8600477c543611e11dbc25d3e65ee2c44d91bb5a4f655869b01c37&=&format=webp&quality=lossless&width=380&height=380', description: 'Sleek, clean lines, and simplicity.', dataAiHint: 'modern interior' },
+  { id: 'modern', name: 'Modern', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043013986549760/Modern.png?ex=682b9c74&is=682a4af4&hm=18c4de9386ecccb1790abe2b7863368716ccabe3dad2739fea23d07430e1f89b&=&format=webp&quality=lossless&width=774&height=774', description: 'Sleek, clean lines, and simplicity.', dataAiHint: 'modern interior' },
   { id: 'traditional', name: 'Traditional', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043014427213985/Traditional.png?ex=6828f974&is=6827a7f4&hm=ded6dabe56a56d8076e54184c6534b7ca46cd4bd1c762db8a727b81ff2c8392f&=&format=webp&quality=lossless&width=380&height=380', description: 'Classic, timeless, and ornate.', dataAiHint: 'traditional interior' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -229,7 +229,7 @@ export const bathroomMasterSinkOptions: BathroomMasterSinkOption[] = [
     { id: 'bm-sink-dropin-d', name: 'Drop-In Sink (Double)', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374925715212075059/Double_Bathroom_Drop-In_Sinks.jpeg?ex=682fd2db&is=682e815b&hm=99908e77578c98c7460883aff2e37343ad6d8a130a8e419e8fe6cd186a1a66e6&=&format=webp&width=1024&height=940', type: 'double', dataAiHint: 'double drop-in sinks' },
     { id: 'bm-sink-dropin-s', name: 'Drop-In Sink (Single)', imageUrl: 'https://placehold.co/400x300.png', type: 'single', dataAiHint: 'drop in bathroom sink' },
     { id: 'bm-sink-pedestal-d', name: 'Pedestal Sink (Double)', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374925715891425310/Double_Bathroom_Pedestal_Sinks.png?ex=682fd2db&is=682e815b&hm=061b439e260cc2b99e5b77bfb44aea8d38bb612d9d48504a95421879efde1f43&=&format=webp&quality=lossless&width=1218&height=1218', type: 'double', dataAiHint: 'double pedestal bathroom' },
-    { id: 'bm-sink-pedestal-s', name: 'Pedestal Sink (Single)', imageUrl: 'https://placehold.co/400x300.png', type: 'single', dataAiHint: 'pedestal bathroom sink' },
+    { id: 'bm-sink-pedestal-s', name: 'Pedestal Sink (Single)', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375169925647306893/Bathroom_Pedestal_Sink.png?ex=6830b64b&is=682f64cb&hm=753f8566ab94224f7310f3f8146eb44c8838bda25ed1ec44345dfd454e625870&=&format=webp&quality=lossless&width=998&height=998', type: 'single', dataAiHint: 'pedestal bathroom sink' },
     { id: 'bm-sink-undermount-d', name: 'Undermount Sink (Double)', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374925716323565578/Double_Bathroom_Undermount_Sinks.png?ex=682fd2db&is=682e815b&hm=a44d57426538221793146d5ea79ebef82d39ceaadc19199a9b447feb774af856&=&format=webp&quality=lossless&width=1218&height=1218', type: 'double', dataAiHint: 'double undermount bathroom' },
     { id: 'bm-sink-undermount-s', name: 'Undermount Sink (Single)', imageUrl: 'https://placehold.co/400x300.png', type: 'single', dataAiHint: 'undermount bathroom sink' },
     { id: 'bm-sink-vessel-d', name: 'Vessel Sink (Double)', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374925716818366464/Double_Bathroom_Vessel_Sinks.png?ex=682fd2db&is=682e815b&hm=cab8c31db43b76dbc61e7b0077632b9b0b2e7a7df43dc1e9b734b91b8ad9afb6&=&format=webp&quality=lossless&width=1218&height=1218', type: 'double', dataAiHint: 'double vessel sink' },
@@ -271,7 +271,7 @@ export interface BathroomHalfSinkOption extends BaseSelectionItem {}
 export const bathroomHalfSinkOptions: BathroomHalfSinkOption[] = [
     { id: 'bh-sink-console', name: 'Console Sink', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'console sink half' },
     { id: 'bh-sink-dropin', name: 'Drop-In Sink', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'drop in sink half' },
-    { id: 'bh-sink-pedestal', name: 'Pedestal Sink', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'pedestal sink half' },
+    { id: 'bh-sink-pedestal', name: 'Pedestal Sink', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375169925647306893/Bathroom_Pedestal_Sink.png?ex=6830b64b&is=682f64cb&hm=753f8566ab94224f7310f3f8146eb44c8838bda25ed1ec44345dfd454e625870&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'pedestal sink half' },
     { id: 'bh-sink-undermount', name: 'Undermount Sink', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'undermount sink half' },
     { id: 'bh-sink-vessel', name: 'Vessel Sink', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375169926527975434/Bathroom_Vessel_Sink.png?ex=6830b64b&is=682f64cb&hm=1214b2ee0dade3fc7266cc4d46528f46deff43697c36f30ae531a96ff361fec1&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'vessel sink half' },
     { id: 'bh-sink-wallmount', name: 'Wall-Mount Sink', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375169926934958090/Bathroom_Wall-Mounted_Sink.png?ex=6830b64c&is=682f64cc&hm=5c7250cd7582bac748cba56f1bb8b387fc7d3c522ccec7ac91514e0bb9c944f5&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'wall mount sink half' },
@@ -353,6 +353,7 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
 
 
 
