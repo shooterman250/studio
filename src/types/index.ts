@@ -39,7 +39,7 @@ export const overallStyleOptions: OverallStyleOption[] = [
   { id: 'industrial', name: 'Industrial', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043012279472169/Industrial.png?ex=6828f974&is=6827a7f4&hm=859e40b9764e038ce8f952133d5575402a14c6e8032256008347beb6505515f6&=&format=webp&quality=lossless&width=380&height=380', description: 'Raw, edgy, with exposed elements.', dataAiHint: 'industrial interior' },
   { id: 'japandi', name: 'Japandi', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043012824862840/Japandi.png?ex=6828f974&is=6827a7f4&hm=9cc6abd531984c322c5d79d55b08dac05cb26cad49ba42bc85cb097c89d49bda&=&format=webp&quality=lossless&width=380&height=380', description: 'Japanese minimalism meets Scandinavian function.', dataAiHint: 'japandi interior' },
   { id: 'mid-century', name: 'Mid-Century Modern', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043013378642064/Mid-Century.png?ex=6828f974&is=6827a7f4&hm=0a441405db4f152d2d97e04618f88b99a882b03d7df6d7c0f2d8284239e82237&=&format=webp&quality=lossless&width=380&height=380', description: 'Retro, organic shapes, and functionality.', dataAiHint: 'midcentury modern interior' },
-  { id: 'modern', name: 'Modern', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370568945257676850/Overall_Style__Modern.png?ex=68288b0c&is=6827398c&hm=9742bf76aba34964dd4cb0f4042fd26110c9ce1f373c308fc9073503ac38ef3a&=&format=webp&quality=lossless&width=1308&height=1308', description: 'Sleek, clean lines, and simplicity.', dataAiHint: 'modern interior' },
+  { id: 'modern', name: 'Modern', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043013986549760/Modern.png?ex=6828f974&is=6827a7f4&hm=0bf5bd709b8600477c543611e11dbc25d3e65ee2c44d91bb5a4f655869b01c37&=&format=webp&quality=lossless&width=380&height=380', description: 'Sleek, clean lines, and simplicity.', dataAiHint: 'modern interior' },
   { id: 'traditional', name: 'Traditional', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043014427213985/Traditional.png?ex=6828f974&is=6827a7f4&hm=ded6dabe56a56d8076e54184c6534b7ca46cd4bd1c762db8a727b81ff2c8392f&=&format=webp&quality=lossless&width=380&height=380', description: 'Classic, timeless, and ornate.', dataAiHint: 'traditional interior' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -109,7 +109,7 @@ export const kitchenBacksplashOptions: KitchenBacksplashOption[] = [
     { id: 'k-backsplash-stone', name: 'Carved Stone', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374906764000100452/Carved_Stone_Kitchen_Backsplash.png?ex=682fc135&is=682e6fb5&hm=b782f324e58bb8c82c64c321cb5df312a80c2d7c55b366f9a674444cf3a5bee9&=&format=webp&quality=lossless&width=938&height=938', dataAiHint: 'carved stone backsplash' },
     { id: 'k-backsplash-glass', name: 'Glass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374914333145829496/Glass_Kitchen_Backsplash_.png?ex=682fc841&is=682e76c1&hm=e0826f3003a4f94a3c4b07895a183ec1a13f8ec1d0e0fb291e85f08006b5e95b&=&format=webp&quality=lossless&width=946&height=940', dataAiHint: 'glass kitchen backsplash' },
     { id: 'k-backsplash-matching', name: 'Matching Worktop/Countertop', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374906765275304079/Matching_Backsplash_Worktop_Kitchen_Countertop.png?ex=682fc135&is=682e6fb5&hm=fde66a860f38edb519a00d9ba9e4c864f276126048fa07ca26073dece6916788&=&format=webp&quality=lossless&width=938&height=938', dataAiHint: 'matching countertop backsplash' },
-    { id: 'k-backsplash-paint', name: 'Paint', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'painted kitchen backsplash' },
+    { id: 'k-backsplash-paint', name: 'Paint', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374906765803655178/Painted_Kitchen_Backsplash.png?ex=682fc135&is=682e6fb5&hm=03dc8626dfcf8b59c9bc7ecf4f607a326e90f561221cfa5eaef188b8c551a775&=&format=webp&quality=lossless&width=940&height=940', dataAiHint: 'painted kitchen backsplash' },
     { id: 'k-backsplash-stainless', name: 'Stainless Steel', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'stainless steel backsplash' },
     { id: 'k-backsplash-tiles', name: 'Tiles', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'kitchen tile backsplash' },
 ].sort((a, b) => a.name.localeCompare(b.name));
@@ -349,3 +349,4 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
