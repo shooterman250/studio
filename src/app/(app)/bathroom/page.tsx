@@ -67,6 +67,9 @@ export default function BathroomPage() {
     if (style.id === 'coastal') {
       imageUrl = 'https://media.discordapp.net/attachments/1374799696127721638/1375174289485201489/Coastal_Bathroom.png?ex=6830ba5c&is=682f68dc&hm=c8ef4f08ce412519260a63049c028d9c66b83e744e61124dbcc72b95ce7c1600&=&format=webp&quality=lossless&width=998&height=998';
     }
+    if (style.id === 'contemporary') {
+      imageUrl = 'https://media.discordapp.net/attachments/1374799696127721638/1375174290147774504/Contemporary_Bathroom.png?ex=6830ba5c&is=682f68dc&hm=842f663e5f1b0692598b64bce8da742e0f2d37b70339cbe9334358273fa7794f&=&format=webp&quality=lossless&width=998&height=998';
+    }
     // Add other style-specific image overrides here if needed
     return {
      ...style,
@@ -126,7 +129,7 @@ export default function BathroomPage() {
       return option;
     });
 
-  const filteredHalfBathLightingOptions = baseGeneralLightingOptions
+  const filteredHalfBathLightingOptions: BaseSelectionItem[] = baseGeneralLightingOptions
     .filter(option => option.id !== 'light-recessed-cylinder' && option.id !== 'light-concealed' && option.id !== 'light-niche') 
     .map(option => {
       if (option.id === 'light-chandelier') {
