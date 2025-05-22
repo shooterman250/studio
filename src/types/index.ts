@@ -86,7 +86,7 @@ export const kitchenApplianceOptions: KitchenApplianceOption[] = [
 
 export interface KitchenHardwareFinishOption extends BaseSelectionItem {}
 export const kitchenHardwareFinishOptions: KitchenHardwareFinishOption[] = [
-    { id: 'k-hardware-black', name: 'Black', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'black kitchen hardware' },
+    { id: 'k-hardware-black', name: 'Black', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187766496858162/Black_Hardware.png?ex=6830c6e9&is=682f7569&hm=036ef70db734ebfa23edf4dd215b3c6baa598203a58eb5490d473fc71360dd49&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'black kitchen hardware' },
     { id: 'k-hardware-bronze', name: 'Bronze/Brass', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'bronze kitchen hardware' },
     { id: 'k-hardware-chrome', name: 'Chrome/Nickel/Stainless Steel', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'chrome kitchen hardware' },
     { id: 'k-hardware-crystal', name: 'Crystal', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'crystal kitchen hardware' },
@@ -249,11 +249,11 @@ export const bathroomToiletOptions: BathroomToiletOption[] = [
 
 export interface BathroomHardwareFinishOption extends BaseSelectionItem {}
 export const bathroomHardwareFinishOptions: BathroomHardwareFinishOption[] = [
-  { id: 'bath-hardware-chrome', name: 'Chrome/Nickel/Stainless Steel', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'chrome bathroom hardware' },
-  { id: 'bath-hardware-gold', name: 'Gold', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'gold bathroom hardware' },
-  { id: 'bath-hardware-black', name: 'Black', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'black bathroom hardware' },
+  { id: 'bath-hardware-black', name: 'Black', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187766496858162/Black_Hardware.png?ex=6830c6e9&is=682f7569&hm=036ef70db734ebfa23edf4dd215b3c6baa598203a58eb5490d473fc71360dd49&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'black bathroom hardware' },
   { id: 'bath-hardware-bronze', name: 'Bronze/Brass', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'bronze bathroom hardware' },
+  { id: 'bath-hardware-chrome', name: 'Chrome/Nickel/Stainless Steel', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'chrome bathroom hardware' },
   { id: 'bath-hardware-crystal', name: 'Crystal or Glass', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'crystal bathroom hardware' },
+  { id: 'bath-hardware-gold', name: 'Gold', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'gold bathroom hardware' },
   { id: 'bath-hardware-handleless', name: 'Handleless/Flat', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'handleless bathroom' },
   { id: 'bath-hardware-multitone', name: 'Multi-Toned/Abstract', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'abstract bathroom hardware' },
 ].sort((a, b) => a.name.localeCompare(b.name));
@@ -263,6 +263,7 @@ export const bathroomStorageOptions: BathroomStorageOption[] = [
   { id: 'bath-store-builtinshelving', name: 'Built-In Shelving/Cabinets', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'bathroom built in shelving' },
   { id: 'bath-store-medicinecabinet', name: 'Medicine Cabinet Storage', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'medicine cabinet bathroom' },
   { id: 'bath-store-undersink', name: 'Under-Sink Storage', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'under sink storage bathroom' },
+  // { id: 'bath-store-niches', name: 'Niches', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'bathroom storage niche' }, // Removed
   { id: 'bath-store-customvanity', name: 'Custom Vanity', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'custom bathroom vanity' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -353,6 +354,7 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
 
 
 
