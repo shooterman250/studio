@@ -132,7 +132,7 @@ export default function BathroomPage() {
     { title: "Master Bathroom: Sink (Double/Single)", options: pageSpecificDisplayMasterSinkOptions, cols: 3, description: "Choose Sink Style. Double or Single." },
     { title: "Master Bath: Toilet", options: bathroomToiletOptions, cols: 3 },
     { title: "Master Bath: Hardware Finish", options: pageSpecificDisplayHardwareFinishOptions, cols: 3, description: "Pick finishes for faucets, handles, etc." },
-    { title: "Master Bath: Storage", options: pageSpecificBathroomStorageOptions, cols: 3, description: "Select storage solutions." },
+    { title: "Master Bath: Storage", options: pageSpecificBathroomStorageOptions, cols: 3 },
     { title: "Master Bath: Lighting", options: pageSpecificDisplayMasterLightingOptions, cols: 3, description: "Choose lighting fixtures." }, 
   ];
 
