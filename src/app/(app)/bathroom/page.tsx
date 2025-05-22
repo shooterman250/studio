@@ -130,7 +130,7 @@ export default function BathroomPage() {
     { title: "Master Bath: Bath Tub", options: bathroomMasterBathTubOptions, cols: 3, description: "Choose a bathtub type." },
     { title: "Master Bath: Shower", options: bathroomMasterShowerOptions, cols: 3, description: "Select your preferred shower setup." },
     { title: "Master Bathroom: Sink (Double/Single)", options: pageSpecificDisplayMasterSinkOptions, cols: 3, description: "Choose Sink Style. Double or Single." },
-    { title: "Master Bath: Toilet", options: bathroomToiletOptions, cols: 3, description: "Select a toilet type." },
+    { title: "Master Bath: Toilet", options: bathroomToiletOptions, cols: 3 },
     { title: "Master Bath: Hardware Finish", options: pageSpecificDisplayHardwareFinishOptions, cols: 3, description: "Pick finishes for faucets, handles, etc." },
     { title: "Master Bath: Storage", options: pageSpecificBathroomStorageOptions, cols: 3, description: "Select storage solutions." },
     { title: "Master Bath: Lighting", options: pageSpecificDisplayMasterLightingOptions, cols: 3, description: "Choose lighting fixtures." }, 
@@ -138,7 +138,7 @@ export default function BathroomPage() {
 
   const halfBathSubSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Half-Bath: Sink", options: pageSpecificDisplayBathroomHalfSinkOptions, cols: 3, description: "Select a sink for the powder room." },
-    { title: "Half-Bath: Toilet", options: bathroomToiletOptions, cols: 3, description: "Choose a toilet." }, 
+    { title: "Half-Bath: Toilet", options: bathroomToiletOptions, cols: 3 }, 
     { title: "Half-Bath: Hardware Finish", options: pageSpecificDisplayHardwareFinishOptions, cols: 3, description: "Select hardware finishes." }, 
     { title: "Half-Bath: Storage", options: pageSpecificBathroomStorageOptions, cols: 3, description: "Consider storage options." }, 
     { title: "Half-Bath: Lighting", options: filteredHalfBathLightingOptions, cols: 3, description: "Choose lighting." }, 
