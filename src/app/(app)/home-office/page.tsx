@@ -59,7 +59,7 @@ export default function HomeOfficePage() {
     { title: "Wall Finish", options: homeOfficeWallFinishOptions, cols: 3 },
     { title: "Flooring", options: homeOfficeFlooringOptions, cols: 3 },
     { title: "Lighting", options: pageSpecificHomeOfficeLightingOptions, cols: 3 },
-    { title: "Storage", description: "Choose storage solutions for organization.", options: homeOfficeStorageOptions, cols: 3 },
+    { title: "Storage", options: homeOfficeStorageOptions, cols: 3 },
   ];
 
   const handleSaveChanges = () => {
@@ -180,4 +180,3 @@ export default function HomeOfficePage() {
     </div>
   );
 }
-
