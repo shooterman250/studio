@@ -39,7 +39,7 @@ export const overallStyleOptions: OverallStyleOption[] = [
   { id: 'industrial', name: 'Industrial', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043012279472169/Industrial.png?ex=6828f974&is=6827a7f4&hm=859e40b9764e038ce8f952133d5575402a14c6e8032256008347beb6505515f6&=&format=webp&quality=lossless&width=380&height=380', description: 'Raw, edgy, with exposed elements.', dataAiHint: 'industrial interior' },
   { id: 'japandi', name: 'Japandi', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043012824862840/Japandi.png?ex=6828f974&is=6827a7f4&hm=9cc6abd531984c322c5d79d55b08dac05cb26cad49ba42bc85cb097c89d49bda&=&format=webp&quality=lossless&width=380&height=380', description: 'Japanese minimalism meets Scandinavian function.', dataAiHint: 'japandi interior' },
   { id: 'mid-century', name: 'Mid-Century Modern', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043013378642064/Mid-Century.png?ex=6828f974&is=6827a7f4&hm=0a441405db4f152d2d97e04618f88b99a882b03d7df6d7c0f2d8284239e82237&=&format=webp&quality=lossless&width=380&height=380', description: 'Retro, organic shapes, and functionality.', dataAiHint: 'midcentury modern interior' },
-  { id: 'modern', name: 'Modern', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043013986549760/Modern.png?ex=682b9c74&is=682a4af4&hm=18c4de9386ecccb1790abe2b7863368716ccabe3dad2739fea23d07430e1f89b&=&format=webp&quality=lossless&width=774&height=774', description: 'Sleek, clean lines, and simplicity.', dataAiHint: 'modern interior' },
+  { id: 'modern', name: 'Modern', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043013986549760/Modern.png?ex=682b9c74&is=682a4af4&hm=18c4de9386ecccb1790abe2b7863368716ccabe3dad2739fea23d07430e1f89b&=&format=webp&quality=lossless&width=380&height=380', description: 'Sleek, clean lines, and simplicity.', dataAiHint: 'modern interior' },
   { id: 'traditional', name: 'Traditional', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043014427213985/Traditional.png?ex=6828f974&is=6827a7f4&hm=ded6dabe56a56d8076e54184c6534b7ca46cd4bd1c762db8a727b81ff2c8392f&=&format=webp&quality=lossless&width=380&height=380', description: 'Classic, timeless, and ornate.', dataAiHint: 'traditional interior' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -89,7 +89,7 @@ export const kitchenHardwareFinishOptions: KitchenHardwareFinishOption[] = [
     { id: 'k-hardware-black', name: 'Black', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187766496858162/Black_Hardware.png?ex=6830c6e9&is=682f7569&hm=036ef70db734ebfa23edf4dd215b3c6baa598203a58eb5490d473fc71360dd49&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'black kitchen hardware' },
     { id: 'k-hardware-bronze', name: 'Bronze/Brass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187767390240918/Bronze_Hardware.png?ex=6830c6e9&is=682f7569&hm=6e046c430839ec1acd34281bcf40be04fcb90840d39c468ec79170c83494a50a&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'bronze kitchen hardware' },
     { id: 'k-hardware-chrome', name: 'Chrome/Nickel/Stainless Steel', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187769315557506/Silver_Chrome_Hardware.png?ex=6830c6e9&is=682f7569&hm=9688d3da1b442672a6cbb29e43a31253ccd92956790b15ec69279f8dc00def6b&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'chrome kitchen hardware' },
-    { id: 'k-hardware-crystal', name: 'Crystal', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'crystal kitchen hardware' },
+    { id: 'k-hardware-crystal', name: 'Crystal or Glass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375208011290644511/Crystal_or_Glass_Hardware.png?ex=6830d9c4&is=682f8844&hm=98a3ffbf2695d60af6547d34e0c0072fd1b7062a0495077402b0601a9e462576&=&format=webp&quality=lossless&width=996&height=996', dataAiHint: 'crystal kitchen hardware' },
     { id: 'k-hardware-gold', name: 'Gold', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187768883413152/Gold_Hardware.png?ex=6830c6e9&is=682f7569&hm=192577101916d3619cbdf5f81fb45e8646bc39c017a9818cdc9e8a1d34d6c06c&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'gold kitchen hardware' },
     { id: 'k-hardware-handleless', name: 'Handleless/Flat', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187768166191134/Flat_No_Hardware.png?ex=6830c6e9&is=682f7569&hm=69083a78904b5cfcbe5280e98a5acec792c6523b6f837a42348691c671d7a785&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'handleless kitchen' },
     { id: 'k-hardware-multitone', name: 'Multi-Tone/Abstract', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375203520168464495/Two-Toned_or_Abstract_.png?ex=6830d595&is=682f8415&hm=7baf63f581d3b51f43205bd775c7a18e4fe2e5ebe82b60abb2e0d043dd0615bc&=&format=webp&quality=lossless&width=996&height=996', dataAiHint: 'abstract hardware' },
@@ -252,10 +252,10 @@ export const bathroomHardwareFinishOptions: BathroomHardwareFinishOption[] = [
   { id: 'bath-hardware-black', name: 'Black', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187766496858162/Black_Hardware.png?ex=6830c6e9&is=682f7569&hm=036ef70db734ebfa23edf4dd215b3c6baa598203a58eb5490d473fc71360dd49&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'black bathroom hardware' },
   { id: 'bath-hardware-bronze', name: 'Bronze/Brass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187767390240918/Bronze_Hardware.png?ex=6830c6e9&is=682f7569&hm=6e046c430839ec1acd34281bcf40be04fcb90840d39c468ec79170c83494a50a&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'bronze bathroom hardware' },
   { id: 'bath-hardware-chrome', name: 'Chrome/Nickel/Stainless Steel', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187769315557506/Silver_Chrome_Hardware.png?ex=6830c6e9&is=682f7569&hm=9688d3da1b442672a6cbb29e43a31253ccd92956790b15ec69279f8dc00def6b&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'chrome bathroom hardware' },
-  { id: 'bath-hardware-crystal', name: 'Crystal or Glass', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'crystal bathroom hardware' },
+  { id: 'bath-hardware-crystal', name: 'Crystal or Glass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375208011290644511/Crystal_or_Glass_Hardware.png?ex=6830d9c4&is=682f8844&hm=98a3ffbf2695d60af6547d34e0c0072fd1b7062a0495077402b0601a9e462576&=&format=webp&quality=lossless&width=996&height=996', dataAiHint: 'crystal bathroom hardware' },
   { id: 'bath-hardware-gold', name: 'Gold', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187768883413152/Gold_Hardware.png?ex=6830c6e9&is=682f7569&hm=192577101916d3619cbdf5f81fb45e8646bc39c017a9818cdc9e8a1d34d6c06c&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'gold bathroom hardware' },
   { id: 'bath-hardware-handleless', name: 'Handleless/Flat', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187768166191134/Flat_No_Hardware.png?ex=6830c6e9&is=682f7569&hm=69083a78904b5cfcbe5280e98a5acec792c6523b6f837a42348691c671d7a785&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'handleless bathroom' },
-  { id: 'bath-hardware-multitone', name: 'Multi-Toned/Abstract', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375203520168464495/Two-Toned_or_Abstract_.png?ex=6830d595&is=682f8415&hm=7baf63f581d3b51f43205bd775c7a18e4fe2e5ebe82b60abb2e0d043dd0615bc&=&format=webp&quality=lossless&width=996&height=996', dataAiHint: 'abstract hardware' },
+  { id: 'bath-hardware-multitone', name: 'Multi-Tone/Abstract', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375203520168464495/Two-Toned_or_Abstract_.png?ex=6830d595&is=682f8415&hm=7baf63f581d3b51f43205bd775c7a18e4fe2e5ebe82b60abb2e0d043dd0615bc&=&format=webp&quality=lossless&width=996&height=996', dataAiHint: 'abstract hardware' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface BathroomStorageOption extends BaseSelectionItem {}
@@ -264,7 +264,7 @@ export const bathroomStorageOptions: BathroomStorageOption[] = [
   { id: 'bath-store-medicinecabinet', name: 'Medicine Cabinet Storage', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'medicine cabinet bathroom' },
   { id: 'bath-store-undersink', name: 'Under-Sink Storage', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'under sink storage bathroom' },
   { id: 'bath-store-customvanity', name: 'Custom Vanity', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'custom bathroom vanity' },
-].filter(option => option.id !== 'bath-store-customvanity'); // Removed Custom Vanity globally
+].filter(option => option.id !== 'bath-store-customvanity' && option.id !== 'bath-store-niches').sort((a,b) => a.name.localeCompare(b.name)); // Removed Custom Vanity globally
 
 // Bathroom (Half-Bath) Options
 export interface BathroomHalfSinkOption extends BaseSelectionItem {}
@@ -353,6 +353,7 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
 
 
 
