@@ -107,7 +107,7 @@ export const kitchenSinkTypeOptions: KitchenSinkTypeOption[] = [
 export interface KitchenBacksplashOption extends BaseSelectionItem {}
 export const kitchenBacksplashOptions: KitchenBacksplashOption[] = [
     { id: 'k-backsplash-stone', name: 'Carved Stone', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374906764000100452/Carved_Stone_Kitchen_Backsplash.png?ex=682fc135&is=682e6fb5&hm=b782f324e58bb8c82c64c321cb5df312a80c2d7c55b366f9a674444cf3a5bee9&=&format=webp&quality=lossless&width=938&height=938', dataAiHint: 'carved stone backsplash' },
-    { id: 'k-backsplash-glass', name: 'Glass', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'glass kitchen backsplash' },
+    { id: 'k-backsplash-glass', name: 'Glass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374906764562006027/Glass_Kitchen_Backsplash_.png?ex=682fc135&is=682e6fb5&hm=e1448e58c0f29f452bd0d1242294dbf6eb149742c2ac73621dd90b11936510b8&=&format=webp&quality=lossless&width=938&height=938', dataAiHint: 'glass kitchen backsplash' },
     { id: 'k-backsplash-matching', name: 'Matching Worktop/Countertop', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'matching countertop backsplash' },
     { id: 'k-backsplash-paint', name: 'Paint', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'painted kitchen backsplash' },
     { id: 'k-backsplash-stainless', name: 'Stainless Steel', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'stainless steel backsplash' },
@@ -263,7 +263,7 @@ export const bathroomStorageOptions: BathroomStorageOption[] = [
   { id: 'bath-store-builtinshelving', name: 'Built-In Shelving/Cabinets', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'bathroom built in shelving' },
   { id: 'bath-store-medicinecabinet', name: 'Medicine Cabinet Storage', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'medicine cabinet bathroom' },
   { id: 'bath-store-undersink', name: 'Under-Sink Storage', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'under sink storage bathroom' },
-  { id: 'bath-store-customvanity', name: 'Custom Vanity', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'custom bathroom vanity' },
+  // { id: 'bath-store-customvanity', name: 'Custom Vanity', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'custom bathroom vanity' }, // Removed as per previous request for display on Bathroom Page
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 // Bathroom (Half-Bath) Options
@@ -343,5 +343,6 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
 
 
