@@ -137,7 +137,7 @@ export default function BathroomPage() {
   ];
 
   const halfBathSubSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
-    { title: "Half-Bath: Sink", options: pageSpecificDisplayBathroomHalfSinkOptions, cols: 3, description: "Select a sink for the powder room." },
+    { title: "Half-Bath: Sink", options: pageSpecificDisplayBathroomHalfSinkOptions, cols: 3 },
     { title: "Half-Bath: Toilet", options: bathroomToiletOptions, cols: 3 }, 
     { title: "Half-Bath: Hardware Finish", options: pageSpecificDisplayHardwareFinishOptions, cols: 3, description: "Select hardware finishes." }, 
     { title: "Half-Bath: Storage", options: pageSpecificBathroomStorageOptions, cols: 3, description: "Consider storage options." }, 
@@ -285,6 +285,3 @@ export default function BathroomPage() {
     </div>
   );
 }
-
-
-    
