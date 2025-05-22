@@ -73,6 +73,9 @@ export default function BathroomPage() {
     if (style.id === 'country-farmhouse') {
       imageUrl = 'https://media.discordapp.net/attachments/1374799696127721638/1375174290797887669/Country___Farmhouse_Bathroom.png?ex=6830ba5c&is=682f68dc&hm=8db1f35156e4688bd46f3924caadf1e37b5fa1eb711c25da3d0b42499735996d&=&format=webp&quality=lossless&width=998&height=998';
     }
+    if (style.id === 'industrial') {
+      imageUrl = 'https://media.discordapp.net/attachments/1374799696127721638/1375174291552866364/Industrial_Bathroom.png?ex=6830ba5c&is=682f68dc&hm=f521ace10c93514ff865d097335b5925822eeedf35c42b4df39f8f76f7a7295c&=&format=webp&quality=lossless&width=998&height=998';
+    }
     // Add other style-specific image overrides here if needed
     return {
      ...style,
