@@ -70,9 +70,23 @@ export default function KitchenPage() {
     name: `${sinkType.name} Kitchen Sink`,
   }));
 
-  const pageSpecificDisplayApplianceOptions: BaseSelectionItem[] = baseKitchenApplianceOptions.filter(
+  const applianceOrder: string[] = [
+    'k-app-finish-stainless', 
+    'k-app-finish-black', 
+    'k-app-finish-white', 
+    'k-app-finish-color', 
+    'k-app-smart', 
+    'k-app-fingerprint'
+  ];
+  
+  const filteredBaseAppliances = baseKitchenApplianceOptions.filter(
     option => option.id !== 'k-app-freestanding' && option.id !== 'k-app-integrated'
   );
+
+  const pageSpecificDisplayApplianceOptions: BaseSelectionItem[] = applianceOrder
+    .map(id => filteredBaseAppliances.find(option => option.id === id))
+    .filter((option): option is BaseSelectionItem => option !== undefined);
+
 
   const pageSpecificLightingOptions: BaseSelectionItem[] = baseKitchenLightingOptions
     .filter(
@@ -131,16 +145,19 @@ export default function KitchenPage() {
         if (selectedOptions.has(displayOption.id)) {
           let originalItem: BaseSelectionItem | undefined;
 
+          // Find the original item from the base arrays to ensure original data is saved
           if (section.options === pageSpecificKitchenStyleOptions) {
             originalItem = baseOverallStyleOptions.find(opt => opt.id === displayOption.id);
           } else if (section.options === pageSpecificSinkTypeOptions) {
             originalItem = baseKitchenSinkTypeOptions.find(opt => opt.id === displayOption.id);
           } else if (section.options === pageSpecificDisplayApplianceOptions) {
+             // For appliances, we look in the baseKitchenApplianceOptions as pageSpecificDisplayApplianceOptions is filtered AND reordered
             originalItem = baseKitchenApplianceOptions.find(opt => opt.id === displayOption.id);
           } else if (section.options === pageSpecificLightingOptions) {
             originalItem = baseKitchenLightingOptions.find(opt => opt.id === displayOption.id);
           }
           else {
+            // For other sections that use their base options directly or are simple filters of base options
             const allBaseOptions = [ 
               ...kitchenCabinetOptions,
               ...kitchenWorktopOptions,
@@ -148,14 +165,14 @@ export default function KitchenPage() {
               ...kitchenBacksplashOptions,
               ...kitchenFlooringOptions, 
             ];
-            originalItem = allBaseOptions.find(opt => opt.id === displayOption.id) || displayOption; 
+            originalItem = allBaseOptions.find(opt => opt.id === displayOption.id) || displayOption; // Fallback to displayOption if not found in direct bases
           }
 
           if (originalItem) {
             allSelectedItems.push({
               id: originalItem.id,
-              name: originalItem.name, 
-              imageUrl: originalItem.imageUrl, 
+              name: originalItem.name, // Saves the original name
+              imageUrl: originalItem.imageUrl, // Saves the original imageUrl
               description: originalItem.description,
               dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
             });
@@ -230,9 +247,3 @@ export default function KitchenPage() {
     </div>
   );
 }
-    
-
-    
-
-    
-
