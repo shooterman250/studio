@@ -82,6 +82,9 @@ export default function BathroomPage() {
     if (style.id === 'mid-century') {
       imageUrl = 'https://media.discordapp.net/attachments/1374799696127721638/1375174292979060756/Mid-Century_Bathroom.png?ex=6830ba5c&is=682f68dc&hm=d8efca3b34d67e3ef6c50a9c72d4e489ea354c425b60e8e6f831c0b6d210538c&=&format=webp&quality=lossless&width=998&height=998';
     }
+    if (style.id === 'modern') {
+      imageUrl = 'https://media.discordapp.net/attachments/1374799696127721638/1375174293629042970/Modern_Bathroom.png?ex=6830ba5d&is=682f68dd&hm=961c2903be6bd92605598467e4ef93283ae1f87d3154840be15f7c6eb5930662&=&format=webp&quality=lossless&width=998&height=998';
+    }
     if (style.id === 'traditional') {
       imageUrl = 'https://media.discordapp.net/attachments/1374799696127721638/1375174294383886498/Traditional_Bathroom.png?ex=6830ba5d&is=682f68dd&hm=e877b858412bfec0b4eadeef9c206e23e6ee090567f5857d9f075539568a38e8&=&format=webp&quality=lossless&width=998&height=998';
     }
@@ -126,6 +129,12 @@ export default function BathroomPage() {
     let imageUrl = sink.imageUrl;
     if (sink.id === 'bh-sink-console') {
       imageUrl = newConsoleImageUrl;
+    }
+    if (sink.id === 'bh-sink-vessel') {
+      imageUrl = "https://media.discordapp.net/attachments/1374799696127721638/1375169926527975434/Bathroom_Vessel_Sink.png?ex=6830b64b&is=682f64cb&hm=1214b2ee0dade3fc7266cc4d46528f46deff43697c36f30ae531a96ff361fec1&=&format=webp&quality=lossless&width=998&height=998";
+    }
+    if (sink.id === 'bh-sink-wallmount') {
+      imageUrl = "https://media.discordapp.net/attachments/1374799696127721638/1375169926934958090/Bathroom_Wall-Mounted_Sink.png?ex=6830b64c&is=682f64cc&hm=5c7250cd7582bac748cba56f1bb8b387fc7d3c522ccec7ac91514e0bb9c944f5&=&format=webp&quality=lossless&width=998&height=998";
     }
     return {
       ...sink,
