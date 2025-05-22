@@ -5,14 +5,14 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
-    overallStyleOptions as baseOverallStyleOptions, 
+    overallStyleOptions as baseBathroomStyleOptions, 
     bathroomMasterBathTubOptions,
     bathroomMasterShowerOptions,
     bathroomMasterSinkOptions as baseBathroomMasterSinkOptions, 
     bathroomToiletOptions, 
     bathroomHardwareFinishOptions as baseBathroomHardwareFinishOptions, 
     bathroomStorageOptions as baseBathroomStorageOptions, 
-    generalLightingOptions as baseBathroomLightingOptions, 
+    generalLightingOptions as baseGeneralLightingOptions, 
     bathroomHalfSinkOptions as baseBathroomHalfSinkOptions, 
     type BaseSelectionItem
 } from "@/types";
@@ -54,7 +54,7 @@ export default function BathroomPage() {
     setHasSavedSinceLastChange(false);
   };
 
-  const pageSpecificDisplayBathroomStyleOptions: BaseSelectionItem[] = baseOverallStyleOptions.map(style => {
+  const pageSpecificDisplayBathroomStyleOptions: BaseSelectionItem[] = baseBathroomStyleOptions.map(style => {
     return {
      ...style,
       name: `${style.name} Bathroom` 
@@ -103,7 +103,7 @@ export default function BathroomPage() {
     };
   });
   
-  const pageSpecificDisplayMasterLightingOptions: BaseSelectionItem[] = baseBathroomLightingOptions
+  const pageSpecificDisplayMasterLightingOptions: BaseSelectionItem[] = baseGeneralLightingOptions
     .filter(option => option.id !== 'light-niche' && option.id !== 'light-recessed-cylinder' && option.id !== 'light-concealed') 
     .map(option => {
       if (option.id === 'light-chandelier') {
@@ -112,7 +112,7 @@ export default function BathroomPage() {
       return option;
     });
 
-  const filteredHalfBathLightingOptions = baseBathroomLightingOptions
+  const filteredHalfBathLightingOptions = baseGeneralLightingOptions
     .filter(option => option.id !== 'light-niche' && option.id !== 'light-recessed-cylinder' && option.id !== 'light-concealed') 
     .map(option => {
       if (option.id === 'light-chandelier') {
@@ -141,7 +141,7 @@ export default function BathroomPage() {
     { title: "Half-Bath: Toilet", options: bathroomToiletOptions, cols: 3 }, 
     { title: "Half-Bath: Hardware Finish", options: pageSpecificDisplayHardwareFinishOptions, cols: 3, description: "Select hardware finishes." }, 
     { title: "Half-Bath: Storage", options: pageSpecificBathroomStorageOptions, cols: 3, description: "Consider storage options." }, 
-    { title: "Half-Bath: Lighting", options: filteredHalfBathLightingOptions, cols: 3, description: "Choose lighting." }, 
+    { title: "Half-Bath: Lighting", options: filteredHalfBathLightingOptions, cols: 3 }, 
   ];
 
   const sections = [...masterBathSubSections, ...halfBathSubSections];
@@ -179,7 +179,7 @@ export default function BathroomPage() {
 
           // Determine which base array the displayOption originally came from
           if (pageSpecificDisplayBathroomStyleOptions.some(opt => opt.id === displayOption.id)) {
-            originalItem = baseOverallStyleOptions.find(opt => opt.id === displayOption.id);
+            originalItem = baseBathroomStyleOptions.find(opt => opt.id === displayOption.id);
           } else if (pageSpecificDisplayMasterSinkOptions.some(opt => opt.id === displayOption.id)) {
             originalItem = baseBathroomMasterSinkOptions.find(opt => opt.id === displayOption.id);
           } else if (pageSpecificDisplayHardwareFinishOptions.some(opt => opt.id === displayOption.id)) {
@@ -187,7 +187,7 @@ export default function BathroomPage() {
           } else if (pageSpecificDisplayBathroomHalfSinkOptions.some(opt => opt.id === displayOption.id)) {
             originalItem = baseBathroomHalfSinkOptions.find(opt => opt.id === displayOption.id);
           } else if (pageSpecificDisplayMasterLightingOptions.some(opt => opt.id === displayOption.id) || filteredHalfBathLightingOptions.some(opt => opt.id === displayOption.id)) { 
-            originalItem = baseBathroomLightingOptions.find(opt => opt.id === displayOption.id);
+            originalItem = baseGeneralLightingOptions.find(opt => opt.id === displayOption.id);
           } else if (pageSpecificBathroomStorageOptions.some(opt => opt.id === displayOption.id)){
             originalItem = baseBathroomStorageOptions.find(opt => opt.id === displayOption.id);
           }
@@ -285,3 +285,4 @@ export default function BathroomPage() {
     </div>
   );
 }
+
