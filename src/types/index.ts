@@ -230,7 +230,7 @@ export const bathroomMasterSinkOptions: BathroomMasterSinkOption[] = [
     { id: 'bm-sink-dropin-s', name: 'Drop-In Sink (Single)', imageUrl: 'https://placehold.co/400x300.png', type: 'single', dataAiHint: 'drop in bathroom sink' },
     { id: 'bm-sink-pedestal-d', name: 'Pedestal Sink (Double)', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374925715891425310/Double_Bathroom_Pedestal_Sinks.png?ex=682fd2db&is=682e815b&hm=061b439e260cc2b99e5b77bfb44aea8d38bb612d9d48504a95421879efde1f43&=&format=webp&quality=lossless&width=1218&height=1218', type: 'double', dataAiHint: 'double pedestal bathroom' },
     { id: 'bm-sink-pedestal-s', name: 'Pedestal Sink (Single)', imageUrl: 'https://placehold.co/400x300.png', type: 'single', dataAiHint: 'pedestal bathroom sink' },
-    { id: 'bm-sink-undermount-d', name: 'Undermount Sink (Double)', imageUrl: 'https://placehold.co/400x300.png', type: 'double', dataAiHint: 'double undermount sink' },
+    { id: 'bm-sink-undermount-d', name: 'Undermount Sink (Double)', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374925716323565578/Double_Bathroom_Undermount_Sinks.png?ex=682fd2db&is=682e815b&hm=a44d57426538221793146d5ea79ebef82d39ceaadc19199a9b447feb774af856&=&format=webp&quality=lossless&width=1218&height=1218', type: 'double', dataAiHint: 'double undermount bathroom' },
     { id: 'bm-sink-undermount-s', name: 'Undermount Sink (Single)', imageUrl: 'https://placehold.co/400x300.png', type: 'single', dataAiHint: 'undermount bathroom sink' },
     { id: 'bm-sink-vessel-d', name: 'Vessel Sink (Double)', imageUrl: 'https://placehold.co/400x300.png', type: 'double', dataAiHint: 'double vessel sink' },
     { id: 'bm-sink-vessel-s', name: 'Vessel Sink (Single)', imageUrl: 'https://placehold.co/400x300.png', type: 'single', dataAiHint: 'vessel bathroom sink' },
@@ -353,6 +353,7 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
 
 
 
