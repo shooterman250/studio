@@ -113,7 +113,7 @@ export default function BathroomPage() {
     });
 
   const filteredHalfBathLightingOptions = baseGeneralLightingOptions
-    .filter(option => option.id !== 'light-niche' && option.id !== 'light-recessed-cylinder' && option.id !== 'light-concealed') 
+    .filter(option => option.id !== 'light-recessed-cylinder' && option.id !== 'light-concealed') 
     .map(option => {
       if (option.id === 'light-chandelier') {
         return { ...option, name: "Chandelier(s) or\nStatement Fixtures" };
@@ -127,7 +127,7 @@ export default function BathroomPage() {
 
   const masterBathSubSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Master Bath: Style", options: pageSpecificDisplayBathroomStyleOptions, cols: 3, description: "Define the overall style for your master bathroom." },
-    { title: "Master Bath: Bath Tub", options: bathroomMasterBathTubOptions, cols: 3, description: "Choose a bathtub type." },
+    { title: "Master Bath: Bath Tub", options: bathroomMasterBathTubOptions, cols: 3 },
     { title: "Master Bath: Shower", options: bathroomMasterShowerOptions, cols: 3 },
     { title: "Master Bathroom: Sink (Double/Single)", options: pageSpecificDisplayMasterSinkOptions, cols: 3, description: "Choose Sink Style. Double or Single." },
     { title: "Master Bath: Toilet", options: bathroomToiletOptions, cols: 3 },
@@ -177,7 +177,6 @@ export default function BathroomPage() {
         if (selectedOptions.has(displayOption.id)) {
           let originalItem: BaseSelectionItem | undefined;
 
-          // Determine which base array the displayOption originally came from
           if (pageSpecificDisplayBathroomStyleOptions.some(opt => opt.id === displayOption.id)) {
             originalItem = baseBathroomStyleOptions.find(opt => opt.id === displayOption.id);
           } else if (pageSpecificDisplayMasterSinkOptions.some(opt => opt.id === displayOption.id)) {
@@ -201,7 +200,6 @@ export default function BathroomPage() {
             if (baseArray) {
               originalItem = baseArray.find(opt => opt.id === displayOption.id);
             } else {
-                // Fallback for options not in page-specific arrays (should ideally not happen if all handled)
                 originalItem = displayOption; 
             }
           }
