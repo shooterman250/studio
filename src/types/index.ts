@@ -92,7 +92,7 @@ export const kitchenHardwareFinishOptions: KitchenHardwareFinishOption[] = [
     { id: 'k-hardware-crystal', name: 'Crystal', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'crystal kitchen hardware' },
     { id: 'k-hardware-gold', name: 'Gold', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187768883413152/Gold_Hardware.png?ex=6830c6e9&is=682f7569&hm=192577101916d3619cbdf5f81fb45e8646bc39c017a9818cdc9e8a1d34d6c06c&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'gold kitchen hardware' },
     { id: 'k-hardware-handleless', name: 'Handleless/Flat', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187768166191134/Flat_No_Hardware.png?ex=6830c6e9&is=682f7569&hm=69083a78904b5cfcbe5280e98a5acec792c6523b6f837a42348691c671d7a785&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'handleless kitchen' },
-    { id: 'k-hardware-multitone', name: 'Multi-Tone/Abstract', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'abstract kitchen hardware' },
+    { id: 'k-hardware-multitone', name: 'Multi-Tone/Abstract', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375203520168464495/Two-Toned_or_Abstract_.png?ex=6830d595&is=682f8415&hm=7baf63f581d3b51f43205bd775c7a18e4fe2e5ebe82b60abb2e0d043dd0615bc&=&format=webp&quality=lossless&width=996&height=996', dataAiHint: 'abstract hardware' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface KitchenSinkTypeOption extends BaseSelectionItem {}
@@ -255,7 +255,7 @@ export const bathroomHardwareFinishOptions: BathroomHardwareFinishOption[] = [
   { id: 'bath-hardware-crystal', name: 'Crystal or Glass', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'crystal bathroom hardware' },
   { id: 'bath-hardware-gold', name: 'Gold', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187768883413152/Gold_Hardware.png?ex=6830c6e9&is=682f7569&hm=192577101916d3619cbdf5f81fb45e8646bc39c017a9818cdc9e8a1d34d6c06c&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'gold bathroom hardware' },
   { id: 'bath-hardware-handleless', name: 'Handleless/Flat', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187768166191134/Flat_No_Hardware.png?ex=6830c6e9&is=682f7569&hm=69083a78904b5cfcbe5280e98a5acec792c6523b6f837a42348691c671d7a785&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'handleless bathroom' },
-  { id: 'bath-hardware-multitone', name: 'Multi-Toned/Abstract', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'abstract bathroom hardware' },
+  { id: 'bath-hardware-multitone', name: 'Multi-Toned/Abstract', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375203520168464495/Two-Toned_or_Abstract_.png?ex=6830d595&is=682f8415&hm=7baf63f581d3b51f43205bd775c7a18e4fe2e5ebe82b60abb2e0d043dd0615bc&=&format=webp&quality=lossless&width=996&height=996', dataAiHint: 'abstract hardware' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface BathroomStorageOption extends BaseSelectionItem {}
@@ -264,7 +264,7 @@ export const bathroomStorageOptions: BathroomStorageOption[] = [
   { id: 'bath-store-medicinecabinet', name: 'Medicine Cabinet Storage', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'medicine cabinet bathroom' },
   { id: 'bath-store-undersink', name: 'Under-Sink Storage', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'under sink storage bathroom' },
   { id: 'bath-store-customvanity', name: 'Custom Vanity', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'custom bathroom vanity' },
-].sort((a, b) => a.name.localeCompare(b.name));
+].filter(option => option.id !== 'bath-store-customvanity'); // Removed Custom Vanity globally
 
 // Bathroom (Half-Bath) Options
 export interface BathroomHalfSinkOption extends BaseSelectionItem {}
@@ -353,6 +353,7 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
 
 
 
