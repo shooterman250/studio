@@ -224,7 +224,7 @@ export const bathroomMasterShowerOptions: BathroomMasterShowerOption[] = [
 
 export interface BathroomMasterSinkOption extends BaseSelectionItem { type?: 'single' | 'double'; }
 export const bathroomMasterSinkOptions: BathroomMasterSinkOption[] = [
-    { id: 'bm-sink-console-d', name: 'Console Sink (Double)', imageUrl: 'https://placehold.co/400x300.png', type: 'double', dataAiHint: 'double console sink' },
+    { id: 'bm-sink-console-d', name: 'Console Sink (Double)', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374925714746249216/Double_Bathroom_Console_Sinks.png?ex=682fd2db&is=682e815b&hm=852247cc02c17f20c21f0b0eb0fb4c39f3267018205a9b32dd2605a86fbd5174&=&format=webp&quality=lossless&width=1218&height=1218', type: 'double', dataAiHint: 'double console bathroom' },
     { id: 'bm-sink-console-s', name: 'Console Sink (Single)', imageUrl: 'https://placehold.co/400x300.png', type: 'single', dataAiHint: 'console bathroom sink' },
     { id: 'bm-sink-dropin-d', name: 'Drop-In Sink (Double)', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374925715212075059/Double_Bathroom_Drop-In_Sinks.jpeg?ex=682fd2db&is=682e815b&hm=99908e77578c98c7460883aff2e37343ad6d8a130a8e419e8fe6cd186a1a66e6&=&format=webp&width=1024&height=940', type: 'double', dataAiHint: 'double drop-in sinks' },
     { id: 'bm-sink-dropin-s', name: 'Drop-In Sink (Single)', imageUrl: 'https://placehold.co/400x300.png', type: 'single', dataAiHint: 'drop in bathroom sink' },
@@ -353,4 +353,5 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
 
