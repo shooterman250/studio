@@ -110,7 +110,7 @@ export const kitchenBacksplashOptions: KitchenBacksplashOption[] = [
     { id: 'k-backsplash-glass', name: 'Glass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374914333145829496/Glass_Kitchen_Backsplash_.png?ex=682fc841&is=682e76c1&hm=e0826f3003a4f94a3c4b07895a183ec1a13f8ec1d0e0fb291e85f08006b5e95b&=&format=webp&quality=lossless&width=946&height=940', dataAiHint: 'glass kitchen backsplash' },
     { id: 'k-backsplash-matching', name: 'Matching Worktop/Countertop', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374906765275304079/Matching_Backsplash_Worktop_Kitchen_Countertop.png?ex=682fc135&is=682e6fb5&hm=fde66a860f38edb519a00d9ba9e4c864f276126048fa07ca26073dece6916788&=&format=webp&quality=lossless&width=938&height=938', dataAiHint: 'matching countertop backsplash' },
     { id: 'k-backsplash-paint', name: 'Paint', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374906765803655178/Painted_Kitchen_Backsplash.png?ex=682fc135&is=682e6fb5&hm=03dc8626dfcf8b59c9bc7ecf4f607a326e90f561221cfa5eaef188b8c551a775&=&format=webp&quality=lossless&width=940&height=940', dataAiHint: 'painted kitchen backsplash' },
-    { id: 'k-backsplash-stainless', name: 'Stainless Steel', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'stainless steel backsplash' },
+    { id: 'k-backsplash-stainless', name: 'Stainless Steel', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374906766176817202/Stainless_Steel_Kitchen_Backsplash.png?ex=682fc135&is=682e6fb5&hm=41e7cb1dee698f582f6263ddc1500eb6ef053ed4ec9f649d6ab6ce3b7e35d722&=&format=webp&quality=lossless&width=940&height=940', dataAiHint: 'stainless steel backsplash' },
     { id: 'k-backsplash-tiles', name: 'Tiles', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'kitchen tile backsplash' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -263,7 +263,7 @@ export const bathroomStorageOptions: BathroomStorageOption[] = [
   { id: 'bath-store-builtinshelving', name: 'Built-In Shelving/Cabinets', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'bathroom built in shelving' },
   { id: 'bath-store-medicinecabinet', name: 'Medicine Cabinet Storage', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'medicine cabinet bathroom' },
   { id: 'bath-store-undersink', name: 'Under-Sink Storage', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'under sink storage bathroom' },
-  { id: 'bath-store-customvanity', name: 'Custom Vanity', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'custom bathroom vanity' },
+  // { id: 'bath-store-customvanity', name: 'Custom Vanity', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'custom bathroom vanity' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 // Bathroom (Half-Bath) Options
@@ -350,3 +350,6 @@ export const finishOptions: FinishOption[] = [
 
     
 
+
+
+    
