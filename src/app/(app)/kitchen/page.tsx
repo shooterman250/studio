@@ -91,7 +91,7 @@ export default function KitchenPage() {
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Kitchen Style", description: "Select the overall style for your kitchen.", options: pageSpecificKitchenStyleOptions, cols: 3 },
     { title: "Cabinets", options: kitchenCabinetOptions, cols: 3 },
-    { title: "Worktop/Countertop", description: "Select materials for your countertops.", options: kitchenWorktopOptions, cols: 3 },
+    { title: "Worktop/Countertop", options: kitchenWorktopOptions, cols: 3 },
     { title: "Appliance Finish & Features", description: "Select appliance features and finishes.", options: pageSpecificDisplayApplianceOptions, cols: 3 },
     { title: "Appliance/Hardware Finish", options: kitchenHardwareFinishOptions, cols: 3 },
     { title: "Sink Type", description: "Choose your sink configuration.", options: pageSpecificSinkTypeOptions, cols: 3 }, 
