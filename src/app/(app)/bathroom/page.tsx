@@ -64,6 +64,9 @@ export default function BathroomPage() {
     if (style.id === 'bohemian') {
       imageUrl = 'https://media.discordapp.net/attachments/1374799696127721638/1375174288683962480/Bohemian_Bathroom.png?ex=6830ba5b&is=682f68db&hm=1485af386e07c083719d562827ac835211280bd764d2affb9866dee280b76fca&=&format=webp&quality=lossless&width=998&height=998';
     }
+    if (style.id === 'coastal') {
+      imageUrl = 'https://media.discordapp.net/attachments/1374799696127721638/1375174289485201489/Coastal_Bathroom.png?ex=6830ba5c&is=682f68dc&hm=c8ef4f08ce412519260a63049c028d9c66b83e744e61124dbcc72b95ce7c1600&=&format=webp&quality=lossless&width=998&height=998';
+    }
     // Add other style-specific image overrides here if needed
     return {
      ...style,
