@@ -95,7 +95,7 @@ export default function KitchenPage() {
     { title: "Appliance Finish & Features", description: "Select appliance features and finishes.", options: pageSpecificDisplayApplianceOptions, cols: 3 },
     { title: "Appliance/Hardware Finish", options: kitchenHardwareFinishOptions, cols: 3 },
     { title: "Sink Type", description: "Choose your sink configuration.", options: pageSpecificSinkTypeOptions, cols: 3 }, 
-    { title: "Backsplash", description: "Select backsplash materials.", options: kitchenBacksplashOptions, cols: 3 },
+    { title: "Backsplash", options: kitchenBacksplashOptions, cols: 3 },
     { title: "Flooring", options: kitchenFlooringOptions, cols: 3 },
     { title: "Lighting", options: pageSpecificLightingOptions, cols: 3 },
   ];
