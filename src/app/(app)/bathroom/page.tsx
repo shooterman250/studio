@@ -70,6 +70,9 @@ export default function BathroomPage() {
     if (style.id === 'contemporary') {
       imageUrl = 'https://media.discordapp.net/attachments/1374799696127721638/1375174290147774504/Contemporary_Bathroom.png?ex=6830ba5c&is=682f68dc&hm=842f663e5f1b0692598b64bce8da742e0f2d37b70339cbe9334358273fa7794f&=&format=webp&quality=lossless&width=998&height=998';
     }
+    if (style.id === 'country-farmhouse') {
+      imageUrl = 'https://media.discordapp.net/attachments/1374799696127721638/1375174290797887669/Country___Farmhouse_Bathroom.png?ex=6830ba5c&is=682f68dc&hm=8db1f35156e4688bd46f3924caadf1e37b5fa1eb711c25da3d0b42499735996d&=&format=webp&quality=lossless&width=998&height=998';
+    }
     // Add other style-specific image overrides here if needed
     return {
      ...style,
@@ -121,7 +124,7 @@ export default function BathroomPage() {
   });
   
   const pageSpecificDisplayMasterLightingOptions: BaseSelectionItem[] = baseGeneralLightingOptions
-    .filter(option => option.id !== 'light-niche' && option.id !== 'light-recessed-cylinder' && option.id !== 'light-concealed') 
+    .filter(option => option.id !== 'light-recessed-cylinder' && option.id !== 'light-concealed') 
     .map(option => {
       if (option.id === 'light-chandelier') {
         return { ...option, name: "Chandelier(s) or\nStatement Fixtures" };
@@ -130,7 +133,7 @@ export default function BathroomPage() {
     });
 
   const filteredHalfBathLightingOptions: BaseSelectionItem[] = baseGeneralLightingOptions
-    .filter(option => option.id !== 'light-recessed-cylinder' && option.id !== 'light-concealed' && option.id !== 'light-niche') 
+    .filter(option => option.id !== 'light-recessed-cylinder' && option.id !== 'light-concealed') 
     .map(option => {
       if (option.id === 'light-chandelier') {
         return { ...option, name: "Chandelier(s) or\nStatement Fixtures" };
