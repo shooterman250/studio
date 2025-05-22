@@ -39,7 +39,7 @@ export const overallStyleOptions: OverallStyleOption[] = [
   { id: 'industrial', name: 'Industrial', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043012279472169/Industrial.png?ex=6828f974&is=6827a7f4&hm=859e40b9764e038ce8f952133d5575402a14c6e8032256008347beb6505515f6&=&format=webp&quality=lossless&width=380&height=380', description: 'Raw, edgy, with exposed elements.', dataAiHint: 'industrial interior' },
   { id: 'japandi', name: 'Japandi', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043012824862840/Japandi.png?ex=6828f974&is=6827a7f4&hm=9cc6abd531984c322c5d79d55b08dac05cb26cad49ba42bc85cb097c89d49bda&=&format=webp&quality=lossless&width=380&height=380', description: 'Japanese minimalism meets Scandinavian function.', dataAiHint: 'japandi interior' },
   { id: 'mid-century', name: 'Mid-Century Modern', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043013378642064/Mid-Century.png?ex=6828f974&is=6827a7f4&hm=0a441405db4f152d2d97e04618f88b99a882b03d7df6d7c0f2d8284239e82237&=&format=webp&quality=lossless&width=380&height=380', description: 'Retro, organic shapes, and functionality.', dataAiHint: 'midcentury modern interior' },
-  { id: 'modern', name: 'Modern', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043013986549760/Modern.png?ex=6828f974&is=6827a7f4&hm=0bf5bd709b8600477c543611e11dbc25d3e65ee2c44d91bb5a4f655869b01c37&=&format=webp&quality=lossless&width=380&height=380', description: 'Sleek, clean lines, and simplicity.', dataAiHint: 'modern interior' },
+  { id: 'modern', name: 'Modern', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043013986549760/Modern.png?ex=682b9c74&is=682a4af4&hm=18c4de9386ecccb1790abe2b7863368716ccabe3dad2739fea23d07430e1f89b&=&format=webp&quality=lossless&width=774&height=774', description: 'Sleek, clean lines, and simplicity.', dataAiHint: 'modern interior' },
   { id: 'traditional', name: 'Traditional', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043014427213985/Traditional.png?ex=6828f974&is=6827a7f4&hm=ded6dabe56a56d8076e54184c6534b7ca46cd4bd1c762db8a727b81ff2c8392f&=&format=webp&quality=lossless&width=380&height=380', description: 'Classic, timeless, and ornate.', dataAiHint: 'traditional interior' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -106,7 +106,7 @@ export const kitchenSinkTypeOptions: KitchenSinkTypeOption[] = [
 
 export interface KitchenBacksplashOption extends BaseSelectionItem {}
 export const kitchenBacksplashOptions: KitchenBacksplashOption[] = [
-    { id: 'k-backsplash-stone', name: 'Carved Stone', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'carved stone backsplash' },
+    { id: 'k-backsplash-stone', name: 'Carved Stone', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374906764000100452/Carved_Stone_Kitchen_Backsplash.png?ex=682fc135&is=682e6fb5&hm=b782f324e58bb8c82c64c321cb5df312a80c2d7c55b366f9a674444cf3a5bee9&=&format=webp&quality=lossless&width=938&height=938', dataAiHint: 'carved stone backsplash' },
     { id: 'k-backsplash-glass', name: 'Glass', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'glass kitchen backsplash' },
     { id: 'k-backsplash-matching', name: 'Matching Worktop/Countertop', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'matching countertop backsplash' },
     { id: 'k-backsplash-paint', name: 'Paint', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'painted kitchen backsplash' },
@@ -343,4 +343,5 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
 
