@@ -234,7 +234,7 @@ export const bathroomMasterSinkOptions: BathroomMasterSinkOption[] = [
     { id: 'bm-sink-undermount-s', name: 'Undermount Sink (Single)', imageUrl: 'https://placehold.co/400x300.png', type: 'single', dataAiHint: 'undermount bathroom sink' },
     { id: 'bm-sink-vessel-d', name: 'Vessel Sink (Double)', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374925716818366464/Double_Bathroom_Vessel_Sinks.png?ex=682fd2db&is=682e815b&hm=cab8c31db43b76dbc61e7b0077632b9b0b2e7a7df43dc1e9b734b91b8ad9afb6&=&format=webp&quality=lossless&width=1218&height=1218', type: 'double', dataAiHint: 'double vessel sink' },
     { id: 'bm-sink-vessel-s', name: 'Vessel Sink (Single)', imageUrl: 'https://placehold.co/400x300.png', type: 'single', dataAiHint: 'vessel bathroom sink' },
-    { id: 'bm-sink-wallmount-d', name: 'Wall-Mount Sink (Double)', imageUrl: 'https://placehold.co/400x300.png', type: 'double', dataAiHint: 'double wall mount sink' },
+    { id: 'bm-sink-wallmount-d', name: 'Wall-Mount Sink (Double)', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374925717267288084/Double_Bathroom_Wall-Mounted_Sinks.png?ex=682fd2db&is=682e815b&hm=0b5bb6cab5717fbed8c8c9121877f32e65f0f15cea5c3eedfd87f53f390f7fab&=&format=webp&quality=lossless&width=1218&height=1218', type: 'double', dataAiHint: 'double wall mount sink' },
     { id: 'bm-sink-wallmount-s', name: 'Wall-Mount Sink (Single)', imageUrl: 'https://placehold.co/400x300.png', type: 'single', dataAiHint: 'wall mount bathroom sink' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -353,6 +353,7 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
 
 
 
