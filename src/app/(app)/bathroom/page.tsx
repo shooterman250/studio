@@ -25,6 +25,7 @@ import { ArrowRight } from "lucide-react";
 
 const PAGE_STAGE_KEY: DesignStageKey = "bathroom";
 const newConsoleImageUrl = "https://media.discordapp.net/attachments/1374539386368167948/1374541051578024126/Console.png?ex=682e6c9c&is=682d1b1c&hm=9d427df1e7f3690029dd359522e2359d172c7fa8603e20f8cc5b32b1568523f5&=&format=webp&quality=lossless&width=1242&height=1242";
+const newChandelierImageUrl = "https://media.discordapp.net/attachments/1374799696127721638/1375493814978084996/Bathroom_Chandelier.png?ex=6831e3f0&is=68309270&hm=1448fa9f48ca6a3767e55ed20bf142dd54e4f11a90762e6a6bd716ea3bbe67cf&=&format=webp&quality=lossless&width=998&height=998";
 
 export default function BathroomPage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
@@ -146,19 +147,25 @@ export default function BathroomPage() {
   const pageSpecificDisplayMasterLightingOptions: BaseSelectionItem[] = baseGeneralLightingOptions
     .filter(option => option.id !== 'light-recessed-cylinder' && option.id !== 'light-concealed' && option.id !== 'light-niche') 
     .map(option => {
+      let imageUrl = option.imageUrl;
+      let name = option.name;
       if (option.id === 'light-chandelier') {
-        return { ...option, name: "Chandelier(s) or\nStatement Fixtures" };
+        name = "Chandelier(s) or\nStatement Fixtures";
+        imageUrl = newChandelierImageUrl;
       }
-      return option;
+      return { ...option, name, imageUrl };
     });
 
   const filteredHalfBathLightingOptions: BaseSelectionItem[] = baseGeneralLightingOptions
     .filter(option => option.id !== 'light-recessed-cylinder' && option.id !== 'light-concealed' && option.id !== 'light-niche') 
     .map(option => {
+      let imageUrl = option.imageUrl;
+      let name = option.name;
       if (option.id === 'light-chandelier') {
-        return { ...option, name: "Chandelier(s) or\nStatement Fixtures" };
+        name = "Chandelier(s) or\nStatement Fixtures";
+        imageUrl = newChandelierImageUrl;
       }
-      return option;
+      return { ...option, name, imageUrl };
     });
   
   const pageSpecificBathroomStorageOptions: BaseSelectionItem[] = baseBathroomStorageOptions.filter(
