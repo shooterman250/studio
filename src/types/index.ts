@@ -31,7 +31,7 @@ export interface BaseSelectionItem {
 // Overall Style
 export interface OverallStyleOption extends BaseSelectionItem {}
 export const overallStyleOptions: OverallStyleOption[] = [
-  { id: 'biophilic', name: 'Biophilic', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043155422679210/Biophilic.png?ex=682b9c96&is=682a4b16&hm=70d9f3993cc847e4a298610610118d7f6f038cb8e9160a96fb837aee964a622d&=&format=webp&quality=lossless&width=774&height=774', description: 'Nature-inspired, with natural elements.', dataAiHint: 'biophilic design interior' },
+  { id: 'biophilic', name: 'Biophilic', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=682b3455&is=6829e2d5&hm=d25337aa613c5b72296fbfd9070e35e2f7f5ab0d14f24869777d3f9d397f7dca&=&format=webp&quality=lossless&width=774&height=774', description: 'Nature-inspired, with natural elements.', dataAiHint: 'biophilic design interior' },
   { id: 'bohemian', name: 'Bohemian', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043156102152344/Bohemian.png?ex=6828f996&is=6827a816&hm=bac9a4dbf1a4fe7714c124a9f57e761114e2841477368caf206177230174599e&=&format=webp&quality=lossless&width=380&height=380', description: 'Eclectic, colorful, and free-spirited.', dataAiHint: 'bohemian interior' },
   { id: 'coastal', name: 'Coastal', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043156815446198/Coastal.png?ex=6828f996&is=6827a816&hm=eec376ebe01eac625acfc72b6d96228df4bb3705c85a5c3336ae7a708c702dd5&=&format=webp&quality=lossless&width=380&height=380', description: 'Light, airy, and beach-inspired.', dataAiHint: 'coastal interior' },
   { id: 'contemporary', name: 'Contemporary', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043157452984470/Contemporary.png?ex=6828f996&is=6827a816&hm=79ba96bcfb75a6b1b778edbea778fc72b77452a6bfa86817e19a8b6edde85453&=&format=webp&quality=lossless&width=380&height=380', description: 'Current, fluid, and ever-evolving.', dataAiHint: 'contemporary interior' },
@@ -39,7 +39,7 @@ export const overallStyleOptions: OverallStyleOption[] = [
   { id: 'industrial', name: 'Industrial', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043012279472169/Industrial.png?ex=6828f974&is=6827a7f4&hm=859e40b9764e038ce8f952133d5575402a14c6e8032256008347beb6505515f6&=&format=webp&quality=lossless&width=380&height=380', description: 'Raw, edgy, with exposed elements.', dataAiHint: 'industrial interior' },
   { id: 'japandi', name: 'Japandi', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043012824862840/Japandi.png?ex=6828f974&is=6827a7f4&hm=9cc6abd531984c322c5d79d55b08dac05cb26cad49ba42bc85cb097c89d49bda&=&format=webp&quality=lossless&width=380&height=380', description: 'Japanese minimalism meets Scandinavian function.', dataAiHint: 'japandi interior' },
   { id: 'mid-century', name: 'Mid-Century Modern', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043013378642064/Mid-Century.png?ex=6828f974&is=6827a7f4&hm=0a441405db4f152d2d97e04618f88b99a882b03d7df6d7c0f2d8284239e82237&=&format=webp&quality=lossless&width=380&height=380', description: 'Retro, organic shapes, and functionality.', dataAiHint: 'midcentury modern interior' },
-  { id: 'modern', name: 'Modern', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043013986549760/Modern.png?ex=682b9c74&is=682a4af4&hm=18c4de9386ecccb1790abe2b7863368716ccabe3dad2739fea23d07430e1f89b&=&format=webp&quality=lossless&width=380&height=380', description: 'Sleek, clean lines, and simplicity.', dataAiHint: 'modern interior' },
+  { id: 'modern', name: 'Modern', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043013986549760/Modern.png?ex=682b9c74&is=682a4af4&hm=18c4de9386ecccb1790abe2b7863368716ccabe3dad2739fea23d07430e1f89b&=&format=webp&quality=lossless&width=774&height=774', description: 'Sleek, clean lines, and simplicity.', dataAiHint: 'modern interior' },
   { id: 'traditional', name: 'Traditional', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043014427213985/Traditional.png?ex=6828f974&is=6827a7f4&hm=ded6dabe56a56d8076e54184c6534b7ca46cd4bd1c762db8a727b81ff2c8392f&=&format=webp&quality=lossless&width=380&height=380', description: 'Classic, timeless, and ornate.', dataAiHint: 'traditional interior' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -132,7 +132,7 @@ export const generalLightingOptions: GeneralLightingOption[] = [
     { id: 'light-niche', name: 'Niche/Picture Lighting', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'niche picture lighting' },
     { id: 'light-pendant', name: 'Pendant(s)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'pendant lighting room' },
     { id: 'light-recessed-cylinder', name: 'Recessed Cylinder', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'recessed cylinder lighting' },
-    { id: 'light-recessed-flush', name: 'Recessed Flush', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373806275061616760/Recessed_Flush.jpg?ex=682bc04c&is=682a6ecc&hm=0c36da07e211067d4c66f7569f1da9f3c4d4e6a8aa1c476e1c8ee38b94634e38&=&format=webp&width=713&height=774', dataAiHint: 'recessed flush lighting' },
+    { id: 'light-recessed-flush', name: 'Recessed Flush', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375214642388795585/Recessed_Flush_.png?ex=683188b0&is=68303730&hm=63668eabad9d8b8948155ecb714810b1bb97c7e9f22042bb61fdea7a891c118d&=&format=webp&quality=lossless&width=996&height=996', dataAiHint: 'recessed flush lighting' },
     { id: 'light-wallsconce', name: 'Wall Sconce(s)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'wall sconce lighting' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -353,6 +353,7 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
 
 
 
