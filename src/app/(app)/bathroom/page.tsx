@@ -26,6 +26,7 @@ import { ArrowRight } from "lucide-react";
 const PAGE_STAGE_KEY: DesignStageKey = "bathroom";
 const newConsoleImageUrl = "https://media.discordapp.net/attachments/1374539386368167948/1374541051578024126/Console.png?ex=682e6c9c&is=682d1b1c&hm=9d427df1e7f3690029dd359522e2359d172c7fa8603e20f8cc5b32b1568523f5&=&format=webp&quality=lossless&width=1242&height=1242";
 const newChandelierImageUrl = "https://media.discordapp.net/attachments/1374799696127721638/1375493814978084996/Bathroom_Chandelier.png?ex=6831e3f0&is=68309270&hm=1448fa9f48ca6a3767e55ed20bf142dd54e4f11a90762e6a6bd716ea3bbe67cf&=&format=webp&quality=lossless&width=998&height=998";
+const newPendantImageUrl = "https://media.discordapp.net/attachments/1374799696127721638/1375493815409971261/Bathroom_Pendant.png?ex=6831e3f1&is=68309271&hm=cc0dad3a78229a8b3fde0be467e0350b1fb76d0e6e8b1c0e072b8e39381a4cdc&=&format=webp&quality=lossless&width=998&height=998";
 
 export default function BathroomPage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
@@ -153,6 +154,9 @@ export default function BathroomPage() {
         name = "Chandelier(s) or\nStatement Fixtures";
         imageUrl = newChandelierImageUrl;
       }
+      if (option.id === 'light-pendant') {
+        imageUrl = newPendantImageUrl;
+      }
       return { ...option, name, imageUrl };
     });
 
@@ -164,6 +168,9 @@ export default function BathroomPage() {
       if (option.id === 'light-chandelier') {
         name = "Chandelier(s) or\nStatement Fixtures";
         imageUrl = newChandelierImageUrl;
+      }
+      if (option.id === 'light-pendant') {
+        imageUrl = newPendantImageUrl;
       }
       return { ...option, name, imageUrl };
     });
@@ -188,7 +195,7 @@ export default function BathroomPage() {
     { title: "Half-Bath: Toilet", options: bathroomToiletOptions, cols: 3 }, 
     { title: "Half-Bath: Hardware Finish", options: pageSpecificDisplayHardwareFinishOptions, cols: 3, description: "Select hardware finishes." }, 
     { title: "Half-Bath: Storage", options: pageSpecificBathroomStorageOptions, cols: 3, description: "Consider storage options." }, 
-    { title: "Half-Bath: Lighting", options: filteredHalfBathLightingOptions, cols: 3 }, 
+    { title: "Half-Bath: Lighting", options: filteredHalfBathLightingOptions }, 
   ];
 
   const sections = [...masterBathSubSections, ...halfBathSubSections];
