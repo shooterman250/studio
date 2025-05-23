@@ -86,7 +86,7 @@ export const kitchenApplianceOptions: KitchenApplianceOption[] = [
 
 export interface KitchenHardwareFinishOption extends BaseSelectionItem {}
 export const kitchenHardwareFinishOptions: KitchenHardwareFinishOption[] = [
-    { id: 'k-hardware-black', name: 'Black', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187766496858162/Black_Hardware.png?ex=6830c6e9&is=682f7569&hm=036ef70db734ebfa23edf4dd215b3c6baa598203a58eb5490d473fc71360dd49&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'black kitchen hardware' },
+    { id: 'k-hardware-black', name: 'Black', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593364006768781/Black_Hardware.png?ex=683240a7&is=6830ef27&hm=2830262b856fec603120b88cb07c27452edc82780ab79caf86d652471a1d5d97&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'black kitchen hardware' },
     { id: 'k-hardware-bronze', name: 'Bronze/Brass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187767390240918/Bronze_Hardware.png?ex=6830c6e9&is=682f7569&hm=6e046c430839ec1acd34281bcf40be04fcb90840d39c468ec79170c83494a50a&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'bronze kitchen hardware' },
     { id: 'k-hardware-chrome', name: 'Chrome/Nickel/Stainless Steel', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187769315557506/Silver_Chrome_Hardware.png?ex=6830c6e9&is=682f7569&hm=9688d3da1b442672a6cbb29e43a31253ccd92956790b15ec69279f8dc00def6b&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'chrome kitchen hardware' },
     { id: 'k-hardware-crystal', name: 'Crystal or Glass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375208011290644511/Crystal_or_Glass_Hardware.png?ex=6830d9c4&is=682f8844&hm=98a3ffbf2695d60af6547d34e0c0072fd1b7062a0495077402b0601a9e462576&=&format=webp&quality=lossless&width=996&height=996', dataAiHint: 'crystal hardware' },
@@ -249,7 +249,7 @@ export const bathroomToiletOptions: BathroomToiletOption[] = [
 
 export interface BathroomHardwareFinishOption extends BaseSelectionItem {}
 export const bathroomHardwareFinishOptions: BathroomHardwareFinishOption[] = [
-  { id: 'bath-hardware-black', name: 'Black', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187766496858162/Black_Hardware.png?ex=6830c6e9&is=682f7569&hm=036ef70db734ebfa23edf4dd215b3c6baa598203a58eb5490d473fc71360dd49&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'black bathroom hardware' },
+  { id: 'bath-hardware-black', name: 'Black', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593364006768781/Black_Hardware.png?ex=683240a7&is=6830ef27&hm=2830262b856fec603120b88cb07c27452edc82780ab79caf86d652471a1d5d97&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'black bathroom hardware' },
   { id: 'bath-hardware-bronze', name: 'Bronze/Brass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187767390240918/Bronze_Hardware.png?ex=6830c6e9&is=682f7569&hm=6e046c430839ec1acd34281bcf40be04fcb90840d39c468ec79170c83494a50a&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'bronze bathroom hardware' },
   { id: 'bath-hardware-chrome', name: 'Chrome/Nickel/Stainless Steel', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187769315557506/Silver_Chrome_Hardware.png?ex=6830c6e9&is=682f7569&hm=9688d3da1b442672a6cbb29e43a31253ccd92956790b15ec69279f8dc00def6b&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'chrome bathroom hardware' },
   { id: 'bath-hardware-crystal', name: 'Crystal or Glass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375208011290644511/Crystal_or_Glass_Hardware.png?ex=6830d9c4&is=682f8844&hm=98a3ffbf2695d60af6547d34e0c0072fd1b7062a0495077402b0601a9e462576&=&format=webp&quality=lossless&width=996&height=996', dataAiHint: 'crystal hardware' },
@@ -353,6 +353,7 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
 
 
 
