@@ -240,7 +240,7 @@ export const bathroomMasterSinkOptions: BathroomMasterSinkOption[] = [
 
 export interface BathroomToiletOption extends BaseSelectionItem {}
 export const bathroomToiletOptions: BathroomToiletOption[] = [
-  { id: 'toilet-onepiece', name: 'One Piece Toilet', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'one piece toilet' },
+  { id: 'toilet-onepiece', name: 'One Piece Toilet', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375268522502127616/One_Piece_Toilet.png?ex=6831badf&is=6830695f&hm=190b84ca19693bcaf358419f9ad73563894b61f232fe0686f8c2809aad4d342a&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'one piece toilet' },
   { id: 'toilet-twopiece', name: 'Two Piece Toilet', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375268523680465056/Two_Piece_Toilet.png?ex=6831badf&is=6830695f&hm=106d70a7744f2960f20aefc03ba38c8baabb55dda0fabedc21a18192296ebcc3&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'two piece toilet' },
   { id: 'toilet-wallhung', name: 'Wall Hung Toilet', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375268524200693911/Wall_Hung_Toilet.png?ex=6831badf&is=6830695f&hm=49ec2f4d1d87c89acd4557ba3403e639c8bc2296dfa67558c2a3949357f8606c&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'wall hung toilet' },
   { id: 'toilet-touchless', name: 'Touchless Toilet', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375268523282010183/Touchless_Toilet_.png?ex=6831badf&is=6830695f&hm=c1f5b55cdfce2f920dfc6e63c28d01eba4add7592634630b9ae7db5aa9043eb8&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'touchless toilet modern' },
@@ -353,6 +353,7 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
 
 
 
