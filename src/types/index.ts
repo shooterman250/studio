@@ -241,7 +241,7 @@ export const bathroomMasterSinkOptions: BathroomMasterSinkOption[] = [
 export interface BathroomToiletOption extends BaseSelectionItem {}
 export const bathroomToiletOptions: BathroomToiletOption[] = [
   { id: 'toilet-onepiece', name: 'One Piece Toilet', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'one piece toilet' },
-  { id: 'toilet-twopiece', name: 'Two Piece Toilet', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'two piece toilet' },
+  { id: 'toilet-twopiece', name: 'Two Piece Toilet', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375268523680465056/Two_Piece_Toilet.png?ex=6831badf&is=6830695f&hm=106d70a7744f2960f20aefc03ba38c8baabb55dda0fabedc21a18192296ebcc3&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'two piece toilet' },
   { id: 'toilet-wallhung', name: 'Wall Hung Toilet', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'wall hung toilet' },
   { id: 'toilet-touchless', name: 'Touchless Toilet', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375268523282010183/Touchless_Toilet_.png?ex=6831badf&is=6830695f&hm=c1f5b55cdfce2f920dfc6e63c28d01eba4add7592634630b9ae7db5aa9043eb8&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'touchless toilet modern' },
   { id: 'toilet-bidet', name: 'Toilet with Bidet', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375268522900455546/Toilet_With_Bidet.png?ex=6831badf&is=6830695f&hm=ec23bbefb3381f9a4b73db7a7a616129094c00c06149e97b0181786e353c337b&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'bidet toilet combo' },
@@ -353,6 +353,7 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
 
 
 
