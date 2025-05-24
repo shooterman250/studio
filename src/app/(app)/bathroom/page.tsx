@@ -24,7 +24,7 @@ import { baseNavItemsConfig } from "@/config/navigation";
 import { ArrowRight } from "lucide-react";
 
 const PAGE_STAGE_KEY: DesignStageKey = "bathroom";
-const newConsoleImageUrl = "https://media.discordapp.net/attachments/1374539386368167948/1374541051578024126/Console.png?ex=682e6c9c&is=682d1b1c&hm=9d427df1e7f3690029dd359522e2359d172c7fa8603e20f8cc5b32b1568523f5&=&format=webp&quality=lossless&width=1242&height=1242";
+const newConsoleImageUrl = "https://media.discordapp.net/attachments/1374799696127721638/1375704675805827142/Single_Bathroom_Console_Sink.jpeg?ex=6832a852&is=683156d2&hm=5c88d3ac4422d594386f057fc32437005ade8abd3676bec566530d109447f5eb&=&format=webp&width=958&height=998";
 const newChandelierImageUrl = "https://media.discordapp.net/attachments/1374799696127721638/1375493814978084996/Bathroom_Chandelier.png?ex=6831e3f0&is=68309270&hm=1448fa9f48ca6a3767e55ed20bf142dd54e4f11a90762e6a6bd716ea3bbe67cf&=&format=webp&quality=lossless&width=998&height=998";
 const newPendantImageUrl = "https://media.discordapp.net/attachments/1374799696127721638/1375493815409971261/Bathroom_Pendant.png?ex=6831e3f1&is=68309271&hm=cc0dad3a78229a8b3fde0be467e0350b1fb76d0e6e8b1c0e072b8e39381a4cdc&=&format=webp&quality=lossless&width=998&height=998";
 const newWallSconceImageUrl = "https://media.discordapp.net/attachments/1374799696127721638/1375493815799910500/Bathroom_Wall_Sconce.png?ex=6831e3f1&is=68309271&hm=fb02b3ecd5bd9f41636723eec526de40f20bb3e197fe1639996b6828c0ddcf9e&=&format=webp&quality=lossless&width=998&height=998";
