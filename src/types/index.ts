@@ -89,10 +89,10 @@ export const kitchenHardwareFinishOptions: KitchenHardwareFinishOption[] = [
     { id: 'k-hardware-black', name: 'Black', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593364006768781/Black_Hardware.png?ex=683240a7&is=6830ef27&hm=2830262b856fec603120b88cb07c27452edc82780ab79caf86d652471a1d5d97&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'black kitchen hardware' },
     { id: 'k-hardware-bronze', name: 'Bronze/Brass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593364631715943/Bronze_Hardware.png?ex=683240a7&is=6830ef27&hm=4177f52f28623de71d59273380346486ac2f323d210ca099cbdf73c2cf0495a6&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'bronze kitchen hardware' },
     { id: 'k-hardware-chrome', name: 'Chrome/Nickel/Stainless Steel', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593367009759232/Silver_Hardware.png?ex=683240a7&is=6830ef27&hm=4b853e37738ebd330e34b376f4d4d032f74084545ad48f8b74462adf52e428bb&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'chrome kitchen hardware' },
-    { id: 'k-hardware-crystal', name: 'Crystal or Glass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375208011290644511/Crystal_or_Glass_Hardware.png?ex=6830d9c4&is=682f8844&hm=98a3ffbf2695d60af6547d34e0c0072fd1b7062a0495077402b0601a9e462576&=&format=webp&quality=lossless&width=996&height=996', dataAiHint: 'crystal hardware' },
+    { id: 'k-hardware-crystal', name: 'Crystal or Glass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593365353009363/Glass_or_Crystal_Hardware.png?ex=683240a7&is=6830ef27&hm=91c4a653cb32ecd65ca17fcbe2dc7a2422339c92137e094273b84d49575d9fdf&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'crystal hardware' },
     { id: 'k-hardware-gold', name: 'Gold', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593365873361007/Gold_Hardware.png?ex=683240a7&is=6830ef27&hm=cf59ab4c6a8e1bf89f27596e18c6a533076880f70492ace8b64a34bc3ed9daed&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'gold kitchen hardware' },
     { id: 'k-hardware-handleless', name: 'Handleless/Flat', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593366443790386/Handleless_or_No_Hardware.png?ex=683240a7&is=6830ef27&hm=957398c15f7ebb285eacbd669aa86946b470c9d69495b1f21cb1acaf02c79b7e&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'handleless kitchen' },
-    { id: 'k-hardware-multitone', name: 'Multi-Toned/Abstract', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375209118230511626/Multi-Tone_or_Abstract.jpeg?ex=6830dacb&is=682f894b&hm=ea7af12fe8284d1df11469dae7b840b1341ad2bb2a17182660e93d40e893ad17&=&format=webp&width=1056&height=996', dataAiHint: 'abstract hardware' },
+    { id: 'k-hardware-multitone', name: 'Multi-Toned/Abstract', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593367404019904/Two-Tone_Hardware_1.png?ex=683240a8&is=6830ef28&hm=15dc307d7eddf30c8b6e2a3460233c3290780601a16440f3bc0e799abc2e4d54&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'abstract hardware' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface KitchenSinkTypeOption extends BaseSelectionItem {}
@@ -290,7 +290,7 @@ export const homeOfficeStorageOptions: HomeOfficeStorageOption[] = [
 export interface HallwayStorageOption extends BaseSelectionItem {}
 export const hallwayStorageOptions: HallwayStorageOption[] = [
   { id: 'hall-store-linen', name: 'Linen Closet/Drying Cupboard', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375921674263724184/Hallway_Linen_Closet.png?ex=6833726a&is=683220ea&hm=63458f05a88bc796db58c218368e1a4d570c8ee818600ff60e112b957b973c93&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'linen closet hallway' },
-  { id: 'hall-store-shelving', name: 'Shelving', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'hallway shelving unit' },
+  { id: 'hall-store-shelving', name: 'Shelving', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375924542282797138/Hallway_Shelving_.png?ex=68337516&is=68322396&hm=702c6f063d1ef4589108a20fb0269a2f9f52ced0285269c87faee79300de4223&=&format=webp&quality=lossless&width=1206&height=1206', dataAiHint: 'hallway shelving unit' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 // General options for decor and finishes (can be expanded or made specific)
@@ -398,4 +398,5 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
 
