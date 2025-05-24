@@ -91,7 +91,7 @@ export const kitchenHardwareFinishOptions: KitchenHardwareFinishOption[] = [
     { id: 'k-hardware-chrome', name: 'Chrome/Nickel/Stainless Steel', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593367009759232/Silver_Hardware.png?ex=683240a7&is=6830ef27&hm=4b853e37738ebd330e34b376f4d4d032f74084545ad48f8b74462adf52e428bb&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'chrome kitchen hardware' },
     { id: 'k-hardware-crystal', name: 'Crystal or Glass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593365353009363/Glass_or_Crystal_Hardware.png?ex=683240a7&is=6830ef27&hm=91c4a653cb32ecd65ca17fcbe2dc7a2422339c92137e094273b84d49575d9fdf&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'crystal hardware' },
     { id: 'k-hardware-gold', name: 'Gold', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593365873361007/Gold_Hardware.png?ex=683240a7&is=6830ef27&hm=cf59ab4c6a8e1bf89f27596e18c6a533076880f70492ace8b64a34bc3ed9daed&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'gold kitchen hardware' },
-    { id: 'k-hardware-handleless', name: 'Handleless/Flat', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187768166191134/Flat_No_Hardware.png?ex=6830c6e9&is=682f7569&hm=69083a78904b5cfcbe5280e98a5acec792c6523b6f837a42348691c671d7a785&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'handleless kitchen' },
+    { id: 'k-hardware-handleless', name: 'Handleless/Flat', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593366443790386/Handleless_or_No_Hardware.png?ex=683240a7&is=6830ef27&hm=957398c15f7ebb285eacbd669aa86946b470c9d69495b1f21cb1acaf02c79b7e&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'handleless kitchen' },
     { id: 'k-hardware-multitone', name: 'Multi-Toned/Abstract', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375209118230511626/Multi-Tone_or_Abstract.jpeg?ex=6830dacb&is=682f894b&hm=ea7af12fe8284d1df11469dae7b840b1341ad2bb2a17182660e93d40e893ad17&=&format=webp&width=1056&height=996', dataAiHint: 'abstract hardware' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -254,7 +254,7 @@ export const bathroomHardwareFinishOptions: BathroomHardwareFinishOption[] = [
   { id: 'bath-hardware-chrome', name: 'Chrome/Nickel/Stainless Steel', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593367009759232/Silver_Hardware.png?ex=683240a7&is=6830ef27&hm=4b853e37738ebd330e34b376f4d4d032f74084545ad48f8b74462adf52e428bb&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'chrome bathroom hardware' },
   { id: 'bath-hardware-crystal', name: 'Crystal or Glass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593365353009363/Glass_or_Crystal_Hardware.png?ex=683240a7&is=6830ef27&hm=91c4a653cb32ecd65ca17fcbe2dc7a2422339c92137e094273b84d49575d9fdf&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'crystal hardware' },
   { id: 'bath-hardware-gold', name: 'Gold', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593365873361007/Gold_Hardware.png?ex=683240a7&is=6830ef27&hm=cf59ab4c6a8e1bf89f27596e18c6a533076880f70492ace8b64a34bc3ed9daed&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'gold bathroom hardware' },
-  { id: 'bath-hardware-handleless', name: 'Handleless/Flat', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187768166191134/Flat_No_Hardware.png?ex=6830c6e9&is=682f7569&hm=69083a78904b5cfcbe5280e98a5acec792c6523b6f837a42348691c671d7a785&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'handleless bathroom' },
+  { id: 'bath-hardware-handleless', name: 'Handleless/Flat', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593366443790386/Handleless_or_No_Hardware.png?ex=683240a7&is=6830ef27&hm=957398c15f7ebb285eacbd669aa86946b470c9d69495b1f21cb1acaf02c79b7e&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'handleless bathroom' },
   { id: 'bath-hardware-multitone', name: 'Multi-Toned/Abstract', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375209118230511626/Multi-Tone_or_Abstract.jpeg?ex=6830dacb&is=682f894b&hm=ea7af12fe8284d1df11469dae7b840b1341ad2bb2a17182660e93d40e893ad17&=&format=webp&width=1056&height=996', dataAiHint: 'abstract hardware' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -353,6 +353,7 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
 
 
 
