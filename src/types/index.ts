@@ -127,7 +127,7 @@ export const generalFlooringOptions: GeneralFlooringOption[] = [
 
 export interface GeneralLightingOption extends BaseSelectionItem {}
 export const generalLightingOptions: GeneralLightingOption[] = [
-    { id: 'light-chandelier', name: 'Chandelier(s)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'chandelier lighting room' },
+    { id: 'light-chandelier', name: 'Chandelier(s)', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375951177124151467/Hallway_Chandelier_Lighting_.png?ex=68338de4&is=68323c64&hm=e46dee4bb52484fc09a5405170d8707ad5cac28fc3ccd21507e4cfcdce186cf5&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'chandelier lighting' },
     { id: 'light-concealed', name: 'Concealed/Cove Lighting', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375934656305958913/Hallway_Concealed_Cove_Lighting.png?ex=68337e81&is=68322d01&hm=ccd0db638ca3cdb7cd984088d6c0c8d2a61ddb03aefdbf7c360defca5605e478&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'concealed cove lighting' },
     { id: 'light-niche', name: 'Niche/Picture Lighting', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375929437509652500/Hallway_Niche_Picture_Lighting.png?ex=683379a5&is=68322825&hm=9c074b9b39ac78fcd808207b5a6b709bdd724e88f943040d4970d59b8c776308&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'niche picture lighting' },
     { id: 'light-pendant', name: 'Flush Mount Ceiling Lighting', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'flush mount ceiling' },
@@ -405,6 +405,7 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
 
 
 
