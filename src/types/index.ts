@@ -92,7 +92,7 @@ export const kitchenHardwareFinishOptions: KitchenHardwareFinishOption[] = [
     { id: 'k-hardware-crystal', name: 'Crystal or Glass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593365353009363/Glass_or_Crystal_Hardware.png?ex=683240a7&is=6830ef27&hm=91c4a653cb32ecd65ca17fcbe2dc7a2422339c92137e094273b84d49575d9fdf&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'crystal hardware' },
     { id: 'k-hardware-gold', name: 'Gold', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593365873361007/Gold_Hardware.png?ex=683240a7&is=6830ef27&hm=cf59ab4c6a8e1bf89f27596e18c6a533076880f70492ace8b64a34bc3ed9daed&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'gold kitchen hardware' },
     { id: 'k-hardware-handleless', name: 'Handleless/Flat', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593366443790386/Handleless_or_No_Hardware.png?ex=683240a7&is=6830ef27&hm=957398c15f7ebb285eacbd669aa86946b470c9d69495b1f21cb1acaf02c79b7e&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'handleless kitchen' },
-    { id: 'k-hardware-multitone', name: 'Multi-Toned/Abstract', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593367404019904/Two-Tone_Hardware_1.png?ex=683240a8&is=6830ef28&hm=15dc307d7eddf30c8b6e2a3460233c3290780601a16440f3bc0e799abc2e4d54&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'abstract hardware' },
+    { id: 'k-hardware-multitone', name: 'Multi-Toned/Abstract', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375209118230511626/Multi-Tone_or_Abstract.jpeg?ex=6830dacb&is=682f894b&hm=ea7af12fe8284d1df11469dae7b840b1341ad2bb2a17182660e93d40e893ad17&=&format=webp&width=1056&height=996', dataAiHint: 'abstract hardware' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface KitchenSinkTypeOption extends BaseSelectionItem {}
@@ -132,7 +132,7 @@ export const generalLightingOptions: GeneralLightingOption[] = [
     { id: 'light-niche', name: 'Niche/Picture Lighting', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'niche picture lighting' },
     { id: 'light-pendant', name: 'Pendant(s)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'pendant lighting room' },
     { id: 'light-recessed-cylinder', name: 'Recessed Cylinder', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'recessed cylinder lighting' },
-    { id: 'light-recessed-flush', name: 'Recessed Flush', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375214642388795585/Recessed_Flush_.png?ex=683188b0&is=68303730&hm=63668eabad9d8b8948155ecb714810b1bb97c7e9f22042bb61fdea7a891c118d&=&format=webp&quality=lossless&width=1206&height=1206', dataAiHint: 'recessed flush lighting' },
+    { id: 'light-recessed-flush', name: 'Recessed Flush', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373806275061616760/Recessed_Flush.jpg?ex=682bc04c&is=682a6ecc&hm=0c36da07e211067d4c66f7569f1da9f3c4d4e6a8aa1c476e1c8ee38b94634e38&=&format=webp&width=713&height=774', dataAiHint: 'recessed flush lighting' },
     { id: 'light-wallsconce', name: 'Wall Sconce(s)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'wall sconce lighting' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -219,7 +219,7 @@ export interface BathroomMasterShowerOption extends BaseSelectionItem {}
 export const bathroomMasterShowerOptions: BathroomMasterShowerOption[] = [
     { id: 'bm-shower-enclosed', name: 'Enclosed Shower', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375697000175243334/Enclosed_Shower.png?ex=6832a12c&is=68314fac&hm=3ec815914cb4f610dcd1e7e6527064bfd31102edde1c2a55eeb31731040e5dae&=&format=webp&quality=lossless&width=1206&height=1206', dataAiHint: 'enclosed shower stall' },
     { id: 'bm-shower-combo', name: 'Shower/Tub Combo', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373807240036745296/Bath_Shower_Combo.png?ex=682bc132&is=682a6fb2&hm=ed76a2283a3ee578ca333e1eb3f3b1cedef1b450405a0114657966ed5d11f154&=&format=webp&quality=lossless&width=774&height=774', dataAiHint: 'shower tub combination' }, // Repeated for clarity if selected here
-    { id: 'bm-shower-walkin', name: 'Walk-In Shower', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'walk in shower bathroom' },
+    { id: 'bm-shower-walkin', name: 'Walk-In Shower', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375698571881615370/Walk-In_Shower.png?ex=6832a2a2&is=68315122&hm=2ecad900d1d0ce72e5f87b1e0d65993473a3e447ba99ab904828da243e36f8fb&=&format=webp&quality=lossless&width=1206&height=1206', dataAiHint: 'walk in shower bathroom' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface BathroomMasterSinkOption extends BaseSelectionItem { type?: 'single' | 'double'; }
@@ -255,7 +255,7 @@ export const bathroomHardwareFinishOptions: BathroomHardwareFinishOption[] = [
   { id: 'bath-hardware-crystal', name: 'Crystal or Glass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593365353009363/Glass_or_Crystal_Hardware.png?ex=683240a7&is=6830ef27&hm=91c4a653cb32ecd65ca17fcbe2dc7a2422339c92137e094273b84d49575d9fdf&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'crystal hardware' },
   { id: 'bath-hardware-gold', name: 'Gold', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593365873361007/Gold_Hardware.png?ex=683240a7&is=6830ef27&hm=cf59ab4c6a8e1bf89f27596e18c6a533076880f70492ace8b64a34bc3ed9daed&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'gold bathroom hardware' },
   { id: 'bath-hardware-handleless', name: 'Handleless/Flat', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593366443790386/Handleless_or_No_Hardware.png?ex=683240a7&is=6830ef27&hm=957398c15f7ebb285eacbd669aa86946b470c9d69495b1f21cb1acaf02c79b7e&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'handleless bathroom' },
-  { id: 'bath-hardware-multitone', name: 'Multi-Toned/Abstract', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593367404019904/Two-Tone_Hardware_1.png?ex=683240a8&is=6830ef28&hm=15dc307d7eddf30c8b6e2a3460233c3290780601a16440f3bc0e799abc2e4d54&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'abstract hardware' },
+  { id: 'bath-hardware-multitone', name: 'Multi-Toned/Abstract', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375209118230511626/Multi-Tone_or_Abstract.jpeg?ex=6830dacb&is=682f894b&hm=ea7af12fe8284d1df11469dae7b840b1341ad2bb2a17182660e93d40e893ad17&=&format=webp&width=1056&height=996', dataAiHint: 'abstract hardware' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface BathroomStorageOption extends BaseSelectionItem {}
@@ -393,4 +393,5 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
 
