@@ -217,7 +217,7 @@ export const bathroomMasterBathTubOptions: BathroomMasterBathTubOption[] = [
 
 export interface BathroomMasterShowerOption extends BaseSelectionItem {}
 export const bathroomMasterShowerOptions: BathroomMasterShowerOption[] = [
-    { id: 'bm-shower-enclosed', name: 'Enclosed Shower', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'enclosed shower stall' },
+    { id: 'bm-shower-enclosed', name: 'Enclosed Shower', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375697000175243334/Enclosed_Shower.png?ex=6832a12c&is=68314fac&hm=3ec815914cb4f610dcd1e7e6527064bfd31102edde1c2a55eeb31731040e5dae&=&format=webp&quality=lossless&width=1206&height=1206', dataAiHint: 'enclosed shower stall' },
     { id: 'bm-shower-combo', name: 'Shower/Tub Combo', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373807240036745296/Bath_Shower_Combo.png?ex=682bc132&is=682a6fb2&hm=ed76a2283a3ee578ca333e1eb3f3b1cedef1b450405a0114657966ed5d11f154&=&format=webp&quality=lossless&width=774&height=774', dataAiHint: 'shower tub combination' }, // Repeated for clarity if selected here
     { id: 'bm-shower-walkin', name: 'Walk-In Shower', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'walk in shower bathroom' },
 ].sort((a, b) => a.name.localeCompare(b.name));
@@ -393,3 +393,4 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
