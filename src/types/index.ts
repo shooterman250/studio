@@ -139,7 +139,7 @@ export const generalLightingOptions: GeneralLightingOption[] = [
 // Utility/Laundry Room Options
 export interface GeneralWallFinishOption extends BaseSelectionItem {}
 export const generalWallFinishOptions: GeneralWallFinishOption[] = [
-    { id: 'wall-exposed-brick', name: 'Exposed Brick / Stone Veneer', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'exposed brick wall' },
+    { id: 'wall-exposed-brick', name: 'Exposed Brick / Stone Veneer', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375965417176305714/Exposed_Brick_Wall.png?ex=68339b27&is=683249a7&hm=59cada4116218aa6ef14c88b9dca451e1a85126219bdca8beb3b7d8ef77cdedc&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'exposed brick wall' },
     { id: 'wall-paint', name: 'Paint', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'painted wall room' },
     { id: 'wall-textured', name: 'Textured (e.g., Venetian Plaster)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'textured wall finish' },
     { id: 'wall-wallpaper', name: 'Wallpaper', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'wallpaper wall room' },
@@ -249,11 +249,11 @@ export const bathroomToiletOptions: BathroomToiletOption[] = [
 
 export interface BathroomHardwareFinishOption extends BaseSelectionItem {}
 export const bathroomHardwareFinishOptions: BathroomHardwareFinishOption[] = [
-  { id: 'bath-hardware-black', name: 'Black', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593364006768781/Black_Hardware.png?ex=683240a7&is=6830ef27&hm=2830262b856fec603120b88cb07c27452edc82780ab79caf86d652471a1d5d97&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'black bathroom hardware' },
-  { id: 'bath-hardware-bronze', name: 'Bronze/Brass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593364631715943/Bronze_Hardware.png?ex=683240a7&is=6830ef27&hm=4177f52f28623de71d59273380346486ac2f323d210ca099cbdf73c2cf0495a6&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'bronze bathroom hardware' },
+  { id: 'bath-hardware-black', name: 'Black', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187766496858162/Black_Hardware.png?ex=6830c6e9&is=682f7569&hm=036ef70db734ebfa23edf4dd215b3c6baa598203a58eb5490d473fc71360dd49&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'black bathroom hardware' },
+  { id: 'bath-hardware-bronze', name: 'Bronze/Brass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187767390240918/Bronze_Hardware.png?ex=6830c6e9&is=682f7569&hm=6e046c430839ec1acd34281bcf40be04fcb90840d39c468ec79170c83494a50a&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'bronze bathroom hardware' },
   { id: 'bath-hardware-chrome', name: 'Chrome/Nickel/Stainless Steel', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593367009759232/Silver_Hardware.png?ex=683240a7&is=6830ef27&hm=4b853e37738ebd330e34b376f4d4d032f74084545ad48f8b74462adf52e428bb&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'chrome bathroom hardware' },
   { id: 'bath-hardware-crystal', name: 'Crystal or Glass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593365353009363/Glass_or_Crystal_Hardware.png?ex=683240a7&is=6830ef27&hm=91c4a653cb32ecd65ca17fcbe2dc7a2422339c92137e094273b84d49575d9fdf&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'crystal hardware' },
-  { id: 'bath-hardware-gold', name: 'Gold', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593365873361007/Gold_Hardware.png?ex=683240a7&is=6830ef27&hm=cf59ab4c6a8e1bf89f27596e18c6a533076880f70492ace8b64a34bc3ed9daed&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'gold bathroom hardware' },
+  { id: 'bath-hardware-gold', name: 'Gold', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375187768883413152/Gold_Hardware.png?ex=6830c6e9&is=682f7569&hm=192577101916d3619cbdf5f81fb45e8646bc39c017a9818cdc9e8a1d34d6c06c&=&format=webp&quality=lossless&width=788&height=788', dataAiHint: 'gold bathroom hardware' },
   { id: 'bath-hardware-handleless', name: 'Handleless/Flat', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593366443790386/Handleless_or_No_Hardware.png?ex=683240a7&is=6830ef27&hm=957398c15f7ebb285eacbd669aa86946b470c9d69495b1f21cb1acaf02c79b7e&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'handleless bathroom' },
   { id: 'bath-hardware-multitone', name: 'Multi-Toned/Abstract', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375593367404019904/Two-Tone_Hardware_1.png?ex=683240a8&is=6830ef28&hm=15dc307d7eddf30c8b6e2a3460233c3290780601a16440f3bc0e799abc2e4d54&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'abstract hardware' },
 ].sort((a, b) => a.name.localeCompare(b.name));
@@ -405,6 +405,7 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
 
 
 
