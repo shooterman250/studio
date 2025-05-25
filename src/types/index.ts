@@ -39,7 +39,7 @@ export const overallStyleOptions: OverallStyleOption[] = [
   { id: 'industrial', name: 'Industrial', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043012279472169/Industrial.png?ex=6828f974&is=6827a7f4&hm=859e40b9764e038ce8f952133d5575402a14c6e8032256008347beb6505515f6&=&format=webp&quality=lossless&width=380&height=380', description: 'Raw, edgy, with exposed elements.', dataAiHint: 'industrial interior' },
   { id: 'japandi', name: 'Japandi', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043012824862840/Japandi.png?ex=6828f974&is=6827a7f4&hm=9cc6abd531984c322c5d79d55b08dac05cb26cad49ba42bc85cb097c89d49bda&=&format=webp&quality=lossless&width=380&height=380', description: 'Japanese minimalism meets Scandinavian function.', dataAiHint: 'japandi interior' },
   { id: 'mid-century', name: 'Mid-Century Modern', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043013378642064/Mid-Century.png?ex=6828f974&is=6827a7f4&hm=0a441405db4f152d2d97e04618f88b99a882b03d7df6d7c0f2d8284239e82237&=&format=webp&quality=lossless&width=380&height=380', description: 'Retro, organic shapes, and functionality.', dataAiHint: 'midcentury modern interior' },
-  { id: 'modern', name: 'Modern', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043013986549760/Modern.png?ex=682b9c74&is=682a4af4&hm=18c4de9386ecccb1790abe2b7863368716ccabe3dad2739fea23d07430e1f89b&=&format=webp&quality=lossless&width=380&height=380', description: 'Sleek, clean lines, and simplicity.', dataAiHint: 'modern interior' },
+  { id: 'modern', name: 'Modern', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043013986549760/Modern.png?ex=682b9c74&is=682a4af4&hm=18c4de9386ecccb1790abe2b7863368716ccabe3dad2739fea23d07430e1f89b&=&format=webp&quality=lossless&width=774&height=774', description: 'Sleek, clean lines, and simplicity.', dataAiHint: 'modern interior' },
   { id: 'traditional', name: 'Traditional', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043014427213985/Traditional.png?ex=6828f974&is=6827a7f4&hm=ded6dabe56a56d8076e54184c6534b7ca46cd4bd1c762db8a727b81ff2c8392f&=&format=webp&quality=lossless&width=380&height=380', description: 'Classic, timeless, and ornate.', dataAiHint: 'traditional interior' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -97,7 +97,7 @@ export const kitchenHardwareFinishOptions: KitchenHardwareFinishOption[] = [
 
 export interface KitchenSinkTypeOption extends BaseSelectionItem {}
 export const kitchenSinkTypeOptions: KitchenSinkTypeOption[] = [
-    { id: 'k-sink-double', name: 'Double Bowl', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'double bowl kitchen sink' },
+    { id: 'k-sink-double', name: 'Double Bowl', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375999164474724413/Double_Bowl.png?ex=6833ba95&is=68326915&hm=e64b92397b9662b205e8aac297f8351fb8cc4afc17848c9182f8d5b3b4b3352c&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'double bowl kitchen sink' },
     { id: 'k-sink-dropin', name: 'Drop-In (Top-Mount)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'drop in kitchen sink' },
     { id: 'k-sink-farmhouse', name: 'Farmhouse', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'farmhouse kitchen sink' },
     { id: 'k-sink-undermount', name: 'Undermount', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'undermount kitchen sink' },
@@ -132,7 +132,7 @@ export const generalLightingOptions: GeneralLightingOption[] = [
     { id: 'light-niche', name: 'Niche/Picture Lighting', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375929437509652500/Hallway_Niche_Picture_Lighting.png?ex=683379a5&is=68322825&hm=9c074b9b39ac78fcd808207b5a6b709bdd724e88f943040d4970d59b8c776308&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'niche picture lighting' },
     { id: 'light-pendant', name: 'Flush Mount Ceiling Lighting', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375955995507032174/Hallway_Flush_Mount_Ceiling_Lighting.png?ex=68339261&is=683240e1&hm=c50dcb0f4fb18ff59dbc3cf076ef36c7bf53a2327afb16d7b607b854c33e5894&=&format=webp&quality=lossless&width=1206&height=1206', dataAiHint: 'flush mount ceiling' },
     { id: 'light-recessed-cylinder', name: 'Recessed Cylinder', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375929436360151071/Hallway_Cylinder_Recessed_Hallway_Lighting_.png?ex=683379a5&is=68322825&hm=86803a6329736efb5100fe186efc398ddda2967443bdae9de074b37583c48547&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'recessed cylinder lighting' },
-    { id: 'light-recessed-flush', name: 'Recessed Flush', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375214642388795585/Recessed_Flush_.png?ex=6832da30&is=683188b0&hm=7f22d76ae71b8d0d29ff2ddad22611b397acc741e37404affdd876cf6bee3d56&=&format=webp&quality=lossless&width=1206&height=1206', dataAiHint: 'recessed flush lighting' },
+    { id: 'light-recessed-flush', name: 'Recessed Flush', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375214642388795585/Recessed_Flush_.png?ex=683188b0&is=68303730&hm=63668eabad9d8b8948155ecb714810b1bb97c7e9f22042bb61fdea7a891c118d&=&format=webp&quality=lossless&width=996&height=996', dataAiHint: 'recessed flush lighting' },
     { id: 'light-wallsconce', name: 'Wall Sconce(s)', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375929437152874606/Hallway_Light_Wall_Sconce.png?ex=683379a5&is=68322825&hm=b85731b45c8a4879c9aaf08919f87d4d059cdc4113b9b776cd13ff505f986dae&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'wall sconce lighting' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -405,6 +405,7 @@ export const finishOptions: FinishOption[] = [
 
 
     
+
 
 
 
