@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -32,8 +32,8 @@ export default function OverallStylePage() {
   const [uploadedKeyElementImageUri, setUploadedKeyElementImageUri] = useState<string | null>(null);
   const [uploadedKeyElementImageName, setUploadedKeyElementImageName] = useState<string | null>(null);
 
-  const styleFileInputRef = React.useRef<HTMLInputElement>(null);
-  const keyElementFileInputRef = React.useRef<HTMLInputElement>(null);
+  const styleFileInputRef = useRef<HTMLInputElement>(null);
+  const keyElementFileInputRef = useRef<HTMLInputElement>(null);
 
 
    useEffect(() => {
@@ -98,8 +98,14 @@ export default function OverallStylePage() {
       const newSelected = new Set(prev);
       if (newSelected.has(optionId)) {
         newSelected.delete(optionId);
-        if (optionId === 'overall-style-upload') setUploadedStyleImageUri(null);
-        if (optionId === 'key-element-upload') setUploadedKeyElementImageUri(null);
+        if (optionId === 'overall-style-upload') {
+            setUploadedStyleImageUri(null);
+            setUploadedStyleImageName(null);
+        }
+        if (optionId === 'key-element-upload') {
+            setUploadedKeyElementImageUri(null);
+            setUploadedKeyElementImageName(null);
+        }
       } else {
         newSelected.add(optionId);
       }
@@ -166,7 +172,7 @@ export default function OverallStylePage() {
       title: "Select Key Elements", 
       description: "Add One or More [Optional] Elements", 
       options: pageSpecificDisplayKeyElementOptions, 
-      cols: 3 
+      cols: 3
     }, 
   ];
 
@@ -181,20 +187,20 @@ export default function OverallStylePage() {
     let hasSelectedKeyElement = false;
 
     selectedOptions.forEach(selectedId => {
-      if (overallStyleOptionIds.has(selectedId)) {
+      if (overallStyleOptionIds.has(selectedId) || selectedId === 'overall-style-upload') {
         hasSelectedOverallStyle = true;
       }
-      if (keyElementOptionIds.has(selectedId)) {
+      if (keyElementOptionIds.has(selectedId) || selectedId === 'key-element-upload') {
         hasSelectedKeyElement = true;
       }
     });
 
     if (selectedOptions.size > 0) {
-      if (hasSelectedOverallStyle && (hasSelectedKeyElement || keyElementOptionIds.size === 0)) { // Consider key elements optional
+      if (hasSelectedOverallStyle && (hasSelectedKeyElement || keyElementOptionIds.size === 0 || !keyElementOptionIds.has('key-element-upload'))) { 
         newProgress = 100;
       } else if (hasSelectedOverallStyle || hasSelectedKeyElement) {
          const subsectionsCovered = (hasSelectedOverallStyle ? 1 : 0) + (hasSelectedKeyElement ? 1 : 0);
-         const totalSubsectionsToConsider = keyElementOptionIds.size > 0 ? sections.length : 1; // Only count key elements if they exist
+         const totalSubsectionsToConsider = sections.length; 
          if (totalSubsectionsToConsider > 0) {
             if (subsectionsCovered === 1 && selectedOptions.size > 0 && totalOptionsOnPage > 0) {
                  const itemProgress = Math.round((selectedOptions.size / totalOptionsOnPage) * 50); 
@@ -219,17 +225,42 @@ export default function OverallStylePage() {
       displayItem = pageSpecificDisplayOverallStyleOptions.find(item => item.id === selectedId);
       if (displayItem) {
         originalItem = baseOverallStyleOptions.find(item => item.id === selectedId);
+         if (!originalItem && selectedId === 'overall-style-upload') { // Handle custom upload explicitly
+            originalItem = {
+                id: 'overall-style-upload',
+                name: `Custom Style: ${uploadedStyleImageName || 'Uploaded'}`,
+                imageUrl: uploadedStyleImageUri || '',
+                description: 'User uploaded style image.',
+                dataAiHint: `custom style ${uploadedStyleImageName || 'image'}`.toLowerCase().split(' ').slice(0,2).join(' ')
+            };
+        }
       } else {
         displayItem = pageSpecificDisplayKeyElementOptions.find(item => item.id === selectedId);
         if (displayItem) {
           originalItem = baseKeyElementOptions.find(item => item.id === selectedId);
+          if (!originalItem && selectedId === 'key-element-upload') { // Handle custom upload explicitly
+            originalItem = {
+                id: 'key-element-upload',
+                name: `Custom Element: ${uploadedKeyElementImageName || 'Uploaded'}`,
+                imageUrl: uploadedKeyElementImageUri || '',
+                description: 'User uploaded key element image.',
+                dataAiHint: `custom element ${uploadedKeyElementImageName || 'image'}`.toLowerCase().split(' ').slice(0,2).join(' ')
+            };
+          }
         }
       }
   
       if (originalItem) {
-        const isUploadOption = selectedId === 'overall-style-upload' || selectedId === 'key-element-upload';
-        const nameToSave = isUploadOption && displayItem ? displayItem.name : originalItem.name;
-        const imageUrlToSave = isUploadOption && displayItem ? displayItem.imageUrl : originalItem.imageUrl;
+        const nameToSave = (selectedId === 'overall-style-upload' && uploadedStyleImageName) 
+                            ? `Custom Style: ${uploadedStyleImageName}` 
+                            : (selectedId === 'key-element-upload' && uploadedKeyElementImageName)
+                            ? `Custom Element: ${uploadedKeyElementImageName}`
+                            : originalItem.name;
+        const imageUrlToSave = (selectedId === 'overall-style-upload' && uploadedStyleImageUri) 
+                            ? uploadedStyleImageUri 
+                            : (selectedId === 'key-element-upload' && uploadedKeyElementImageUri)
+                            ? uploadedKeyElementImageUri
+                            : originalItem.imageUrl;
 
         allSelectedItems.push({
           id: originalItem.id,
@@ -262,7 +293,14 @@ export default function OverallStylePage() {
       item.id !== 'settings'
     );
     
-    return [...initialStages, ...selectedRoomStages];
+    // Ensure initial stages are first, then selected rooms in their original defined order
+    const finalNavOrder: BaseNavItemConfig[] = [...initialStages];
+    baseNavItemsConfig.forEach(baseItem => {
+        if(selectedRoomStages.some(srs => srs.id === baseItem.id) && !finalNavOrder.some(fno => fno.id === baseItem.id)) {
+            finalNavOrder.push(baseItem);
+        }
+    });
+    return finalNavOrder;
   };
 
   const dynamicNavConfig = getDynamicNavConfig();
@@ -365,5 +403,3 @@ export default function OverallStylePage() {
     </div>
   );
 }
-
-    
