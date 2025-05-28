@@ -20,8 +20,8 @@ import ItemSelectionCard from "@/components/design/ItemSelectionCard";
 import { useDesignProgress, type SelectedDataItem, DesignStageKey } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter, usePathname } from "next/navigation";
-import { baseNavItemsConfig } from "@/config/navigation";
-import { ArrowRight } from "lucide-react";
+import { baseNavItemsConfig, type BaseNavItemConfig } from "@/config/navigation";
+import { ArrowRight, Home } from "lucide-react";
 
 const PAGE_STAGE_KEY: DesignStageKey = "bathroom";
 const newConsoleImageUrl = "https://media.discordapp.net/attachments/1374539386368167948/1374541051578024126/Console.png?ex=682e6c9c&is=682d1b1c&hm=9d427df1e7f3690029dd359522e2359d172c7fa8603e20f8cc5b32b1568523f5&=&format=webp&quality=lossless&width=1242&height=1242";
@@ -32,10 +32,11 @@ const newWallSconceImageUrl = "https://media.discordapp.net/attachments/13747996
 export default function BathroomPage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [hasSavedSinceLastChange, setHasSavedSinceLastChange] = useState(false);
-  const { updateStageSelections, getStageSelections } = useDesignProgress();
+  const { updateStageSelections, getStageSelections, getUserRoomSelections, getClientInfo } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter();
   const pathname = usePathname();
+  const userRoomSelections = getUserRoomSelections();
 
  useEffect(() => {
     const existingSelections = getStageSelections(PAGE_STAGE_KEY);
@@ -187,12 +188,12 @@ export default function BathroomPage() {
   );
 
   const masterBathSubSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
-    { title: "Master Bath: Style", options: pageSpecificDisplayBathroomStyleOptions, cols: 3, description: "Define the overall style for your master bathroom." },
+    { title: "Master Bath: Style", description: "Define the overall style for your master bathroom.", options: pageSpecificDisplayBathroomStyleOptions, cols: 3 },
     { title: "Master Bath: Bath Tub", options: bathroomMasterBathTubOptions, cols: 3 },
     { title: "Master Bath: Shower", options: bathroomMasterShowerOptions, cols: 3 },
-    { title: "Master Bathroom: Sink (Double/Single)", options: pageSpecificDisplayMasterSinkOptions, cols: 3, description: "Choose Sink Style. Double or Single." },
+    { title: "Master Bathroom: Sink (Double/Single)", description: "Choose Sink Style. Double or Single.", options: pageSpecificDisplayMasterSinkOptions, cols: 3 },
     { title: "Master Bath: Toilet", options: bathroomToiletOptions, cols: 3 },
-    { title: "Master Bath: Hardware Finish", options: pageSpecificDisplayHardwareFinishOptions, cols: 3, description: "Pick finishes for faucets, handles, etc." },
+    { title: "Master Bath: Hardware Finish", description: "Pick finishes for faucets, handles, etc.", options: pageSpecificDisplayHardwareFinishOptions, cols: 3 },
     { title: "Master Bath: Storage", options: pageSpecificBathroomStorageOptions, cols: 3 },
     { title: "Master Bath: Lighting", options: pageSpecificDisplayMasterLightingOptions, cols: 3 }, 
   ];
@@ -200,7 +201,7 @@ export default function BathroomPage() {
   const halfBathSubSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Half-Bath: Sink", options: pageSpecificDisplayBathroomHalfSinkOptions, cols: 3 },
     { title: "Half-Bath: Toilet", options: bathroomToiletOptions, cols: 3 }, 
-    { title: "Half-Bath: Hardware Finish", options: pageSpecificDisplayHardwareFinishOptions, cols: 3, description: "Select hardware finishes." }, 
+    { title: "Half-Bath: Hardware Finish", description: "Select hardware finishes.", options: pageSpecificDisplayHardwareFinishOptions, cols: 3 }, 
     { title: "Half-Bath: Storage", options: pageSpecificBathroomStorageOptions, cols: 3, description: "Consider storage options." }, 
     { title: "Half-Bath: Lighting", options: filteredHalfBathLightingOptions }, 
   ];
@@ -238,7 +239,6 @@ export default function BathroomPage() {
         if (selectedOptions.has(displayOption.id)) {
           let originalItem: BaseSelectionItem | undefined;
 
-          // Find original item to save its canonical data (name, imageUrl)
           if (pageSpecificDisplayBathroomStyleOptions.some(opt => opt.id === displayOption.id)) {
             originalItem = baseBathroomStyleOptions.find(opt => opt.id === displayOption.id);
           } else if (pageSpecificDisplayMasterSinkOptions.some(opt => opt.id === displayOption.id)) {
@@ -253,7 +253,6 @@ export default function BathroomPage() {
             originalItem = baseBathroomStorageOptions.find(opt => opt.id === displayOption.id);
           }
           else { 
-            // For sections that use base options directly
             const baseArray = 
               section.options === bathroomMasterBathTubOptions ? bathroomMasterBathTubOptions :
               section.options === bathroomMasterShowerOptions ? bathroomMasterShowerOptions :
@@ -263,7 +262,6 @@ export default function BathroomPage() {
             if (baseArray) {
               originalItem = baseArray.find(opt => opt.id === displayOption.id);
             } else {
-                // Fallback if the option wasn't from a specifically handled array (should ideally not happen)
                 originalItem = displayOption; 
             }
           }
@@ -290,9 +288,55 @@ export default function BathroomPage() {
     });
   };
 
-  const designStagesNavConfig = baseNavItemsConfig.filter(item => item.id !== 'dashboard' && item.id !== 'settings');
-  const currentIndex = designStagesNavConfig.findIndex(item => item.href === pathname);
-  const nextStage = currentIndex !== -1 && currentIndex < designStagesNavConfig.length - 1 ? designStagesNavConfig[currentIndex + 1] : null;
+  const getDynamicNavConfig = (): BaseNavItemConfig[] => {
+    const initialStages = baseNavItemsConfig.filter(
+      item => item.id === 'overall-budget' || item.id === 'overall-style'
+    );
+    
+    const orderedInitialStages: BaseNavItemConfig[] = [];
+    const budgetStage = initialStages.find(s => s.id === 'overall-budget');
+    const styleStage = initialStages.find(s => s.id === 'overall-style');
+    if (budgetStage) orderedInitialStages.push(budgetStage);
+    if (styleStage) orderedInitialStages.push(styleStage);
+
+    const selectedRoomStages = baseNavItemsConfig.filter(item => 
+      userRoomSelections.has(item.id) && 
+      item.id !== 'overall-budget' && 
+      item.id !== 'overall-style' &&
+      item.id !== 'dashboard' &&
+      item.id !== 'settings'
+    );
+    
+    const finalNavOrder: BaseNavItemConfig[] = [...orderedInitialStages];
+    baseNavItemsConfig.forEach(baseItem => {
+        if(selectedRoomStages.some(srs => srs.id === baseItem.id) && !finalNavOrder.some(fno => fno.id === baseItem.id)) {
+            finalNavOrder.push(baseItem);
+        }
+    });
+    return finalNavOrder;
+  };
+
+  const dynamicNavConfig = getDynamicNavConfig();
+  const currentIndex = dynamicNavConfig.findIndex(item => item.href === pathname);
+  
+  const nextStage = currentIndex !== -1 && currentIndex < dynamicNavConfig.length - 1 
+    ? dynamicNavConfig[currentIndex + 1] 
+    : null;
+
+  const handleFinishAndProceed = () => {
+    handleSaveChanges(); 
+    const clientInfo = getClientInfo();
+    if (!clientInfo || !clientInfo.fullName || !clientInfo.email) {
+      toast({
+        title: "Client Information Needed",
+        description: "Please fill out your client information before viewing the dashboard.",
+        variant: "default", 
+      });
+      router.push('/client-info');
+    } else {
+      router.push('/designer');
+    }
+  };
 
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
@@ -331,7 +375,7 @@ export default function BathroomPage() {
           <Button className="w-full sm:w-auto" onClick={handleSaveChanges}>
             Save Bathroom Choices ({selectedOptions.size})
           </Button>
-          {nextStage && (
+          {nextStage ? (
             <Button
               onClick={() => router.push(nextStage.href)}
               variant="outline"
@@ -340,6 +384,16 @@ export default function BathroomPage() {
             >
               Next Section ({nextStage.label})
               <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          ) : (
+             <Button
+              onClick={handleFinishAndProceed}
+              variant="default" 
+              className="w-full sm:w-auto"
+              disabled={!hasSavedSinceLastChange}
+            >
+              <Home className="mr-2 h-4 w-4" />
+              Finish &amp; Proceed
             </Button>
           )}
         </div>

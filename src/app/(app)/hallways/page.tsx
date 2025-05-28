@@ -15,7 +15,7 @@ import ItemSelectionCard from "@/components/design/ItemSelectionCard";
 import { useDesignProgress, type SelectedDataItem, DesignStageKey } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter, usePathname } from "next/navigation";
-import { baseNavItemsConfig } from "@/config/navigation";
+import { baseNavItemsConfig, type BaseNavItemConfig } from "@/config/navigation";
 import { ArrowRight, Home } from "lucide-react";
 
 const PAGE_STAGE_KEY: DesignStageKey = "hallways";
@@ -23,10 +23,11 @@ const PAGE_STAGE_KEY: DesignStageKey = "hallways";
 export default function HallwaysPage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [hasSavedSinceLastChange, setHasSavedSinceLastChange] = useState(false);
-  const { updateStageSelections, getStageSelections, getClientInfo } = useDesignProgress();
+  const { updateStageSelections, getStageSelections, getUserRoomSelections, getClientInfo } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter();
   const pathname = usePathname();
+  const userRoomSelections = getUserRoomSelections();
 
   useEffect(() => {
     const existingSelections = getStageSelections(PAGE_STAGE_KEY);
@@ -125,6 +126,41 @@ export default function HallwaysPage() {
     });
   };
 
+  const getDynamicNavConfig = (): BaseNavItemConfig[] => {
+    const initialStages = baseNavItemsConfig.filter(
+      item => item.id === 'overall-budget' || item.id === 'overall-style'
+    );
+    
+    const orderedInitialStages: BaseNavItemConfig[] = [];
+    const budgetStage = initialStages.find(s => s.id === 'overall-budget');
+    const styleStage = initialStages.find(s => s.id === 'overall-style');
+    if (budgetStage) orderedInitialStages.push(budgetStage);
+    if (styleStage) orderedInitialStages.push(styleStage);
+
+    const selectedRoomStages = baseNavItemsConfig.filter(item => 
+      userRoomSelections.has(item.id) && 
+      item.id !== 'overall-budget' && 
+      item.id !== 'overall-style' &&
+      item.id !== 'dashboard' &&
+      item.id !== 'settings'
+    );
+    
+    const finalNavOrder: BaseNavItemConfig[] = [...orderedInitialStages];
+    baseNavItemsConfig.forEach(baseItem => {
+        if(selectedRoomStages.some(srs => srs.id === baseItem.id) && !finalNavOrder.some(fno => fno.id === baseItem.id)) {
+            finalNavOrder.push(baseItem);
+        }
+    });
+    return finalNavOrder;
+  };
+
+  const dynamicNavConfig = getDynamicNavConfig();
+  const currentIndex = dynamicNavConfig.findIndex(item => item.href === pathname);
+  
+  const nextStage = currentIndex !== -1 && currentIndex < dynamicNavConfig.length - 1 
+    ? dynamicNavConfig[currentIndex + 1] 
+    : null;
+
   const handleFinishAndProceed = () => {
     handleSaveChanges(); 
     const clientInfo = getClientInfo();
@@ -139,14 +175,6 @@ export default function HallwaysPage() {
       router.push('/designer');
     }
   };
-
-  const designStagesNavConfig = baseNavItemsConfig.filter(item => item.id !== 'dashboard' && item.id !== 'settings');
-  const currentIndex = designStagesNavConfig.findIndex(item => item.href === pathname);
-  const nextDesignStage = currentIndex !== -1 && currentIndex < designStagesNavConfig.length - 1 && 
-                         designStagesNavConfig[currentIndex + 1].id !== 'dashboard' && 
-                         designStagesNavConfig[currentIndex + 1].id !== 'settings' 
-                         ? designStagesNavConfig[currentIndex + 1] : null;
-
 
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
@@ -185,14 +213,14 @@ export default function HallwaysPage() {
           <Button className="w-full sm:w-auto" onClick={handleSaveChanges}>
             Save Hallway Choices ({selectedOptions.size})
           </Button>
-          {nextDesignStage ? (
+          {nextStage ? (
             <Button
-              onClick={() => router.push(nextDesignStage.href)}
+              onClick={() => router.push(nextStage.href)}
               variant="outline"
               className="w-full sm:w-auto"
               disabled={!hasSavedSinceLastChange}
             >
-              Next Section ({nextDesignStage.label})
+              Next Section ({nextStage.label})
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           ) : (
