@@ -4,7 +4,6 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-// Renamed for clarity to distinguish from page-specific versions
 import {
     overallStyleOptions as baseOverallStyleOptions, 
     keyElementOptions as baseKeyElementOptions, 
@@ -14,32 +13,93 @@ import ItemSelectionCard from "@/components/design/ItemSelectionCard";
 import { useDesignProgress, type SelectedDataItem, DesignStageKey } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter, usePathname } from "next/navigation";
-import { baseNavItemsConfig } from "@/config/navigation";
-import { ArrowRight } from "lucide-react";
+import { baseNavItemsConfig, type BaseNavItemConfig } from "@/config/navigation";
+import { ArrowRight, Home } from "lucide-react";
 
 const PAGE_STAGE_KEY: DesignStageKey = "overall-style";
 
 export default function OverallStylePage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [hasSavedSinceLastChange, setHasSavedSinceLastChange] = useState(false);
-  const { updateStageSelections, getStageSelections } = useDesignProgress();
+  const { updateStageSelections, getStageSelections, getUserRoomSelections, getClientInfo } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter();
   const pathname = usePathname();
+  const userRoomSelections = getUserRoomSelections();
+
+  const [uploadedStyleImageUri, setUploadedStyleImageUri] = useState<string | null>(null);
+  const [uploadedStyleImageName, setUploadedStyleImageName] = useState<string | null>(null);
+  const [uploadedKeyElementImageUri, setUploadedKeyElementImageUri] = useState<string | null>(null);
+  const [uploadedKeyElementImageName, setUploadedKeyElementImageName] = useState<string | null>(null);
+
+  const styleFileInputRef = React.useRef<HTMLInputElement>(null);
+  const keyElementFileInputRef = React.useRef<HTMLInputElement>(null);
+
 
    useEffect(() => {
     const existingSelections = getStageSelections(PAGE_STAGE_KEY);
     if (existingSelections.length > 0) {
-      setSelectedOptions(new Set(existingSelections.map(item => item.id)));
-      // setHasSavedSinceLastChange(true); 
+      setSelectedOptions(new Set(existingSelections.map(item => {
+        if (item.id === 'overall-style-upload' && item.imageUrl?.startsWith('data:image')) {
+          setUploadedStyleImageUri(item.imageUrl);
+          setUploadedStyleImageName(item.name.replace('Custom Style: ', ''));
+        }
+        if (item.id === 'key-element-upload' && item.imageUrl?.startsWith('data:image')) {
+          setUploadedKeyElementImageUri(item.imageUrl);
+          setUploadedKeyElementImageName(item.name.replace('Custom Element: ', ''));
+        }
+        return item.id;
+      })));
     }
   }, [getStageSelections]);
 
+  const handleImageUpload = (
+    event: React.ChangeEvent<HTMLInputElement>, 
+    type: 'style' | 'keyElement'
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const dataUri = reader.result as string;
+        if (type === 'style') {
+          setUploadedStyleImageUri(dataUri);
+          setUploadedStyleImageName(file.name);
+          setSelectedOptions(prev => new Set(prev).add('overall-style-upload'));
+        } else {
+          setUploadedKeyElementImageUri(dataUri);
+          setUploadedKeyElementImageName(file.name);
+          setSelectedOptions(prev => new Set(prev).add('key-element-upload'));
+        }
+        setHasSavedSinceLastChange(false);
+        toast({ title: "Image Uploaded", description: `${file.name} is ready to be saved with your choices.` });
+      };
+      reader.readAsDataURL(file);
+    }
+    // Reset file input to allow re-uploading the same file if needed
+    if (event.target) {
+      event.target.value = '';
+    }
+  };
+
   const handleOptionChange = (optionId: string) => {
+    if (optionId === 'overall-style-upload') {
+      styleFileInputRef.current?.click();
+      // Selection will be handled by handleImageUpload
+      return;
+    }
+    if (optionId === 'key-element-upload') {
+      keyElementFileInputRef.current?.click();
+      // Selection will be handled by handleImageUpload
+      return;
+    }
+
     setSelectedOptions(prev => {
       const newSelected = new Set(prev);
       if (newSelected.has(optionId)) {
         newSelected.delete(optionId);
+        if (optionId === 'overall-style-upload') setUploadedStyleImageUri(null);
+        if (optionId === 'key-element-upload') setUploadedKeyElementImageUri(null);
       } else {
         newSelected.add(optionId);
       }
@@ -47,72 +107,50 @@ export default function OverallStylePage() {
     });
     setHasSavedSinceLastChange(false);
   };
-
-  // Create page-specific options for display
+  
   const pageSpecificDisplayOverallStyleOptions: BaseSelectionItem[] = baseOverallStyleOptions.map(style => {
+    let imageUrl = style.imageUrl;
     if (style.id === 'biophilic') {
-      return {
-        ...style,
-        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=682b3455&is=6829e2d5&hm=d25337aa613c5b72296fbfd9070e35e2f7f5ab0d14f24869777d3f9d397f7dca&=&format=webp&quality=lossless&width=774&height=774' 
-      };
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=682b3455&is=6829e2d5&hm=d25337aa613c5b72296fbfd9070e35e2f7f5ab0d14f24869777d3f9d397f7dca&=&format=webp&quality=lossless&width=774&height=774';
     }
     if (style.id === 'bohemian') {
-      return {
-        ...style,
-        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370577130659909744/Overall_Style__Modern_1.png?ex=682b35ac&is=6829e42c&hm=9d175175076b1e18b077e2f38944c5074472c1e5445a0b06c9df28c975f2b465&=&format=webp&quality=lossless&width=774&height=774'
-      };
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370577130659909744/Overall_Style__Modern_1.png?ex=682b35ac&is=6829e42c&hm=9d175175076b1e18b077e2f38944c5074472c1e5445a0b06c9df28c975f2b465&=&format=webp&quality=lossless&width=774&height=774';
     }
     if (style.id === 'coastal') {
-      return {
-        ...style,
-        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370577942286962748/Overall_Style__Modern_2.png?ex=682b366d&is=6829e4ed&hm=a5c7998dc80c65d66bc87d4cb8ad64dd5d3d78be155bb34498c7bd7f305129b1&=&format=webp&quality=lossless&width=774&height=774'
-      };
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370577942286962748/Overall_Style__Modern_2.png?ex=682b366d&is=6829e4ed&hm=a5c7998dc80c65d66bc87d4cb8ad64dd5d3d78be155bb34498c7bd7f305129b1&=&format=webp&quality=lossless&width=774&height=774';
     }
     if (style.id === 'contemporary') {
-      return {
-        ...style,
-        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370578507385536512/Overall_Style__Modern_3.png?ex=682b36f4&is=6829e574&hm=3a49ddf9aa1b0594c890dbacb94352a4c130dd5c3e2947c0ea14a6ccbfe7adb4&=&format=webp&quality=lossless&width=774&height=774'
-      };
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370578507385536512/Overall_Style__Modern_3.png?ex=682b36f4&is=6829e574&hm=3a49ddf9aa1b0594c890dbacb94352a4c130dd5c3e2947c0ea14a6ccbfe7adb4&=&format=webp&quality=lossless&width=774&height=774';
     }
     if (style.id === 'country-farmhouse') {
-      return {
-        ...style,
-        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370579139647635568/Overall_Style__Modern_4.png?ex=682b378b&is=6829e60b&hm=e74da4ef1e9efd2dabe032b1dd7832b064b65bdddc76879457032736a6574be3&=&format=webp&quality=lossless&width=774&height=774'
-      };
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370579139647635568/Overall_Style__Modern_4.png?ex=682b378b&is=6829e60b&hm=e74da4ef1e9efd2dabe032b1dd7832b064b65bdddc76879457032736a6574be3&=&format=webp&quality=lossless&width=774&height=774';
     }
     if (style.id === 'industrial') {
-      return {
-        ...style,
-        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370579979011887294/Overall_Style__Modern_5.png?ex=682b3853&is=6829e6d3&hm=85c09e020d6f52915da82f9c1cfe73781a6958c58fd483a347424b0cfc9459fe&=&format=webp&quality=lossless&width=774&height=774'
-      };
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370579979011887294/Overall_Style__Modern_5.png?ex=682b3853&is=6829e6d3&hm=85c09e020d6f52915da82f9c1cfe73781a6958c58fd483a347424b0cfc9459fe&=&format=webp&quality=lossless&width=774&height=774';
     }
     if (style.id === 'japandi') {
-      return {
-        ...style,
-        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370580542021697597/Overall_Style__Modern_6.png?ex=682b38d9&is=6829e759&hm=8ec1cc6ec23fe6f63053bf124f8a496a1f2d749115f9e80f812e6c6400c2184a&=&format=webp&quality=lossless&width=774&height=774'
-      };
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370580542021697597/Overall_Style__Modern_6.png?ex=682b38d9&is=6829e759&hm=8ec1cc6ec23fe6f63053bf124f8a496a1f2d749115f9e80f812e6c6400c2184a&=&format=webp&quality=lossless&width=774&height=774';
     }
     if (style.id === 'mid-century') {
-      return {
-        ...style,
-        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370581583479967774/Overall_Style__Modern_7.png?ex=682b39d1&is=6829e851&hm=a72b550757893a41bcff206af1111f3424ea05ce7e89ef1eac9809891c526ec7&=&format=webp&quality=lossless&width=774&height=774'
-      };
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370581583479967774/Overall_Style__Modern_7.png?ex=682b39d1&is=6829e851&hm=a72b550757893a41bcff206af1111f3424ea05ce7e89ef1eac9809891c526ec7&=&format=webp&quality=lossless&width=774&height=774';
     }
     if (style.id === 'modern') {
-      return {
-        ...style,
-        imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374807182142341210/Overall_Style__Modern.png?ex=682f6476&is=682e12f6&hm=a114616baf979e6cb038c526f8aea1874cea1c9ec68106ecfab5044b50893e43&=&format=webp&quality=lossless&width=938&height=938'
-      };
+      imageUrl = 'https://media.discordapp.net/attachments/1374799696127721638/1374807182142341210/Overall_Style__Modern.png?ex=682f6476&is=682e12f6&hm=a114616baf979e6cb038c526f8aea1874cea1c9ec68106ecfab5044b50893e43&=&format=webp&quality=lossless&width=938&height=938';
     }
     if (style.id === 'traditional') {
-      return {
-        ...style,
-        imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1370582056014319727/Overall_Style__Modern_8.png?ex=682b3a42&is=6829e8c2&hm=5032150d03958831e2689b5bbbf59193939df478e6d3a39d506a00c2d0a373c0&=&format=webp&quality=lossless&width=774&height=774'
-      };
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370582056014319727/Overall_Style__Modern_8.png?ex=682b3a42&is=6829e8c2&hm=5032150d03958831e2689b5bbbf59193939df478e6d3a39d506a00c2d0a373c0&=&format=webp&quality=lossless&width=774&height=774';
     }
-    // For other styles, if a page-specific image is needed, add another if block here.
-    // Otherwise, it uses the image from baseOverallStyleOptions by returning 'style'.
-    return style;
+    if (style.id === 'overall-style-upload' && uploadedStyleImageUri) {
+      return { ...style, imageUrl: uploadedStyleImageUri, name: `Custom Style: ${uploadedStyleImageName || 'Uploaded'}` };
+    }
+    return { ...style, imageUrl };
+  });
+
+  const pageSpecificDisplayKeyElementOptions: BaseSelectionItem[] = baseKeyElementOptions.map(element => {
+    if (element.id === 'key-element-upload' && uploadedKeyElementImageUri) {
+      return { ...element, imageUrl: uploadedKeyElementImageUri, name: `Custom Element: ${uploadedKeyElementImageName || 'Uploaded'}` };
+    }
+    return element;
   });
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number; id: 'design-styles' | 'key-elements' }> = [
@@ -120,18 +158,17 @@ export default function OverallStylePage() {
       id: 'design-styles', 
       title: "Select Design Styles", 
       description: "Choose The Style(s) That Represent Your Vision", 
-      options: pageSpecificDisplayOverallStyleOptions, // Uses the potentially overridden images for display
+      options: pageSpecificDisplayOverallStyleOptions, 
       cols: 3 
     },
     { 
       id: 'key-elements', 
       title: "Select Key Elements", 
       description: "Add One or More [Optional] Elements", 
-      options: baseKeyElementOptions, // Key elements use their base options for display
+      options: pageSpecificDisplayKeyElementOptions, 
       cols: 3 
     }, 
   ];
-
 
   const handleSaveChanges = () => {
     const totalOptionsOnPage = sections.reduce((sum, section) => sum + section.options.length, 0);
@@ -153,22 +190,21 @@ export default function OverallStylePage() {
     });
 
     if (selectedOptions.size > 0) {
-      if (hasSelectedOverallStyle && hasSelectedKeyElement) {
+      if (hasSelectedOverallStyle && (hasSelectedKeyElement || keyElementOptionIds.size === 0)) { // Consider key elements optional
         newProgress = 100;
-      } else {
-        const subsectionsCovered = (hasSelectedOverallStyle ? 1 : 0) + (hasSelectedKeyElement ? 1 : 0);
-        if (sections.length > 0) {
+      } else if (hasSelectedOverallStyle || hasSelectedKeyElement) {
+         const subsectionsCovered = (hasSelectedOverallStyle ? 1 : 0) + (hasSelectedKeyElement ? 1 : 0);
+         const totalSubsectionsToConsider = keyElementOptionIds.size > 0 ? sections.length : 1; // Only count key elements if they exist
+         if (totalSubsectionsToConsider > 0) {
             if (subsectionsCovered === 1 && selectedOptions.size > 0 && totalOptionsOnPage > 0) {
                  const itemProgress = Math.round((selectedOptions.size / totalOptionsOnPage) * 50); 
                  const sectionProgress = 50; 
                  newProgress = Math.min(itemProgress + sectionProgress, 99); 
             } else {
-                 newProgress = Math.round((subsectionsCovered / sections.length) * 100);
+                 newProgress = Math.round((subsectionsCovered / totalSubsectionsToConsider) * 100);
             }
-            if (subsectionsCovered < sections.length && newProgress === 100) newProgress = 99; 
-        } else {
-            newProgress = totalOptionsOnPage > 0 ? Math.round((selectedOptions.size / totalOptionsOnPage) * 100) : 0;
-        }
+            if (subsectionsCovered < totalSubsectionsToConsider && newProgress === 100) newProgress = 99;
+         }
       }
     } else {
       newProgress = 0;
@@ -178,24 +214,29 @@ export default function OverallStylePage() {
     const allSelectedItems: SelectedDataItem[] = [];
     selectedOptions.forEach(selectedId => {
       let originalItem: BaseSelectionItem | undefined;
+      let displayItem: BaseSelectionItem | undefined;
       
-      // Find the original item from the base arrays to ensure original data is saved
-      const styleOption = baseOverallStyleOptions.find(item => item.id === selectedId);
-      const keyElement = baseKeyElementOptions.find(item => item.id === selectedId);
-
-      if (styleOption) {
-        originalItem = styleOption;
-      } else if (keyElement) {
-        originalItem = keyElement;
+      displayItem = pageSpecificDisplayOverallStyleOptions.find(item => item.id === selectedId);
+      if (displayItem) {
+        originalItem = baseOverallStyleOptions.find(item => item.id === selectedId);
+      } else {
+        displayItem = pageSpecificDisplayKeyElementOptions.find(item => item.id === selectedId);
+        if (displayItem) {
+          originalItem = baseKeyElementOptions.find(item => item.id === selectedId);
+        }
       }
   
       if (originalItem) {
+        const isUploadOption = selectedId === 'overall-style-upload' || selectedId === 'key-element-upload';
+        const nameToSave = isUploadOption && displayItem ? displayItem.name : originalItem.name;
+        const imageUrlToSave = isUploadOption && displayItem ? displayItem.imageUrl : originalItem.imageUrl;
+
         allSelectedItems.push({
           id: originalItem.id,
-          name: originalItem.name, // Saves the original name
-          imageUrl: originalItem.imageUrl, // Saves the original imageUrl
+          name: nameToSave,
+          imageUrl: imageUrlToSave,
           description: originalItem.description,
-          dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
+          dataAiHint: originalItem.dataAiHint || nameToSave.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
         });
       }
     });
@@ -209,9 +250,43 @@ export default function OverallStylePage() {
     });
   };
 
-  const designStagesNavConfig = baseNavItemsConfig.filter(item => item.id !== 'dashboard' && item.id !== 'settings');
-  const currentIndex = designStagesNavConfig.findIndex(item => item.href === pathname);
-  const nextStage = currentIndex !== -1 && currentIndex < designStagesNavConfig.length - 1 ? designStagesNavConfig[currentIndex + 1] : null;
+  const getDynamicNavConfig = (): BaseNavItemConfig[] => {
+    const initialStages = baseNavItemsConfig.filter(
+      item => item.id === 'overall-budget' || item.id === 'overall-style'
+    );
+    
+    const selectedRoomStages = baseNavItemsConfig.filter(item => 
+      userRoomSelections.has(item.id) && 
+      !initialStages.some(is => is.id === item.id) &&
+      item.id !== 'dashboard' &&
+      item.id !== 'settings'
+    );
+    
+    return [...initialStages, ...selectedRoomStages];
+  };
+
+  const dynamicNavConfig = getDynamicNavConfig();
+  const currentIndex = dynamicNavConfig.findIndex(item => item.href === pathname);
+  
+  let nextStage: BaseNavItemConfig | null = null;
+  if (currentIndex !== -1 && currentIndex < dynamicNavConfig.length - 1) {
+    nextStage = dynamicNavConfig[currentIndex + 1];
+  }
+
+  const handleFinishAndProceed = () => {
+    handleSaveChanges(); 
+    const clientInfo = getClientInfo();
+    if (!clientInfo || !clientInfo.fullName || !clientInfo.email) {
+      toast({
+        title: "Client Information Needed",
+        description: "Please fill out your client information before viewing the dashboard.",
+        variant: "default", 
+      });
+      router.push('/client-info');
+    } else {
+      router.push('/designer');
+    }
+  };
 
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
@@ -245,12 +320,26 @@ export default function OverallStylePage() {
             </CardContent>
           </Card>
         ))}
+         <input
+          type="file"
+          ref={styleFileInputRef}
+          onChange={(e) => handleImageUpload(e, 'style')}
+          accept="image/*"
+          className="hidden"
+        />
+        <input
+          type="file"
+          ref={keyElementFileInputRef}
+          onChange={(e) => handleImageUpload(e, 'keyElement')}
+          accept="image/*"
+          className="hidden"
+        />
         
         <div className="pt-4 flex flex-col sm:flex-row justify-end gap-2">
           <Button className="w-full sm:w-auto" onClick={handleSaveChanges}>
             Save Overall Style Choices ({selectedOptions.size})
           </Button>
-           {nextStage && (
+           {nextStage ? (
             <Button
               onClick={() => router.push(nextStage.href)}
               variant="outline"
@@ -260,6 +349,16 @@ export default function OverallStylePage() {
               Next Section ({nextStage.label})
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
+          ) : (
+            <Button
+              onClick={handleFinishAndProceed}
+              variant="default" 
+              className="w-full sm:w-auto"
+              disabled={!hasSavedSinceLastChange}
+            >
+              <Home className="mr-2 h-4 w-4" />
+              Finish &amp; Proceed
+            </Button>
           )}
         </div>
       </section>
@@ -267,3 +366,4 @@ export default function OverallStylePage() {
   );
 }
 
+    
