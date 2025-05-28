@@ -5,10 +5,9 @@ export interface BaseNavItemConfig {
   href: string;
   label: string;
   iconName: string; // Store icon name as string
-  id: DesignStageKey | 'dashboard' | 'settings'; // Added 'settings' for completeness
+  id: DesignStageKey | 'dashboard' | 'settings'; 
 }
 
-// Updated configuration for navigation items
 // This list defines the order for "Next Section" navigation
 export const baseNavItemsConfig: BaseNavItemConfig[] = [
   { href: "/designer", label: "Dashboard", iconName: "Home", id: "dashboard" },
@@ -21,10 +20,16 @@ export const baseNavItemsConfig: BaseNavItemConfig[] = [
   { href: "/bathroom", label: "Bathroom(s)", iconName: "Bath", id: "bathroom" },
   { href: "/home-office", label: "Home Office", iconName: "Briefcase", id: "home-office"},
   { href: "/hallways", label: "Hallway(s)", iconName: "Waypoints", id: "hallways"},
-  // Note: Settings is usually not part of the sequential "Next Section" flow for design stages.
-  // It's included here if the sidebar config is centralized, but design pages will likely ignore it for "Next" button.
 ];
 
 export const footerNavItemsConfig: BaseNavItemConfig[] = [
     { href: "/settings", label: "Settings", iconName: "Settings", id: "settings" },
 ];
+
+// Helper to get only the designable room stages
+export const designableRoomStages: BaseNavItemConfig[] = baseNavItemsConfig.filter(item => 
+  item.id !== 'dashboard' && 
+  item.id !== 'settings' && 
+  item.id !== 'overall-budget' && 
+  item.id !== 'overall-style'
+);

@@ -7,13 +7,16 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { FileDown, PencilLine, Loader2 } from "lucide-react"; 
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { FileDown, PencilLine, Loader2, Home } from "lucide-react"; 
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation"; 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import jsPDF from 'jspdf';
+import { designableRoomStages } from "@/config/navigation"; // Import designable stages
 
-const stageDisplayNames: Record<DesignStageKey, string> = {
+const stageDisplayNames: Record<string, string> = { // Changed DesignStageKey to string for broader compatibility
   "overall-budget": "Overall Budget",
   "overall-style": "Overall Style & Key Elements",
   "kitchen": "Kitchen",
@@ -23,8 +26,8 @@ const stageDisplayNames: Record<DesignStageKey, string> = {
   "bathroom": "Bathroom(s)",
   "home-office": "Home Office",
   "hallways": "Hallway(s)",
-  "decor": "Decor & Lighting", 
-  "finishes": "Colors & Finishes", 
+  // "decor": "Decor & Lighting", 
+  // "finishes": "Colors & Finishes", 
   "summary": "Summary", 
 };
 
@@ -52,7 +55,7 @@ const SelectedItemDisplay = ({ item }: { item: SelectedDataItem }) => (
   </div>
 );
 
-const StageSelectionsCard = ({ stageKey, items }: { stageKey: DesignStageKey; items: SelectedDataItem[] }) => {
+const StageSelectionsCard = ({ stageKey, items }: { stageKey: DesignStageKey | string; items: SelectedDataItem[] }) => {
   if (!items || items.length === 0) return null;
 
   const displayName = stageDisplayNames[stageKey] || stageKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
@@ -86,15 +89,49 @@ const StageSelectionsCard = ({ stageKey, items }: { stageKey: DesignStageKey; it
 
 
 export default function DesignerPage() {
-  const { getAllSelections, getClientInfo } = useDesignProgress();
+  const { getAllSelections, getClientInfo, updateUserRoomSelections, getUserRoomSelections } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter(); 
   const allSelections = getAllSelections();
   const clientInfo = getClientInfo();
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+  const [tempSelectedRooms, setTempSelectedRooms] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    const existingRoomSelections = getUserRoomSelections();
+    if (existingRoomSelections.size > 0) {
+      setTempSelectedRooms(new Set(existingRoomSelections));
+    }
+  }, [getUserRoomSelections]);
+
 
   const activeStages = Object.entries(allSelections)
     .filter(([stageKey, items]) => stageKey !== "summary" && items.length > 0);
+
+  const handleRoomSelectionChange = (roomId: string) => {
+    setTempSelectedRooms(prev => {
+      const newSelected = new Set(prev);
+      if (newSelected.has(roomId)) {
+        newSelected.delete(roomId);
+      } else {
+        newSelected.add(roomId);
+      }
+      return newSelected;
+    });
+  };
+
+  const handleStartDesigning = () => {
+    if (tempSelectedRooms.size === 0) {
+      toast({
+        title: "No Rooms Selected",
+        description: "Please select at least one room or area to design before proceeding.",
+        variant: "default",
+      });
+      return;
+    }
+    updateUserRoomSelections(tempSelectedRooms);
+    router.push('/overall-budget');
+  };
 
   const handleDownloadPdf = async () => {
     if (activeStages.length === 0 && !clientInfo) {
@@ -118,15 +155,13 @@ export default function DesignerPage() {
     let yPos = 0; 
     const pageHeight = doc.internal.pageSize.height;
     const pageWidth = doc.internal.pageSize.width;
-    const margin = 12; // Reduced margin for more content space
+    const margin = 12; 
     const contentWidth = pageWidth - margin * 2;
 
-    // Theme Colors (RGB approximations from HSL for jsPDF)
-    const colorForegroundRgb = [79, 74, 69]; // hsl(20, 12%, 25%)
-    const colorPrimaryRgb = [0, 128, 128];   // hsl(180, 100%, 25%)
-    const colorMutedRgb = [138, 132, 128];   // hsl(20, 10%, 55%) - from original muted-foreground
+    const colorForegroundRgb = [79, 74, 69]; 
+    const colorPrimaryRgb = [0, 128, 128];   
+    const colorMutedRgb = [138, 132, 128];   
 
-    // Font Sizes (in points) - Reduced for compactness
     const FONT_SIZE_LOGO_TITLE = 9;
     const FONT_SIZE_PAGE_TITLE = 16;
     const FONT_SIZE_SECTION_TITLE = 12;
@@ -137,18 +172,24 @@ export default function DesignerPage() {
     const FONT_SIZE_ITEM_DESCRIPTION = 7;
     const FONT_SIZE_FOOTER = 7;
 
-    // Spacing (in mm) - Reduced
     const spacingSection = 6;
     const spacingItem = 3;
     const spacingImageText = 2;
     
-    // Image dimensions (in mm) - Reduced
     const itemImageWidth = 20; 
     const itemImageHeight = (itemImageWidth * 3) / 4; 
 
     const getLineHeight = (sizeInPoints: number) => {
       doc.setFontSize(sizeInPoints);
-      return doc.getLineHeight() / doc.internal.scaleFactor; // Convert points to mm
+      return doc.getLineHeight() / doc.internal.scaleFactor; 
+    };
+    
+    let currentPageNumber = 1;
+    const addPageNumber = () => {
+        doc.setFontSize(FONT_SIZE_FOOTER);
+        doc.setTextColor(colorMutedRgb[0], colorMutedRgb[1], colorMutedRgb[2]);
+        doc.text(`Page ${currentPageNumber}`, pageWidth - margin, pageHeight - margin / 2, { align: 'right' });
+        currentPageNumber++;
     };
     
     const checkAndAddPage = (neededHeight: number) => {
@@ -160,20 +201,9 @@ export default function DesignerPage() {
         }
         return false;
     };
-    
-    let currentPageNumber = 1;
-    const addPageNumber = () => {
-        doc.setFontSize(FONT_SIZE_FOOTER);
-        doc.setTextColor(colorMutedRgb[0], colorMutedRgb[1], colorMutedRgb[2]);
-        doc.text(`Page ${currentPageNumber}`, pageWidth - margin, pageHeight - margin / 2, { align: 'right' });
-        currentPageNumber++;
-    };
 
-
-    // --- Start PDF Generation ---
     doc.setFont("helvetica", "normal"); 
 
-    // 1. Add Logo & Company Name
     const logoUrl = "https://media.discordapp.net/attachments/1370568040256901200/1370582735122468954/butterfly_logo.png?ex=682897e4&is=68274664&hm=d1efad37b54995ce17b2917059ef5d7f3786ab33798c045302dc9cb1476519ca&=&format=webp&quality=lossless&width=1502&height=1502";
     let logoDataUri: string | null = null;
     try {
@@ -190,8 +220,8 @@ export default function DesignerPage() {
         console.warn("Could not load logo for PDF:", e);
     }
 
-    const logoHeight = 15; // mm
-    const logoWidth = 15;  // mm
+    const logoHeight = 15; 
+    const logoWidth = 15;  
     yPos = margin;
 
     if (logoDataUri) {
@@ -205,13 +235,11 @@ export default function DesignerPage() {
     doc.text("Interactive Designs", pageWidth / 2, yPos, { align: 'center' });
     yPos += getLineHeight(FONT_SIZE_LOGO_TITLE) + 4;
 
-    // Horizontal line
     doc.setDrawColor(colorMutedRgb[0], colorMutedRgb[1], colorMutedRgb[2]);
     doc.setLineWidth(0.2);
     doc.line(margin, yPos, pageWidth - margin, yPos);
     yPos += 4;
 
-    // 2. Client Information
     if (clientInfo) {
         checkAndAddPage(getLineHeight(FONT_SIZE_SECTION_TITLE) + (clientInfo.callPreferences ? 4 : 2) * getLineHeight(FONT_SIZE_CLIENT_DATA) + 5);
         doc.setFontSize(FONT_SIZE_SECTION_TITLE);
@@ -239,36 +267,35 @@ export default function DesignerPage() {
         doc.setFont("helvetica", "normal");
         doc.text(clientInfo.email || "N/A", clientInfoCol1X + 20, yPos);
         
+        let maxClientInfoY = yPos;
+
         if (clientInfo.callPreferences && (clientInfo.callPreferences.phoneNumber || clientInfo.callPreferences.availableDays.length > 0 || clientInfo.callPreferences.availableTimes.length > 0)) {
-            yPos = clientInfoStartY; // Reset yPos for second column
+            let tempYPos = clientInfoStartY; 
             doc.setFont("helvetica", "bold");
-            doc.text("Phone:", clientInfoCol2X, yPos);
+            doc.text("Phone:", clientInfoCol2X, tempYPos);
             doc.setFont("helvetica", "normal");
-            doc.text(clientInfo.callPreferences.phoneNumber || "N/A", clientInfoCol2X + 15, yPos);
-            yPos += getLineHeight(FONT_SIZE_CLIENT_DATA) + 0.5;
+            doc.text(clientInfo.callPreferences.phoneNumber || "N/A", clientInfoCol2X + 15, tempYPos);
+            tempYPos += getLineHeight(FONT_SIZE_CLIENT_DATA) + 0.5;
 
             if(clientInfo.callPreferences.availableDays.length > 0 || clientInfo.callPreferences.availableTimes.length > 0){
                 doc.setFont("helvetica", "bold");
-                doc.text("Availability:", clientInfoCol2X, yPos);
+                doc.text("Availability:", clientInfoCol2X, tempYPos);
                 doc.setFont("helvetica", "normal");
-                const availabilityText = `${clientInfo.callPreferences.availableDays.join(', ')} - ${clientInfo.callPreferences.availableTimes.join(', ')}`;
-                const splitAvailability = doc.splitTextToSize(availabilityText, contentWidth / 2 - 20);
-                doc.text(splitAvailability, clientInfoCol2X + 20, yPos);
-                yPos += getLineHeight(FONT_SIZE_CLIENT_DATA) * splitAvailability.length;
+                const availabilityText = `${clientInfo.callPreferences.availableDays.join(', ')}${clientInfo.callPreferences.availableTimes.length > 0 ? ' - ' + clientInfo.callPreferences.availableTimes.join(', ') : ''}`;
+                const splitAvailability = doc.splitTextToSize(availabilityText, contentWidth / 2 - 20); // Adjust width for second column
+                doc.text(splitAvailability, clientInfoCol2X + 20, tempYPos); // Start text at col2X + offset
+                tempYPos += getLineHeight(FONT_SIZE_CLIENT_DATA) * splitAvailability.length;
             }
+             maxClientInfoY = Math.max(maxClientInfoY, tempYPos);
         }
-        // Adjust yPos to be below the taller of the two columns if client info was split
-        yPos = Math.max(yPos, clientInfoStartY + 2 * (getLineHeight(FONT_SIZE_CLIENT_DATA) + 0.5)); // Ensure space for at least two lines in col1
-        yPos += getLineHeight(FONT_SIZE_CLIENT_LABEL) + 3; // Space after client info block
+        yPos = maxClientInfoY + getLineHeight(FONT_SIZE_CLIENT_LABEL) + 3; 
     }
     
-    // Horizontal line
     doc.setDrawColor(colorMutedRgb[0], colorMutedRgb[1], colorMutedRgb[2]);
     doc.setLineWidth(0.2);
     doc.line(margin, yPos, pageWidth - margin, yPos);
     yPos += 4;
 
-    // 3. Design Selections Title
     checkAndAddPage(getLineHeight(FONT_SIZE_PAGE_TITLE) + spacingSection);
     doc.setFontSize(FONT_SIZE_PAGE_TITLE);
     doc.setFont("helvetica", "bold");
@@ -310,7 +337,7 @@ export default function DesignerPage() {
                 imageData = item.imageUrl;
                 if (imageData.startsWith('data:image/png')) imageFormat = 'PNG';
               } else if (item.imageUrl.startsWith('/images/')) {
-                const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+                const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000'; // Default for server-side if needed
                 const fullImageUrl = `${baseUrl}${item.imageUrl}`;
                 const response = await fetch(fullImageUrl);
                 if (!response.ok) throw new Error(`Local image fetch failed: ${response.statusText} for ${fullImageUrl}`);
@@ -340,7 +367,7 @@ export default function DesignerPage() {
                 doc.addImage(imageData as string, imageFormat, margin, yPos, itemImageWidth, itemImageHeight);
                 imageBlockEndY = yPos + itemImageHeight + 0.5; 
                 textX = margin + itemImageWidth + spacingImageText; 
-                currentTextY = yPos + getLineHeight(FONT_SIZE_ITEM_NAME) / 2; // Align text better with image center
+                currentTextY = yPos + getLineHeight(FONT_SIZE_ITEM_NAME) / 2; 
               }
             } catch (error) {
               console.warn(`PDF: Could not load image for ${item.name}: ${item.imageUrl}`, error);
@@ -444,7 +471,7 @@ export default function DesignerPage() {
                     <p className="mt-2 pt-2 border-t border-border/30"><strong>Contact Preferences:</strong></p>
                     {clientInfo.callPreferences.phoneNumber && <p>Phone: {clientInfo.callPreferences.phoneNumber}</p>}
                     {(clientInfo.callPreferences.availableDays.length > 0 || clientInfo.callPreferences.availableTimes.length > 0) &&
-                      <p>Availability: {clientInfo.callPreferences.availableDays.join(', ')} - {clientInfo.callPreferences.availableTimes.join(', ')}</p>
+                      <p>Availability: {clientInfo.callPreferences.availableDays.join(', ')}${clientInfo.callPreferences.availableTimes.length > 0 ? ' - ' + clientInfo.callPreferences.availableTimes.join(', ') : ''}</p>
                     }
                   </>
                 )}
@@ -452,7 +479,37 @@ export default function DesignerPage() {
             </Card>
           )}
 
-          {activeStages.length > 0 ? (
+          {activeStages.length === 0 ? (
+            <div className="mt-12 p-10 bg-card/60 backdrop-blur-lg border border-card-foreground/10 rounded-lg shadow-lg text-center">
+              <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Select Rooms to Design</h2>
+              <p className="text-muted-foreground max-w-lg mx-auto mb-6">
+                Choose the areas you'd like to customize for your project. 
+                "Overall Budget" and "Overall Style" will always be included.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8 max-w-2xl mx-auto text-left">
+                {designableRoomStages.map((stage) => (
+                  <div key={stage.id} className="flex items-center space-x-2 p-2 rounded-md hover:bg-muted/20 transition-colors">
+                    <Checkbox
+                      id={`room-${stage.id}`}
+                      checked={tempSelectedRooms.has(stage.id)}
+                      onCheckedChange={() => handleRoomSelectionChange(stage.id)}
+                    />
+                    <Label htmlFor={`room-${stage.id}`} className="text-sm font-medium leading-none cursor-pointer">
+                      {stage.label}
+                    </Label>
+                  </div>
+                ))}
+              </div>
+              <Button
+                onClick={handleStartDesigning}
+                size="lg"
+                disabled={tempSelectedRooms.size === 0}
+              >
+                <PencilLine className="mr-2 h-5 w-5" />
+                Start Designing ({tempSelectedRooms.size} {tempSelectedRooms.size === 1 ? "Room" : "Rooms"})
+              </Button>
+            </div>
+          ) : (
             <>
               <h2 className="text-3xl font-semibold mb-8 text-center text-foreground">
                 Your Design Selections Overview
@@ -463,21 +520,6 @@ export default function DesignerPage() {
                 ))}
               </div>
             </>
-          ) : (
-            <div className="mt-12 p-10 bg-card/60 backdrop-blur-lg border border-card-foreground/10 rounded-lg shadow-lg text-center">
-              <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Start Designing Your Space!</h2>
-              <p className="text-muted-foreground max-w-lg mx-auto mb-6">
-                It looks like you haven't made any selections yet. 
-                Navigate through the sidebar or click the button below to start customizing different aspects of your project.
-              </p>
-              <Button
-                onClick={() => router.push('/overall-budget')}
-                size="lg"
-              >
-                <PencilLine className="mr-2 h-5 w-5" />
-                Start Designing
-              </Button>
-            </div>
           )}
         </section>
       </div>

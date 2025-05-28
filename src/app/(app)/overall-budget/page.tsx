@@ -2,30 +2,29 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { useDesignProgress, type SelectedDataItem } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter, usePathname } from "next/navigation";
-import { baseNavItemsConfig } from "@/config/navigation";
+import { baseNavItemsConfig, type BaseNavItemConfig } from "@/config/navigation";
 import { ArrowRight } from "lucide-react";
 
 export default function OverallBudgetPage() {
   const [budget, setBudget] = useState<number[]>([50000]); 
   const [hasSavedSinceLastChange, setHasSavedSinceLastChange] = useState(false);
-  const { updateStageSelections, getStageSelections } = useDesignProgress();
+  const { updateStageSelections, getStageSelections, getUserRoomSelections } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter();
   const pathname = usePathname();
+  const userRoomSelections = getUserRoomSelections();
 
   useEffect(() => {
     const existingSelections = getStageSelections("overall-budget");
     if (existingSelections.length > 0 && typeof existingSelections[0].value === 'number') {
       setBudget([existingSelections[0].value]);
-      // If data is loaded, consider it "saved" initially for this page load
-      // setHasSavedSinceLastChange(true); // Or false if you want to force a save
     }
   }, [getStageSelections]);
 
@@ -55,9 +54,28 @@ export default function OverallBudgetPage() {
     });
   };
 
-  const designStagesNavConfig = baseNavItemsConfig.filter(item => item.id !== 'dashboard' && item.id !== 'settings');
-  const currentIndex = designStagesNavConfig.findIndex(item => item.href === pathname);
-  const nextStage = currentIndex !== -1 && currentIndex < designStagesNavConfig.length - 1 ? designStagesNavConfig[currentIndex + 1] : null;
+  // Dynamically generate navigation based on room selections
+  const getDynamicNavConfig = (): BaseNavItemConfig[] => {
+    const initialStages = baseNavItemsConfig.filter(
+      item => item.id === 'overall-budget' || item.id === 'overall-style'
+    );
+    
+    const selectedRoomStages = baseNavItemsConfig.filter(item => 
+      userRoomSelections.has(item.id) && 
+      item.id !== 'overall-budget' && 
+      item.id !== 'overall-style' &&
+      item.id !== 'dashboard' &&
+      item.id !== 'settings'
+    );
+    
+    return [...initialStages, ...selectedRoomStages];
+  };
+
+  const dynamicNavConfig = getDynamicNavConfig();
+  const currentIndex = dynamicNavConfig.findIndex(item => item.href === pathname);
+  const nextStage = currentIndex !== -1 && currentIndex < dynamicNavConfig.length - 1 
+    ? dynamicNavConfig[currentIndex + 1] 
+    : null;
 
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
@@ -113,6 +131,11 @@ export default function OverallBudgetPage() {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               )}
+              {/* If there's no nextStage according to dynamicNavConfig, 
+                  it implies this might be the last page in the *selected* flow.
+                  The "Finish & Proceed" logic would then be more complex and might reside
+                  on the last dynamically determined page. For Overall Budget, it always has a next.
+              */}
             </div>
           </CardContent>
         </Card>
@@ -120,4 +143,3 @@ export default function OverallBudgetPage() {
     </div>
   );
 }
-

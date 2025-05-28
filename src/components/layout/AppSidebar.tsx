@@ -11,8 +11,7 @@ import {
   SidebarMenuItem, 
   SidebarMenuButton,
   SidebarMenuBadge,
-  useSidebar, // Import useSidebar hook
-  // SidebarSeparator, // Not used currently
+  useSidebar,
 } from "@/components/ui/sidebar";
 import ButterflyLogo from "@/components/common/Logo";
 import { 
@@ -34,26 +33,18 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useDesignProgress, type DesignStageKey } from "@/contexts/DesignProgressContext";
 import { baseNavItemsConfig, footerNavItemsConfig, type BaseNavItemConfig } from "@/config/navigation";
+import { useMemo } from "react";
 
-// Icon map to resolve string names to actual Lucide components
 const iconMap: Record<string, LucideIcon> = {
-  Home,
-  DollarSign,
-  LayoutGrid,
-  ChefHat,
-  WashingMachine,
-  Armchair,
-  Bed,
-  Bath,
-  Briefcase,
-  Waypoints,
-  Settings,
+  Home, DollarSign, LayoutGrid, ChefHat, WashingMachine,
+  Armchair, Bed, Bath, Briefcase, Waypoints, Settings,
 };
 
 const AppSidebar = () => {
   const pathname = usePathname();
-  const { getStageProgress } = useDesignProgress();
-  const { isMobile, setOpenMobile } = useSidebar(); // Get isMobile and setOpenMobile from useSidebar
+  const { getStageProgress, getUserRoomSelections } = useDesignProgress();
+  const { isMobile, setOpenMobile } = useSidebar();
+  const userRoomSelections = getUserRoomSelections();
 
   const handleMenuItemClick = () => {
     if (isMobile) {
@@ -61,23 +52,57 @@ const AppSidebar = () => {
     }
   };
 
-  const mapConfigToNavItems = (config: BaseNavItemConfig[]) => {
-    return config.map(configItem => {
-      const IconComponent = iconMap[configItem.iconName] || Waypoints; // Fallback icon
+  const dynamicNavItems = useMemo(() => {
+    const alwaysInclude: DesignStageKey[] = ["overall-budget", "overall-style"];
+    
+    let filteredConfig = baseNavItemsConfig.filter(item => 
+      item.id === 'dashboard' || 
+      alwaysInclude.includes(item.id as DesignStageKey) ||
+      (userRoomSelections.size > 0 && userRoomSelections.has(item.id)) ||
+      (userRoomSelections.size === 0 && item.id !== 'dashboard' && item.id !== 'settings') // Show all designable if none selected yet
+    );
+
+    // Ensure "Overall Budget" and "Overall Style" are right after "Dashboard" if they exist
+    const dashboardItem = filteredConfig.find(item => item.id === 'dashboard');
+    const budgetItem = filteredConfig.find(item => item.id === 'overall-budget');
+    const styleItem = filteredConfig.find(item => item.id === 'overall-style');
+
+    const otherItems = filteredConfig.filter(item => 
+        item.id !== 'dashboard' && 
+        item.id !== 'overall-budget' && 
+        item.id !== 'overall-style'
+    );
+
+    const finalNavOrder: BaseNavItemConfig[] = [];
+    if (dashboardItem) finalNavOrder.push(dashboardItem);
+    if (budgetItem) finalNavOrder.push(budgetItem);
+    if (styleItem) finalNavOrder.push(styleItem);
+    
+    // Add selected rooms in their original order from baseNavItemsConfig
+    baseNavItemsConfig.forEach(baseItem => {
+        if (otherItems.some(otherItem => otherItem.id === baseItem.id)) {
+            finalNavOrder.push(baseItem);
+        }
+    });
+    
+    filteredConfig = finalNavOrder;
+
+
+    return filteredConfig.map(configItem => {
+      const IconComponent = iconMap[configItem.iconName] || Waypoints;
       let progress = 0;
       if (configItem.id !== 'dashboard' && configItem.id !== 'settings') {
         progress = getStageProgress(configItem.id as DesignStageKey);
       }
-      return {
-        ...configItem,
-        icon: IconComponent, // Actual icon component
-        progress: progress,
-      };
+      return { ...configItem, icon: IconComponent, progress };
     });
-  };
+  }, [userRoomSelections, getStageProgress]);
 
-  const navItems = mapConfigToNavItems(baseNavItemsConfig);
-  const footerItems = mapConfigToNavItems(footerNavItemsConfig);
+
+  const footerItems = footerNavItemsConfig.map(configItem => ({
+    ...configItem,
+    icon: iconMap[configItem.iconName] || Settings,
+  }));
 
   return (
     <Sidebar collapsible="icon" side="left" className="border-r">
@@ -91,14 +116,14 @@ const AppSidebar = () => {
       </SidebarHeader>
       <SidebarContent className="p-2">
         <SidebarMenu>
-          {navItems.map((item) => (
+          {dynamicNavItems.map((item) => (
             <SidebarMenuItem key={item.label}>
               <Link href={item.href} legacyBehavior passHref>
                 <SidebarMenuButton 
                   className={cn(pathname === item.href && "bg-sidebar-accent text-sidebar-accent-foreground")}
                   isActive={pathname === item.href}
                   tooltip={item.label}
-                  onClick={handleMenuItemClick} // Add onClick handler
+                  onClick={handleMenuItemClick}
                 >
                   <item.icon className="h-5 w-5" />
                   <span className="group-data-[collapsible=icon]:hidden">{item.label}</span>
@@ -130,7 +155,7 @@ const AppSidebar = () => {
                   className={cn(pathname === item.href && "bg-sidebar-accent text-sidebar-accent-foreground")}
                   isActive={pathname === item.href}
                   tooltip={item.label}
-                  onClick={handleMenuItemClick} // Add onClick handler
+                  onClick={handleMenuItemClick} 
                 >
                   <item.icon className="h-5 w-5" />
                   <span className="group-data-[collapsible=icon]:hidden">{item.label}</span>
