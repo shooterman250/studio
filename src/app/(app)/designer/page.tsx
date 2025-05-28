@@ -9,14 +9,25 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { FileDown, PencilLine, Loader2, Home } from "lucide-react"; 
+import { FileDown, PencilLine, Loader2, Home, RotateCcw } from "lucide-react"; 
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation"; 
 import { useState, useEffect } from "react";
 import jsPDF from 'jspdf';
-import { designableRoomStages } from "@/config/navigation"; // Import designable stages
+import { designableRoomStages } from "@/config/navigation"; 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
-const stageDisplayNames: Record<string, string> = { // Changed DesignStageKey to string for broader compatibility
+const stageDisplayNames: Record<string, string> = { 
   "overall-budget": "Overall Budget",
   "overall-style": "Overall Style & Key Elements",
   "kitchen": "Kitchen",
@@ -26,8 +37,6 @@ const stageDisplayNames: Record<string, string> = { // Changed DesignStageKey to
   "bathroom": "Bathroom(s)",
   "home-office": "Home Office",
   "hallways": "Hallway(s)",
-  // "decor": "Decor & Lighting", 
-  // "finishes": "Colors & Finishes", 
   "summary": "Summary", 
 };
 
@@ -89,13 +98,14 @@ const StageSelectionsCard = ({ stageKey, items }: { stageKey: DesignStageKey | s
 
 
 export default function DesignerPage() {
-  const { getAllSelections, getClientInfo, updateUserRoomSelections, getUserRoomSelections } = useDesignProgress();
+  const { getAllSelections, getClientInfo, updateUserRoomSelections, getUserRoomSelections, resetAllProgress } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter(); 
   const allSelections = getAllSelections();
   const clientInfo = getClientInfo();
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const [tempSelectedRooms, setTempSelectedRooms] = useState<Set<string>>(new Set());
+  const [isResetDialogOpen, setIsResetDialogOpen] = useState(false);
 
   useEffect(() => {
     const existingRoomSelections = getUserRoomSelections();
@@ -131,6 +141,15 @@ export default function DesignerPage() {
     }
     updateUserRoomSelections(tempSelectedRooms);
     router.push('/overall-budget');
+  };
+
+  const handleConfirmReset = () => {
+    resetAllProgress();
+    setIsResetDialogOpen(false);
+    toast({
+      title: "Choices Reset",
+      description: "All your design selections and client information have been cleared.",
+    });
   };
 
   const handleDownloadPdf = async () => {
@@ -282,8 +301,8 @@ export default function DesignerPage() {
                 doc.text("Availability:", clientInfoCol2X, tempYPos);
                 doc.setFont("helvetica", "normal");
                 const availabilityText = `${clientInfo.callPreferences.availableDays.join(', ')}${clientInfo.callPreferences.availableTimes.length > 0 ? ' - ' + clientInfo.callPreferences.availableTimes.join(', ') : ''}`;
-                const splitAvailability = doc.splitTextToSize(availabilityText, contentWidth / 2 - 20); // Adjust width for second column
-                doc.text(splitAvailability, clientInfoCol2X + 20, tempYPos); // Start text at col2X + offset
+                const splitAvailability = doc.splitTextToSize(availabilityText, contentWidth / 2 - 20); 
+                doc.text(splitAvailability, clientInfoCol2X + 20, tempYPos); 
                 tempYPos += getLineHeight(FONT_SIZE_CLIENT_DATA) * splitAvailability.length;
             }
              maxClientInfoY = Math.max(maxClientInfoY, tempYPos);
@@ -337,7 +356,7 @@ export default function DesignerPage() {
                 imageData = item.imageUrl;
                 if (imageData.startsWith('data:image/png')) imageFormat = 'PNG';
               } else if (item.imageUrl.startsWith('/images/')) {
-                const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000'; // Default for server-side if needed
+                const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000'; 
                 const fullImageUrl = `${baseUrl}${item.imageUrl}`;
                 const response = await fetch(fullImageUrl);
                 if (!response.ok) throw new Error(`Local image fetch failed: ${response.statusText} for ${fullImageUrl}`);
@@ -440,7 +459,7 @@ export default function DesignerPage() {
           <p className="mt-4 max-w-3xl mx-auto text-lg opacity-80 sm:text-xl">
             Welcome to your personalized design dashboard. This is where all your interior design preferences and selections are gathered in one place. Use the menu to explore each category and continue customizing your space.
           </p>
-          <div className="mt-6 flex justify-center">
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Button onClick={handleDownloadPdf} disabled={isGeneratingPdf}>
               {isGeneratingPdf ? (
                 <>
@@ -454,6 +473,32 @@ export default function DesignerPage() {
                 </>
               )}
             </Button>
+            {activeStages.length > 0 && (
+               <AlertDialog open={isResetDialogOpen} onOpenChange={setIsResetDialogOpen}>
+                <AlertDialogTrigger asChild>
+                  <Button variant="destructive" className="bg-destructive/80 hover:bg-destructive">
+                    <RotateCcw className="mr-2 h-4 w-4" />
+                    Reset All Choices
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action will permanently clear all your design selections, 
+                      chosen rooms, and any client information you've entered. 
+                      This cannot be undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleConfirmReset} className="bg-destructive hover:bg-destructive/90">
+                      Yes, Reset Everything
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            )}
           </div>
         </header>
 

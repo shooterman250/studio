@@ -15,9 +15,7 @@ export type DesignStageKey =
   "bathroom" |
   "home-office" |
   "hallways" |
-  // "decor" | // Removed as per previous request
-  // "finishes" | // Removed as per previous request
-  "summary"; // Kept for completeness, though not actively used as a page
+  "summary"; 
 
 export interface SelectedDataItem extends BaseSelectionItem {
   value?: number | string;
@@ -40,7 +38,7 @@ interface DesignProgressState {
   progress: Record<DesignStageKey, number>;
   selections: Record<DesignStageKey, SelectedDataItem[]>;
   clientInfo: ClientInfoData | null;
-  userRoomSelections: Set<string>; // Stores IDs of selected design stages (rooms)
+  userRoomSelections: Set<string>; 
   updateStageSelections: (stage: DesignStageKey, progressValue: number, items: SelectedDataItem[]) => void;
   getStageProgress: (stage: DesignStageKey) => number;
   getStageSelections: (stage: DesignStageKey) => SelectedDataItem[];
@@ -49,6 +47,7 @@ interface DesignProgressState {
   getClientInfo: () => ClientInfoData | null;
   updateUserRoomSelections: (newSelections: Set<string>) => void;
   getUserRoomSelections: () => Set<string>;
+  resetAllProgress: () => void; // Added reset function
 }
 
 const DesignProgressContext = createContext<DesignProgressState | undefined>(undefined);
@@ -57,7 +56,6 @@ const initialProgress: Record<DesignStageKey, number> = {
   "overall-budget": 0, "overall-style": 0, "kitchen": 0,
   "utility-laundry-room": 0, "living-room": 0, "bedroom": 0,
   "bathroom": 0, "home-office": 0, "hallways": 0,
-  // "decor": 0, "finishes": 0, 
   "summary": 0,
 };
 
@@ -65,7 +63,6 @@ const initialSelections: Record<DesignStageKey, SelectedDataItem[]> = {
   "overall-budget": [], "overall-style": [], "kitchen": [],
   "utility-laundry-room": [], "living-room": [], "bedroom": [],
   "bathroom": [], "home-office": [], "hallways": [],
-  // "decor": [], "finishes": [], 
   "summary": [],
 };
 
@@ -109,6 +106,13 @@ export const DesignProgressProvider = ({ children }: { children: ReactNode }) =>
     return userRoomSelections;
   }, [userRoomSelections]);
 
+  const resetAllProgress = useCallback(() => {
+    setProgress(initialProgress);
+    setSelections(initialSelections);
+    setClientInfo(null);
+    setUserRoomSelections(new Set());
+  }, []);
+
   return (
     <DesignProgressContext.Provider value={{ 
       progress, 
@@ -123,6 +127,7 @@ export const DesignProgressProvider = ({ children }: { children: ReactNode }) =>
       getClientInfo,
       updateUserRoomSelections,
       getUserRoomSelections,
+      resetAllProgress, // Exposed reset function
     }}>
       {children}
     </DesignProgressContext.Provider>
