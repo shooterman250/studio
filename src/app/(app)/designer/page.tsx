@@ -456,7 +456,7 @@ export default function DesignerPage() {
           <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
             Design Dashboard
           </h1>
-          <p className="mt-4 max-w-3xl mx-auto text-lg opacity-80 sm:text-xl">
+          <p className="mt-4 max-w-3xl mx-auto text-base opacity-80 sm:text-lg">
             Welcome to your personalized design dashboard. This is where all your interior design preferences and selections are gathered in one place. Use the menu to explore each category and continue customizing your space.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
@@ -571,3 +571,5 @@ export default function DesignerPage() {
     </div>
   );
 }
+
+    
