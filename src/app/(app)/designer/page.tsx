@@ -456,16 +456,16 @@ export default function DesignerPage() {
           <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
             Design Dashboard
           </h1>
-          <p className="mt-4 max-w-3xl mx-auto text-sm sm:text-base opacity-80">
+          <p className="mt-4 text-sm sm:text-base opacity-80">
             Welcome to your personalized design dashboard!
           </p>
-          <p className="mt-1 max-w-3xl mx-auto text-xs sm:text-sm opacity-80">
+          <p className="mt-1 text-xs sm:text-sm opacity-80">
             This is where your preferences and selections come together in one place. Use the menu to explore each category, based on the room selections you chose below, or continue by selected &quot;Finish &amp; Proceed&quot; at the bottom of each section.
           </p>
-          <p className="mt-1 max-w-3xl mx-auto text-sm sm:text-base opacity-80">
+          <p className="mt-1 text-sm sm:text-base opacity-80">
             Don&apos;t forget to save your selections on each page. You&apos;ll see a progress percentage in the sidebar for each section. 
           </p>
-          <p className="mt-1 max-w-3xl mx-auto text-xs opacity-80 whitespace-nowrap">
+          <p className="mt-1 text-sm sm:text-base opacity-80">
             To export your final PDF, all selected sections must be marked 100% complete.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
