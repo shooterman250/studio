@@ -4,12 +4,13 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
+import {
+    overallStyleOptions as baseOverallStyleOptions,
     generalWallFinishOptions as bedroomWallFinishOptions,
     generalFlooringOptions as bedroomFlooringOptions,
-    generalLightingOptions as baseBedroomLightingOptions, 
-    bedroomWardrobeOptions as baseBedroomWardrobeOptions, 
-    type BaseSelectionItem 
+    generalLightingOptions as baseBedroomLightingOptions,
+    bedroomWardrobeOptions as baseBedroomWardrobeOptions,
+    type BaseSelectionItem
 } from "@/types";
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
 import { useDesignProgress, type SelectedDataItem, DesignStageKey } from "@/contexts/DesignProgressContext";
@@ -49,10 +50,22 @@ export default function BedroomPage() {
     setHasSavedSinceLastChange(false);
   };
 
+  const pageSpecificBedroomStyleOptions: BaseSelectionItem[] = baseOverallStyleOptions.map(style => {
+    // Add any page-specific image overrides here if needed, e.g.:
+    // if (style.id === 'biophilic') {
+    //   imageUrl = 'new_biophilic_bedroom_image_url';
+    // }
+    return {
+      ...style,
+      name: `${style.name} Bedroom`,
+      imageUrl: style.imageUrl, // Uses base image for now
+    };
+  });
+
   const pageSpecificBedroomWardrobeOptions: BaseSelectionItem[] = [
     ...baseBedroomWardrobeOptions,
     {
-      id: 'bed-wardrobe-fitted-display', 
+      id: 'bed-wardrobe-fitted-display',
       name: 'Fitted Wardrobe',
       imageUrl: 'https://placehold.co/400x300.png',
       dataAiHint: 'fitted wardrobe bedroom',
@@ -65,8 +78,9 @@ export default function BedroomPage() {
     }
     return option;
   });
-  
+
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
+    { title: "Bedroom Style", options: pageSpecificBedroomStyleOptions, cols: 3 },
     { title: "Wall Finish", options: bedroomWallFinishOptions, cols: 3 },
     { title: "Flooring", options: bedroomFlooringOptions, cols: 3 },
     { title: "Lighting", options: pageSpecificBedroomLightingOptions, cols: 3 },
@@ -91,36 +105,38 @@ export default function BedroomPage() {
         newProgress = 100;
     } else if (totalSubsections > 0) {
          newProgress = totalOptionsOnPage > 0 ? Math.round((selectedOptions.size / totalOptionsOnPage) * 50) + Math.round((subsectionsWithSelections / totalSubsections) * 50) : 0;
-         newProgress = Math.min(newProgress, 99); 
+         newProgress = Math.min(newProgress, 99);
     } else {
         newProgress = 0;
     }
     newProgress = Math.max(0, Math.min(100, newProgress));
-    
+
     const allSelectedItems: SelectedDataItem[] = [];
     sections.forEach(section => {
-      section.options.forEach(displayOption => { 
+      section.options.forEach(displayOption => {
         if (selectedOptions.has(displayOption.id)) {
           let originalItem: BaseSelectionItem | undefined;
 
-          if (section.options === pageSpecificBedroomLightingOptions) {
+          if (section.options === pageSpecificBedroomStyleOptions) {
+            originalItem = baseOverallStyleOptions.find(opt => opt.id === displayOption.id);
+          } else if (section.options === pageSpecificBedroomLightingOptions) {
             originalItem = baseBedroomLightingOptions.find(opt => opt.id === displayOption.id);
           } else if (section.options === pageSpecificBedroomWardrobeOptions) {
             if (displayOption.id === 'bed-wardrobe-fitted-display') {
-              originalItem = displayOption; 
+              originalItem = displayOption;
             } else {
               originalItem = baseBedroomWardrobeOptions.find(opt => opt.id === displayOption.id);
             }
           } else {
-            originalItem = displayOption; 
+            originalItem = displayOption;
           }
-          
+
           if (originalItem) {
             allSelectedItems.push({
               id: originalItem.id,
               name: originalItem.name,
               imageUrl: originalItem.imageUrl,
-              description: originalItem.description, 
+              description: originalItem.description,
               dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
             });
           }
@@ -128,9 +144,9 @@ export default function BedroomPage() {
       });
     });
 
-    updateStageSelections(PAGE_STAGE_KEY, newProgress, allSelectedItems); 
+    updateStageSelections(PAGE_STAGE_KEY, newProgress, allSelectedItems);
     setHasSavedSinceLastChange(true);
-    
+
     toast({
       title: "Bedroom Choices Saved",
       description: `You've selected ${allSelectedItems.length} item(s) for the bedroom(s). Progress updated to ${newProgress}%.`,
@@ -141,21 +157,21 @@ export default function BedroomPage() {
     const initialStages = baseNavItemsConfig.filter(
       item => item.id === 'overall-budget' || item.id === 'overall-style'
     );
-    
+
     const orderedInitialStages: BaseNavItemConfig[] = [];
     const budgetStage = initialStages.find(s => s.id === 'overall-budget');
     const styleStage = initialStages.find(s => s.id === 'overall-style');
     if (budgetStage) orderedInitialStages.push(budgetStage);
     if (styleStage) orderedInitialStages.push(styleStage);
 
-    const selectedRoomStages = baseNavItemsConfig.filter(item => 
-      userRoomSelections.has(item.id) && 
-      item.id !== 'overall-budget' && 
+    const selectedRoomStages = baseNavItemsConfig.filter(item =>
+      userRoomSelections.has(item.id) &&
+      item.id !== 'overall-budget' &&
       item.id !== 'overall-style' &&
       item.id !== 'dashboard' &&
       item.id !== 'settings'
     );
-    
+
     const finalNavOrder: BaseNavItemConfig[] = [...orderedInitialStages];
     baseNavItemsConfig.forEach(baseItem => {
         if(selectedRoomStages.some(srs => srs.id === baseItem.id) && !finalNavOrder.some(fno => fno.id === baseItem.id)) {
@@ -167,19 +183,19 @@ export default function BedroomPage() {
 
   const dynamicNavConfig = getDynamicNavConfig();
   const currentIndex = dynamicNavConfig.findIndex(item => item.href === pathname);
-  
-  const nextStage = currentIndex !== -1 && currentIndex < dynamicNavConfig.length - 1 
-    ? dynamicNavConfig[currentIndex + 1] 
+
+  const nextStage = currentIndex !== -1 && currentIndex < dynamicNavConfig.length - 1
+    ? dynamicNavConfig[currentIndex + 1]
     : null;
 
   const handleFinishAndProceed = () => {
-    handleSaveChanges(); 
+    handleSaveChanges();
     const clientInfo = getClientInfo();
     if (!clientInfo || !clientInfo.fullName || !clientInfo.email) {
       toast({
         title: "Client Information Needed",
         description: "Please fill out your client information before viewing the dashboard.",
-        variant: "default", 
+        variant: "default",
       });
       router.push('/client-info');
     } else {
@@ -219,7 +235,7 @@ export default function BedroomPage() {
             </CardContent>
           </Card>
         ))}
-            
+
         <div className="pt-4 flex flex-col sm:flex-row justify-end gap-2">
           <Button className="w-full sm:w-auto" onClick={handleSaveChanges}>
             Save Bedroom Choices ({selectedOptions.size})
@@ -237,7 +253,7 @@ export default function BedroomPage() {
           ) : (
             <Button
               onClick={handleFinishAndProceed}
-              variant="default" 
+              variant="default"
               className="w-full sm:w-auto"
               disabled={!hasSavedSinceLastChange}
             >
