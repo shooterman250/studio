@@ -535,7 +535,7 @@ export default function DesignerPage() {
 
           {activeStages.length === 0 ? (
             <div className="mt-12 p-10 bg-card/60 backdrop-blur-lg border border-card-foreground/10 rounded-lg shadow-lg text-center">
-              <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Select Rooms to Design</h2>
+              <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Select Rooms To Design</h2>
               <p className="text-muted-foreground max-w-lg mx-auto mb-6">
                 Choose the areas you&apos;d like to customize for your project. 
                 &quot;Overall Budget&quot; and &quot;Overall Style&quot; will always be included.
