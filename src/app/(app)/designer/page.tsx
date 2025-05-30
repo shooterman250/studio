@@ -48,7 +48,7 @@ const SelectedItemDisplay = ({ item }: { item: SelectedDataItem }) => (
         alt={item.name}
         width={60} 
         height={45} 
-        className="rounded-md object-cover aspect-[4/3] shadow-sm"
+        className="rounded-md object-contain aspect-[4/3] shadow-sm"
         data-ai-hint={item.dataAiHint || item.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')}
       />
     )}
@@ -456,8 +456,14 @@ export default function DesignerPage() {
           <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
             Design Dashboard
           </h1>
-          <p className="mt-4 max-w-3xl mx-auto text-base opacity-80 sm:text-lg">
-            Welcome to your personalized design dashboard. This is where all your interior design preferences and selections are gathered in one place. Use the menu to explore each category and continue customizing your space.
+          <p className="mt-4 max-w-3xl mx-auto text-base sm:text-lg opacity-80">
+            Welcome to your personalized design dashboard!
+          </p>
+          <p className="mt-2 max-w-3xl mx-auto text-base sm:text-lg opacity-80">
+            This is where your preferences and selections come together in one place. Use the menu to explore each category, based on the room selections you chose below, and continue customizing your space.
+          </p>
+          <p className="mt-2 max-w-3xl mx-auto text-base sm:text-lg opacity-80">
+            Don't forget to save your selections on each page. You'll see a progress percentage in the sidebar for each section. To export your final PDF, all selected sections must be marked 100% complete.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Button onClick={handleDownloadPdf} disabled={isGeneratingPdf}>
