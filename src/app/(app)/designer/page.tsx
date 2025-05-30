@@ -459,11 +459,11 @@ export default function DesignerPage() {
           <p className="mt-4 max-w-3xl mx-auto text-sm sm:text-base opacity-80">
             Welcome to your personalized design dashboard!
           </p>
-          <p className="mt-1 max-w-3xl mx-auto text-sm sm:text-base opacity-80">
-            This is where your preferences and selections come together in one place. Use the menu to explore each category, based on the room selections you chose below, or continue by selecting Next Section at the bottom of each page.
+          <p className="mt-1 max-w-3xl mx-auto text-xs sm:text-sm opacity-80">
+            This is where your preferences and selections come together in one place. Use the menu to explore each category, based on the room selections you chose below, or continue by selected "Finish &amp; Proceed" at the bottom of each section.
           </p>
           <p className="mt-1 max-w-3xl mx-auto text-sm sm:text-base opacity-80">
-            Don't forget to save your selections on each page. You'll see a progress percentage in the sidebar for each section. 
+            Don&apos;t forget to save your selections on each page. You&apos;ll see a progress percentage in the sidebar for each section. 
           </p>
           <p className="mt-1 max-w-3xl mx-auto text-sm sm:text-base opacity-80">
             To export your final PDF, all selected sections must be marked 100% complete.
@@ -495,7 +495,7 @@ export default function DesignerPage() {
                     <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                     <AlertDialogDescription>
                       This action will permanently clear all your design selections, 
-                      chosen rooms, and any client information you've entered. 
+                      chosen rooms, and any client information you&apos;ve entered. 
                       This cannot be undone.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
@@ -537,8 +537,8 @@ export default function DesignerPage() {
             <div className="mt-12 p-10 bg-card/60 backdrop-blur-lg border border-card-foreground/10 rounded-lg shadow-lg text-center">
               <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Select Rooms to Design</h2>
               <p className="text-muted-foreground max-w-lg mx-auto mb-6">
-                Choose the areas you'd like to customize for your project. 
-                "Overall Budget" and "Overall Style" will always be included.
+                Choose the areas you&apos;d like to customize for your project. 
+                &quot;Overall Budget&quot; and &quot;Overall Style&quot; will always be included.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8 max-w-2xl mx-auto text-left">
                 {designableRoomStages.map((stage) => (
@@ -580,6 +580,8 @@ export default function DesignerPage() {
     </div>
   );
 }
+
+    
 
     
 
