@@ -1,3 +1,4 @@
+
 import type { LucideIcon } from 'lucide-react';
 
 export interface DesignOption {
@@ -56,12 +57,12 @@ export const keyElementOptions: KeyElementOption[] = [
 // Kitchen Options
 export interface KitchenCabinetOption extends BaseSelectionItem {}
 export const kitchenCabinetOptions: KitchenCabinetOption[] = [
-  { id: 'k-cab-arched', name: 'Arched', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'arched kitchen cabinet' },
-  { id: 'k-cab-flat', name: 'Flat Panel', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1377359043160444968/IMG_1231.webp?ex=683bf8d1&is=683aa751&hm=bc6d319755d8285d2faa8be2987a8e527dfcf6b5bddd9b0c2bcafbc0f1b2c8af&=&format=webp&width=1174&height=1174', dataAiHint: 'flat panel kitchen' },
-  { id: 'k-cab-glass', name: 'Glass Front', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'glass kitchen cabinet' },
-  { id: 'k-cab-open', name: 'Open Shelving', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'open kitchen shelving' },
-  { id: 'k-cab-raised', name: 'Raised Panel', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'raised panel kitchen' },
-  { id: 'k-cab-shaker', name: 'Shaker', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'shaker kitchen cabinet' },
+  { id: 'k-cab-arched', name: 'Arched', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1376296310801567805/Arched_Kitchen_Cabinets.png?ex=68400412&is=683eb292&hm=da8e6a4a10e9d431bf6e6577814612d14bdd42c04a28712d9b6144798255c7a3&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'arched kitchen cabinet' },
+  { id: 'k-cab-flat', name: 'Flat Panel', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1376296311221125271/Flat_Panel_Kitchen_Cabinets.png?ex=68400412&is=683eb292&hm=f32fb84b898266c1ffc8810147ec217983a6771686c5d0c7997d77c92b1400c9&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'flat panel kitchen' },
+  { id: 'k-cab-glass', name: 'Glass Front', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1376296311627710595/Glass_Kitchen_Cabinets.png?ex=68400413&is=683eb293&hm=6e1b8f747c65a66f295ce938ed0fc0a80b9b2f9df2bcd13d4c42d055c7c8d2e2&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'glass kitchen cabinet' },
+  { id: 'k-cab-open', name: 'Open Shelving', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1376296312018043082/Open_Shelving_Kitchen.png?ex=68400413&is=683eb293&hm=b5e4c39d614646829f0ad7cfdf48a62a0e9e17fa57f26a33d2a9a2ea1e6357a4&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'open kitchen shelving' },
+  { id: 'k-cab-raised', name: 'Raised Panel', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1376296312491737248/Raised_Panel_Kitchen_Cabinets.png?ex=68400413&is=683eb293&hm=f481d2b879559d43c8eee2051c396d40bd625acd5ff3513055df35884d496a70&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'raised panel kitchen' },
+  { id: 'k-cab-shaker', name: 'Shaker', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1376296312965955694/Shaker_Kitchen_Cabinets.png?ex=68400413&is=683eb293&hm=b44076445cf4ac8b1acd117a4d4d0cef43f1dd4215fb9cca941607ab502cb26e&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'shaker kitchen cabinet' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface KitchenWorktopOption extends BaseSelectionItem {}
@@ -274,3 +275,4 @@ export const hallwayStorageOptions: HallwayStorageOption[] = [
   { id: 'hall-store-bench', name: 'Storage Bench', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'hallway storage bench' },
   { id: 'hall-store-shelves', name: 'Narrow Shelving Unit', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'hallway narrow shelves' },
 ].sort((a, b) => a.name.localeCompare(b.name));
+
