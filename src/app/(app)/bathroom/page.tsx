@@ -111,6 +111,7 @@ export default function BathroomPage() {
       imageUrl: imageUrl
     };
   });
+  // Potential fix for parsing error
 
   const pageSpecificDisplayHardwareFinishOptions: BaseSelectionItem[] = baseBathroomHardwareFinishOptions.map(finish => {
     if (finish.id === 'bath-hardware-chrome') {

@@ -11,7 +11,8 @@ import {
     livingRoomStorageOptions,
     livingRoomFireplaceOptions,
     type BaseSelectionItem
-} from "@/types"; 
+} from "@/types";
+// Check import syntax
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
 import { useDesignProgress, type SelectedDataItem, DesignStageKey } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
