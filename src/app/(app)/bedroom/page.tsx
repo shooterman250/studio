@@ -62,15 +62,39 @@ export default function BedroomPage() {
     };
   });
 
-  const pageSpecificBedroomWardrobeOptions: BaseSelectionItem[] = [
-    ...baseBedroomWardrobeOptions,
+  // Map base options to new structure and add new options
+  const pageSpecificBedroomWardrobeOptions: BaseSelectionItem[] = baseBedroomWardrobeOptions
+  .filter(option =>
+    option.id === 'bed-wardrobe-bifold' ||
+    option.id === 'bed-wardrobe-custom' ||
+    option.id === 'bed-wardrobe-standard-one' ||
+    option.id === 'bed-wardrobe-standard-two' ||
+    option.id === 'bed-wardrobe-walkin'
+  )
+  .map(option => {
+    let newName = option.name;
+    if (option.id === 'bed-wardrobe-bifold') newName = 'Bi-Fold Doors';
+    if (option.id === 'bed-wardrobe-custom') newName = 'Custom Closet';
+    if (option.id === 'bed-wardrobe-standard-one') newName = 'One Standard Door';
+    if (option.id === 'bed-wardrobe-standard-two') newName = 'Two Standard Doors';
+    if (option.id === 'bed-wardrobe-walkin') newName = 'Walk-In Closet';
+
+    return {
+      ...option,
+      name: newName,
+      imageUrl: option.imageUrl, // Keep original image for now
+      dataAiHint: newName.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').join(' ') + ' bedroom wardrobe',
+    };
+  })
+  .concat([
+    // Add the new 'Fitted Wardrobe' option
     {
-      id: 'bed-wardrobe-fitted-display',
+      id: 'bed-wardrobe-fitted', // Using a distinct id for clarity
       name: 'Fitted Wardrobe',
-      imageUrl: 'https://placehold.co/400x300.png',
+      imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1377374523652964412/Fitted_Wardrobe_.png?ex=683ffbbc&is=683eaa3c&hm=667e2dd375fdd40be7a2c8346ae222145375a481f64d2cc2535c856e87336cf5&=&format=webp&quality=lossless&width=1310&height=1310',
       dataAiHint: 'fitted wardrobe bedroom',
-    },
-  ].sort((a, b) => a.name.localeCompare(b.name));
+    }
+  ]).sort((a, b) => a.name.localeCompare(b.name));
 
   const pageSpecificBedroomLightingOptions: BaseSelectionItem[] = baseBedroomLightingOptions.map(option => {
     if (option.id === 'light-chandelier') {
@@ -81,9 +105,9 @@ export default function BedroomPage() {
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Bedroom Style", options: pageSpecificBedroomStyleOptions, cols: 3 },
-    { title: "Wall Finish", options: bedroomWallFinishOptions, cols: 3 },
+ { title: "Wall Finish", options: bedroomWallFinishOptions, cols: 3 },
     { title: "Flooring", options: bedroomFlooringOptions, cols: 3 },
-    { title: "Lighting", options: pageSpecificBedroomLightingOptions, cols: 3 },
+    { title: "Lighting", options: pageSpecificBedroomLightingOptions, cols: 3},
     { title: "Wardrobe/Closet", options: pageSpecificBedroomWardrobeOptions, cols: 3 },
   ];
 
@@ -122,11 +146,7 @@ export default function BedroomPage() {
           } else if (section.options === pageSpecificBedroomLightingOptions) {
             originalItem = baseBedroomLightingOptions.find(opt => opt.id === displayOption.id);
           } else if (section.options === pageSpecificBedroomWardrobeOptions) {
-            if (displayOption.id === 'bed-wardrobe-fitted-display') {
-              originalItem = displayOption;
-            } else {
-              originalItem = baseBedroomWardrobeOptions.find(opt => opt.id === displayOption.id);
-            }
+             originalItem = pageSpecificBedroomWardrobeOptions.find(opt => opt.id === displayOption.id);
           } else {
             originalItem = displayOption;
           }

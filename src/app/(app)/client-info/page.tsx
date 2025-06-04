@@ -18,7 +18,6 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Phone, CheckSquare, CalendarDays, Clock } from "lucide-react";
 import { useDesignProgress, type ClientInfoData, type CallPreferences } from "@/contexts/DesignProgressContext";
@@ -299,4 +298,3 @@ export default function ClientInfoPage() {
     </div>
   );
 }
-

@@ -87,14 +87,13 @@ export default function KitchenPage() {
   const pageSpecificDisplayApplianceOptions: BaseSelectionItem[] = applianceOrder
     .map(id => filteredBaseAppliances.find(option => option.id === id))
     .filter((option): option is BaseSelectionItem => option !== undefined);
-
-
+  
   const pageSpecificLightingOptions: BaseSelectionItem[] = baseKitchenLightingOptions
     .filter(
       option => 
         option.id !== 'light-wallsconce' && 
         option.id !== 'light-niche' && 
-        option.id !== 'light-chandelier'
+        option.id !== 'light-chandelier' 
     )
     .map(option => {
       if (option.id === 'light-concealed') {
@@ -111,7 +110,7 @@ export default function KitchenPage() {
     { title: "Appliance/Hardware Finish", options: kitchenHardwareFinishOptions, cols: 3 },
     { title: "Sink Type", options: pageSpecificSinkTypeOptions, cols: 3 }, 
     { title: "Backsplash", options: kitchenBacksplashOptions, cols: 3 },
-    { title: "Flooring", options: kitchenFlooringOptions, cols: 3 },
+ { title: "Flooring", options: kitchenFlooringOptions.map(opt => opt.id === 'flooring-tile' ? { ...opt, name: 'Marble' } : opt).map(opt => opt.id === 'flooring-vinyl' ? { ...opt, name: 'Luxury Vinyl' } : opt), cols: 3 },
     { title: "Lighting", options: pageSpecificLightingOptions, cols: 3 },
   ];
 

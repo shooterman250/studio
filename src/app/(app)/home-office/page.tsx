@@ -23,7 +23,7 @@ const PAGE_STAGE_KEY: DesignStageKey = "home-office";
 export default function HomeOfficePage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [hasSavedSinceLastChange, setHasSavedSinceLastChange] = useState(false);
-  const { updateStageSelections, getStageSelections, getUserRoomSelections, getClientInfo } = useDesignProgress();
+  const { updateStageSelections, getStageSelections, getUserRoomSelections, getClientInfo, getRoomSelectionStatus } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter();
   const pathname = usePathname();
@@ -59,7 +59,7 @@ export default function HomeOfficePage() {
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Wall Finish", options: homeOfficeWallFinishOptions, cols: 3 },
     { title: "Flooring", options: homeOfficeFlooringOptions, cols: 3 },
-    { title: "Lighting", options: pageSpecificHomeOfficeLightingOptions, cols: 3 },
+    { title: "Lighting", options: pageSpecificHomeOfficeLightingOptions, cols: 3 }, // Updated lighting options
     { title: "Storage", options: homeOfficeStorageOptions, cols: 3 },
   ];
 

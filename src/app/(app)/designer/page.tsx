@@ -43,7 +43,7 @@ const stageDisplayNames: Record<string, string> = {
 const SelectedItemDisplay = ({ item }: { item: SelectedDataItem }) => (
   <div className="flex items-start gap-3 p-3 border-b border-border/30 last:border-b-0 hover:bg-muted/20 transition-colors">
     {item.imageUrl && (
-      <Image
+      <Image 
         src={item.imageUrl}
         alt={item.name}
         width={60} 
@@ -447,7 +447,7 @@ export default function DesignerPage() {
     }
   };
     
-  return (
+ return (
     <div 
       className="relative min-h-full p-4 md:p-8 bg-background text-foreground"
     >

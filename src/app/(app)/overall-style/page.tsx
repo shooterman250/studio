@@ -17,11 +17,17 @@ import { baseNavItemsConfig, type BaseNavItemConfig } from "@/config/navigation"
 import { ArrowRight, Home } from "lucide-react";
 
 const PAGE_STAGE_KEY: DesignStageKey = "overall-style";
-
+ 
 export default function OverallStylePage() {
+  const { 
+    updateStageSelections, 
+    getStageSelections, 
+    getUserRoomSelections, 
+    getClientInfo 
+  } = useDesignProgress();
+
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [hasSavedSinceLastChange, setHasSavedSinceLastChange] = useState(false);
-  const { updateStageSelections, getStageSelections, getUserRoomSelections, getClientInfo } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter();
   const pathname = usePathname();
@@ -39,6 +45,11 @@ export default function OverallStylePage() {
    useEffect(() => {
     const existingSelections = getStageSelections(PAGE_STAGE_KEY);
     if (existingSelections.length > 0) {
+      const hasFlooringOption = existingSelections.some(item => item.id === 'flooring-tile');
+      if (hasFlooringOption) {
+        // Since flooring options are now in their own stage, remove them from here
+        updateStageSelections(PAGE_STAGE_KEY, getStageSelections(PAGE_STAGE_KEY).length > 1 ? 50 : 0, existingSelections.filter(item => item.id !== 'flooring-tile'));
+      }
       setSelectedOptions(new Set(existingSelections.map(item => {
         if (item.id === 'overall-style-upload' && item.imageUrl?.startsWith('data:image')) {
           setUploadedStyleImageUri(item.imageUrl);
@@ -51,7 +62,7 @@ export default function OverallStylePage() {
         return item.id;
       })));
     }
-  }, [getStageSelections]);
+  }, [getStageSelections, updateStageSelections]);
 
   const handleImageUpload = (
     event: React.ChangeEvent<HTMLInputElement>, 
@@ -286,15 +297,21 @@ export default function OverallStylePage() {
       item => item.id === 'overall-budget' || item.id === 'overall-style'
     );
     
+    const orderedInitialStages: BaseNavItemConfig[] = [];
+    const budgetStage = initialStages.find(s => s.id === 'overall-budget');
+    const styleStage = initialStages.find(s => s.id === 'overall-style');
+    if (budgetStage) orderedInitialStages.push(budgetStage);
+    if (styleStage) orderedInitialStages.push(styleStage);
+
     const selectedRoomStages = baseNavItemsConfig.filter(item => 
       userRoomSelections.has(item.id) && 
-      !initialStages.some(is => is.id === item.id) &&
+      item.id !== 'overall-budget' && 
+      item.id !== 'overall-style' &&
       item.id !== 'dashboard' &&
       item.id !== 'settings'
     );
     
-    // Ensure initial stages are first, then selected rooms in their original defined order
-    const finalNavOrder: BaseNavItemConfig[] = [...initialStages];
+    const finalNavOrder: BaseNavItemConfig[] = [...orderedInitialStages];
     baseNavItemsConfig.forEach(baseItem => {
         if(selectedRoomStages.some(srs => srs.id === baseItem.id) && !finalNavOrder.some(fno => fno.id === baseItem.id)) {
             finalNavOrder.push(baseItem);

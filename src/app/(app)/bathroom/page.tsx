@@ -16,6 +16,7 @@ import {
     bathroomHalfSinkOptions as baseBathroomHalfSinkOptions, 
     type BaseSelectionItem
 } from "@/types";
+import { generalFlooringOptions } from "@/types";
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
 import { useDesignProgress, type SelectedDataItem, DesignStageKey } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
@@ -188,6 +189,13 @@ export default function BathroomPage() {
     option => option.id !== 'bath-store-customvanity'
   );
 
+  const bathroomFlooringOptions: BaseSelectionItem[] = generalFlooringOptions.map(option => {
+    if (option.id === 'flooring-tile') {
+      return { ...option, name: 'Luxury Vinyl' };
+    }
+    return option;
+  });
+
   const masterBathSubSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Master Bath: Style", description: "Define the overall style for your master bathroom.", options: pageSpecificDisplayBathroomStyleOptions, cols: 3 },
     { title: "Master Bath: Bath Tub", options: bathroomMasterBathTubOptions, cols: 3 },
@@ -195,6 +203,7 @@ export default function BathroomPage() {
     { title: "Master Bathroom: Sink (Double/Single)", description: "Choose Sink Style. Double or Single.", options: pageSpecificDisplayMasterSinkOptions, cols: 3 },
     { title: "Master Bath: Toilet", options: bathroomToiletOptions, cols: 3 },
     { title: "Master Bath: Hardware Finish", description: "Pick finishes for faucets, handles, etc.", options: pageSpecificDisplayHardwareFinishOptions, cols: 3 },
+    { title: "Master Bath: Flooring", options: bathroomFlooringOptions, cols: 3},
     { title: "Master Bath: Storage", options: pageSpecificBathroomStorageOptions, cols: 3 },
     { title: "Master Bath: Lighting", options: pageSpecificDisplayMasterLightingOptions, cols: 3 }, 
   ];
@@ -204,6 +213,7 @@ export default function BathroomPage() {
     { title: "Half-Bath: Toilet", options: bathroomToiletOptions, cols: 3 }, 
     { title: "Half-Bath: Hardware Finish", description: "Select hardware finishes.", options: pageSpecificDisplayHardwareFinishOptions, cols: 3 }, 
     { title: "Half-Bath: Storage", options: pageSpecificBathroomStorageOptions, cols: 3, description: "Consider storage options." }, 
+    { title: "Half-Bath: Flooring", options: bathroomFlooringOptions, cols: 3},
     { title: "Half-Bath: Lighting", options: filteredHalfBathLightingOptions }, 
   ];
 

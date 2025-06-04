@@ -48,8 +48,8 @@ export default function HallwaysPage() {
     });
     setHasSavedSinceLastChange(false);
   };
-  
-  const hallwaySpecificFlooringOptions = hallwayFlooringOptions.filter(opt => opt.id !== 'floor-carpet');
+
+  const hallwaySpecificFlooringOptions = hallwayFlooringOptions.filter(opt => opt.id !== 'floor-carpet').map(opt => opt.id === 'flooring-vinyl' ? { ...opt, name: 'Luxury Vinyl' } : opt);
 
   const pageSpecificHallwayLightingOptions: BaseSelectionItem[] = baseHallwayLightingOptions.map(option => {
     if (option.id === 'light-chandelier') {

@@ -8,7 +8,7 @@ import {
     generalWallFinishOptions as utilityWallFinishOptions,
     generalFlooringOptions as utilityFlooringOptions,
     generalLightingOptions as baseUtilityLightingOptions, 
-    utilityWasherDryerLayoutOptions,
+    utilitySinkOption,
     utilityStorageOptions,
     type BaseSelectionItem
 } from "@/types";
@@ -50,6 +50,12 @@ export default function UtilityLaundryRoomPage() {
     setHasSavedSinceLastChange(false);
   };
 
+  const utilityWasherDryerLayoutOptions: BaseSelectionItem[] = [
+      { id: 'wd-sidebyside', name: 'Side-By-Side', imageUrl: '/Laundry_ Washer and Dryer.png', dataAiHint: 'side by side washer dryer' },
+      { id: 'wd-stacked', name: 'Stacked', imageUrl: '/Laundry_ Washer and Dryer.png', dataAiHint: 'stacked washer dryer' },
+      { id: 'wd-allinone', name: 'All-In-One', imageUrl: '/Laundry_ Washer and Dryer.png', dataAiHint: 'all in one washer dryer combo' },
+  ];
+
   const pageSpecificUtilityLightingOptions: BaseSelectionItem[] = baseUtilityLightingOptions.map(option => {
     if (option.id === 'light-chandelier') {
       return { ...option, name: "Chandelier(s) or\nStatement Fixtures" };
@@ -57,13 +63,18 @@ export default function UtilityLaundryRoomPage() {
     return option;
   });
 
+  // Remove Utility Sink from Storage and create a new section
+  const storageOptionsWithoutSink = utilityStorageOptions.filter(option => option.id !== 'storage-utilitysink');
+  const utilitySinkSection = utilitySinkOption ? [{ title: "Utility Sink", options: [utilitySinkOption], cols: 1 }] : [];
+
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
-    { title: "Wall Finish", options: utilityWallFinishOptions, cols: 3 },
+    { title: "Wall Finish", options: utilityWallFinishOptions, cols: 3 }, 
     { title: "Flooring", options: utilityFlooringOptions, cols: 3 },
     { title: "Lighting", options: pageSpecificUtilityLightingOptions, cols: 3 }, 
     { title: "Washer/Dryer Layout", options: utilityWasherDryerLayoutOptions, cols: 3 },
-    { title: "Storage", description: "Select storage solutions for organization.", options: utilityStorageOptions, cols: 3 },
+    { title: "Storage", description: "Select storage solutions for organization.", options: storageOptionsWithoutSink, cols: 3 },
   ];
+  sections.push(...utilitySinkSection);
 
   const handleSaveChanges = () => {
     const totalOptionsOnPage = sections.reduce((sum, section) => sum + section.options.length, 0);
@@ -102,7 +113,9 @@ export default function UtilityLaundryRoomPage() {
             if (section.options === utilityWallFinishOptions) originalItem = utilityWallFinishOptions.find(opt => opt.id === displayOption.id);
             else if (section.options === utilityFlooringOptions) originalItem = utilityFlooringOptions.find(opt => opt.id === displayOption.id);
             else if (section.options === utilityWasherDryerLayoutOptions) originalItem = utilityWasherDryerLayoutOptions.find(opt => opt.id === displayOption.id);
-            else if (section.options === utilityStorageOptions) originalItem = utilityStorageOptions.find(opt => opt.id === displayOption.id);
+            else if (section.options === storageOptionsWithoutSink) originalItem = utilityStorageOptions.find(opt => opt.id === displayOption.id);
+            // Handle the new Utility Sink section
+            else if (section.options.length === 1 && section.options[0].id === 'storage-utilitysink') originalItem = utilitySinkOption;
           }
           
           if (originalItem) {
