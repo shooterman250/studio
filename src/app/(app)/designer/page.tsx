@@ -453,14 +453,14 @@ export default function DesignerPage() {
     >
       <div className="relative z-[1] isolate">
         <header className="mb-12 text-center">
-          <p className="mt-4 text-2xl sm:text-3xl font-bold opacity-80">
+          <p className="whitespace-nowrap text-2xl font-bold sm:text-3xl opacity-80">
             Welcome to your personalized DESIGN DASHBOARD!
           </p>
-          <p className="mt-1 text-xs sm:text-sm opacity-80">
-            This is where your preferences and selections come together in one place. Use the menu to explore each category, based on the room selections you chose below, or continue by selected "Finish &amp; Proceed" at the bottom of each section.
+          <p className="mt-4 text-xs opacity-80 sm:text-sm">
+            This is where your preferences and selections come together in one place. Use the menu to explore each category, based on the room selections you chose below, or continue by selected &quot;Finish &amp; Proceed&quot; at the bottom of each section.
           </p>
           <p className="mt-1 text-sm sm:text-base opacity-80">
-            Don't forget to save your selections on each page. You'll see a progress percentage in the sidebar for each section.
+            Don&apos;t forget to save your selections on each page. You&apos;ll see a progress percentage in the sidebar for each section.
           </p>
           <p className="mt-1 text-sm sm:text-base opacity-80">
             To export your final PDF, all selected sections must be marked 100% complete.
@@ -578,5 +578,7 @@ export default function DesignerPage() {
   );
 }
 
+
+    
 
     
