@@ -8,7 +8,6 @@ import {
     generalWallFinishOptions as utilityWallFinishOptions,
     generalFlooringOptions as utilityFlooringOptions,
     generalLightingOptions as baseUtilityLightingOptions, 
-    utilitySinkOption,
     utilityStorageOptions,
     type BaseSelectionItem
 } from "@/types";
@@ -64,8 +63,7 @@ export default function UtilityLaundryRoomPage() {
   });
 
   // Remove Utility Sink from Storage and create a new section
-  const storageOptionsWithoutSink = utilityStorageOptions.filter(option => option.id !== 'storage-utilitysink');
-  const utilitySinkSection = utilitySinkOption ? [{ title: "Utility Sink", options: [utilitySinkOption], cols: 1 }] : [];
+  const storageOptionsWithoutSink = utilityStorageOptions;
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Wall Finish", options: utilityWallFinishOptions, cols: 3 }, 
@@ -74,7 +72,6 @@ export default function UtilityLaundryRoomPage() {
     { title: "Washer/Dryer Layout", options: utilityWasherDryerLayoutOptions, cols: 3 },
     { title: "Storage", description: "Select storage solutions for organization.", options: storageOptionsWithoutSink, cols: 3 },
   ];
-  sections.push(...utilitySinkSection);
 
   const handleSaveChanges = () => {
     const totalOptionsOnPage = sections.reduce((sum, section) => sum + section.options.length, 0);
@@ -113,9 +110,6 @@ export default function UtilityLaundryRoomPage() {
             if (section.options === utilityWallFinishOptions) originalItem = utilityWallFinishOptions.find(opt => opt.id === displayOption.id);
             else if (section.options === utilityFlooringOptions) originalItem = utilityFlooringOptions.find(opt => opt.id === displayOption.id);
             else if (section.options === utilityWasherDryerLayoutOptions) originalItem = utilityWasherDryerLayoutOptions.find(opt => opt.id === displayOption.id);
-            else if (section.options === storageOptionsWithoutSink) originalItem = utilityStorageOptions.find(opt => opt.id === displayOption.id);
-            // Handle the new Utility Sink section
-            else if (section.options.length === 1 && section.options[0].id === 'storage-utilitysink') originalItem = utilitySinkOption;
           }
           
           if (originalItem) {

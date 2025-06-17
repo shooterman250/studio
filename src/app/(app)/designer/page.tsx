@@ -9,12 +9,12 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { FileDown, PencilLine, Loader2, Home, RotateCcw } from "lucide-react"; 
+import { FileDown, PencilLine, Loader2, Home, RotateCcw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation"; 
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import jsPDF from 'jspdf';
-import { designableRoomStages } from "@/config/navigation"; 
+import { designableRoomStages } from "@/config/navigation";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -27,7 +27,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 
-const stageDisplayNames: Record<string, string> = { 
+const stageDisplayNames: Record<string, string> = {
   "overall-budget": "Overall Budget",
   "overall-style": "Overall Style & Key Elements",
   "kitchen": "Kitchen",
@@ -37,17 +37,17 @@ const stageDisplayNames: Record<string, string> = {
   "bathroom": "Bathroom(s)",
   "home-office": "Home Office",
   "hallways": "Hallway(s)",
-  "summary": "Summary", 
+  "summary": "Summary",
 };
 
 const SelectedItemDisplay = ({ item }: { item: SelectedDataItem }) => (
   <div className="flex items-start gap-3 p-3 border-b border-border/30 last:border-b-0 hover:bg-muted/20 transition-colors">
     {item.imageUrl && (
-      <Image 
+      <Image
         src={item.imageUrl}
         alt={item.name}
-        width={60} 
-        height={45} 
+        width={60}
+        height={45}
         className="rounded-md object-contain aspect-[4/3] shadow-sm"
         data-ai-hint={item.dataAiHint || item.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')}
       />
@@ -77,7 +77,7 @@ const StageSelectionsCard = ({ stageKey, items }: { stageKey: DesignStageKey | s
       </CardHeader>
       <CardContent className="p-0">
         {items.length > 3 ? (
-           <ScrollArea className="h-[210px]"> 
+           <ScrollArea className="h-[210px]">
             <div className="divide-y divide-border/30">
               {items.map((item) => (
                 <SelectedItemDisplay key={item.id || item.name} item={item} />
@@ -100,7 +100,7 @@ const StageSelectionsCard = ({ stageKey, items }: { stageKey: DesignStageKey | s
 export default function DesignerPage() {
   const { getAllSelections, getClientInfo, updateUserRoomSelections, getUserRoomSelections, resetAllProgress } = useDesignProgress();
   const { toast } = useToast();
-  const router = useRouter(); 
+  const router = useRouter();
   const allSelections = getAllSelections();
   const clientInfo = getClientInfo();
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
@@ -170,16 +170,16 @@ export default function DesignerPage() {
       unit: 'mm',
       format: 'a4'
     });
-    
-    let yPos = 0; 
+
+    let yPos = 0;
     const pageHeight = doc.internal.pageSize.height;
     const pageWidth = doc.internal.pageSize.width;
-    const margin = 12; 
+    const margin = 12;
     const contentWidth = pageWidth - margin * 2;
 
-    const colorForegroundRgb = [79, 74, 69]; 
-    const colorPrimaryRgb = [0, 128, 128];   
-    const colorMutedRgb = [138, 132, 128];   
+    const colorForegroundRgb = [79, 74, 69];
+    const colorPrimaryRgb = [0, 128, 128];
+    const colorMutedRgb = [138, 132, 128];
 
     const FONT_SIZE_LOGO_TITLE = 9;
     const FONT_SIZE_PAGE_TITLE = 16;
@@ -194,15 +194,15 @@ export default function DesignerPage() {
     const spacingSection = 6;
     const spacingItem = 3;
     const spacingImageText = 2;
-    
-    const itemImageWidth = 20; 
-    const itemImageHeight = (itemImageWidth * 3) / 4; 
+
+    const itemImageWidth = 20;
+    const itemImageHeight = (itemImageWidth * 3) / 4;
 
     const getLineHeight = (sizeInPoints: number) => {
       doc.setFontSize(sizeInPoints);
-      return doc.getLineHeight() / doc.internal.scaleFactor; 
+      return doc.getLineHeight() / doc.internal.scaleFactor;
     };
-    
+
     let currentPageNumber = 1;
     const addPageNumber = () => {
         doc.setFontSize(FONT_SIZE_FOOTER);
@@ -210,7 +210,7 @@ export default function DesignerPage() {
         doc.text(`Page ${currentPageNumber}`, pageWidth - margin, pageHeight - margin / 2, { align: 'right' });
         currentPageNumber++;
     };
-    
+
     const checkAndAddPage = (neededHeight: number) => {
         if (yPos + neededHeight > pageHeight - margin) {
             doc.addPage();
@@ -221,7 +221,7 @@ export default function DesignerPage() {
         return false;
     };
 
-    doc.setFont("helvetica", "normal"); 
+    doc.setFont("helvetica", "normal");
 
     const logoUrl = "https://media.discordapp.net/attachments/1370568040256901200/1370582735122468954/butterfly_logo.png?ex=682897e4&is=68274664&hm=d1efad37b54995ce17b2917059ef5d7f3786ab33798c045302dc9cb1476519ca&=&format=webp&quality=lossless&width=1502&height=1502";
     let logoDataUri: string | null = null;
@@ -239,16 +239,16 @@ export default function DesignerPage() {
         console.warn("Could not load logo for PDF:", e);
     }
 
-    const logoHeight = 15; 
-    const logoWidth = 15;  
+    const logoHeight = 15;
+    const logoWidth = 15;
     yPos = margin;
 
     if (logoDataUri) {
         const logoX = (pageWidth - logoWidth) / 2;
         doc.addImage(logoDataUri, 'PNG', logoX, yPos, logoWidth, logoHeight);
-        yPos += logoHeight + 2; 
+        yPos += logoHeight + 2;
     }
-    
+
     doc.setFontSize(FONT_SIZE_LOGO_TITLE);
     doc.setTextColor(colorForegroundRgb[0], colorForegroundRgb[1], colorForegroundRgb[2]);
     doc.text("Interactive Designs", pageWidth / 2, yPos, { align: 'center' });
@@ -270,7 +270,7 @@ export default function DesignerPage() {
 
         doc.setFontSize(FONT_SIZE_CLIENT_LABEL);
         doc.setTextColor(colorForegroundRgb[0], colorForegroundRgb[1], colorForegroundRgb[2]);
-        
+
         const clientInfoStartY = yPos;
         let clientInfoCol1X = margin;
         let clientInfoCol2X = margin + (contentWidth / 2) + 5;
@@ -285,11 +285,11 @@ export default function DesignerPage() {
         doc.text("Email:", clientInfoCol1X, yPos);
         doc.setFont("helvetica", "normal");
         doc.text(clientInfo.email || "N/A", clientInfoCol1X + 20, yPos);
-        
+
         let maxClientInfoY = yPos;
 
         if (clientInfo.callPreferences && (clientInfo.callPreferences.phoneNumber || clientInfo.callPreferences.availableDays.length > 0 || clientInfo.callPreferences.availableTimes.length > 0)) {
-            let tempYPos = clientInfoStartY; 
+            let tempYPos = clientInfoStartY;
             doc.setFont("helvetica", "bold");
             doc.text("Phone:", clientInfoCol2X, tempYPos);
             doc.setFont("helvetica", "normal");
@@ -301,15 +301,15 @@ export default function DesignerPage() {
                 doc.text("Availability:", clientInfoCol2X, tempYPos);
                 doc.setFont("helvetica", "normal");
                 const availabilityText = `${clientInfo.callPreferences.availableDays.join(', ')}${clientInfo.callPreferences.availableTimes.length > 0 ? ' - ' + clientInfo.callPreferences.availableTimes.join(', ') : ''}`;
-                const splitAvailability = doc.splitTextToSize(availabilityText, contentWidth / 2 - 20); 
-                doc.text(splitAvailability, clientInfoCol2X + 20, tempYPos); 
+                const splitAvailability = doc.splitTextToSize(availabilityText, contentWidth / 2 - 20);
+                doc.text(splitAvailability, clientInfoCol2X + 20, tempYPos);
                 tempYPos += getLineHeight(FONT_SIZE_CLIENT_DATA) * splitAvailability.length;
             }
              maxClientInfoY = Math.max(maxClientInfoY, tempYPos);
         }
-        yPos = maxClientInfoY + getLineHeight(FONT_SIZE_CLIENT_LABEL) + 3; 
+        yPos = maxClientInfoY + getLineHeight(FONT_SIZE_CLIENT_LABEL) + 3;
     }
-    
+
     doc.setDrawColor(colorMutedRgb[0], colorMutedRgb[1], colorMutedRgb[2]);
     doc.setLineWidth(0.2);
     doc.line(margin, yPos, pageWidth - margin, yPos);
@@ -328,35 +328,35 @@ export default function DesignerPage() {
         if (items.length === 0) continue;
 
         const stageName = stageDisplayNames[stageKey as DesignStageKey] || stageKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-        
-        checkAndAddPage(getLineHeight(FONT_SIZE_SECTION_TITLE) + 2 + spacingItem); 
+
+        checkAndAddPage(getLineHeight(FONT_SIZE_SECTION_TITLE) + 2 + spacingItem);
         doc.setFontSize(FONT_SIZE_SECTION_TITLE);
         doc.setFont("helvetica", "bold");
         doc.setTextColor(colorPrimaryRgb[0], colorPrimaryRgb[1], colorPrimaryRgb[2]);
         doc.text(stageName, margin, yPos);
-        yPos += getLineHeight(FONT_SIZE_SECTION_TITLE) + 1; 
+        yPos += getLineHeight(FONT_SIZE_SECTION_TITLE) + 1;
         doc.setFont("helvetica", "normal");
 
         for (const item of items) {
           const estItemHeightBase = getLineHeight(FONT_SIZE_ITEM_NAME);
           const estItemHeightWithDesc = item.description ? estItemHeightBase + getLineHeight(FONT_SIZE_ITEM_DESCRIPTION) : estItemHeightBase;
           const estItemHeight = item.imageUrl ? Math.max(itemImageHeight, estItemHeightWithDesc) + spacingItem : estItemHeightWithDesc + spacingItem;
-          checkAndAddPage(estItemHeight); 
+          checkAndAddPage(estItemHeight);
 
           let textX = margin;
-          let currentTextY = yPos; 
-          let imageBlockEndY = yPos; 
+          let currentTextY = yPos;
+          let imageBlockEndY = yPos;
 
           if (item.imageUrl && (item.imageUrl.startsWith('http') || item.imageUrl.startsWith('data:image') || item.imageUrl.startsWith('/images/'))) {
             try {
               let imageData: string | ArrayBuffer | null = null;
-              let imageFormat = 'JPEG'; 
+              let imageFormat = 'JPEG';
 
               if (item.imageUrl.startsWith('data:image')) {
                 imageData = item.imageUrl;
                 if (imageData.startsWith('data:image/png')) imageFormat = 'PNG';
               } else if (item.imageUrl.startsWith('/images/')) {
-                const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000'; 
+                const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
                 const fullImageUrl = `${baseUrl}${item.imageUrl}`;
                 const response = await fetch(fullImageUrl);
                 if (!response.ok) throw new Error(`Local image fetch failed: ${response.statusText} for ${fullImageUrl}`);
@@ -369,7 +369,7 @@ export default function DesignerPage() {
                   reader.readAsDataURL(blob);
                 });
 
-              } else { 
+              } else {
                 const response = await fetch(item.imageUrl);
                 if (!response.ok) throw new Error(`Image fetch failed: ${response.statusText}`);
                 const blob = await response.blob();
@@ -381,18 +381,18 @@ export default function DesignerPage() {
                   reader.readAsDataURL(blob);
                 });
               }
-              
+
               if (imageData) {
                 doc.addImage(imageData as string, imageFormat, margin, yPos, itemImageWidth, itemImageHeight);
-                imageBlockEndY = yPos + itemImageHeight + 0.5; 
-                textX = margin + itemImageWidth + spacingImageText; 
-                currentTextY = yPos + getLineHeight(FONT_SIZE_ITEM_NAME) / 2; 
+                imageBlockEndY = yPos + itemImageHeight + 0.5;
+                textX = margin + itemImageWidth + spacingImageText;
+                currentTextY = yPos + getLineHeight(FONT_SIZE_ITEM_NAME) / 2;
               }
             } catch (error) {
               console.warn(`PDF: Could not load image for ${item.name}: ${item.imageUrl}`, error);
             }
           }
-          
+
           doc.setFontSize(FONT_SIZE_ITEM_NAME);
           doc.setFont("helvetica", "bold");
           doc.setTextColor(colorForegroundRgb[0], colorForegroundRgb[1], colorForegroundRgb[2]);
@@ -404,7 +404,7 @@ export default function DesignerPage() {
           if (item.value !== undefined) {
             doc.setFontSize(FONT_SIZE_ITEM_VALUE);
             doc.setFont("helvetica", "normal");
-            doc.setTextColor(colorPrimaryRgb[0], colorPrimaryRgb[1], colorPrimaryRgb[2]); 
+            doc.setTextColor(colorPrimaryRgb[0], colorPrimaryRgb[1], colorPrimaryRgb[2]);
             const valueText = typeof item.value === 'number' ? `$${item.value.toLocaleString()}` : String(item.value);
             const valLines = doc.splitTextToSize(valueText, contentWidth - (textX - margin));
             doc.text(valLines, textX, currentTextY);
@@ -420,13 +420,13 @@ export default function DesignerPage() {
             doc.text(descLines, textX, currentTextY);
             currentTextY += descLines.length * getLineHeight(FONT_SIZE_ITEM_DESCRIPTION);
           }
-          
-          yPos = Math.max(imageBlockEndY, currentTextY) + spacingItem; 
-        } 
-        yPos += spacingSection / 2; 
+
+          yPos = Math.max(imageBlockEndY, currentTextY) + spacingItem;
+        }
+        yPos += spacingSection / 2;
       }
-      
-      addPageNumber(); 
+
+      addPageNumber();
 
       doc.save('design_summary.pdf');
       toast({
@@ -446,9 +446,9 @@ export default function DesignerPage() {
         setIsGeneratingPdf(false);
     }
   };
-    
- return (
-    <div 
+
+  return (
+    <div
       className="relative min-h-full p-4 md:p-8 bg-background text-foreground"
     >
       <div className="relative z-[1] isolate">
@@ -456,14 +456,14 @@ export default function DesignerPage() {
           <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
             Design Dashboard
           </h1>
-          <p className="mt-4 text-sm sm:text-base opacity-80">
+          <p className="mt-4 text-2xl sm:text-3xl font-bold opacity-80">
             Welcome to your personalized design dashboard!
           </p>
           <p className="mt-1 text-xs sm:text-sm opacity-80">
-            This is where your preferences and selections come together in one place. Use the menu to explore each category, based on the room selections you chose below, or continue by selected &quot;Finish &amp; Proceed&quot; at the bottom of each section.
+            This is where your preferences and selections come together in one place. Use the menu to explore each category, based on the room selections you chose below, or continue by selected "Finish &amp; Proceed" at the bottom of each section.
           </p>
           <p className="mt-1 text-sm sm:text-base opacity-80">
-            Don&apos;t forget to save your selections on each page. You&apos;ll see a progress percentage in the sidebar for each section. 
+            Don't forget to save your selections on each page. You'll see a progress percentage in the sidebar for each section.
           </p>
           <p className="mt-1 text-sm sm:text-base opacity-80">
             To export your final PDF, all selected sections must be marked 100% complete.
@@ -477,7 +477,7 @@ export default function DesignerPage() {
                 </>
               ) : (
                 <>
-                  <FileDown className="mr-2 h-4 w-4" /> 
+                  <FileDown className="mr-2 h-4 w-4" />
                   Export to PDF
                 </>
               )}
@@ -494,8 +494,8 @@ export default function DesignerPage() {
                   <AlertDialogHeader>
                     <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                     <AlertDialogDescription>
-                      This action will permanently clear all your design selections, 
-                      chosen rooms, and any client information you&apos;ve entered. 
+                      This action will permanently clear all your design selections,
+                      chosen rooms, and any client information you&apos;ve entered.
                       This cannot be undone.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
@@ -537,7 +537,7 @@ export default function DesignerPage() {
             <div className="mt-12 p-10 bg-card/60 backdrop-blur-lg border border-card-foreground/10 rounded-lg shadow-lg text-center">
               <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Select Rooms To Design</h2>
               <p className="text-muted-foreground max-w-lg mx-auto mb-6">
-                Choose the areas you&apos;d like to customize for your project. 
+                Choose the areas you&apos;d like to customize for your project.
                 &quot;Overall Budget&quot; and &quot;Overall Style&quot; will always be included.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8 max-w-2xl mx-auto text-left">
@@ -580,5 +580,3 @@ export default function DesignerPage() {
     </div>
   );
 }
-
-    

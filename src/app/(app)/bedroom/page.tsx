@@ -51,52 +51,70 @@ export default function BedroomPage() {
   };
 
   const pageSpecificBedroomStyleOptions: BaseSelectionItem[] = baseOverallStyleOptions.map(style => {
-    // Add any page-specific image overrides here if needed, e.g.:
-    // if (style.id === 'biophilic') {
-    //   imageUrl = 'new_biophilic_bedroom_image_url';
-    // }
+    let imageUrl = style.imageUrl; // Uses base image for now
+     if (style.id === 'biophilic') {
+       imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1381000635108954342/Biophilic_Bedroom_Style_.jpg?ex=6845ec91&is=68449b11&hm=879b02d72e74e34baa49769e695350e60df9822a515976089001db3d221b5803&=&format=webp&width=1174&height=1174';
+     }
+    if (style.id === 'bohemian') {
+ imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1381001039024488589/Bohemian_Bedroom_Style_.jpg?ex=6845ecf1&is=68449b71&hm=cf832101c724580a833805a7815fe31f8313682a921d3a422616443a59c8f186&=&format=webp&width=1174&height=1174';
+    }
+    if (style.id === 'coastal') {
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1381001582124204112/Coastal_Bedroom_Style.jpg?ex=6845ed72&is=68449bf2&hm=8d574389c533e4a1b187207d8ab28bff2f02a18e0701ce86fb19e798c65d059b&=&format=webp&width=1220&height=1174';
+    }
+    if (style.id === 'contemporary') {
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1381001835544055968/Contemporary_Bedroom_Style.png?ex=6845edaf&is=68449c2f&hm=05b34bb54e579489b37fc146dc63b4d2821ed57e9e1e7c47300852e26852c989&=&format=webp&quality=lossless&width=1174&height=1174';
+    }
+    if (style.id === 'country-farmhouse') {
+ imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1381002174473044159/Country_Farmhouse_Bedroom_Style.jpg?ex=6845ee00&is=68449c80&hm=7f998932055d7e0c93accd4a92d453fe8816583c0088853e21892d710ec86106&=&format=webp&width=1174&height=1174';
+    }
+    if (style.id === 'industrial') {
+ imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1381002518670217236/Industrial_Bedroom_Style_.jpg?ex=6845ee52&is=68449cd2&hm=51cceac8c78dc54b3672017c12ab0438034cecf5c5be7366570fa47b2ce69be6&=&format=webp&width=1174&height=1174';
+    }
+    if (style.id === 'japandi') {
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1379597723782610954/Japandi_Bedroom_Style.jpg?ex=68456f41&is=68441dc1&hm=020bf36a8d3a036dd297f7f36a9e06d70b1f9445ead76741907151b4caf90f3a&=&format=webp&width=962&height=966';
+    }
+    if (style.id === 'mid-century') {
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1379597724592377906/Mid-Century_Bedroom.png?ex=68456f41&is=68441dc1&hm=6d5d45b953ab0cba89595300f749cc2c26775299a016808c0e56458fc4b2cd8b&=&format=webp&quality=lossless&width=966&height=966';
+    }
+    if (style.id === 'modern') {
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1379597725489827900/Modern_Bedroom_Style.png?ex=68456f41&is=68441dc1&hm=d7c30676337266af320a10c23f2843f912bb3c9fac19371743de28e46d0e1ca9&=&format=webp&quality=lossless&width=966&height=966';
+    }
+    if (style.id === 'traditional') {
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1379597726240604312/Traditional_Bedroom_Style_.png?ex=68456f41&is=68441dc1&hm=0434d22b4f7bb852ec0ba428b918a600557d1181b5a92c683daeafd27d1ab61e&=&format=webp&quality=lossless&width=966&height=966';
+    }
+
     return {
       ...style,
       name: `${style.name} Bedroom`,
-      imageUrl: style.imageUrl, // Uses base image for now
+ imageUrl: imageUrl,
     };
   });
 
-  // Map base options to new structure and add new options
+  // Define page-specific bedroom wardrobe options directly with custom names
   const pageSpecificBedroomWardrobeOptions: BaseSelectionItem[] = baseBedroomWardrobeOptions
-  .filter(option =>
-    option.id === 'bed-wardrobe-bifold' ||
-    option.id === 'bed-wardrobe-custom' ||
-    option.id === 'bed-wardrobe-standard-one' ||
-    option.id === 'bed-wardrobe-standard-two' ||
-    option.id === 'bed-wardrobe-walkin'
-  )
-  .map(option => {
-    let newName = option.name;
-    if (option.id === 'bed-wardrobe-bifold') newName = 'Bi-Fold Doors';
-    if (option.id === 'bed-wardrobe-custom') newName = 'Custom Closet';
-    if (option.id === 'bed-wardrobe-standard-one') newName = 'One Standard Door';
-    if (option.id === 'bed-wardrobe-standard-two') newName = 'Two Standard Doors';
-    if (option.id === 'bed-wardrobe-walkin') newName = 'Walk-In Closet';
+    .filter(option => [
+      'bed-wardrobe-standard-one',
+      'bed-wardrobe-standard-two',
+      'bed-wardrobe-walkin',
+ 'bed-wardrobe-fitted',
+      'bed-wardrobe-bifold',
+ 'bed-wardrobe-custom'
+    ].includes(option.id)) // Filter to include only the desired options
+    .map(option => {
+      let newName = option.name; // Start with the original name
+      // imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1377374523652964412/Fitted_Wardrobe_.png?ex=683ffbbc&is=683eaa3c&hm=667e2dd375fdd40be7a2c8346ae222145375a481f64d2cc2535c856e87336cf5&=&format=webp&quality=lossless&width=1310&height=1310', // Moved imageUrl if needed
+      if (option.id === 'bed-wardrobe-bifold') newName = 'Bi-Fold Doors'
+      if (option.id === 'bed-wardrobe-custom') newName = 'Custom Closet';
+      if (option.id === 'bed-wardrobe-walkin') newName = 'Walk-In Closet';
 
-    return {
-      ...option,
-      name: newName,
-      imageUrl: option.imageUrl, // Keep original image for now
-      dataAiHint: newName.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').join(' ') + ' bedroom wardrobe',
-    };
-  })
-  .concat([
-    // Add the new 'Fitted Wardrobe' option
-    {
-      id: 'bed-wardrobe-fitted', // Using a distinct id for clarity
-      name: 'Fitted Wardrobe',
-      imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1377374523652964412/Fitted_Wardrobe_.png?ex=683ffbbc&is=683eaa3c&hm=667e2dd375fdd40be7a2c8346ae222145375a481f64d2cc2535c856e87336cf5&=&format=webp&quality=lossless&width=1310&height=1310',
-      dataAiHint: 'fitted wardrobe bedroom',
-    }
-  ]).sort((a, b) => a.name.localeCompare(b.name));
-
+      return { ...option, name: newName };
+    })
+    .sort((a, b) => a.name.localeCompare(b.name)); // Keep sorting after mapping
   const pageSpecificBedroomLightingOptions: BaseSelectionItem[] = baseBedroomLightingOptions.map(option => {
+    if (option.id === 'light-recessed-cylinder') {
+       return { ...option, name: "Recessed or\nCylinder Lights" };
+    }
+
     if (option.id === 'light-chandelier') {
       return { ...option, name: "Chandelier(s) or\nStatement Fixtures" };
     }
@@ -146,7 +164,7 @@ export default function BedroomPage() {
           } else if (section.options === pageSpecificBedroomLightingOptions) {
             originalItem = baseBedroomLightingOptions.find(opt => opt.id === displayOption.id);
           } else if (section.options === pageSpecificBedroomWardrobeOptions) {
-             originalItem = pageSpecificBedroomWardrobeOptions.find(opt => opt.id === displayOption.id);
+             originalItem = baseBedroomWardrobeOptions.find(opt => opt.id === displayOption.id);
           } else {
             originalItem = displayOption;
           }

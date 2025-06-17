@@ -1,4 +1,3 @@
-
 import type { LucideIcon } from 'lucide-react';
 
 export interface DesignOption {
@@ -31,7 +30,7 @@ export interface BaseSelectionItem {
 // Overall Style
 export interface OverallStyleOption extends BaseSelectionItem {}
 export const overallStyleOptions: OverallStyleOption[] = [
-  { id: 'biophilic', name: 'Biophilic', imageUrl: 'https://cdn.discordapp.com/attachments/1370568040256901200/1377359043160444968/IMG_1231.webp?ex=6838ad11&is=68375b91&hm=c36fefd1b33b36e688d5844339997a1cd0da443a70b98bc5c989e4463096e92e&', description: 'Nature-inspired, with natural elements.', dataAiHint: 'biophilic design interior' },
+  { id: 'biophilic', name: 'Biophilic', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1380381128191643799/Overall_Style__Biophilic_.png?ex=6843ab9b&is=68425a1b&hm=dff5372c5b88b77398211548cedb4d593903b04d8373c1017604f3f827736599&=&format=webp&quality=lossless&width=1174&height=1174', description: 'Nature-inspired, with natural elements.', dataAiHint: 'biophilic design interior' },
   { id: 'bohemian', name: 'Bohemian', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043156102152344/Bohemian.png?ex=6828f996&is=6827a816&hm=bac9a4dbf1a4fe7714c124a9f57e761114e2841477368caf206177230174599e&=&format=webp&quality=lossless&width=380&height=380', description: 'Eclectic, colorful, and free-spirited.', dataAiHint: 'bohemian interior' },
   { id: 'coastal', name: 'Coastal', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043156815446198/Coastal.png?ex=6828f996&is=6827a816&hm=eec376ebe01eac625acfc72b6d96228df4bb3705c85a5c3336ae7a708c702dd5&=&format=webp&quality=lossless&width=380&height=380', description: 'Light, airy, and beach-inspired.', dataAiHint: 'coastal interior' },
   { id: 'contemporary', name: 'Contemporary', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373043157452984470/Contemporary.png?ex=6828f996&is=6827a816&hm=79ba96bcfb75a6b1b778edbea778fc72b77452a6bfa86817e19a8b6edde85453&=&format=webp&quality=lossless&width=380&height=380', description: 'Current, fluid, and ever-evolving.', dataAiHint: 'contemporary interior' },
@@ -57,12 +56,12 @@ export const keyElementOptions: KeyElementOption[] = [
 // Kitchen Options
 export interface KitchenCabinetOption extends BaseSelectionItem {}
 export const kitchenCabinetOptions: KitchenCabinetOption[] = [
-  { id: 'k-cab-arched', name: 'Arched', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1376296310801567805/Arched_Kitchen_Cabinets.png?ex=68400412&is=683eb292&hm=da8e6a4a10e9d431bf6e6577814612d14bdd42c04a28712d9b6144798255c7a3&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'arched kitchen cabinet' },
-  { id: 'k-cab-flat', name: 'Flat Panel', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1376296311221125271/Flat_Panel_Kitchen_Cabinets.png?ex=68400412&is=683eb292&hm=f32fb84b898266c1ffc8810147ec217983a6771686c5d0c7997d77c92b1400c9&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'flat panel kitchen' },
-  { id: 'k-cab-glass', name: 'Glass Front', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1376296311627710595/Glass_Kitchen_Cabinets.png?ex=68400413&is=683eb293&hm=6e1b8f747c65a66f295ce938ed0fc0a80b9b2f9df2bcd13d4c42d055c7c8d2e2&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'glass kitchen cabinet' },
-  { id: 'k-cab-open', name: 'Open Shelving', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1376296312018043082/Open_Shelving_Kitchen.png?ex=68400413&is=683eb293&hm=b5e4c39d614646829f0ad7cfdf48a62a0e9e17fa57f26a33d2a9a2ea1e6357a4&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'open kitchen shelving' },
-  { id: 'k-cab-raised', name: 'Raised Panel', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1376296312491737248/Raised_Panel_Kitchen_Cabinets.png?ex=68400413&is=683eb293&hm=f481d2b879559d43c8eee2051c396d40bd625acd5ff3513055df35884d496a70&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'raised panel kitchen' },
-  { id: 'k-cab-shaker', name: 'Shaker', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1376296312965955694/Shaker_Kitchen_Cabinets.png?ex=68400413&is=683eb293&hm=b44076445cf4ac8b1acd117a4d4d0cef43f1dd4215fb9cca941607ab502cb26e&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'shaker kitchen cabinet' },
+  { id: 'k-cab-arched', name: 'Beadboard', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379968622331428925/Beadboard_Cabinet.png?ex=68422b6e&is=6840d9ee&hm=e885dad6aea26bc7a47595d49fa537152d6966d872fd5a9f5f59fb7685dc35f4&=&format=webp&quality=lossless&width=1174&height=1174', dataAiHint: 'arched kitchen cabinet' },
+  { id: 'k-cab-flat', name: 'Flat Panel', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379969399913451691/Flat_Panel_Cabinet.png?ex=68422c27&is=6840daa7&hm=e8810449c1090d17de71140ba61499166dc5a0f5686b91bdaa30349c3df227b4&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'flat panel kitchen' },
+  { id: 'k-cab-glass', name: 'Glass Front', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379969399531896922/Glass_Front_Cabinet.png?ex=68422c27&is=6840daa7&hm=6cd3c94f77f89c6574d5670bc78c669c3b5f72aee7a4acb415b4e44314723b27&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'glass kitchen cabinet' },
+  { id: 'k-cab-open', name: 'Open Shelving', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379969399150346330/Open_Shelving_Kitchen_Cabinet.png?ex=68422c27&is=6840daa7&hm=1aa67981130f33e8f7a293566259ea6a38d9b6b8f26907613b043d305445f369&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'open kitchen shelving' },
+  { id: 'k-cab-raised', name: 'Raised Panel', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379969398747562055/Raised_Panel_Cabinet.png?ex=68422c27&is=6840daa7&hm=d7555406628a1a4e607ef1609cf313cf886c07dc9d5090d23bc5367d18e6e81d&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'raised panel kitchen' },
+  { id: 'k-cab-shaker', name: 'Shaker', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379969400404443236/Shaker_Cabinet.png?ex=68422c27&is=6840daa7&hm=d7f92f0fb0780f447c8d45c0b766d6528a715659c088508aa317e44c5ef2d753&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'shaker kitchen cabinet' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface KitchenWorktopOption extends BaseSelectionItem {}
@@ -79,8 +78,6 @@ export const kitchenApplianceOptions: KitchenApplianceOption[] = [
   { id: 'k-app-finish-black', name: 'Black', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374800577728610445/Black_Kitchen_Appliances_Finish.png?ex=682f5e50&is=682e0cd0&hm=8a1a609c4190eba8d5c9a07670ae165d5f99e1e172c5992d0ad82daf1fbb017b&=&format=webp&quality=lossless&width=936&height=936', dataAiHint: 'black kitchen appliance' },
   { id: 'k-app-finish-color', name: 'Color (e.g. Red, Blue)', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374800578235990057/Color_Option_Kitchen_Appliances_Finish.png?ex=682f5e50&is=682e0cd0&hm=84b8d312dcdc06a95dc838788ec05e61776ee5b0e3e0113059519a00b10a4fc6&=&format=webp&quality=lossless&width=936&height=936', dataAiHint: 'colored kitchen appliance' },
   { id: 'k-app-fingerprint', name: 'Fingerprint Resistant', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374879872211484822/Fingerprint_Resistant_Kitchen_Appliances_.png?ex=682fa829&is=682e56a9&hm=150eb835dd091eafe427b9a8e9f15fdf4e24a9e6e8e499bb9cd702e432630807&=&format=webp&quality=lossless&width=938&height=938', dataAiHint: 'fingerprint resistant appliance' },
-  { id: 'k-app-freestanding', name: 'Freestanding', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'freestanding kitchen appliance' },
-  { id: 'k-app-integrated', name: 'Integrated', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'integrated kitchen appliance' },
   { id: 'k-app-smart', name: 'Smart Appliances', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374800579712516166/Smart_Kitchen_Appliances.png?ex=682f5e50&is=682e0cd0&hm=9173c4f0087ca8f89c74eff564c75e90db95e3a1e8b89ac2502834baf7df6d3d&=&format=webp&quality=lossless&width=938&height=938', dataAiHint: 'smart kitchen appliance' },
   { id: 'k-app-finish-stainless', name: 'Stainless Steel', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374879872597622814/Stainless_Steel_Kitchen_Appliances_Finish.png?ex=682fa829&is=682e56a9&hm=46ec1416f3e83c14c9d65bf32ae52e03031f4bbcbc6b32fc77f6185c4a911c64&=&format=webp&quality=lossless&width=938&height=938', dataAiHint: 'stainless steel appliance' },
   { id: 'k-app-finish-white', name: 'White', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374800580664492032/White_Kitchen_Appliances_Finish.png?ex=682f5e50&is=682e0cd0&hm=fd34cd3e885a173ef264aef563c5ce4cdfcc9d7dd8807f293dd8bb7e2e7cfedd&=&format=webp&quality=lossless&width=936&height=936', dataAiHint: 'white kitchen appliance' },
@@ -108,12 +105,12 @@ export const kitchenSinkTypeOptions: KitchenSinkTypeOption[] = [
 
 export interface KitchenBacksplashOption extends BaseSelectionItem {}
 export const kitchenBacksplashOptions: KitchenBacksplashOption[] = [
-    { id: 'k-backsplash-stone', name: 'Carved Stone', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374906764000100452/Carved_Stone_Kitchen_Backsplash.png?ex=682fc135&is=682e6fb5&hm=b782f324e58bb8c82c64c321cb5df312a80c2d7c55b366f9a674444cf3a5bee9&=&format=webp', dataAiHint: 'carved stone backsplash' },
- { id: 'k-backsplash-glass', name: 'Glass', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'glass backsplash' },
-  { id: 'k-backsplash-matching', name: 'Matching Backsplash', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1374906765733171210/Matching_Worktop_Countertop_Kitchen_Backsplash.png?ex=682fc136&is=682e6fb6&hm=a3c78e0271f8e634589f318a54b52794e1707a1e915d34064ef80426043ef266&=&format=webp&quality=lossless&width=938&height=938', dataAiHint: 'matching countertop backsplash' },
- { id: 'k-backsplash-painted', name: 'Painted', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'painted backsplash' },
-  { id: 'k-backsplash-stainless', name: 'Stainless Steel', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'stainless steel backsplash' },
- { id: 'k-backsplash-tile', name: 'Tile', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'tile backsplash' },
+    { id: 'k-backsplash-stone', name: 'Carved Stone', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512600966070343/Carved_Stone_Kitchen_Backsplash.png?ex=6841d43a&is=684082ba&hm=7ee3ce7e5a8be851893c5eeececaac8254d15bae8f29dfadf7a67cce633507eb&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'carved stone backsplash' },
+ { id: 'k-backsplash-glass', name: 'Glass', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512601486037062/Glass_Kitchen_Backsplash_.png?ex=6841d43a&is=684082ba&hm=790d61dca4b0bca4656e2a1784cdc4c55fa4e0ad38d3c9a6285530f848070d5b&=&format=webp&quality=lossless&width=974&height=966', dataAiHint: 'glass backsplash' },
+  { id: 'k-backsplash-matching', name: 'Matching Backsplash', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512601913987123/Matching_Backsplash_Worktop_Kitchen_Countertop.png?ex=6841d43a&is=684082ba&hm=93f15586a052005fda44843e7e013727ec8af5ef01054b0411377561ebdb1aab&=&format=webp&quality=lossless&width=966&height=966' },
+ { id: 'k-backsplash-painted', name: 'Painted', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512602387808377/Painted_Kitchen_Backsplash.png?ex=6841d43a&is=684082ba&hm=5fd16ac01a98b5c12e0642ecf8f64130822a2222d9b27f3bb88882585e574b2c&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'painted backsplash' },
+  { id: 'k-backsplash-stainless', name: 'Stainless Steel', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512603520536626/Stainless_Steel_Kitchen_Backsplash.png?ex=6841d43a&is=684082ba&hm=d3d9319186b98153bb7999bf56140375659d4d7c6a6d604f80ff201e0894ddf7&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'stainless steel backsplash' },
+ { id: 'k-backsplash-tile', name: 'Tile', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512603998556180/Tile_Kitchen_Backsplash.png?ex=6841d43a&is=684082ba&hm=b486f14a81a48adc35d79c94dedba127e9223943f3f7d9d4ce527f8fc98edd55&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'tile backsplash' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 
@@ -124,68 +121,79 @@ export const kitchenBacksplashOptions: KitchenBacksplashOption[] = [
 // General Options (used across multiple rooms)
 export interface GeneralWallFinishOption extends BaseSelectionItem {}
 export const generalWallFinishOptions: GeneralWallFinishOption[] = [
-  { id: 'wall-brick', name: 'Exposed Brick / Stone Veneer', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'exposed brick wall' },
-  { id: 'wall-paint', name: 'Paint', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'painted wall room' },
-  { id: 'wall-paneling', name: 'Paneling (Wood/MDF)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'wood paneling wall' },
-  { id: 'wall-wallpaper', name: 'Wallpaper', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'wallpaper room' },
+  { id: 'wall-brick', name: 'Exposed Brick / Stone Veneer', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512187541913743/Exposed_Brick_Wall.png?ex=68432557&is=6841d3d7&hm=900ced525bd6748ed86741c8642b8ee1a67afbf1bf144dd912850c4613fb85a4&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'exposed brick wall' },
+  { id: 'wall-paint', name: 'Paint', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1380381828791402558/Paint.png?ex=6843ac42&is=68425ac2&hm=f3e4784a41cbc076c64ff437dc769f2ae1d30d743e854e4436429f90c9bf7ef4&=&format=webp&quality=lossless&width=1174&height=1174', dataAiHint: 'painted wall room' },
+  { id: 'wall-paneling', name: 'Paneling (Wood/MDF)', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512189756510408/Wood_Paneling.png?ex=68432558&is=6841d3d8&hm=108b0cb81936e1da44492d9d80fd3c1994bd3f3d323a5eadd4cfbfb361a04885&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'wood paneling wall' },
+  { id: 'wall-wallpaper', name: 'Wallpaper', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512189206925352/Wallpaper.png?ex=68432558&is=6841d3d8&hm=bf3f7444fd37f6e0fa5525612d946fb823702c69943dce265c10ac3beb644e0a&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'wallpaper room' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface GeneralFlooringOption extends BaseSelectionItem {}
 export const generalFlooringOptions: GeneralFlooringOption[] = [
-  { id: 'floor-carpet', name: 'Carpet', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379212482907996254/Carpet_Flooring_.png?ex=683f6b38&is=683e19b8&hm=d01d6743cc5a6f75409abece448494ee9a0e0236d4c73dd61a793e7f244cfe73&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'carpet flooring room' },
+  { id: 'floor-carpet', name: 'Carpet', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1380939629431357660/Carpet_Flooring.png?ex=684eee40&is=684d9cc0&hm=49dacf44f270d22ccbe449fcacd1a3b678278011be62278aaed141d423fdb5f3&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'carpet flooring room' },
   { id: 'floor-concrete', name: 'Concrete', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379212483381821562/Cement_Flooring.png?ex=683f6b38&is=683e19b8&hm=27546ce9b7bc6ced4ff9bfca4c9ab514856a9db5125cf2504ff58f54360055d9&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'concrete floor room' },
   { id: 'floor-hardwood', name: 'Hardwood', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379212490486845551/Wood_Flooring.png?ex=683f6b3a&is=683e19ba&hm=b618bf4f13672aaa22d211091234d0b4966adaaed766d315d6cc5fde96ef2998&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'hardwood floor room' },
-  { id: 'floor-laminate', name: 'Laminate', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'laminate flooring room' },
+  { id: 'floor-laminate', name: 'Laminate', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1380939628961337464/Laminate_Flooring.png?ex=684eee40&is=684d9cc0&hm=8b74b41178b09be67e53fb4db77456e5430b92618b658e0065adc38b58b1fd3e&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'laminate flooring room' },
   { id: 'floor-stone', name: 'Natural Stone Tile', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379212490038185984/Natural_Stone_Flooring_.png?ex=683f6b3a&is=683e19ba&hm=94a2ae86e298bb52229e099ecc9a119fcd3145db2a0e1d223de862be8ee5aa76&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'stone tile floor' },
-  { id: 'floor-porcelain', name: 'Porcelain/Ceramic Tile', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379212489601847306/Marble_Flooring.png?ex=683f6b3a&is=683e19ba&hm=ee5d2333b55c50d2ad6fee40e469c195408d0aab9dc4c810150f82c013d44a21&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'tile floor room' },
-  { id: 'floor-vinyl', name: 'Vinyl/Luxury Vinyl Tile (LVT)', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379212488960380958/Luxury_Vinyl_Flooring.png?ex=683f6b39&is=683e19b9&hm=68fe6f5a250a395996dc381495ebd278befc0450c9c8a525923b1d57c0da353e&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'vinyl floor room' },
-  { id: 'floor-bamboo', name: 'Bamboo/Cork', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379212482496696360/Bamboo_Flooring.png?ex=683f6b38&is=683e19b8&hm=0580d5182c6b00213c2ba72da6d04316acf5da62ea0415492426903278649bd5&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'bamboo cork floor' },
+  { id: 'floor-marble', name: 'Marble', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1380684986016858182/Marble_Flooring.png?ex=6844c698&is=68437518&hm=56430b897db14e6de3f587885c79e916c2d2e940beb7a46322f7dba96f9a1e62&=&format=webp&quality=lossless&width=1174&height=1174', dataAiHint: 'tile floor room' },
+  { id: 'floor-vinyl', name: 'Luxury Vinyl', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1380939628458148050/Luxury_Vinyl_Flooring.png?ex=684eee40&is=684d9cc0&hm=ba366f2bb3e8a0782f1765a203c55ce623967993518276f604df878ca36ea790&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'vinyl floor room' },
+  { id: 'floor-bamboo', name: 'Bamboo', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383552456688140519/Bamboo_Flooring.png?ex=684f3522&is=684de3a2&hm=c98a9c9cc3dd75789aa911b748f0666900a8e3ac6a2a3078075b89059de4bc1e&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'bamboo floor' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface GeneralLightingOption extends BaseSelectionItem {}
 export const generalLightingOptions: GeneralLightingOption[] = [
-  { id: 'light-chandelier', name: 'Chandelier(s)', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375962940846641262/Bathroom_Chandelier_.png?ex=683398d9&is=68324759&hm=de9e16a0a9447f3f1fbf45a8263d4319a8ae22e038a8cd4757be9ccfe7fb1e8f&=&format=webp&quality=lossless&width=1206&height=1206', dataAiHint: 'chandelier lighting room' },
-  { id: 'light-concealed', name: 'Cabinet or Shelf', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375960953760399370/Concealed_or_Cove_Lighting.png?ex=683396ff&is=6832457f&hm=90b594575063c593995c80556f54b6152415e5114e5d1b48dd209a6a01e08c2d&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'cove lighting room' },
-  { id: 'light-pendant', name: 'Pendant Light(s)', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375960954302496799/Bathroom_Pendant_Light.png?ex=683396ff&is=6832457f&hm=b366df8d7df3b6919381049a029e1b08d1b81aa8281dd9908b7fd38b85a8bf9b&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'pendant light room' },
-  { id: 'light-recessed-cylinder', name: 'Recessed/Cylinder Lighting', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375960955074084924/Recessed_or_Cylinder_Light.png?ex=683396ff&is=6832457f&hm=43f16488c9a19304575e1f5125e924527c7034e036f00e66671c0ab8c6f90789&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'recessed lighting room' },
-  { id: 'light-track', name: 'Track Lighting', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'track lighting room' },
-  { id: 'light-wallsconce', name: 'Wall Sconce(s)', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375960954688503909/Bathroom_Wall_Sconce_Light_.png?ex=683396ff&is=6832457f&hm=50647836e4989e0dd1c51ead974f585aa673a9d8dfd137602586a589c2c51617&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'wall sconce room' },
-  { id: 'light-niche', name: 'Niche Lighting', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375960953307365489/Niche_Lighting_or_Under_Cabinet_Lighting.png?ex=683396ff&is=6832457f&hm=1dd86d84b26578ac4272bb0751f66c7e35b15674e2f66356b1e1ae4df702660e&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'niche lighting under cabinet' },
+  { id: 'light-chandelier', name: 'Chandelier(s)', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383582128763310201/Chandelier_Statement_Light.png?ex=684f50c5&is=684dff45&hm=607307e72ee3f645fcd404eca1bc56fdd3a569a09ff832440990951863a023f0&=&format=webp&quality=lossless&width=1174&height=1174', dataAiHint: 'chandelier lighting room' },
+  { id: 'light-picture', name: 'Picture or Art Lighting', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383581232394408036/Picture_Art_Lighting_.png?ex=684f4fef&is=684dfe6f&hm=2b0ba4d509ecec80901fa4de32b98d1371eddcb6977e7b15326daadc3cd92266&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'picture lighting room' },
+  { id: 'light-pendant', name: 'Pendant Light(s)', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383583432038158490/Pendant_Lighting_.png?ex=684f51fb&is=684e007b&hm=d73c22534451ebecbb36d9e0f2d5ed6fa47e3eb8af88e0009e3c93d8953fc35c&=&format=webp&quality=lossless&width=1174&height=1174', dataAiHint: 'pendant light room' },
+  { id: 'light-cylinder', name: 'Cylinder Lighting', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383581231232319538/Cylinder_Lighting_.png?ex=684f4fef&is=684dfe6f&hm=341393e32506180d9a92661e504cf75f6c9ec2bf8379ce2aa7c623e7173e2ba3&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'cylinder lighting room' },
+  { id: 'light-recessed', name: 'Recessed Lighting', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383581232801124452/Recessed_Lighting.png?ex=684f4fef&is=684dfe6f&hm=e4a507ad2745d790d0212c95a506e1a9270704b854a686b38508d642764f39c6&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'recessed lighting room' },
+  { id: 'light-wallsconce', name: 'Wall Sconce(s)', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383581233262362814/Wall_Sconce_Lighting.png?ex=684f4fef&is=684dfe6f&hm=73ce983263514ea42edb988314d31c4186ed1b266ea19d36f222651f4b01b0e6&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'wall sconce room' },
+  { id: 'light-niche', name: 'Niche Lighting', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383581232000008262/Niche_Lighting.png?ex=684f4fef&is=684dfe6f&hm=1fc0f0177f810657e89cb0fcd2deee796b27eba8338c8b050749ceb7aa8c4b29&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'niche lighting under cabinet' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 
 // Bathroom Specific Options
 export interface BathroomMasterBathTubOption extends BaseSelectionItem {}
+
 export const bathroomMasterBathTubOptions: BathroomMasterBathTubOption[] = [
-  { id: 'bm-tub-alcove', name: 'Alcove', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375169924974247987/Bathroom_Alcove_Tub.png?ex=6830b64b&is=682f64cb&hm=6481cd8fa84c74a57b801c536e835d4d4c33498d0a92ca45a282e292181a0886&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'alcove bathtub' },
-  { id: 'bm-tub-freestanding', name: 'Freestanding', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375169925863682139/Bathroom_Freestanding_Tub.png?ex=6830b64b&is=682f64cb&hm=b9537512c074bbdf2d1b70dd6fd2d066210a6e370a857255344bca54b7e7f806&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'freestanding bathtub' },
-  { id: 'bm-tub-jacuzzi', name: 'Jacuzzi/Whirlpool', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375169926136299600/Bathroom_Jacuzzi_Tub.png?ex=6830b64b&is=682f64cb&hm=0cf22a01a72fd0292e43e1a1f29127662b067dd0ae6d423581424905269f9d71&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'jacuzzi bathtub' },
-  { id: 'bm-tub-no', name: 'No Bathtub', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'no bathtub' },
+  { id: 'bm-tub-alcove', name: 'Alcove', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373807233942687804/Alcove.png?ex=68500270&is=684eb0f0&hm=e3a4a0057976ff1eeaecc5ea24331ac45f2f89b10cc62cdb547738be31ae2569&=&format=webp&quality=lossless&width=968&height=968', dataAiHint: 'alcove bathtub' },
+  { id: 'bm-tub-corner', name: 'Corner', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373807240997507113/Corner_.png?ex=68500272&is=684eb0f2&hm=f32d86671e2e0d88524aac5006a194614719cabc1e6270dbe79f3fd0537d1a6d&=&format=webp&quality=lossless&width=968&height=968', dataAiHint: 'corner bathtub' },
+  { id: 'bm-tub-clawfoot', name: 'Claw Foot', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373807240498253865/Clawfoot.png?ex=68500272&is=684eb0f2&hm=4553967779362772f56df76bbe4a38a250602fa16949ccf59a211582176d79ff&=&format=webp&quality=lossless&width=968&height=968', dataAiHint: 'clawfoot bathtub' },
+  { id: 'bm-tub-dropin', name: 'Drop-In', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373807241781706834/Drop-In.png?ex=68500272&is=684eb0f2&hm=682ffae85786eadf1b64a1e4ed4bb9c168ce54f296ba32d3001ba26463bd26e4&=&format=webp&quality=lossless&width=968&height=968', dataAiHint: 'drop-in bathtub' },
+  { id: 'bm-tub-freestanding', name: 'Freestanding', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373807242289352745/Freestanding.png?ex=68500272&is=684eb0f2&hm=bba0e4354f0743df63d6ee45aaa01283ff70ad84e2c3d9dabf27439b41b4e95d&=&format=webp&quality=lossless&width=968&height=968', dataAiHint: 'freestanding bathtub' },
+  { id: 'bm-tub-jacuzzi', name: 'Jacuzzi/Whirlpool', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373807242746269746/Jacuzzi_.png?ex=68500272&is=684eb0f2&hm=1ff9b60c9e9f46412f501761b3136d1e4d0e6e3efc5e3f4a2d0469439ee83a7d&=&format=webp&quality=lossless&width=968&height=968', dataAiHint: 'jacuzzi bathtub' },
+  { id: 'bm-tub-accessible', name: 'Accessible', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373807233078526033/Accessible.png?ex=68500270&is=684eb0f0&hm=d18bf9c2bd5caed954b99ce0bb1c351df8febbfd138e5ab2e227d4b4d53d2e21&=&format=webp&quality=lossless&width=968&height=968', dataAiHint: 'accessible' },
 ].sort((a, b) => a.name.localeCompare(b.name));
+
 
 export interface BathroomMasterShowerOption extends BaseSelectionItem {}
 export const bathroomMasterShowerOptions: BathroomMasterShowerOption[] = [
-  { id: 'bm-shower-frameless', name: 'Frameless Glass', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375181278623170620/Bathroom_Frameless_Glass_Shower.png?ex=6830c0b1&is=682f6f31&hm=0b3a17954e2331e854139202f06d0e486a6296dd4e05b6a6a87e60665e177295&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'frameless glass shower' },
-  { id: 'bm-shower-walkin', name: 'Walk-In Shower', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375181279000690778/Bathroom_Walk-In_Shower.png?ex=6830c0b1&is=682f6f31&hm=3c36a61deac41851807d318f2e5cc7ac8103e622c89519a2e709c0593d15e29f&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'walk in shower' },
-  { id: 'bm-shower-wetroom', name: 'Wet Room Style', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375181279420284959/Bathroom_Wet_Room_Shower.png?ex=6830c0b1&is=682f6f31&hm=350c289f0a48707cc27944e50365c9e646443c2b1617d605a09665f61d2286a1&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'wet room shower' },
-  { id: 'bm-shower-no', name: 'No Separate Shower', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'no shower' },
+  { id: 'bm-shower-shower', name: 'Shower/Tub Combo', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383553309104934913/Shower__Bath_Tub_Combo.png?ex=684fdeae&is=684e8d2e&hm=b1543ad96295f2b750dd0e4d5f019b52cf08bb9df49d1a4e1812279b2e2f1570&=&format=webp&quality=lossless&width=968&height=968', dataAiHint: 'shower/tub combo shower' },
+  { id: 'bm-shower-walkin', name: 'Walk-In Shower', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1381401776120401930/Walk-In_Shower.png?ex=684ff3e8&is=684ea268&hm=308933c8e1648971bc88ffee0053d0fe8b7bc89e4884cec886f21e09dac72424&=&format=webp&quality=lossless&width=1176&height=1176', dataAiHint: 'walk in shower' },
+  { id: 'bm-shower-enclosed', name: 'Enclosed', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1381401551041466400/Enclosed_Shower.png?ex=684ff3b2&is=684ea232&hm=418fc4f38adf0c916c620cedf659e3b88f25c3836a36acf44599137f1e8946f2&=&format=webp&quality=lossless&width=1176&height=1176', dataAiHint: 'enclosed shower' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface BathroomMasterSinkOption extends BaseSelectionItem {}
 export const bathroomMasterSinkOptions: BathroomMasterSinkOption[] = [
-  { id: 'bm-sink-console-s', name: 'Console Sink', imageUrl: 'https://media.discordapp.net/attachments/1374539386368167948/1374541051578024126/Console.png?ex=682e6c9c&is=682d1b1c&hm=9d427df1e7f3690029dd359522e2359d172c7fa8603e20f8cc5b32b1568523f5&=&format=webp&quality=lossless&width=1242&height=1242', dataAiHint: 'console sink bathroom' },
-  { id: 'bm-sink-pedestal-s', name: 'Pedestal Sink', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375169925398855740/Bathroom_Pedestal_Sink.png?ex=6830b64b&is=682f64cb&hm=18d41acbb8d6906f0a02879fd3a6df35a9e11fd6f31118021371f63b36502ba2&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'pedestal sink bathroom' },
-  { id: 'bm-sink-undermount-s', name: 'Undermount Sink', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'undermount sink bathroom' },
-  { id: 'bm-sink-vessel-s', name: 'Vessel Sink', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375169926527975434/Bathroom_Vessel_Sink.png?ex=6830b64b&is=682f64cb&hm=1214b2ee0dade3fc7266cc4d46528f46deff43697c36f30ae531a96ff361fec1&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'vessel sink bathroom' },
-  { id: 'bm-sink-wallmount-s', name: 'Wall-Mounted Sink', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375169926934958090/Bathroom_Wall-Mounted_Sink.png?ex=6830b64c&is=682f64cc&hm=5c7250cd7582bac748cba56f1bb8b387fc7d3c522ccec7ac91514e0bb9c944f5&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'wall mounted sink bathroom' },
+  { id: 'bm-sink-console-s', name: 'Single Console Sink', imageUrl: 'https://media.discordapp.net/attachments/1374539386368167948/1374541051578024126/Console.png?ex=682e6c9c&is=682d1b1c&hm=9d427df1e7f3690029dd359522e2359d172c7fa8603e20f8cc5b32b1568523f5&=&format=webp&quality=lossless&width=1242&height=1242', dataAiHint: 'single console sink bathroom' },
+  { id: 'bm-sink-console-d', name: 'Double Console Sink', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1380382691106750515/Double_Bathroom_Console_Sinks.png?ex=6843ad0f&is=68425b8f&hm=92348a1f5f91c02867e3780cf5a1dc0522513f33290248d941569daa7a25c181&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'double console sink' },
+  { id: 'bm-sink-pedestal-s', name: 'Single Pedestal Sink', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375169925398855740/Bathroom_Pedestal_Sink.png?ex=6830b64b&is=682f64cb&hm=18d41acbb8d6906f0a02879fd3a6df35a9e11fd6f31118021371f63b36502ba2&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'pedestal sink bathroom' },
+  { id: 'bm-sink-pedestal-d', name: 'Double Pedestal Sink', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1380382691521855609/Double_Bathroom_Pedestal_Sinks.png?ex=6843ad0f&is=68425b8f&hm=8ecc0b70d63430ca09e956136525f3446fd2bc3136e0d0fa4a1e649ed1803173&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'double pedestal sink' },
+  { id: 'bm-sink-undermount-s', name: 'Single Undermount Sink', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1380383956968542280/Bathroom_Undermount_Sink.png?ex=6843ae3d&is=68425cbd&hm=07fc32727282d2e516daeb99c8fb7358a65505b529d7e62e3322f7fd1dfb2763&=&format=webp&quality=lossless&width=1174&height=1174', dataAiHint: 'single undermount sink bathroom' },
+  { id: 'bm-sink-undermount-d', name: 'Double Undermount Sink', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1380382691915993148/Double_Bathroom_Undermount_Sinks.png?ex=6843ad10&is=68425b90&hm=f0e319badb51c8b88517d128ba39e3dbf0d6b14bee6c613fb36b8aa3a30726a6&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'double undermount sink' },
+  { id: 'bm-sink-dropin-s', name: 'Single Drop-In Sink', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1380383529816424550/Bathroom_Drop-In_Sink.png?ex=6843add7&is=68425c57&hm=b989fbf917b9ea15df2f27ccd2eb14314d2c5070c1291a59ac6e21a72e72f40f&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'single drop in sink bathroom' },
+  { id: 'bm-sink-dropin-d', name: 'Double Drop-In Sink', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1380383784884768910/Double_Bathroom_Drop-In_Sinks.jpeg?ex=6843ae14&is=68425c94&hm=0bd973dac5dd5a93001b7bbc5497e1b68f700a2fbbe713782b5baf79cd2615fb&=&format=webp&width=1280&height=1174', dataAiHint: 'double drop in sink' },
+  { id: 'bm-sink-vessel-s', name: 'Single Vessel Sink', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375169926527975434/Bathroom_Vessel_Sink.png?ex=6830b64b&is=682f64cb&hm=1214b2ee0dade3fc7266cc4d46528f46deff43697c36f30ae531a96ff361fec1&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'single vessel sink bathroom' },
+  { id: 'bm-sink-vessel-d', name: 'Double Vessel Sink', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1380382692343943189/Double_Bathroom_Vessel_Sinks.png?ex=6843ad10&is=68425b90&hm=cc1d487d41d8cc089ed7b93d9c7721b5d17c0db9e7b6f9165de38eded3cc8035&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'double vessel sink' },
+  { id: 'bm-sink-wallmount-s', name: 'Single Wall-Mounted Sink', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375169926934958090/Bathroom_Wall-Mounted_Sink.png?ex=6830b64c&is=682f64cc&hm=5c7250cd7582bac748cba56f1bb8b387fc7d3c522ccec7ac91514e0bb9c944f5&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'single wall mounted sink bathroom' },
+  { id: 'bm-sink-wallmount-d', name: 'Double Wall-Mounted Sink', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1380382692679352402/Double_Bathroom_Wall-Mounted_Sinks.png?ex=6843ad10&is=68425b90&hm=b94632abd3fae45a79bc528da81a1a0292d4d2c1021e5a6b0a94f6604ce1c2aa&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'double wall mounted sink' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface BathroomToiletOption extends BaseSelectionItem {}
 export const bathroomToiletOptions: BathroomToiletOption[] = [
-  { id: 'bath-toilet-wallhung', name: 'Wall-Hung Toilet', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'wall hung toilet' },
-  { id: 'bath-toilet-onepiece', name: 'One-Piece Toilet', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'one piece toilet' },
-  { id: 'bath-toilet-twopiece', name: 'Two-Piece Toilet', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'two piece toilet' },
-  { id: 'bath-toilet-smart', name: 'Smart Toilet with Bidet', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'smart toilet bidet' },
+  { id: 'bath-toilet-wallhung', name: 'Wall-Hung Toilet', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512763230982176/Wall_Hung_Toilet.png?ex=685054e0&is=684f0360&hm=fa9172f71c4102ff54a19237e2410c50216b3cb5fb0d624f314240212c8b5fe5&=&format=webp&quality=lossless&width=968&height=968', dataAiHint: 'wall hung toilet' },
+  { id: 'bath-toilet-onepiece', name: 'One-Piece Toilet', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512755119329430/One_Piece_Toilet.png?ex=6844775e&is=684325de&hm=ef12bce13b8564666d73c0af7db6933db3dbe9d9f9579705bf89b1129b60d03e&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'one piece toilet' },
+  { id: 'bath-toilet-twopiece', name: 'Two-Piece Toilet', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512762757152859/Two_Piece_Toilet.png?ex=68447760&is=684325e0&hm=a4726e52dc227e3c46cc5fc43c7ab23f9b5e0309d65b25f8491a119535febdc1&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'two piece toilet' },
+  { id: 'bath-toilet-bidet', name: 'Toilet with Bidet', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512756209713192/Toilet_With_Bidet.png?ex=6844775f&is=684325df&hm=a1c409978386b79f8f30538fe5c50d4f223e83bfb3cf7336dc0568fc49914f56&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'toilet bidet' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface BathroomHardwareFinishOption extends BaseSelectionItem {}
@@ -200,17 +208,16 @@ export const bathroomHardwareFinishOptions: BathroomHardwareFinishOption[] = [
 
 export interface BathroomStorageOption extends BaseSelectionItem {}
 export const bathroomStorageOptions: BathroomStorageOption[] = [
-  { id: 'bath-store-customvanity', name: 'Custom Vanity', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'custom bathroom vanity' },
-  { id: 'bath-store-floating', name: 'Floating Shelves', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'floating bathroom shelves' },
-  { id: 'bath-store-medicine', name: 'Medicine Cabinet', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'medicine cabinet' },
-  { id: 'bath-store-recessed', name: 'Recessed Niche', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'recessed bathroom niche' },
+  { id: 'bath-store-under-sink', name: 'Under Sink Storage', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512840972668938/Under-Sink_Bathroom_Storage.png?ex=68447773&is=684325f3&hm=b5fba67691d3f8e46aa79bb32c7298c1e085a8950ae44eb782e4f8a443e3da3e&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'under sink bathroom storage' },
+  { id: 'bath-store-built-in', name: 'Built-In Shelving/Cabinets', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512840515358780/Built-In_Bathroom_Shelving_Cabinets.png?ex=68447773&is=684325f3&hm=beb36003deff4822218ae7884baa7292dedd56b84c87006318e3373e7bb8ade0&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'built-in bathroom cabinets/shelving' },
+  { id: 'bath-store-medicine', name: 'Medicine Cabinet', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512840054116382/Bathroom_Medicine_Cabinet_Storage_1.png?ex=68447773&is=684325f3&hm=edff89b08a9933700b7bfd4cc228e87038925dbdf8ac0d21ba5ecdd4a11c32f5&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'medicine cabinet' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface BathroomHalfSinkOption extends BaseSelectionItem {}
 export const bathroomHalfSinkOptions: BathroomHalfSinkOption[] = [
   { id: 'bh-sink-console', name: 'Console Sink', imageUrl: 'https://media.discordapp.net/attachments/1374539386368167948/1374541051578024126/Console.png?ex=682e6c9c&is=682d1b1c&hm=9d427df1e7f3690029dd359522e2359d172c7fa8603e20f8cc5b32b1568523f5&=&format=webp&quality=lossless&width=1242&height=1242', dataAiHint: 'console sink half bath' },
   { id: 'bh-sink-pedestal', name: 'Pedestal Sink', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375169925398855740/Bathroom_Pedestal_Sink.png?ex=6830b64b&is=682f64cb&hm=18d41acbb8d6906f0a02879fd3a6df35a9e11fd6f31118021371f63b36502ba2&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'pedestal sink half bath' },
-  { id: 'bh-sink-undermount', name: 'Undermount Sink', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'undermount sink half bath' },
+  { id: 'bh-sink-undermount', name: 'Undermount Sink', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1373814930234540032/Undermount.png?ex=684eb81b&is=684d669b&hm=2f52a3bc296719fe9fe4c9dc276443ce72e1e44457b4eac36c7ed8e7be7bbfd8&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'undermount sink half bath' },
   { id: 'bh-sink-vessel', name: 'Vessel Sink', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375169926527975434/Bathroom_Vessel_Sink.png?ex=6830b64b&is=682f64cb&hm=1214b2ee0dade3fc7266cc4d46528f46deff43697c36f30ae531a96ff361fec1&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'vessel sink half bath' },
   { id: 'bh-sink-wallmount', name: 'Wall-Mounted Sink', imageUrl: 'https://media.discordapp.net/attachments/1374799696127721638/1375169926934958090/Bathroom_Wall-Mounted_Sink.png?ex=6830b64c&is=682f64cc&hm=5c7250cd7582bac748cba56f1bb8b387fc7d3c522ccec7ac91514e0bb9c944f5&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'wall sink half bath' },
 ].sort((a, b) => a.name.localeCompare(b.name));
@@ -218,56 +225,92 @@ export const bathroomHalfSinkOptions: BathroomHalfSinkOption[] = [
 
 // Bedroom Options
 export interface BedroomWardrobeOption extends BaseSelectionItem {}
+
 export const bedroomWardrobeOptions: BedroomWardrobeOption[] = [
-  { id: 'bed-wardrobe-freestanding', name: 'Freestanding Wardrobe', imageUrl: 'https://placehold.co/400x300.png', description: 'A standalone wardrobe unit.', dataAiHint: 'freestanding wardrobe' },
-  { id: 'bed-wardrobe-fitted', name: 'Fitted Wardrobe', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1377374523652964412/Fitted_Wardrobe_.png?ex=683ffbbc&is=683eaa3c&hm=667e2dd375fdd40be7a2c8346ae222145375a481f64d2cc2535c856e87336cf5&=&format=webp&quality=lossless&width=1310&height=1310', description: 'Built-in wardrobe, custom fit.', dataAiHint: 'fitted wardrobe' },
-  { id: 'bed-wardrobe-walkin', name: 'Walk-in Closet', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1377374524860923914/Walk-In_Closet.png?ex=683ffbbd&is=683eaa3d&hm=fe6bc6a3d91be2d5d040d263d9b0bd1ffcb4701a33d844f3f6592116926cd7de&=&format=webp&quality=lossless&width=1310&height=1310', description: 'A small room for clothes storage.', dataAiHint: 'walk in closet' },
-  { id: 'bed-wardrobe-open', name: 'Open Wardrobe System', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1377364111121317968/Custom_Closet.png?ex=683ff20a&is=683ea08a&hm=0796e794b27d65d13d466c66f40448313022121486ee7f099586c6e412044e5c&=&format=webp&quality=lossless&width=1518&height=1518', description: 'Shelves and rails without doors.', dataAiHint: 'open wardrobe' },
+  {
+    id: 'bed-wardrobe-freestanding',
+    name: 'Freestanding Wardrobe',
+    imageUrl: 'https://placehold.co/400x300.png',
+    dataAiHint: 'freestanding wardrobe',
+  },
+  {
+    id: 'bed-wardrobe-walkin',
+    name: 'Walk-In Closet',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1377374524860923914/Walk-In_Closet.png?ex=683ffbbd&is=683eaa3d&hm=fe6bc6a3d91be2d5d040d263d9b0bd1ffcb4701a33d844f3f6592116926cd7de&=&format=webp&quality=lossless&width=1310&height=1310',
+    dataAiHint: 'walk in closet',
+  },
+  {
+    id: 'bed-wardrobe-one-standard',
+    name: 'One Standard Door',
+    imageUrl: 'https://placehold.co/400x300.png?text=One+Standard+Door',
+    dataAiHint: 'one door wardrobe',
+  },
+  {
+    id: 'bed-wardrobe-two-standard',
+    name: 'Two Standard Doors',
+    imageUrl: 'https://placehold.co/400x300.png?text=Two+Standard+Doors',
+    dataAiHint: 'two door wardrobe',
+  },
+  {
+    id: 'bed-wardrobe-custom',
+    name: 'Custom Closet',
+    imageUrl: 'https://placehold.co/400x300.png?text=Custom+Closet',
+    dataAiHint: 'custom closet',
+  },
+  {
+    id: 'bed-wardrobe-bi-fold',
+    name: 'Bi-Fold Doors',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512343968485507/Bifold_Doors.png?ex=6843257c&is=6841d3fc&hm=d9277c1b91a87f6af05a7f691d4fb3f0b75c57cd02a3b1d0b40b19bd5eb1de95&=&format=webp&quality=lossless&width=966&height=966',
+    dataAiHint: 'bi-fold doors',
+  },
+  {
+    id: 'bed-wardrobe-fitted',
+    name: 'Fitted Wardrobe',
+    imageUrl: 'https://placehold.co/400x300.png?text=Fitted+Wardrobe',
+    dataAiHint: 'fitted wardrobe',
+  },
 ].sort((a, b) => a.name.localeCompare(b.name));
+
 
 
 // Utility/Laundry Room Options
 export interface UtilityWasherDryerLayoutOption extends BaseSelectionItem {}
 export const utilityWasherDryerLayoutOptions: UtilityWasherDryerLayoutOption[] = [
-  { id: 'util-wd-stacked', name: 'Stacked', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'stacked washer dryer' },
-  { id: 'util-wd-side', name: 'Side-by-Side', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'side by side washer dryer' },
-  { id: 'util-wd-allinone', name: 'All-In-One Combo', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'combo washer dryer' },
+  { id: 'util-wd-stacked', name: 'Stacked', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512693974896710/Stacked_Washer_and_Dryer_.png?ex=684fac10&is=684e5a90&hm=b85eaa0519d8b34f501e0682f572b8c32fcd207a9d421b66925e8f119e504a37&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'stacked washer dryer' },
+  { id: 'util-wd-side', name: 'Side-by-Side', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512693542617179/Side-By-Side_Washer_and_Dryer.png?ex=684fac10&is=684e5a90&hm=88062f2b12205965c3094ebccda5e811c9fd5aea0f553c318536de406eb9032f&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'side by side washer dryer' },
+  { id: 'util-wd-allinone', name: 'All-In-One Combo', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383917631924469760/All-In-One_Washer_and_Dryer.png?ex=6850893b&is=684f37bb&hm=0b72d3ce8594529445c958805c3cdc4f4314f348830fc35e0699c17529afdc6b&=&format=webp&quality=lossless&width=968&height=968', dataAiHint: 'combo washer dryer' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface UtilityStorageOption extends BaseSelectionItem {}
 export const utilityStorageOptions: UtilityStorageOption[] = [
-  { id: 'util-store-cabinets', name: 'Cabinets (Upper/Lower)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'laundry room cabinets' },
-  { id: 'util-store-shelving', name: 'Open Shelving', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'laundry room shelving' },
-  { id: 'util-store-drying', name: 'Drying Rack/Rod', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'laundry drying rack' },
-  { id: 'util-store-sink', name: 'Utility Sink', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'utility sink laundry' },
+  { id: 'util-store-cabinets', name: 'Custom Cabinets', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383916414129410058/Built-In_Storage_Cabinets.png?ex=68508819&is=684f3699&hm=0fe63c0ba8ff0444a951ff65b22ac5dcdbc169ddf8037dfae84d57e8e72d12a5&=&format=webp&quality=lossless&width=968&height=968', dataAiHint: 'laundry room custom cabinets' },
+  { id: 'util-store-freestanding', name: 'Freestanding Cabinets', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383916414594711702/Freestanding_Shelving_.png?ex=68508819&is=684f3699&hm=bebb3af4ab138d8ec4ff417642374bb80f338a8d6e0d801a22e2cd6aea998bc0&=&format=webp&quality=lossless&width=968&height=968', dataAiHint: 'laundry room freestanding cabinets' },
+  { id: 'util-store-hidden', name: 'Hidden Hamper', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383916415161077920/Hidden_Hamper_Laundry_Storage.png?ex=68508819&is=684f3699&hm=4f31f61b55d4f23c82017009b93ff99582bfb3d8221fbc5a99d33c1114f9b583&=&format=webp&quality=lossless&width=968&height=968', dataAiHint: 'laundry room hidden hamper' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 
 // Living Room Options
 export interface LivingRoomStorageOption extends BaseSelectionItem {}
 export const livingRoomStorageOptions: LivingRoomStorageOption[] = [
-  { id: 'lr-store-builtins', name: 'Built-In Units', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1377379936460996710/Built-In_Units_Media.png?ex=684000c7&is=683eaf47&hm=1761903720996f21513871d366e6dee64c5f293c5e298d7525b5185da1efffd8&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'living room builtins' },
-  { id: 'lr-store-console', name: 'Console/Media Unit', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'living room media console' },
-  { id: 'lr-store-shelving', name: 'Bookcases/Shelving', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'living room bookcase' },
-  { id: 'lr-store-ottoman', name: 'Storage Ottoman/Bench', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'storage ottoman living room' },
+  { id: 'lr-store-builtins', name: 'Built-In Media Console', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1377379936460996710/Built-In_Units_Media.png?ex=684000c7&is=683eaf47&hm=1761903720996f21513871d366e6dee64c5f293c5e298d7525b5185da1efffd8&=&format=webp&quality=lossless&width=1310&height=1310', dataAiHint: 'living room builtins' },
+  { id: 'lr-store-alcove', name: 'Alcove Shelving', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512040758181938/Alcove_Shelving.jpg?ex=68432534&is=6841d3b4&hm=4788059d9d56cff885c962d9c9d20454e241aaf3475695c7df21742813bf7b4c&=&format=webp&width=1112&height=1174', dataAiHint: 'living room alcove' },
+  { id: 'lr-store-window', name: 'Window/Bench Seating', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512072915779684/Window_Seating_With_Storage_.png?ex=6843253c&is=6841d3bc&hm=5aa8b377e0e67853fb263636d53f84f6a64d9d3385401b901280915436a7d38f&=&format=webp&quality=lossless&width=1174&height=1174', dataAiHint: 'living room window bench seating' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface LivingRoomFireplaceOption extends BaseSelectionItem {}
 export const livingRoomFireplaceOptions: LivingRoomFireplaceOption[] = [
-  { id: 'lr-fire-traditional', name: 'Traditional (Wood/Gas)', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'traditional fireplace' },
-  { id: 'lr-fire-electric', name: 'Electric', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'electric fireplace' },
-  { id: 'lr-fire-wallmount', name: 'Wall-Mounted', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'wall mount fireplace' },
+  { id: 'lr-fire-gas', name: 'Gas', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512969792065646/Gas.png?ex=68432612&is=6841d492&hm=d7cc0cba0cf12288f63e565beaa3df9fb2d1d0d3342917c502e44115be59793e&=&format=webp&quality=lossless&width=1114&height=966', dataAiHint: 'gas fireplace' },
+  { id: 'lr-fire-electric', name: 'Electric', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512969448394974/Electric.png?ex=68432612&is=6841d492&hm=b4c9ddf84f14df8437d78cfab617d6817dd2280abc9b29a3dec5fd415a64c41c&=&format=webp&quality=lossless&width=1170&height=966', dataAiHint: 'electric fireplace' },
+  { id: 'lr-fire-wood burning', name: 'Wood Burning', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512969792065646/Gas.png?ex=68432612&is=6841d492&hm=d7cc0cba0cf12288f63e565beaa3df9fb2d1d0d3342917c502e44115be59793e&=&format=webp&quality=lossless&width=1114&height=966', dataAiHint: 'wood burning fireplace' },
   { id: 'lr-fire-no', name: 'No Fireplace', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'no fireplace' },
-].sort((a, b) => a.name.localeCompare(b.name));
+];
 
 
 // Home Office Options
 export interface HomeOfficeStorageOption extends BaseSelectionItem {}
 export const homeOfficeStorageOptions: HomeOfficeStorageOption[] = [
-  { id: 'ho-store-bookcase', name: 'Bookcases', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'office bookcase' },
-  { id: 'ho-store-cabinets', name: 'Filing Cabinets', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'office filing cabinet' },
-  { id: 'ho-store-shelving', name: 'Wall Shelving', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'office wall shelves' },
-  { id: 'ho-store-desk', name: 'Desk with Integrated Storage', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'office desk storage' },
+  { id: 'ho-store-bookcase', name: 'Built-In Bookcases', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1380999078674038855/Built-In_Bookcase.png?ex=684fce5e&is=684e7cde&hm=4e1c11c2d3267e39b1aee576ccc6c8fc6c5c246d6ace85687d04004253c3215c&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'office built-in bookcase' },
+  { id: 'ho-store-desk', name: 'Desk with Integrated Storage', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1380999078292230205/Integrated_Desk_With_Storage.png?ex=684fce5d&is=684e7cdd&hm=360a80ea10c344030a3bab04b0b9998578755b3e6a6e054cc9b13cf4a562f359&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'office desk storage' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 
@@ -275,8 +318,7 @@ export const homeOfficeStorageOptions: HomeOfficeStorageOption[] = [
 export interface HallwayStorageOption extends BaseSelectionItem {}
 export const hallwayStorageOptions: HallwayStorageOption[] = [
   { id: 'hall-store-console', name: 'Console Table', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'hallway console table' },
-  { id: 'hall-store-hooks', name: 'Coat Hooks/Rack', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'hallway coat rack' },
-  { id: 'hall-store-bench', name: 'Storage Bench', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'hallway storage bench' },
-  { id: 'hall-store-shelves', name: 'Narrow Shelving Unit', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'hallway narrow shelves' },
+  { id: 'hall-store-linen', name: 'Linen Closet', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512503184392266/Hallway_Linen_Closet.png?ex=684fabe2&is=684e5a62&hm=7ae5f469210cb40167f6ccb6b4a282b8f1ed1a8cf46200951f6f36cb5243ddca&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'hallway linen closet' },
+  { id: 'hall-store-niche', name: 'Niche Shelving', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512503708553226/Hallway_Shelving_.png?ex=684fabe2&is=684e5a62&hm=3efe22305760d0b640524c4ed751fc7e9f37e085c21f2488e0eb341176ad76d9&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'hallway niche shelving' },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
