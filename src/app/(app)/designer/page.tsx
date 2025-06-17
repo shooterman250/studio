@@ -453,11 +453,8 @@ export default function DesignerPage() {
     >
       <div className="relative z-[1] isolate">
         <header className="mb-12 text-center">
-          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
-            Design Dashboard
-          </h1>
           <p className="mt-4 text-2xl sm:text-3xl font-bold opacity-80">
-            Welcome to your personalized design dashboard!
+            Welcome to your personalized DESIGN DASHBOARD!
           </p>
           <p className="mt-1 text-xs sm:text-sm opacity-80">
             This is where your preferences and selections come together in one place. Use the menu to explore each category, based on the room selections you chose below, or continue by selected "Finish &amp; Proceed" at the bottom of each section.
@@ -580,3 +577,6 @@ export default function DesignerPage() {
     </div>
   );
 }
+
+
+    
