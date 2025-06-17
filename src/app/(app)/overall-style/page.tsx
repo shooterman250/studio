@@ -28,6 +28,7 @@ export default function OverallStylePage() {
 
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [hasSavedSinceLastChange, setHasSavedSinceLastChange] = useState(false);
+  const [isSaveButtonActive, setIsSaveButtonActive] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
   const pathname = usePathname();
@@ -83,6 +84,7 @@ export default function OverallStylePage() {
           setSelectedOptions(prev => new Set(prev).add('key-element-upload'));
         }
         setHasSavedSinceLastChange(false);
+        setIsSaveButtonActive(true);
         toast({ title: "Image Uploaded", description: `${file.name} is ready to be saved with your choices.` });
       };
       reader.readAsDataURL(file);
@@ -123,6 +125,7 @@ export default function OverallStylePage() {
       return newSelected;
     });
     setHasSavedSinceLastChange(false);
+    setIsSaveButtonActive(true);
   };
   
   const pageSpecificDisplayOverallStyleOptions: BaseSelectionItem[] = baseOverallStyleOptions.map(style => {
@@ -131,25 +134,25 @@ export default function OverallStylePage() {
       imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370575695373144224/Overall_Style_biophilic.png?ex=682b3455&is=6829e2d5&hm=d25337aa613c5b72296fbfd9070e35e2f7f5ab0d14f24869777d3f9d397f7dca&=&format=webp&quality=lossless&width=774&height=774';
     }
     if (style.id === 'bohemian') {
-      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370577130659909744/Overall_Style__Modern_1.png?ex=682b35ac&is=6829e42c&hm=9d175175076b1e18b077e2f38944c5074472c1e5445a0b06c9df28c975f2b465&=&format=webp&quality=lossless&width=774&height=774';
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1373043156102152344/Bohemian.png?ex=6828f996&is=6827a816&hm=bac9a4dbf1a4fe7714c124a9f57e761114e2841477368caf206177230174599e&=&format=webp&quality=lossless&width=380&height=380';
     }
     if (style.id === 'coastal') {
-      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370577942286962748/Overall_Style__Modern_2.png?ex=682b366d&is=6829e4ed&hm=a5c7998dc80c65d66bc87d4cb8ad64dd5d3d78be155bb34498c7bd7f305129b1&=&format=webp&quality=lossless&width=774&height=774';
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1373043156815446198/Coastal.png?ex=6828f996&is=6827a816&hm=eec376ebe01eac625acfc72b6d96228df4bb3705c85a5c3336ae7a708c702dd5&=&format=webp&quality=lossless&width=380&height=380';
     }
     if (style.id === 'contemporary') {
-      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370578507385536512/Overall_Style__Modern_3.png?ex=682b36f4&is=6829e574&hm=3a49ddf9aa1b0594c890dbacb94352a4c130dd5c3e2947c0ea14a6ccbfe7adb4&=&format=webp&quality=lossless&width=774&height=774';
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1373043157452984470/Contemporary.png?ex=6828f996&is=6827a816&hm=79ba96bcfb75a6b1b778edbea778fc72b77452a6bfa86817e19a8b6edde85453&=&format=webp&quality=lossless&width=380&height=380';
     }
     if (style.id === 'country-farmhouse') {
-      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370579139647635568/Overall_Style__Modern_4.png?ex=682b378b&is=6829e60b&hm=e74da4ef1e9efd2dabe032b1dd7832b064b65bdddc76879457032736a6574be3&=&format=webp&quality=lossless&width=774&height=774';
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1373043011654778930/Country_Farmhouse.png?ex=6828f973&is=6827a7f3&hm=e2e82f92bf9a57ec0add74856fe88d27d63e01704cc86aae94b7ea5272c574e1&=&format=webp&quality=lossless&width=380&height=380';
     }
     if (style.id === 'industrial') {
-      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370579979011887294/Overall_Style__Modern_5.png?ex=682b3853&is=6829e6d3&hm=85c09e020d6f52915da82f9c1cfe73781a6958c58fd483a347424b0cfc9459fe&=&format=webp&quality=lossless&width=774&height=774';
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1373043012279472169/Industrial.png?ex=6828f974&is=6827a7f4&hm=859e40b9764e038ce8f952133d5575402a14c6e8032256008347beb6505515f6&=&format=webp&quality=lossless&width=380&height=380';
     }
     if (style.id === 'japandi') {
-      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370580542021697597/Overall_Style__Modern_6.png?ex=682b38d9&is=6829e759&hm=8ec1cc6ec23fe6f63053bf124f8a496a1f2d749115f9e80f812e6c6400c2184a&=&format=webp&quality=lossless&width=774&height=774';
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1373043012824862840/Japandi.png?ex=6828f974&is=6827a7f4&hm=9cc6abd531984c322c5d79d55b08dac05cb26cad49ba42bc85cb097c89d49bda&=&format=webp&quality=lossless&width=380&height=380';
     }
     if (style.id === 'mid-century') {
-      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1370581583479967774/Overall_Style__Modern_7.png?ex=682b39d1&is=6829e851&hm=a72b550757893a41bcff206af1111f3424ea05ce7e89ef1eac9809891c526ec7&=&format=webp&quality=lossless&width=774&height=774';
+      imageUrl = 'https://media.discordapp.net/attachments/1370568040256901200/1373043013378642064/Mid-Century.png?ex=6828f974&is=6827a7f4&hm=0a441405db4f152d2d97e04618f88b99a882b03d7df6d7c0f2d8284239e82237&=&format=webp&quality=lossless&width=380&height=380';
     }
     if (style.id === 'modern') {
       imageUrl = 'https://media.discordapp.net/attachments/1374799696127721638/1374807182142341210/Overall_Style__Modern.png?ex=682f6476&is=682e12f6&hm=a114616baf979e6cb038c526f8aea1874cea1c9ec68106ecfab5044b50893e43&=&format=webp&quality=lossless&width=938&height=938';
@@ -285,6 +288,7 @@ export default function OverallStylePage() {
 
     updateStageSelections(PAGE_STAGE_KEY, newProgress, allSelectedItems);
     setHasSavedSinceLastChange(true);
+    setIsSaveButtonActive(false);
     
     toast({
       title: "Overall Style Choices Saved",
@@ -391,13 +395,17 @@ export default function OverallStylePage() {
         />
         
         <div className="pt-4 flex flex-col sm:flex-row justify-end gap-2">
-          <Button className="w-full sm:w-auto" onClick={handleSaveChanges}>
+          <Button 
+            className="w-full sm:w-auto" 
+            onClick={handleSaveChanges}
+            variant={isSaveButtonActive ? "primary" : "default"}
+          >
             Save Overall Style Choices ({selectedOptions.size})
           </Button>
            {nextStage ? (
             <Button
               onClick={() => router.push(nextStage.href)}
-              variant="outline"
+              variant={hasSavedSinceLastChange ? "primary" : "outline"}
               className="w-full sm:w-auto"
               disabled={!hasSavedSinceLastChange}
             >
@@ -407,7 +415,7 @@ export default function OverallStylePage() {
           ) : (
             <Button
               onClick={handleFinishAndProceed}
-              variant="default" 
+              variant={hasSavedSinceLastChange ? "primary" : "default"} 
               className="w-full sm:w-auto"
               disabled={!hasSavedSinceLastChange}
             >
