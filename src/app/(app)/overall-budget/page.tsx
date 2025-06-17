@@ -15,6 +15,7 @@ import { ArrowRight } from "lucide-react";
 export default function OverallBudgetPage() {
   const [budget, setBudget] = useState<number[]>([50000]); 
   const [hasSavedSinceLastChange, setHasSavedSinceLastChange] = useState(false);
+  const [isSaveButtonActive, setIsSaveButtonActive] = useState(false); // New state for save button visual
   const { updateStageSelections, getStageSelections, getUserRoomSelections } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter();
@@ -25,12 +26,15 @@ export default function OverallBudgetPage() {
     const existingSelections = getStageSelections("overall-budget");
     if (existingSelections.length > 0 && typeof existingSelections[0].value === 'number') {
       setBudget([existingSelections[0].value]);
+      // Initial load: Save button is not active, Next button is not active for proceeding
+      // User must interact or save explicitly for button states to change from default
     }
   }, [getStageSelections]);
 
   const handleBudgetChange = (value: number[]) => {
     setBudget(value);
-    setHasSavedSinceLastChange(false);
+    setHasSavedSinceLastChange(false); // Important: changes made, not yet saved for "Next" logic
+    setIsSaveButtonActive(true);     // Light up "Save Budget" button
   };
 
   const handleSaveChanges = () => {
@@ -46,7 +50,8 @@ export default function OverallBudgetPage() {
     };
 
     updateStageSelections("overall-budget", newProgress, [budgetItem]);
-    setHasSavedSinceLastChange(true);
+    setHasSavedSinceLastChange(true); // Changes are now saved, enable "Next" button
+    setIsSaveButtonActive(false);    // Return "Save Budget" button to neutral
     
     toast({
       title: "Overall Budget Saved",
@@ -60,6 +65,12 @@ export default function OverallBudgetPage() {
       item => item.id === 'overall-budget' || item.id === 'overall-style'
     );
     
+    const orderedInitialStages: BaseNavItemConfig[] = [];
+    const budgetStage = initialStages.find(s => s.id === 'overall-budget');
+    const styleStage = initialStages.find(s => s.id === 'overall-style');
+    if (budgetStage) orderedInitialStages.push(budgetStage);
+    if (styleStage) orderedInitialStages.push(styleStage);
+    
     const selectedRoomStages = baseNavItemsConfig.filter(item => 
       userRoomSelections.has(item.id) && 
       item.id !== 'overall-budget' && 
@@ -68,7 +79,13 @@ export default function OverallBudgetPage() {
       item.id !== 'settings'
     );
     
-    return [...initialStages, ...selectedRoomStages];
+    const finalNavOrder: BaseNavItemConfig[] = [...orderedInitialStages];
+    baseNavItemsConfig.forEach(baseItem => {
+        if(selectedRoomStages.some(srs => srs.id === baseItem.id) && !finalNavOrder.some(fno => fno.id === baseItem.id)) {
+            finalNavOrder.push(baseItem);
+        }
+    });
+    return finalNavOrder;
   };
 
   const dynamicNavConfig = getDynamicNavConfig();
@@ -117,13 +134,17 @@ export default function OverallBudgetPage() {
             </div>
             
             <div className="pt-4 flex flex-col sm:flex-row justify-end gap-2">
-              <Button className="w-full sm:w-auto" onClick={handleSaveChanges}>
+              <Button 
+                className="w-full sm:w-auto" 
+                onClick={handleSaveChanges}
+                variant={isSaveButtonActive ? "primary" : "default"}
+              >
                 Save Budget
               </Button>
               {nextStage && (
                 <Button
                   onClick={() => router.push(nextStage.href)}
-                  variant="outline"
+                  variant={hasSavedSinceLastChange ? "primary" : "outline"}
                   className="w-full sm:w-auto"
                   disabled={!hasSavedSinceLastChange}
                 >
@@ -131,11 +152,6 @@ export default function OverallBudgetPage() {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               )}
-              {/* If there's no nextStage according to dynamicNavConfig, 
-                  it implies this might be the last page in the *selected* flow.
-                  The "Finish & Proceed" logic would then be more complex and might reside
-                  on the last dynamically determined page. For Overall Budget, it always has a next.
-              */}
             </div>
           </CardContent>
         </Card>
