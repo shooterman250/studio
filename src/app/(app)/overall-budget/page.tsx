@@ -53,10 +53,10 @@ export default function OverallBudgetPage() {
     setHasSavedSinceLastChange(true); // Changes are now saved, enable "Next" button
     setIsSaveButtonActive(false);    // Return "Save Budget" button to neutral
     
-    toast({
-      title: "Overall Budget Saved",
-      description: `Your estimated budget is $${budget[0].toLocaleString()}. Progress updated.`,
-    });
+    // toast({
+    //   title: "Overall Budget Saved",
+    //   description: `Your estimated budget is $${budget[0].toLocaleString()}. Progress updated.`,
+    // });
   };
 
   // Dynamically generate navigation based on room selections
@@ -159,3 +159,4 @@ export default function OverallBudgetPage() {
     </div>
   );
 }
+

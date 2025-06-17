@@ -85,7 +85,7 @@ export default function OverallStylePage() {
         }
         setHasSavedSinceLastChange(false);
         setIsSaveButtonActive(true);
-        toast({ title: "Image Uploaded", description: `${file.name} is ready to be saved with your choices.` });
+        // toast({ title: "Image Uploaded", description: `${file.name} is ready to be saved with your choices.` });
       };
       reader.readAsDataURL(file);
     }
@@ -290,10 +290,10 @@ export default function OverallStylePage() {
     setHasSavedSinceLastChange(true);
     setIsSaveButtonActive(false);
     
-    toast({
-      title: "Overall Style Choices Saved",
-      description: `You've selected ${allSelectedItems.length} item(s). Progress updated to ${newProgress}%.`,
-    });
+    // toast({
+    //   title: "Overall Style Choices Saved",
+    //   description: `You've selected ${allSelectedItems.length} item(s). Progress updated to ${newProgress}%.`,
+    // });
   };
 
   const getDynamicNavConfig = (): BaseNavItemConfig[] => {
@@ -428,3 +428,4 @@ export default function OverallStylePage() {
     </div>
   );
 }
+
