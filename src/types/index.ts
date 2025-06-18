@@ -140,14 +140,56 @@ export const generalFlooringOptions: GeneralFlooringOption[] = [
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export interface GeneralLightingOption extends BaseSelectionItem {}
+
 export const generalLightingOptions: GeneralLightingOption[] = [
-  { id: 'light-chandelier', name: 'Chandelier(s)', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383582128763310201/Chandelier_Statement_Light.png?ex=684f50c5&is=684dff45&hm=607307e72ee3f645fcd404eca1bc56fdd3a569a09ff832440990951863a023f0&=&format=webp&quality=lossless&width=1174&height=1174', dataAiHint: 'chandelier lighting room' },
-  { id: 'light-picture', name: 'Picture or Art Lighting', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383581232394408036/Picture_Art_Lighting_.png?ex=684f4fef&is=684dfe6f&hm=2b0ba4d509ecec80901fa4de32b98d1371eddcb6977e7b15326daadc3cd92266&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'picture lighting room' },
-  { id: 'light-pendant', name: 'Pendant Light(s)', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383583432038158490/Pendant_Lighting_.png?ex=684f51fb&is=684e007b&hm=d73c22534451ebecbb36d9e0f2d5ed6fa47e3eb8af88e0009e3c93d8953fc35c&=&format=webp&quality=lossless&width=1174&height=1174', dataAiHint: 'pendant light room' },
-  { id: 'light-cylinder', name: 'Cylinder Lighting', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383581231232319538/Cylinder_Lighting_.png?ex=684f4fef&is=684dfe6f&hm=341393e32506180d9a92661e504cf75f6c9ec2bf8379ce2aa7c623e7173e2ba3&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'cylinder lighting room' },
-  { id: 'light-recessed', name: 'Recessed Lighting', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383581232801124452/Recessed_Lighting.png?ex=684f4fef&is=684dfe6f&hm=e4a507ad2745d790d0212c95a506e1a9270704b854a686b38508d642764f39c6&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'recessed lighting room' },
-  { id: 'light-wallsconce', name: 'Wall Sconce(s)', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383581233262362814/Wall_Sconce_Lighting.png?ex=684f4fef&is=684dfe6f&hm=73ce983263514ea42edb988314d31c4186ed1b266ea19d36f222651f4b01b0e6&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'wall sconce room' },
-  { id: 'light-niche', name: 'Niche Lighting', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383581232000008262/Niche_Lighting.png?ex=684f4fef&is=684dfe6f&hm=1fc0f0177f810657e89cb0fcd2deee796b27eba8338c8b050749ceb7aa8c4b29&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'niche lighting under cabinet' },
+  {
+    id: 'light-chandelier',
+    name: 'Chandelier(s)',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383582128763310201/Chandelier_Statement_Light.png?ex=684f50c5&is=684dff45&hm=607307e72ee3f645fcd404eca1bc56fdd3a569a09ff832440990951863a023f0&=&format=webp&quality=lossless&width=1174&height=1174',
+    dataAiHint: 'chandelier lighting room',
+  },
+  {
+    id: 'light-pendant',
+    name: 'Pendant Light(s)',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383583432038158490/Pendant_Lighting_.png?ex=684f51fb&is=684e007b&hm=d73c22534451ebecbb36d9e0f2d5ed6fa47e3eb8af88e0009e3c93d8953fc35c&=&format=webp&quality=lossless&width=1174&height=1174',
+    dataAiHint: 'pendant light room',
+  },
+  {
+    id: 'light-cylinder',
+    name: 'Cylinder Lighting',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383581231232319538/Cylinder_Lighting_.png?ex=684f4fef&is=684dfe6f&hm=341393e32506180d9a92661e504cf75f6c9ec2bf8379ce2aa7c623e7173e2ba3&=&format=webp&quality=lossless&width=966&height=966',
+    dataAiHint: 'cylinder lighting room',
+  },
+  {
+    id: 'light-recessed',
+    name: 'Recessed Lighting',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383581232801124452/Recessed_Lighting.png?ex=684f4fef&is=684dfe6f&hm=e4a507ad2745d790d0212c95a506e1a9270704b854a686b38508d642764f39c6&=&format=webp&quality=lossless&width=966&height=966',
+    dataAiHint: 'recessed lighting room',
+  },
+  {
+    id: 'light-wallsconce',
+    name: 'Wall Sconce(s)',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383581233262362814/Wall_Sconce_Lighting.png?ex=684f4fef&is=684dfe6f&hm=73ce983263514ea42edb988314d31c4186ed1b266ea19d36f222651f4b01b0e6&=&format=webp&quality=lossless&width=966&height=966',
+    dataAiHint: 'wall sconce room',
+  },
+  {
+    id: 'light-niche',
+    name: 'Niche Lighting',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383581232000008262/Niche_Lighting.png?ex=684f4fef&is=684dfe6f&hm=1fc0f0177f810657e89cb0fcd2deee796b27eba8338c8b050749ceb7aa8c4b29&=&format=webp&quality=lossless&width=966&height=966',
+    dataAiHint: 'niche lighting under cabinet',
+  },
+  {
+    id: 'light-under-cabinet',
+    name: 'Under Cabinet Or Shelf Lighting',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384651610780864582/Under_Cabinet_Kitchen_Lighting_.png?ex=685334cd&is=6851e34d&hm=3eb9fbbb15de59be4db80c04813eccf1a76c4c7e5c3ffd1b0dfde2aa3078581b&=&format=webp&quality=lossless&width=1518&height=1518',
+    dataAiHint: 'under cabinet lighting shelf kitchen',
+  },
+  {
+    id: 'light-toe-kick',
+    name: 'Toe-Kick Lighting',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384606995511771329/Toe-Kick_Lighting_.png?ex=68530b40&is=6851b9c0&hm=129cbd581fdd14c149a167471beb207118b7af14676413d33486e1072deac4d0&=&format=webp&quality=lossless&width=1310&height=1310',
+    dataAiHint: 'toe-kick lighting floor base',
+  },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 

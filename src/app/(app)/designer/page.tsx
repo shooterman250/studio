@@ -453,7 +453,7 @@ export default function DesignerPage() {
     >
       <div className="relative z-[1] isolate">
         <header className="mb-12 text-center">
-          <p className="whitespace-nowrap text-2xl font-bold sm:text-3xl opacity-80">
+          <p className="text-2xl font-bold sm:text-3xl opacity-80">
             Welcome to your personalized DESIGN DASHBOARD!
           </p>
           <p className="mt-4 text-xs opacity-80 sm:text-sm">
@@ -578,6 +578,8 @@ export default function DesignerPage() {
   );
 }
 
+
+    
 
     
 
