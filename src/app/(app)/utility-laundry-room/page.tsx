@@ -50,10 +50,11 @@ export default function UtilityLaundryRoomPage() {
   };
 
   const utilityWasherDryerLayoutOptions: BaseSelectionItem[] = [
-      { id: 'wd-sidebyside', name: 'Side-By-Side', imageUrl: '/Laundry_ Washer and Dryer.png', dataAiHint: 'side by side washer dryer' },
-      { id: 'wd-stacked', name: 'Stacked', imageUrl: '/Laundry_ Washer and Dryer.png', dataAiHint: 'stacked washer dryer' },
-      { id: 'wd-allinone', name: 'All-In-One', imageUrl: '/Laundry_ Washer and Dryer.png', dataAiHint: 'all in one washer dryer combo' },
-  ];
+      { id: 'wd-allinone', name: 'All-In-One', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384233164658053170/All-In-One_Washer_and_Dryer.png?ex=6855a398&is=68545218&hm=23c934ad2f32717940909575ff491c2be50b5de2bf7e43920a3485ceb132a89e&=&format=webp&quality=lossless&width=741&height=741', dataAiHint: 'all in one washer dryer combo' },
+      { id: 'wd-sidebyside', name: 'Side-By-Side', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384233165203443742/Side-By-Side_Washer_and_Dryer.png?ex=6855a398&is=68545218&hm=a94afa8f7a022ccbce04a04f005b2a8635e4fb816bec135e08bbe13ee7ac3762&=&format=webp&quality=lossless&width=741&height=741', dataAiHint: 'side by side washer dryer' },
+      { id: 'wd-stacked', name: 'Stacked', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384233165689721065/Stacked_Washer_and_Dryer_.png?ex=6855a398&is=68545218&hm=e14a338cb1c41a54f75fc58cecd167b1d021c683005b07fad5f8498cfc3e2bdc&=&format=webp&quality=lossless&width=741&height=741', dataAiHint: 'stacked washer dryer' },
+      
+    ];
 
   const pageSpecificUtilityLightingOptions: BaseSelectionItem[] = baseUtilityLightingOptions
     .filter(option => option.id !== 'light-niche') // Filter out Niche Lighting
@@ -190,7 +191,7 @@ export default function UtilityLaundryRoomPage() {
     <div class="min-h-full p-4 md:p-8 bg-background text-foreground">
       <header class="mb-8 text-center">
         <h1 class="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
-          Utility/Laundry Room Setup
+          Utility/Laundry Room
         </h1>
         <p class="mt-2 max-w-2xl mx-auto text-base opacity-80 sm:text-lg">
           Select One or More Options For Each Section
