@@ -55,12 +55,14 @@ export default function UtilityLaundryRoomPage() {
       { id: 'wd-allinone', name: 'All-In-One', imageUrl: '/Laundry_ Washer and Dryer.png', dataAiHint: 'all in one washer dryer combo' },
   ];
 
-  const pageSpecificUtilityLightingOptions: BaseSelectionItem[] = baseUtilityLightingOptions.map(option => {
-    if (option.id === 'light-chandelier') {
-      return { ...option, name: "Chandelier(s) or\nStatement Fixtures" };
-    }
-    return option;
-  });
+  const pageSpecificUtilityLightingOptions: BaseSelectionItem[] = baseUtilityLightingOptions
+    .filter(option => option.id !== 'light-niche') // Filter out Niche Lighting
+    .map(option => {
+      if (option.id === 'light-chandelier') {
+        return { ...option, name: "Chandelier(s) or\nStatement Fixtures" };
+      }
+      return option;
+    });
 
   // Remove Utility Sink from Storage and create a new section
   const storageOptionsWithoutSink = utilityStorageOptions;
@@ -185,25 +187,25 @@ export default function UtilityLaundryRoomPage() {
   };
 
   return (
-    <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
-      <header className="mb-8 text-center">
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
+    <div class="min-h-full p-4 md:p-8 bg-background text-foreground">
+      <header class="mb-8 text-center">
+        <h1 class="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
           Utility/Laundry Room Setup
         </h1>
-        <p className="mt-2 max-w-2xl mx-auto text-base opacity-80 sm:text-lg">
+        <p class="mt-2 max-w-2xl mx-auto text-base opacity-80 sm:text-lg">
           Select One or More Options For Each Section
         </p>
       </header>
 
-      <section className="max-w-7xl mx-auto space-y-12">
+      <section class="max-w-7xl mx-auto space-y-12">
         {sections.map(section => (
-          <Card key={section.title} className="bg-card/60 backdrop-blur-lg border border-card-foreground/10 shadow-lg">
+          <Card key={section.title} class="bg-card/60 backdrop-blur-lg border border-card-foreground/10 shadow-lg">
             <CardHeader>
               <CardTitle>{section.title}</CardTitle>
               {section.description && <CardDescription>{section.description}</CardDescription>}
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {section.options.map((option) => (
                   <ItemSelectionCard
                     key={option.id}
@@ -217,28 +219,28 @@ export default function UtilityLaundryRoomPage() {
           </Card>
         ))}
             
-        <div className="pt-4 flex flex-col sm:flex-row justify-end gap-2">
-          <Button className="w-full sm:w-auto" onClick={handleSaveChanges}>
+        <div class="pt-4 flex flex-col sm:flex-row justify-end gap-2">
+          <Button class="w-full sm:w-auto" onClick={handleSaveChanges}>
             Save Utility/Laundry Choices ({selectedOptions.size})
           </Button>
           {nextStage ? (
             <Button
               onClick={() => router.push(nextStage.href)}
               variant="outline"
-              className="w-full sm:w-auto"
+              class="w-full sm:w-auto"
               disabled={!hasSavedSinceLastChange}
             >
               Next Section ({nextStage.label})
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <ArrowRight class="ml-2 h-4 w-4" />
             </Button>
           ) : (
             <Button
               onClick={handleFinishAndProceed}
               variant="default" 
-              className="w-full sm:w-auto"
+              class="w-full sm:w-auto"
               disabled={!hasSavedSinceLastChange}
             >
-              <Home className="mr-2 h-4 w-4" />
+              <Home class="mr-2 h-4 w-4" />
               Finish &amp; Proceed
             </Button>
           )}
@@ -247,3 +249,4 @@ export default function UtilityLaundryRoomPage() {
     </div>
   );
 }
+
