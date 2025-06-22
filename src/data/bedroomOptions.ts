@@ -9,9 +9,15 @@ export const bedroomLightingOptions: BaseSelectionItem[] = [
   },
   {
     id: 'bed-light-recessed',
-    name: 'Recessed or Cylinder Lights',
-    imageUrl: 'https://media.discordapp.net/attachments/1370566895364360202/1385798881004326010/Recessed_Lighting.png?ex=68594810&is=6857f690&hm=413310916171f8c87049b40298695421b77a04977d22f6e9823efb307b0ed7f0&=&format=webp&quality=lossless&width=966&height=966',
-    dataAiHint: 'recessed cylinder bedroom',
+    name: 'Recessed Lighting',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383581232801124452/Recessed_Lighting.png?ex=684f4fef&is=684dfe6f&hm=e4a507ad2745d790d0212c95a506e1a9270704b854a686b38508d642764f39c6&=&format=webp&quality=lossless&width=966&height=966',
+    dataAiHint: 'recessed lighting bedroom',
+  },
+  {
+    id: 'bed-light-cylinder',
+    name: 'Cylinder Lighting',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383581231232319538/Cylinder_Lighting_.png?ex=684f4fef&is=684dfe6f&hm=341393e32506180d9a92661e504cf75f6c9ec2bf8379ce2aa7c623e7173e2ba3&=&format=webp&quality=lossless&width=966&height=966',
+    dataAiHint: 'cylinder lighting bedroom',
   },
   {
     id: 'bed-light-wall',
