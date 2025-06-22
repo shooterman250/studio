@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -70,20 +71,13 @@ export default function BedroomPage() {
 
   const pageSpecificBedroomWardrobeOptions: BaseSelectionItem[] = baseBedroomWardrobeOptions
     .filter(option => [
-      'bed-wardrobe-standard-one',
-      'bed-wardrobe-standard-two',
+      'bed-wardrobe-one-standard',
+      'bed-wardrobe-two-standard',
       'bed-wardrobe-walkin',
       'bed-wardrobe-fitted',
-      'bed-wardrobe-bifold',
+      'bed-wardrobe-bi-fold',
       'bed-wardrobe-custom'
     ].includes(option.id))
-    .map(option => {
-      let newName = option.name;
-      if (option.id === 'bed-wardrobe-bifold') newName = 'Bi-Fold Doors';
-      if (option.id === 'bed-wardrobe-custom') newName = 'Custom Closet';
-      if (option.id === 'bed-wardrobe-walkin') newName = 'Walk-In Closet';
-      return { ...option, name: newName };
-    })
     .sort((a, b) => a.name.localeCompare(b.name));
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
