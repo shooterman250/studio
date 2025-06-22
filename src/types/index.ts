@@ -120,12 +120,40 @@ export const kitchenBacksplashOptions: KitchenBacksplashOption[] = [
 
 // General Options (used across multiple rooms)
 export interface GeneralWallFinishOption extends BaseSelectionItem {}
+
 export const generalWallFinishOptions: GeneralWallFinishOption[] = [
-  { id: 'wall-brick', name: 'Exposed Brick / Stone Veneer', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512187541913743/Exposed_Brick_Wall.png?ex=68432557&is=6841d3d7&hm=900ced525bd6748ed86741c8642b8ee1a67afbf1bf144dd912850c4613fb85a4&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'exposed brick wall' },
-  { id: 'wall-paint', name: 'Paint', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1380381828791402558/Paint.png?ex=6843ac42&is=68425ac2&hm=f3e4784a41cbc076c64ff437dc769f2ae1d30d743e854e4436429f90c9bf7ef4&=&format=webp&quality=lossless&width=1174&height=1174', dataAiHint: 'painted wall room' },
-  { id: 'wall-paneling', name: 'Paneling (Wood/MDF)', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512189756510408/Wood_Paneling.png?ex=68432558&is=6841d3d8&hm=108b0cb81936e1da44492d9d80fd3c1994bd3f3d323a5eadd4cfbfb361a04885&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'wood paneling wall' },
-  { id: 'wall-wallpaper', name: 'Wallpaper', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512189206925352/Wallpaper.png?ex=68432558&is=6841d3d8&hm=bf3f7444fd37f6e0fa5525612d946fb823702c69943dce265c10ac3beb644e0a&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'wallpaper room' },
+  {
+    id: 'wall-brick',
+    name: 'Exposed Brick / Stone Veneer',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512187541913743/Exposed_Brick_Wall.png?ex=68432557&is=6841d3d7&hm=900ced525bd6748ed86741c8642b8ee1a67afbf1bf144dd912850c4613fb85a4&=&format=webp&quality=lossless&width=966&height=966',
+    dataAiHint: 'exposed brick wall',
+  },
+  {
+    id: 'wall-paint',
+    name: 'Paint',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1380381828791402558/Paint.png?ex=6843ac42&is=68425ac2&hm=f3e4784a41cbc076c64ff437dc769f2ae1d30d743e854e4436429f90c9bf7ef4&=&format=webp&quality=lossless&width=1174&height=1174',
+    dataAiHint: 'painted wall room',
+  },
+  {
+    id: 'wall-paneling',
+    name: 'Paneling (Wood/MDF)',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512189756510408/Wood_Paneling.png?ex=68432558&is=6841d3d8&hm=108b0cb81936e1da44492d9d80fd3c1994bd3f3d323a5eadd4cfbfb361a04885&=&format=webp&quality=lossless&width=966&height=966',
+    dataAiHint: 'wood paneling wall',
+  },
+  {
+    id: 'wall-wallpaper',
+    name: 'Wallpaper',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512189206925352/Wallpaper.png?ex=68432558&is=6841d3d8&hm=bf3f7444fd37f6e0fa5525612d946fb823702c69943dce265c10ac3beb644e0a&=&format=webp&quality=lossless&width=966&height=966',
+    dataAiHint: 'wallpaper room',
+  },
+  {
+    id: 'wall-textured',
+    name: 'Textured',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384653156364849335/Textured.png?ex=6855307e&is=6853defe&hm=995cafb2a48fb18a07d001112db3df16ae7de1afb133133d6d898d2531a5bde7&=&format=webp&quality=lossless&width=845&height=845',
+    dataAiHint: 'textured wall finish',
+  },
 ].sort((a, b) => a.name.localeCompare(b.name));
+
 
 export interface GeneralFlooringOption extends BaseSelectionItem {}
 export const generalFlooringOptions: GeneralFlooringOption[] = [
@@ -344,8 +372,7 @@ export const livingRoomFireplaceOptions: LivingRoomFireplaceOption[] = [
   { id: 'lr-fire-gas', name: 'Gas', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512969792065646/Gas.png?ex=68432612&is=6841d492&hm=d7cc0cba0cf12288f63e565beaa3df9fb2d1d0d3342917c502e44115be59793e&=&format=webp&quality=lossless&width=1114&height=966', dataAiHint: 'gas fireplace' },
   { id: 'lr-fire-electric', name: 'Electric', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512969448394974/Electric.png?ex=68432612&is=6841d492&hm=b4c9ddf84f14df8437d78cfab617d6817dd2280abc9b29a3dec5fd415a64c41c&=&format=webp&quality=lossless&width=1170&height=966', dataAiHint: 'electric fireplace' },
   { id: 'lr-fire-wood burning', name: 'Wood Burning', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512969792065646/Gas.png?ex=68432612&is=6841d492&hm=d7cc0cba0cf12288f63e565beaa3df9fb2d1d0d3342917c502e44115be59793e&=&format=webp&quality=lossless&width=1114&height=966', dataAiHint: 'wood burning fireplace' },
-  { id: 'lr-fire-no', name: 'No Fireplace', imageUrl: 'https://placehold.co/400x300.png', dataAiHint: 'no fireplace' },
-];
+  ];
 
 
 // Home Office Options

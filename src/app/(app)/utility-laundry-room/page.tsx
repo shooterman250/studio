@@ -1,16 +1,17 @@
+// src/app/(app)/utility-laundry-room/page.tsx
 
 "use client";
 
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-    generalWallFinishOptions as utilityWallFinishOptions,
-    generalFlooringOptions as utilityFlooringOptions,
-    generalLightingOptions as baseUtilityLightingOptions, 
-    utilityStorageOptions,
-    type BaseSelectionItem
+import {
+  generalWallFinishOptions as utilityWallFinishOptions,
+  generalFlooringOptions as utilityFlooringOptions,
+  utilityStorageOptions,
+  type BaseSelectionItem
 } from "@/types";
+import { utilityLightingOptions } from "@/data/utilityRoomOptions.ts";
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
 import { useDesignProgress, type SelectedDataItem, DesignStageKey } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
@@ -50,28 +51,34 @@ export default function UtilityLaundryRoomPage() {
   };
 
   const utilityWasherDryerLayoutOptions: BaseSelectionItem[] = [
-      { id: 'wd-allinone', name: 'All-In-One', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384233164658053170/All-In-One_Washer_and_Dryer.png?ex=6855a398&is=68545218&hm=23c934ad2f32717940909575ff491c2be50b5de2bf7e43920a3485ceb132a89e&=&format=webp&quality=lossless&width=741&height=741', dataAiHint: 'all in one washer dryer combo' },
-      { id: 'wd-sidebyside', name: 'Side-By-Side', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384233165203443742/Side-By-Side_Washer_and_Dryer.png?ex=6855a398&is=68545218&hm=a94afa8f7a022ccbce04a04f005b2a8635e4fb816bec135e08bbe13ee7ac3762&=&format=webp&quality=lossless&width=741&height=741', dataAiHint: 'side by side washer dryer' },
-      { id: 'wd-stacked', name: 'Stacked', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384233165689721065/Stacked_Washer_and_Dryer_.png?ex=6855a398&is=68545218&hm=e14a338cb1c41a54f75fc58cecd167b1d021c683005b07fad5f8498cfc3e2bdc&=&format=webp&quality=lossless&width=741&height=741', dataAiHint: 'stacked washer dryer' },
-      
-    ];
+    {
+      id: 'wd-allinone',
+      name: 'All-In-One',
+      imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384233164658053170/All-In-One_Washer_and_Dryer.png?ex=6855a398&is=68545218&hm=23c934ad2f32717940909575ff491c2be50b5de2bf7e43920a3485ceb132a89e&=&format=webp&quality=lossless&width=741&height=741',
+      dataAiHint: 'all in one washer dryer combo'
+    },
+    {
+      id: 'wd-sidebyside',
+      name: 'Side-By-Side',
+      imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384233165203443742/Side-By-Side_Washer_and_Dryer.png?ex=6855a398&is=68545218&hm=a94afa8f7a022ccbce04a04f005b2a8635e4fb816bec135e08bbe13ee7ac3762&=&format=webp&quality=lossless&width=741&height=741',
+      dataAiHint: 'side by side washer dryer'
+    },
+    {
+      id: 'wd-stacked',
+      name: 'Stacked',
+      imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384233165689721065/Stacked_Washer_and_Dryer_.png?ex=6855a398&is=68545218&hm=e14a338cb1c41a54f75fc58cecd167b1d021c683005b07fad5f8498cfc3e2bdc&=&format=webp&quality=lossless&width=741&height=741',
+      dataAiHint: 'stacked washer dryer'
+    }
+  ];
 
-  const pageSpecificUtilityLightingOptions: BaseSelectionItem[] = baseUtilityLightingOptions
-    .filter(option => option.id !== 'light-niche') // Filter out Niche Lighting
-    .map(option => {
-      if (option.id === 'light-chandelier') {
-        return { ...option, name: "Chandelier(s) or\nStatement Fixtures" };
-      }
-      return option;
-    });
+  const pageSpecificUtilityLightingOptions: BaseSelectionItem[] = utilityLightingOptions;
 
-  // Remove Utility Sink from Storage and create a new section
   const storageOptionsWithoutSink = utilityStorageOptions;
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
-    { title: "Wall Finish", options: utilityWallFinishOptions, cols: 3 }, 
+    { title: "Wall Finish", options: utilityWallFinishOptions, cols: 3 },
     { title: "Flooring", options: utilityFlooringOptions, cols: 3 },
-    { title: "Lighting", options: pageSpecificUtilityLightingOptions, cols: 3 }, 
+    { title: "Lighting", options: pageSpecificUtilityLightingOptions, cols: 3 },
     { title: "Washer/Dryer Layout", options: utilityWasherDryerLayoutOptions, cols: 3 },
     { title: "Storage", description: "Select storage solutions for organization.", options: storageOptionsWithoutSink, cols: 3 },
   ];
@@ -82,58 +89,49 @@ export default function UtilityLaundryRoomPage() {
     let subsectionsWithSelections = 0;
 
     sections.forEach(section => {
-        if (section.options.some(option => selectedOptions.has(option.id))) {
-            subsectionsWithSelections++;
-        }
+      if (section.options.some(option => selectedOptions.has(option.id))) {
+        subsectionsWithSelections++;
+      }
     });
 
     let newProgress = 0;
     if (selectedOptions.size === 0) {
-        newProgress = 0;
+      newProgress = 0;
     } else if (totalSubsections > 0 && subsectionsWithSelections === totalSubsections) {
-        newProgress = 100;
+      newProgress = 100;
     } else if (totalSubsections > 0) {
-         newProgress = totalOptionsOnPage > 0 ? Math.round((selectedOptions.size / totalOptionsOnPage) * 50) + Math.round((subsectionsWithSelections / totalSubsections) * 50) : 0;
-         newProgress = Math.min(newProgress, 99); 
+      newProgress = totalOptionsOnPage > 0
+        ? Math.round((selectedOptions.size / totalOptionsOnPage) * 50) +
+          Math.round((subsectionsWithSelections / totalSubsections) * 50)
+        : 0;
+      newProgress = Math.min(newProgress, 99);
     } else {
-        newProgress = 0;
+      newProgress = 0;
     }
-    
+
     newProgress = Math.max(0, Math.min(100, newProgress));
-    
+
     const allSelectedItems: SelectedDataItem[] = [];
     sections.forEach(section => {
       section.options.forEach(displayOption => {
         if (selectedOptions.has(displayOption.id)) {
-          let originalItem: BaseSelectionItem | undefined;
-          if (section.options === pageSpecificUtilityLightingOptions) {
-            originalItem = baseUtilityLightingOptions.find(opt => opt.id === displayOption.id);
-          } else {
-            originalItem = displayOption; 
-            if (section.options === utilityWallFinishOptions) originalItem = utilityWallFinishOptions.find(opt => opt.id === displayOption.id);
-            else if (section.options === utilityFlooringOptions) originalItem = utilityFlooringOptions.find(opt => opt.id === displayOption.id);
-            else if (section.options === utilityWasherDryerLayoutOptions) originalItem = utilityWasherDryerLayoutOptions.find(opt => opt.id === displayOption.id);
-          }
-          
-          if (originalItem) {
-            allSelectedItems.push({
-              id: originalItem.id,
-              name: originalItem.name,
-              imageUrl: originalItem.imageUrl,
-              description: originalItem.description,
-              dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
-            });
-          }
+          allSelectedItems.push({
+            id: displayOption.id,
+            name: displayOption.name,
+            imageUrl: displayOption.imageUrl,
+            description: displayOption.description,
+            dataAiHint: displayOption.dataAiHint || displayOption.name.toLowerCase().replace(/[^a-z0-9\s]/gi, '').split(' ').slice(0, 2).join(' ')
+          });
         }
       });
     });
-    
+
     updateStageSelections(PAGE_STAGE_KEY, newProgress, allSelectedItems);
     setHasSavedSinceLastChange(true);
-    
+
     toast({
       title: "Utility/Laundry Room Choices Saved",
-      description: `You've selected ${allSelectedItems.length} item(s). Progress updated to ${newProgress}%.`,
+      description: `You've selected ${allSelectedItems.length} item(s). Progress updated to ${newProgress}%.`
     });
   };
 
@@ -141,45 +139,48 @@ export default function UtilityLaundryRoomPage() {
     const initialStages = baseNavItemsConfig.filter(
       item => item.id === 'overall-budget' || item.id === 'overall-style'
     );
-    
+
     const orderedInitialStages: BaseNavItemConfig[] = [];
     const budgetStage = initialStages.find(s => s.id === 'overall-budget');
     const styleStage = initialStages.find(s => s.id === 'overall-style');
     if (budgetStage) orderedInitialStages.push(budgetStage);
     if (styleStage) orderedInitialStages.push(styleStage);
 
-    const selectedRoomStages = baseNavItemsConfig.filter(item => 
-      userRoomSelections.has(item.id) && 
-      item.id !== 'overall-budget' && 
+    const selectedRoomStages = baseNavItemsConfig.filter(item =>
+      userRoomSelections.has(item.id) &&
+      item.id !== 'overall-budget' &&
       item.id !== 'overall-style' &&
       item.id !== 'dashboard' &&
       item.id !== 'settings'
     );
-    
+
     const finalNavOrder: BaseNavItemConfig[] = [...orderedInitialStages];
     baseNavItemsConfig.forEach(baseItem => {
-        if(selectedRoomStages.some(srs => srs.id === baseItem.id) && !finalNavOrder.some(fno => fno.id === baseItem.id)) {
-            finalNavOrder.push(baseItem);
-        }
+      if (
+        selectedRoomStages.some(srs => srs.id === baseItem.id) &&
+        !finalNavOrder.some(fno => fno.id === baseItem.id)
+      ) {
+        finalNavOrder.push(baseItem);
+      }
     });
     return finalNavOrder;
   };
 
   const dynamicNavConfig = getDynamicNavConfig();
   const currentIndex = dynamicNavConfig.findIndex(item => item.href === pathname);
-  
-  const nextStage = currentIndex !== -1 && currentIndex < dynamicNavConfig.length - 1 
-    ? dynamicNavConfig[currentIndex + 1] 
+
+  const nextStage = currentIndex !== -1 && currentIndex < dynamicNavConfig.length - 1
+    ? dynamicNavConfig[currentIndex + 1]
     : null;
 
   const handleFinishAndProceed = () => {
-    handleSaveChanges(); 
+    handleSaveChanges();
     const clientInfo = getClientInfo();
     if (!clientInfo || !clientInfo.fullName || !clientInfo.email) {
       toast({
         title: "Client Information Needed",
         description: "Please fill out your client information before viewing the dashboard.",
-        variant: "default", 
+        variant: "default"
       });
       router.push('/client-info');
     } else {
@@ -188,26 +189,26 @@ export default function UtilityLaundryRoomPage() {
   };
 
   return (
-    <div class="min-h-full p-4 md:p-8 bg-background text-foreground">
-      <header class="mb-8 text-center">
-        <h1 class="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
+    <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
+      <header className="mb-8 text-center">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
           Utility/Laundry Room
         </h1>
-        <p class="mt-2 max-w-2xl mx-auto text-base opacity-80 sm:text-lg">
+        <p className="mt-2 max-w-2xl mx-auto text-base opacity-80 sm:text-lg">
           Select One or More Options For Each Section
         </p>
       </header>
 
-      <section class="max-w-7xl mx-auto space-y-12">
+      <section className="max-w-7xl mx-auto space-y-12">
         {sections.map(section => (
-          <Card key={section.title} class="bg-card/60 backdrop-blur-lg border border-card-foreground/10 shadow-lg">
+          <Card key={section.title} className="bg-card/60 backdrop-blur-lg border border-card-foreground/10 shadow-lg">
             <CardHeader>
               <CardTitle>{section.title}</CardTitle>
               {section.description && <CardDescription>{section.description}</CardDescription>}
             </CardHeader>
             <CardContent>
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {section.options.map((option) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {section.options.map(option => (
                   <ItemSelectionCard
                     key={option.id}
                     item={option}
@@ -219,29 +220,29 @@ export default function UtilityLaundryRoomPage() {
             </CardContent>
           </Card>
         ))}
-            
-        <div class="pt-4 flex flex-col sm:flex-row justify-end gap-2">
-          <Button class="w-full sm:w-auto" onClick={handleSaveChanges}>
+
+        <div className="pt-4 flex flex-col sm:flex-row justify-end gap-2">
+          <Button className="w-full sm:w-auto" onClick={handleSaveChanges}>
             Save Utility/Laundry Choices ({selectedOptions.size})
           </Button>
           {nextStage ? (
             <Button
               onClick={() => router.push(nextStage.href)}
               variant="outline"
-              class="w-full sm:w-auto"
+              className="w-full sm:w-auto"
               disabled={!hasSavedSinceLastChange}
             >
               Next Section ({nextStage.label})
-              <ArrowRight class="ml-2 h-4 w-4" />
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           ) : (
             <Button
               onClick={handleFinishAndProceed}
-              variant="default" 
-              class="w-full sm:w-auto"
+              variant="default"
+              className="w-full sm:w-auto"
               disabled={!hasSavedSinceLastChange}
             >
-              <Home class="mr-2 h-4 w-4" />
+              <Home className="mr-2 h-4 w-4" />
               Finish &amp; Proceed
             </Button>
           )}
@@ -250,4 +251,3 @@ export default function UtilityLaundryRoomPage() {
     </div>
   );
 }
-

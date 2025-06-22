@@ -1,18 +1,18 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-    generalWallFinishOptions as livingRoomWallFinishOptions,
-    generalFlooringOptions as livingRoomFlooringOptions,
-    generalLightingOptions as livingRoomLightingOptions,
-    livingRoomStorageOptions,
-    livingRoomFireplaceOptions,
-    type BaseSelectionItem
+import {
+  generalWallFinishOptions as livingRoomWallFinishOptions,
+  generalFlooringOptions as livingRoomFlooringOptions,
+  livingRoomStorageOptions,
+  livingRoomFireplaceOptions,
+  type BaseSelectionItem,
 } from "@/types";
-// Check import syntax
+
+import { livingRoomLightingOptions } from "@/data/livingRoomOptions";
+
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
 import { useDesignProgress, type SelectedDataItem, DesignStageKey } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
@@ -53,9 +53,29 @@ export default function LivingRoomPage() {
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Wall Finish", options: livingRoomWallFinishOptions, cols: 3 },
-    { title: "Flooring", options: livingRoomFlooringOptions.map(option => option.id === 'flooring-tile' ? {...option, name: 'Marble'} : option.id === 'flooring-vinyl' ? {...option, name: 'Luxury Vinyl'} : option), cols: 3 },
-    { title: "Lighting", description: "Select lighting fixtures.", options: livingRoomLightingOptions, cols: 3 },
-    { title: "Storage", description: "Choose storage solutions.", options: livingRoomStorageOptions, cols: 3 },
+    {
+      title: "Flooring",
+      options: livingRoomFlooringOptions.map(option =>
+        option.id === "flooring-tile"
+          ? { ...option, name: "Marble" }
+          : option.id === "flooring-vinyl"
+          ? { ...option, name: "Luxury Vinyl" }
+          : option
+      ),
+      cols: 3,
+    },
+    {
+      title: "Lighting",
+      description: "Select lighting fixtures.",
+      options: livingRoomLightingOptions,
+      cols: 3,
+    },
+    {
+      title: "Storage",
+      description: "Choose storage solutions.",
+      options: livingRoomStorageOptions,
+      cols: 3,
+    },
     { title: "Fireplace", options: livingRoomFireplaceOptions, cols: 3 },
   ];
 
@@ -65,25 +85,27 @@ export default function LivingRoomPage() {
     let subsectionsWithSelections = 0;
 
     sections.forEach(section => {
-        if (section.options.some(option => selectedOptions.has(option.id))) {
-            subsectionsWithSelections++;
-        }
+      if (section.options.some(option => selectedOptions.has(option.id))) {
+        subsectionsWithSelections++;
+      }
     });
 
     let newProgress = 0;
     if (selectedOptions.size === 0) {
-        newProgress = 0;
+      newProgress = 0;
     } else if (totalSubsections > 0 && subsectionsWithSelections === totalSubsections) {
-        newProgress = 100;
+      newProgress = 100;
     } else if (totalSubsections > 0) {
-         newProgress = totalOptionsOnPage > 0 ? Math.round((selectedOptions.size / totalOptionsOnPage) * 50) + Math.round((subsectionsWithSelections / totalSubsections) * 50) : 0;
-         newProgress = Math.min(newProgress, 99); 
-    } else {
-        newProgress = 0;
+      newProgress =
+        totalOptionsOnPage > 0
+          ? Math.round((selectedOptions.size / totalOptionsOnPage) * 50) +
+            Math.round((subsectionsWithSelections / totalSubsections) * 50)
+          : 0;
+      newProgress = Math.min(newProgress, 99);
     }
-    
+
     newProgress = Math.max(0, Math.min(100, newProgress));
-    
+
     const allSelectedItems: SelectedDataItem[] = [];
     sections.forEach(section => {
       section.options.forEach(option => {
@@ -93,15 +115,17 @@ export default function LivingRoomPage() {
             name: option.name,
             imageUrl: option.imageUrl,
             description: option.description,
-            dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
+            dataAiHint:
+              option.dataAiHint ||
+              option.name.toLowerCase().replace(/[^a-z0-9\s]/gi, "").split(" ").slice(0, 2).join(" "),
           });
         }
       });
     });
-    
+
     updateStageSelections(PAGE_STAGE_KEY, newProgress, allSelectedItems);
     setHasSavedSinceLastChange(true);
-    
+
     toast({
       title: "Living Room Choices Saved",
       description: `You've selected ${allSelectedItems.length} item(s) for the living room. Progress updated to ${newProgress}%.`,
@@ -110,51 +134,56 @@ export default function LivingRoomPage() {
 
   const getDynamicNavConfig = (): BaseNavItemConfig[] => {
     const initialStages = baseNavItemsConfig.filter(
-      item => item.id === 'overall-budget' || item.id === 'overall-style'
+      item => item.id === "overall-budget" || item.id === "overall-style"
     );
-    
+
     const orderedInitialStages: BaseNavItemConfig[] = [];
-    const budgetStage = initialStages.find(s => s.id === 'overall-budget');
-    const styleStage = initialStages.find(s => s.id === 'overall-style');
+    const budgetStage = initialStages.find(s => s.id === "overall-budget");
+    const styleStage = initialStages.find(s => s.id === "overall-style");
     if (budgetStage) orderedInitialStages.push(budgetStage);
     if (styleStage) orderedInitialStages.push(styleStage);
 
-    const selectedRoomStages = baseNavItemsConfig.filter(item => 
-      userRoomSelections.has(item.id) && 
-      item.id !== 'overall-budget' && 
-      item.id !== 'overall-style' &&
-      item.id !== 'dashboard' &&
-      item.id !== 'settings'
+    const selectedRoomStages = baseNavItemsConfig.filter(
+      item =>
+        userRoomSelections.has(item.id) &&
+        item.id !== "overall-budget" &&
+        item.id !== "overall-style" &&
+        item.id !== "dashboard" &&
+        item.id !== "settings"
     );
-    
+
     const finalNavOrder: BaseNavItemConfig[] = [...orderedInitialStages];
     baseNavItemsConfig.forEach(baseItem => {
-        if(selectedRoomStages.some(srs => srs.id === baseItem.id) && !finalNavOrder.some(fno => fno.id === baseItem.id)) {
-            finalNavOrder.push(baseItem);
-        }
+      if (
+        selectedRoomStages.some(srs => srs.id === baseItem.id) &&
+        !finalNavOrder.some(fno => fno.id === baseItem.id)
+      ) {
+        finalNavOrder.push(baseItem);
+      }
     });
     return finalNavOrder;
   };
 
   const dynamicNavConfig = getDynamicNavConfig();
   const currentIndex = dynamicNavConfig.findIndex(item => item.href === pathname);
-  
-  const nextStage = currentIndex !== -1 && currentIndex < dynamicNavConfig.length - 1 
-    ? dynamicNavConfig[currentIndex + 1] 
-    : null;
+
+  const nextStage =
+    currentIndex !== -1 && currentIndex < dynamicNavConfig.length - 1
+      ? dynamicNavConfig[currentIndex + 1]
+      : null;
 
   const handleFinishAndProceed = () => {
-    handleSaveChanges(); 
+    handleSaveChanges();
     const clientInfo = getClientInfo();
     if (!clientInfo || !clientInfo.fullName || !clientInfo.email) {
       toast({
         title: "Client Information Needed",
         description: "Please fill out your client information before viewing the dashboard.",
-        variant: "default", 
+        variant: "default",
       });
-      router.push('/client-info');
+      router.push("/client-info");
     } else {
-      router.push('/designer');
+      router.push("/designer");
     }
   };
 
@@ -171,14 +200,17 @@ export default function LivingRoomPage() {
 
       <section className="max-w-7xl mx-auto space-y-12">
         {sections.map(section => (
-          <Card key={section.title} className="bg-card/60 backdrop-blur-lg border border-card-foreground/10 shadow-lg">
+          <Card
+            key={section.title}
+            className="bg-card/60 backdrop-blur-lg border border-card-foreground/10 shadow-lg"
+          >
             <CardHeader>
               <CardTitle>{section.title}</CardTitle>
               {section.description && <CardDescription>{section.description}</CardDescription>}
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {section.options.map((option) => (
+                {section.options.map(option => (
                   <ItemSelectionCard
                     key={option.id}
                     item={option}
@@ -190,7 +222,7 @@ export default function LivingRoomPage() {
             </CardContent>
           </Card>
         ))}
-            
+
         <div className="pt-4 flex flex-col sm:flex-row justify-end gap-2">
           <Button className="w-full sm:w-auto" onClick={handleSaveChanges}>
             Save Living Room Choices ({selectedOptions.size})
@@ -208,7 +240,7 @@ export default function LivingRoomPage() {
           ) : (
             <Button
               onClick={handleFinishAndProceed}
-              variant="default" 
+              variant="default"
               className="w-full sm:w-auto"
               disabled={!hasSavedSinceLastChange}
             >
