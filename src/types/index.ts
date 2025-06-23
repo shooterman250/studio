@@ -312,19 +312,19 @@ export const bedroomWardrobeOptions: BedroomWardrobeOption[] = [
   {
     id: 'bed-wardrobe-one-standard',
     name: 'One Standard Door',
-    imageUrl: 'https://placehold.co/400x300.png?text=One+Standard+Door',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384233676992417812/One_Standard_Door.png?ex=68599892&is=68584712&hm=9fdf10863019800582745be3a5b98fc0de36c46ae450e6bb5d5b22ef983b4f26&=&format=webp&quality=lossless&width=1310&height=1310',
     dataAiHint: 'one door wardrobe',
   },
   {
     id: 'bed-wardrobe-two-standard',
     name: 'Two Standard Doors',
-    imageUrl: 'https://placehold.co/400x300.png?text=Two+Standard+Doors',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384233677478690896/Two_Standard_Doors.png?ex=68599892&is=68584712&hm=2db49034b457a22800d0e7199290e2876e32e030335ff13de2a243f904eeedc5&=&format=webp&quality=lossless&width=1310&height=1310',
     dataAiHint: 'two door wardrobe',
   },
   {
     id: 'bed-wardrobe-custom',
     name: 'Custom Closet',
-    imageUrl: 'https://placehold.co/400x300.png?text=Custom+Closet',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384233676082122932/Custom_Closet.png?ex=68599892&is=68584712&hm=59ba7b846d0e3cc8edda9a9cdf4283229530ee808b4716332f42dfd551caa427&=&format=webp&quality=lossless&width=1310&height=1310',
     dataAiHint: 'custom closet',
   },
   {
@@ -336,7 +336,7 @@ export const bedroomWardrobeOptions: BedroomWardrobeOption[] = [
   {
     id: 'bed-wardrobe-fitted',
     name: 'Fitted Wardrobe',
-    imageUrl: 'https://placehold.co/400x300.png?text=Fitted+Wardrobe',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384233676547555430/Fitted_Wardrobe_.png?ex=68599892&is=68584712&hm=415482b939a62474ab0ffa49b6063f3d200f7a46480641548e3dc95cf3736fac&=&format=webp&quality=lossless&width=1310&height=1310',
     dataAiHint: 'fitted wardrobe',
   },
 ].sort((a, b) => a.name.localeCompare(b.name));

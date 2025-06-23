@@ -197,7 +197,7 @@ export default function BathroomPage() {
   });
 
   const masterBathSubSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
-    { title: "Master Bath: Style", description: "Define the overall style for your master bathroom.", options: pageSpecificDisplayBathroomStyleOptions, cols: 3 },
+    { title: "Overall Bathroom Style", description: "Define the overall style for your master bathroom.", options: pageSpecificDisplayBathroomStyleOptions, cols: 3 },
     { title: "Master Bath: Bath Tub", options: bathroomMasterBathTubOptions, cols: 3 },
     { title: "Master Bath: Shower", options: bathroomMasterShowerOptions, cols: 3 },
     { title: "Master Bathroom: Sink (Double/Single)", description: "Choose Sink Style. Double or Single.", options: pageSpecificDisplayMasterSinkOptions, cols: 3 },
