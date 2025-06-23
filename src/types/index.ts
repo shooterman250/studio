@@ -105,7 +105,7 @@ export const kitchenSinkTypeOptions: KitchenSinkTypeOption[] = [
 
 export interface KitchenBacksplashOption extends BaseSelectionItem {}
 export const kitchenBacksplashOptions: KitchenBacksplashOption[] = [
-    { id: 'k-backsplash-stone', name: 'Carved Stone', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512600966070343/Carved_Stone_Kitchen_Backsplash.png?ex=6841d43a&is=684082ba&hm=7ee3ce7e5a8be851893c5eeececaac8254d15bae8f29dfadf7a67cce633507eb&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'carved stone backsplash' },
+  { id: 'k-backsplash-stone', name: 'Carved Stone', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512600966070343/Carved_Stone_Kitchen_Backsplash.png?ex=6841d43a&is=684082ba&hm=7ee3ce7e5a8be851893c5eeececaac8254d15bae8f29dfadf7a67cce633507eb&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'carved stone backsplash' },
  { id: 'k-backsplash-glass', name: 'Glass', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512601486037062/Glass_Kitchen_Backsplash_.png?ex=6841d43a&is=684082ba&hm=790d61dca4b0bca4656e2a1784cdc4c55fa4e0ad38d3c9a6285530f848070d5b&=&format=webp&quality=lossless&width=974&height=966', dataAiHint: 'glass backsplash' },
   { id: 'k-backsplash-matching', name: 'Matching Backsplash', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512601913987123/Matching_Backsplash_Worktop_Kitchen_Countertop.png?ex=6841d43a&is=684082ba&hm=93f15586a052005fda44843e7e013727ec8af5ef01054b0411377561ebdb1aab&=&format=webp&quality=lossless&width=966&height=966' },
  { id: 'k-backsplash-painted', name: 'Painted', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512602387808377/Painted_Kitchen_Backsplash.png?ex=6841d43a&is=684082ba&hm=5fd16ac01a98b5c12e0642ecf8f64130822a2222d9b27f3bb88882585e574b2c&=&format=webp&quality=lossless&width=966&height=966', dataAiHint: 'painted backsplash' },
@@ -330,7 +330,7 @@ export const bedroomWardrobeOptions: BedroomWardrobeOption[] = [
   {
     id: 'bed-wardrobe-bi-fold',
     name: 'Bi-Fold Doors',
-    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512343968485507/Bifold_Doors.png?ex=6843257c&is=6841d3fc&hm=d9277c1b91a87f6af05a7f691d4fb3f0b75c57cd02a3b1d0b40b19bd5eb1de95&=&format=webp&quality=lossless&width=966&height=966',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384233675608162344/Bifold_Doors.png?ex=68599892&is=68584712&hm=ca67ae286d78a1dc59ec3f81a2431693bf3d577919b0ec92935c8e9269ee3a0d&=&format=webp&quality=lossless&width=1310&height=1310',
     dataAiHint: 'bi-fold doors',
   },
   {
@@ -390,4 +390,5 @@ export const hallwayStorageOptions: HallwayStorageOption[] = [
   { id: 'hall-store-linen', name: 'Linen Closet', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512503184392266/Hallway_Linen_Closet.png?ex=684fabe2&is=684e5a62&hm=7ae5f469210cb40167f6ccb6b4a282b8f1ed1a8cf46200951f6f36cb5243ddca&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'hallway linen closet' },
   { id: 'hall-store-niche', name: 'Niche Shelving', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512503708553226/Hallway_Shelving_.png?ex=684fabe2&is=684e5a62&hm=3efe22305760d0b640524c4ed751fc7e9f37e085c21f2488e0eb341176ad76d9&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'hallway niche shelving' },
 ].sort((a, b) => a.name.localeCompare(b.name));
+
 
