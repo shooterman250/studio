@@ -7,10 +7,10 @@ import { Button } from "@/components/ui/button";
 import { 
     generalWallFinishOptions as homeOfficeWallFinishOptions,
     generalFlooringOptions as homeOfficeFlooringOptions,
-    generalLightingOptions as baseHomeOfficeLightingOptions, 
     homeOfficeStorageOptions,
     type BaseSelectionItem
 } from "@/types";
+import { homeOfficeLightingOptions } from "@/data/homeOfficeOptions";
 import ItemSelectionCard from "@/components/design/ItemSelectionCard";
 import { useDesignProgress, type SelectedDataItem, DesignStageKey } from "@/contexts/DesignProgressContext";
 import { useToast } from "@/hooks/use-toast";
@@ -23,7 +23,7 @@ const PAGE_STAGE_KEY: DesignStageKey = "home-office";
 export default function HomeOfficePage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [hasSavedSinceLastChange, setHasSavedSinceLastChange] = useState(false);
-  const { updateStageSelections, getStageSelections, getUserRoomSelections, getClientInfo, getRoomSelectionStatus } = useDesignProgress();
+  const { updateStageSelections, getStageSelections, getUserRoomSelections, getClientInfo } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter();
   const pathname = usePathname();
@@ -49,17 +49,10 @@ export default function HomeOfficePage() {
     setHasSavedSinceLastChange(false);
   };
 
-  const pageSpecificHomeOfficeLightingOptions: BaseSelectionItem[] = baseHomeOfficeLightingOptions.map(option => {
-    if (option.id === 'light-chandelier') {
-      return { ...option, name: "Chandelier(s) or\nStatement Fixtures" };
-    }
-    return option;
-  });
-
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Wall Finish", options: homeOfficeWallFinishOptions, cols: 3 },
     { title: "Flooring", options: homeOfficeFlooringOptions, cols: 3 },
-    { title: "Lighting", options: pageSpecificHomeOfficeLightingOptions, cols: 3 }, // Updated lighting options
+    { title: "Lighting", options: homeOfficeLightingOptions, cols: 3 },
     { title: "Storage", options: homeOfficeStorageOptions, cols: 3 },
   ];
 
@@ -90,27 +83,15 @@ export default function HomeOfficePage() {
     
     const allSelectedItems: SelectedDataItem[] = [];
     sections.forEach(section => {
-      section.options.forEach(displayOption => {
-        if (selectedOptions.has(displayOption.id)) {
-          let originalItem: BaseSelectionItem | undefined;
-          if (section.options === pageSpecificHomeOfficeLightingOptions) {
-            originalItem = baseHomeOfficeLightingOptions.find(opt => opt.id === displayOption.id);
-          } else {
-             originalItem = displayOption; 
-             if (section.options === homeOfficeWallFinishOptions) originalItem = homeOfficeWallFinishOptions.find(opt => opt.id === displayOption.id);
-             else if (section.options === homeOfficeFlooringOptions) originalItem = homeOfficeFlooringOptions.find(opt => opt.id === displayOption.id);
-             else if (section.options === homeOfficeStorageOptions) originalItem = homeOfficeStorageOptions.find(opt => opt.id === displayOption.id);
-          }
-          
-          if (originalItem) {
-            allSelectedItems.push({
-              id: originalItem.id,
-              name: originalItem.name,
-              imageUrl: originalItem.imageUrl,
-              description: originalItem.description,
-              dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
-            });
-          }
+      section.options.forEach(option => {
+        if (selectedOptions.has(option.id)) {
+          allSelectedItems.push({
+            id: option.id,
+            name: option.name,
+            imageUrl: option.imageUrl,
+            description: option.description,
+            dataAiHint: option.dataAiHint || option.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
+          });
         }
       });
     });
