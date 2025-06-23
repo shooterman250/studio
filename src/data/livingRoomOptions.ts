@@ -42,7 +42,7 @@ export const livingRoomLightingOptions: LivingRoomLightingOption[] = [
   {
     id: 'lr-light-cove-lighting',
     name: 'Cove/Concealed Lighting',
-    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384606996048646234/Cove_Concealed_Lighting_.png?ex=6855ae40&is=68545cc0&hm=8dd3017f7519572c6ccb789fad352f83a158c0b54dc6065ea1f83c6e01b0f846&=&format=webp&quality=lossless&width=741&height=741',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1386732158894477392/CoveConcealed_Lighting.png?ex=685ac676&is=685974f6&hm=5d024fa4ba56db9886670eadfca04293d80a79710512953a6023f60938c43f26&=&format=webp&quality=lossless&width=1178&height=1178',
     dataAiHint: 'cove lighting',
   },
   {
