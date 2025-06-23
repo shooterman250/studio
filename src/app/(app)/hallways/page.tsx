@@ -51,12 +51,14 @@ export default function HallwaysPage() {
 
   const hallwaySpecificFlooringOptions = hallwayFlooringOptions.filter(opt => opt.id !== 'floor-carpet').map(opt => opt.id === 'flooring-vinyl' ? { ...opt, name: 'Luxury Vinyl' } : opt);
 
-  const pageSpecificHallwayLightingOptions: BaseSelectionItem[] = baseHallwayLightingOptions.map(option => {
-    if (option.id === 'light-chandelier') {
-      return { ...option, name: "Chandelier(s) or\nStatement Fixtures" };
-    }
-    return option;
-  });
+  const pageSpecificHallwayLightingOptions: BaseSelectionItem[] = baseHallwayLightingOptions
+    .filter(option => option.id !== 'light-toe-kick' && option.id !== 'light-under-cabinet')
+    .map(option => {
+      if (option.id === 'light-chandelier') {
+        return { ...option, name: "Chandelier(s) or\nStatement Fixtures" };
+      }
+      return option;
+    });
 
   const sections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Wall Finish", options: hallwayWallFinishOptions, cols: 3 },

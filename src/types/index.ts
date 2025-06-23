@@ -1,3 +1,4 @@
+
 import type { LucideIcon } from 'lucide-react';
 
 export interface DesignOption {
@@ -218,6 +219,12 @@ export const generalLightingOptions: GeneralLightingOption[] = [
     imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384606995511771329/Toe-Kick_Lighting_.png?ex=68530b40&is=6851b9c0&hm=129cbd581fdd14c149a167471beb207118b7af14676413d33486e1072deac4d0&=&format=webp&quality=lossless&width=1310&height=1310',
     dataAiHint: 'toe-kick lighting floor base',
   },
+  {
+    id: 'light-flush-mount',
+    name: 'Flush Mount Lighting',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1384235950720155679/Flush_Mount_Lighting.png?ex=6855a630&is=685454b0&hm=67641c58d761d8e36c271be21ba5cc20131da308a6f77fe384b18186e6919f24&=&format=webp&quality=lossless&width=741&height=741',
+    dataAiHint: 'flush mount lighting ceiling',
+  },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 
@@ -390,5 +397,6 @@ export const hallwayStorageOptions: HallwayStorageOption[] = [
   { id: 'hall-store-linen', name: 'Linen Closet', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512503184392266/Hallway_Linen_Closet.png?ex=684fabe2&is=684e5a62&hm=7ae5f469210cb40167f6ccb6b4a282b8f1ed1a8cf46200951f6f36cb5243ddca&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'hallway linen closet' },
   { id: 'hall-store-niche', name: 'Niche Shelving', imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1379512503708553226/Hallway_Shelving_.png?ex=684fabe2&is=684e5a62&hm=3efe22305760d0b640524c4ed751fc7e9f37e085c21f2488e0eb341176ad76d9&=&format=webp&quality=lossless&width=998&height=998', dataAiHint: 'hallway niche shelving' },
 ].sort((a, b) => a.name.localeCompare(b.name));
+
 
 
