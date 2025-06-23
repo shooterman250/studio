@@ -30,6 +30,8 @@ const newChandelierImageUrl = "https://media.discordapp.net/attachments/13747996
 const newPendantImageUrl = "https://media.discordapp.net/attachments/1374799696127721638/1375960954302496799/Bathroom_Pendant_Light.png?ex=683396ff&is=6832457f&hm=b366df8d7df3b6919381049a029e1b08d1b81aa8281dd9908b7fd38b85a8bf9b&=&format=webp&quality=lossless&width=998&height=998";
 const newWallSconceImageUrl = "https://media.discordapp.net/attachments/1374799696127721638/1375960954688503909/Bathroom_Wall_Sconce_Light_.png?ex=683396ff&is=6832457f&hm=50647836e4989e0dd1c51ead974f585aa673a9d8dfd137602586a589c2c51617&=&format=webp&quality=lossless&width=998&height=998";
 
+type BathroomType = 'master' | 'full' | 'half';
+
 export default function BathroomPage() {
   const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
   const [hasSavedSinceLastChange, setHasSavedSinceLastChange] = useState(false);
@@ -38,6 +40,7 @@ export default function BathroomPage() {
   const router = useRouter();
   const pathname = usePathname();
   const userRoomSelections = getUserRoomSelections();
+  const [visibleBathroomTypes, setVisibleBathroomTypes] = useState<Set<BathroomType>>(new Set(['master']));
 
  useEffect(() => {
     const existingSelections = getStageSelections(PAGE_STAGE_KEY);
@@ -57,6 +60,18 @@ export default function BathroomPage() {
       return newSelected;
     });
     setHasSavedSinceLastChange(false);
+  };
+
+  const toggleBathroomType = (type: BathroomType) => {
+    setVisibleBathroomTypes(prev => {
+        const newSet = new Set(prev);
+        if (newSet.has(type)) {
+            newSet.delete(type);
+        } else {
+            newSet.add(type);
+        }
+        return newSet;
+    });
   };
 
   const pageSpecificDisplayBathroomStyleOptions: BaseSelectionItem[] = baseBathroomStyleOptions.map(style => {
@@ -112,7 +127,6 @@ export default function BathroomPage() {
       imageUrl: imageUrl
     };
   });
-  // Potential fix for parsing error
 
   const pageSpecificDisplayHardwareFinishOptions: BaseSelectionItem[] = baseBathroomHardwareFinishOptions.map(finish => {
     if (finish.id === 'bath-hardware-chrome') {
@@ -196,11 +210,12 @@ export default function BathroomPage() {
     return option;
   });
 
-  const masterBathSubSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
-    { title: "Overall Bathroom Style", description: "Define the overall style for your master bathroom.", options: pageSpecificDisplayBathroomStyleOptions, cols: 3 },
+  const overallStyleSection = { title: "Overall Bathroom Style", description: "Define the overall style for your bathroom(s). This selection applies to all.", options: pageSpecificDisplayBathroomStyleOptions, cols: 3 };
+
+  const masterBathSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
     { title: "Master Bath: Bath Tub", options: bathroomMasterBathTubOptions, cols: 3 },
     { title: "Master Bath: Shower", options: bathroomMasterShowerOptions, cols: 3 },
-    { title: "Master Bathroom: Sink (Double/Single)", description: "Choose Sink Style. Double or Single.", options: pageSpecificDisplayMasterSinkOptions, cols: 3 },
+    { title: "Master Bath: Sink (Double/Single)", description: "Choose Sink Style. Double or Single.", options: pageSpecificDisplayMasterSinkOptions, cols: 3 },
     { title: "Master Bath: Toilet", options: bathroomToiletOptions, cols: 3 },
     { title: "Master Bath: Hardware Finish", description: "Pick finishes for faucets, handles, etc.", options: pageSpecificDisplayHardwareFinishOptions, cols: 3 },
     { title: "Master Bath: Flooring", options: bathroomFlooringOptions, cols: 3},
@@ -208,28 +223,42 @@ export default function BathroomPage() {
     { title: "Master Bath: Lighting", options: pageSpecificDisplayMasterLightingOptions, cols: 3 }, 
   ];
 
-  const halfBathSubSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
-    { title: "Half-Bath: Sink", options: pageSpecificDisplayBathroomHalfSinkOptions, cols: 3 },
-    { title: "Half-Bath: Toilet", options: bathroomToiletOptions, cols: 3 }, 
-    { title: "Half-Bath: Hardware Finish", description: "Select hardware finishes.", options: pageSpecificDisplayHardwareFinishOptions, cols: 3 }, 
-    { title: "Half-Bath: Storage", options: pageSpecificBathroomStorageOptions, cols: 3, description: "Consider storage options." }, 
-    { title: "Half-Bath: Flooring", options: bathroomFlooringOptions, cols: 3},
-    { title: "Half-Bath: Lighting", options: filteredHalfBathLightingOptions }, 
+  const fullBathSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = masterBathSections.map(section => ({
+    ...section,
+    title: section.title.replace('Master', 'Full'),
+  }));
+
+  const halfBathSections: Array<{ title: string; description?: string; options: BaseSelectionItem[]; cols?: number }> = [
+    { title: "Half Bath: Sink", options: pageSpecificDisplayBathroomHalfSinkOptions, cols: 3 },
+    { title: "Half Bath: Toilet", options: bathroomToiletOptions, cols: 3 }, 
+    { title: "Half Bath: Hardware Finish", description: "Select hardware finishes.", options: pageSpecificDisplayHardwareFinishOptions, cols: 3 }, 
+    { title: "Half Bath: Storage", options: pageSpecificBathroomStorageOptions, cols: 3, description: "Consider storage options." }, 
+    { title: "Half Bath: Flooring", options: bathroomFlooringOptions, cols: 3},
+    { title: "Half Bath: Lighting", options: filteredHalfBathLightingOptions, cols: 3 }, 
   ];
 
-  const sections = [...masterBathSubSections, ...halfBathSubSections];
-
+  const allSectionsForSaving = [
+    overallStyleSection,
+    ...masterBathSections,
+    ...fullBathSections,
+    ...halfBathSections,
+  ];
 
   const handleSaveChanges = () => {
-    const totalOptionsOnPage = sections.reduce((sum, section) => sum + section.options.length, 0);
-    const totalSubsections = sections.length;
-    let subsectionsWithSelections = 0;
-
-    sections.forEach(section => {
+    const uniqueOptionIds = new Set<string>();
+    allSectionsForSaving.forEach(section => {
+        section.options.forEach(option => uniqueOptionIds.add(option.id));
+    });
+    const totalUniqueOptionsOnPage = uniqueOptionIds.size;
+    const totalSubsections = allSectionsForSaving.length;
+    
+    const sectionsWithSelections = new Set<string>();
+    allSectionsForSaving.forEach(section => {
         if (section.options.some(option => selectedOptions.has(option.id))) {
-            subsectionsWithSelections++;
+            sectionsWithSelections.add(section.title);
         }
     });
+    const subsectionsWithSelections = sectionsWithSelections.size;
     
     let newProgress = 0;
     if (selectedOptions.size === 0) {
@@ -237,44 +266,48 @@ export default function BathroomPage() {
     } else if (totalSubsections > 0 && subsectionsWithSelections === totalSubsections) {
         newProgress = 100;
     } else if (totalSubsections > 0) {
-        newProgress = totalOptionsOnPage > 0 ? Math.round((selectedOptions.size / totalOptionsOnPage) * 50) + Math.round((subsectionsWithSelections / totalSubsections) * 50) : 0;
+        newProgress = totalUniqueOptionsOnPage > 0 ? Math.round((selectedOptions.size / totalUniqueOptionsOnPage) * 50) + Math.round((subsectionsWithSelections / totalSubsections) * 50) : 0;
         newProgress = Math.min(newProgress, 99); 
-    } else {
-        newProgress = 0;
     }
+    
     newProgress = Math.max(0, Math.min(100, newProgress));
     
     const allSelectedItems: SelectedDataItem[] = [];
-    sections.forEach(section => {
+    const addedItemIds = new Set<string>();
+
+    allSectionsForSaving.forEach(section => {
       section.options.forEach(displayOption => { 
-        if (selectedOptions.has(displayOption.id)) {
+        if (selectedOptions.has(displayOption.id) && !addedItemIds.has(displayOption.id)) {
           let originalItem: BaseSelectionItem | undefined;
 
-          if (pageSpecificDisplayBathroomStyleOptions.some(opt => opt.id === displayOption.id)) {
+          // Find the original item from base lists to ensure correct data is saved
+          if (baseBathroomStyleOptions.some(opt => opt.id === displayOption.id)) {
             originalItem = baseBathroomStyleOptions.find(opt => opt.id === displayOption.id);
-          } else if (pageSpecificDisplayMasterSinkOptions.some(opt => opt.id === displayOption.id)) {
+          } else if (baseBathroomMasterSinkOptions.some(opt => opt.id === displayOption.id)) {
             originalItem = baseBathroomMasterSinkOptions.find(opt => opt.id === displayOption.id);
-          } else if (pageSpecificDisplayHardwareFinishOptions.some(opt => opt.id === displayOption.id)) {
+          } else if (baseBathroomHardwareFinishOptions.some(opt => opt.id === displayOption.id)) {
             originalItem = baseBathroomHardwareFinishOptions.find(opt => opt.id === displayOption.id);
-          } else if (pageSpecificDisplayBathroomHalfSinkOptions.some(opt => opt.id === displayOption.id)) {
+          } else if (baseBathroomHalfSinkOptions.some(opt => opt.id === displayOption.id)) {
             originalItem = baseBathroomHalfSinkOptions.find(opt => opt.id === displayOption.id);
-          } else if (pageSpecificDisplayMasterLightingOptions.some(opt => opt.id === displayOption.id) || filteredHalfBathLightingOptions.some(opt => opt.id === displayOption.id)) { 
+          } else if (baseGeneralLightingOptions.some(opt => opt.id === displayOption.id)) { 
             originalItem = baseGeneralLightingOptions.find(opt => opt.id === displayOption.id);
-          } else if (pageSpecificBathroomStorageOptions.some(opt => opt.id === displayOption.id)){
+          } else if (baseBathroomStorageOptions.some(opt => opt.id === displayOption.id)){
             originalItem = baseBathroomStorageOptions.find(opt => opt.id === displayOption.id);
-          }
-          else { 
-            const baseArray = 
-              section.options === bathroomMasterBathTubOptions ? bathroomMasterBathTubOptions :
-              section.options === bathroomMasterShowerOptions ? bathroomMasterShowerOptions :
-              section.options === bathroomToiletOptions ? bathroomToiletOptions :
-              null; 
-            
-            if (baseArray) {
+          } else { 
+            const baseArrays = [
+              bathroomMasterBathTubOptions,
+              bathroomMasterShowerOptions,
+              bathroomToiletOptions,
+              generalFlooringOptions,
+            ];
+            for (const baseArray of baseArrays) {
               originalItem = baseArray.find(opt => opt.id === displayOption.id);
-            } else {
-                originalItem = displayOption; 
+              if (originalItem) break;
             }
+          }
+          
+          if (!originalItem) {
+              originalItem = displayOption; // Fallback
           }
           
           if (originalItem) {
@@ -285,6 +318,7 @@ export default function BathroomPage() {
               description: originalItem.description, 
               dataAiHint: originalItem.dataAiHint || originalItem.name.toLowerCase().replace(/[^a-z0-9\\s]/gi, '').split(' ').slice(0,2).join(' ')
             });
+            addedItemIds.add(originalItem.id);
           }
         }
       });
@@ -349,6 +383,27 @@ export default function BathroomPage() {
     }
   };
 
+  const renderSection = (section: { title: string; description?: string; options: BaseSelectionItem[]; cols?: number }) => (
+    <Card key={section.title} className="bg-card/60 backdrop-blur-lg border border-card-foreground/10 shadow-lg">
+      <CardHeader>
+        <CardTitle>{section.title}</CardTitle>
+        {section.description && <CardDescription>{section.description}</CardDescription>}
+      </CardHeader>
+      <CardContent>
+        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${section.cols || 3} gap-6`}>
+          {section.options.map((option) => ( 
+            <ItemSelectionCard
+              key={option.id}
+              item={option} 
+              isSelected={selectedOptions.has(option.id)}
+              onSelect={handleOptionChange}
+            />
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
+
   return (
     <div className="min-h-full p-4 md:p-8 bg-background text-foreground">
       <header className="mb-8 text-center">
@@ -361,26 +416,40 @@ export default function BathroomPage() {
       </header>
 
       <section className="max-w-7xl mx-auto space-y-12">
-        {sections.map(section => (
-          <Card key={section.title} className="bg-card/60 backdrop-blur-lg border border-card-foreground/10 shadow-lg">
+        {renderSection(overallStyleSection)}
+
+        <Card className="bg-card/60 backdrop-blur-lg border border-card-foreground/10 shadow-lg">
             <CardHeader>
-              <CardTitle>{section.title}</CardTitle>
-              {section.description && <CardDescription>{section.description}</CardDescription>}
+                <CardTitle>Select a Bathroom Type to Customize</CardTitle>
+                <CardDescription>Click the buttons below to show or hide the options for each bathroom type.</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {section.options.map((option) => ( 
-                  <ItemSelectionCard
-                    key={option.id}
-                    item={option} 
-                    isSelected={selectedOptions.has(option.id)}
-                    onSelect={handleOptionChange}
-                  />
-                ))}
-              </div>
+                <div className="flex flex-wrap gap-2">
+                    <Button
+                        variant={visibleBathroomTypes.has('master') ? 'default' : 'outline'}
+                        onClick={() => toggleBathroomType('master')}
+                    >
+                        Master Bath
+                    </Button>
+                    <Button
+                        variant={visibleBathroomTypes.has('full') ? 'default' : 'outline'}
+                        onClick={() => toggleBathroomType('full')}
+                    >
+                        Full Bath
+                    </Button>
+                    <Button
+                        variant={visibleBathroomTypes.has('half') ? 'default' : 'outline'}
+                        onClick={() => toggleBathroomType('half')}
+                    >
+                        Half Bath
+                    </Button>
+                </div>
             </CardContent>
-          </Card>
-        ))}
+        </Card>
+
+        {visibleBathroomTypes.has('master') && masterBathSections.map(renderSection)}
+        {visibleBathroomTypes.has('full') && fullBathSections.map(renderSection)}
+        {visibleBathroomTypes.has('half') && halfBathSections.map(renderSection)}
         
         <div className="pt-4 flex flex-col sm:flex-row justify-end gap-2">
           <Button className="w-full sm:w-auto" onClick={handleSaveChanges}>
@@ -412,3 +481,5 @@ export default function BathroomPage() {
     </div>
   );
 }
+
+    
