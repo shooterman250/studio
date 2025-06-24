@@ -98,7 +98,7 @@ const StageSelectionsCard = ({ stageKey, items }: { stageKey: DesignStageKey | s
 
 
 export default function DesignerPage() {
-  const { getAllSelections, getClientInfo, updateUserRoomSelections, getUserRoomSelections, resetAllProgress } = useDesignProgress();
+  const { getAllSelections, getClientInfo, updateUserRoomSelections, getUserRoomSelections, resetAllProgress, getStageProgress } = useDesignProgress();
   const { toast } = useToast();
   const router = useRouter();
   const allSelections = getAllSelections();
@@ -117,6 +117,10 @@ export default function DesignerPage() {
 
   const activeStages = Object.entries(allSelections)
     .filter(([stageKey, items]) => stageKey !== "summary" && items.length > 0);
+
+  const isAnySectionComplete = Object.keys(allSelections).some(
+    (stageKey) => getStageProgress(stageKey as DesignStageKey) === 100
+  );
 
   const handleRoomSelectionChange = (roomId: string) => {
     setTempSelectedRooms(prev => {
@@ -474,7 +478,7 @@ export default function DesignerPage() {
             </p>
           </div>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            {activeStages.length > 0 && (
+            {isAnySectionComplete && (
               <Button onClick={handleDownloadPdf} disabled={isGeneratingPdf}>
                 {isGeneratingPdf ? (
                   <>
