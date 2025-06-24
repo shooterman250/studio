@@ -12,7 +12,7 @@ export const utilityLightingOptions: BaseSelectionItem[] = [
   {
     id: 'light-pendant',
     name: 'Pendant Light(s)',
-    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1383583432038158490/Pendant_Lighting_.png?ex=684f51fb&is=684e007b&hm=d73c22534451ebecbb36d9e0f2d5ed6fa47e3eb8af88e0009e3c93d8953fc35c&=&format=webp&quality=lossless&width=1174&height=1174',
+    imageUrl: 'https://media.discordapp.net/attachments/1370568040256901200/1386789283897147484/Pendant_Light_.png?ex=685afbaa&is=6859aa2a&hm=c551403fb0fbeec32bdae4d28e26040b8f140494be0a83922aebd984e203f5d9&=&format=webp&quality=lossless&width=1178&height=1178',
     dataAiHint: 'pendant light room',
   },
   {

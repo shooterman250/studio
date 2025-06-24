@@ -454,7 +454,7 @@ export default function DesignerPage() {
       <div className="relative z-[1] isolate">
         <header className="mb-12 text-center">
           <p className="text-2xl font-bold sm:text-3xl opacity-80">
-            Welcome to your personalized DESIGN DASHBOARD!
+            Welcome To Your Personalized DESIGN BOARD!
           </p>
           <p className="mt-4 text-sm opacity-80">
             This is where your preferences and selections come together in one place. Use the menu to explore each category, based on the room selections you chose below, or continue by selected &quot;Finish &amp; Proceed&quot; at the bottom of each section.
@@ -577,6 +577,8 @@ export default function DesignerPage() {
   );
 }
 
+
+    
 
     
 
