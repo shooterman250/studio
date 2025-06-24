@@ -454,17 +454,25 @@ export default function DesignerPage() {
       <div className="relative z-[1] isolate">
         <header className="mb-12 text-center">
           <p className="text-2xl font-bold sm:text-3xl opacity-80">
-            Welcome To Your Personalized DESIGN BOARD!
+            WELCOME TO YOUR PERSONALIZED DESIGN BOARD!
           </p>
-          <p className="mt-4 text-sm opacity-80">
-            This is where your preferences and selections come together in one place. Use the menu to explore each category, based on the room selections you chose below, or continue by selected &quot;Finish &amp; Proceed&quot; at the bottom of each section.
-          </p>
-          <p className="mt-1 text-sm opacity-80">
-            Don&apos;t forget to save your selections on each page. You&apos;ll see a progress percentage in the sidebar for each section.
-          </p>
-          <p className="mt-1 text-sm opacity-80">
-            To export your final PDF, all selected sections must be marked 100% complete.
-          </p>
+          <div className="mt-4 space-y-1 text-md sm:text-lg opacity-80">
+            <p>
+              <span className="font-bold">Choose</span> Your Room(s)
+            </p>
+            <p>
+              <span className="font-bold">Select</span> Your Style + Finishes + Features
+            </p>
+            <p>
+              <span className="font-bold">Save</span> After Every Section
+            </p>
+            <p>
+              <span className="font-bold">Tap Next Section</span> To Continue
+            </p>
+            <p>
+              <span className="font-bold">Complete All</span> To Download PDF
+            </p>
+          </div>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Button onClick={handleDownloadPdf} disabled={isGeneratingPdf}>
               {isGeneratingPdf ? (
@@ -576,12 +584,3 @@ export default function DesignerPage() {
     </div>
   );
 }
-
-
-    
-
-    
-
-    
-
-    
