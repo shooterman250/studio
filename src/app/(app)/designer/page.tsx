@@ -474,19 +474,21 @@ export default function DesignerPage() {
             </p>
           </div>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Button onClick={handleDownloadPdf} disabled={isGeneratingPdf}>
-              {isGeneratingPdf ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Generating...
-                </>
-              ) : (
-                <>
-                  <FileDown className="mr-2 h-4 w-4" />
-                  Export to PDF
-                </>
-              )}
-            </Button>
+            {activeStages.length > 0 && (
+              <Button onClick={handleDownloadPdf} disabled={isGeneratingPdf}>
+                {isGeneratingPdf ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Generating...
+                  </>
+                ) : (
+                  <>
+                    <FileDown className="mr-2 h-4 w-4" />
+                    Export to PDF
+                  </>
+                )}
+              </Button>
+            )}
             {activeStages.length > 0 && (
                <AlertDialog open={isResetDialogOpen} onOpenChange={setIsResetDialogOpen}>
                 <AlertDialogTrigger asChild>
@@ -500,7 +502,7 @@ export default function DesignerPage() {
                     <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                     <AlertDialogDescription>
                       This action will permanently clear all your design selections,
-                      chosen rooms, and any client information you&apos;ve entered.
+                      chosen rooms, and any client information you've entered.
                       This cannot be undone.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
@@ -542,7 +544,7 @@ export default function DesignerPage() {
             <div className="mt-12 p-10 bg-card/60 backdrop-blur-lg border border-card-foreground/10 rounded-lg shadow-lg text-center">
               <h2 className="text-2xl font-semibold mb-4 text-card-foreground">Select Rooms To Design</h2>
               <p className="text-muted-foreground max-w-lg mx-auto mb-6">
-                Choose the areas you&apos;d like to customize for your project.<br/>&quot;Overall Budget&quot; and &quot;Overall Style&quot; will always be included. 
+                Choose the areas you'd like to customize for your project.<br/>&quot;Overall Budget&quot; and &quot;Overall Style&quot; will always be included. 
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8 max-w-2xl mx-auto text-left">
                 {designableRoomStages.map((stage) => (
