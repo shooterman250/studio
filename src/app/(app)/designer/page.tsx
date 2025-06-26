@@ -458,7 +458,7 @@ export default function DesignerPage() {
       <div className="relative z-[1] isolate">
         <header className="mb-12 text-center">
           <p className="text-2xl font-bold sm:text-3xl opacity-80">
-            WELCOME TO YOUR PERSONALIZED DESIGN BOARD!
+            Welcome To Your Personalized DESIGN BOARD!
           </p>
           <div className="mt-4 space-y-1 text-md sm:text-lg opacity-80">
             <p>
