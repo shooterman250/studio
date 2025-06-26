@@ -460,7 +460,7 @@ export default function DesignerPage() {
           <p className="text-2xl font-bold sm:text-3xl opacity-80">
             Build Your Personalized DESIGN BOARD!
           </p>
-          <div className="mt-4 space-y-1 text-md sm:text-lg opacity-80">
+          <div className="mt-6 space-y-1 text-md sm:text-lg opacity-80">
             <p>
               <span className="font-bold">Choose</span> Your Room(s)
             </p>
